@@ -12,7 +12,7 @@ const defaultState = () => ({
   lastActive: null,            // "YYYY-MM-DD"
   lessons: {},                 // id -> { stars, completed, learned: [indices] }
   badges: [],                  // ids
-  settings: { voiceURI: null, rate: 0.95 }
+  settings: { voiceURI: null, rate: 0.95, theme: "giorno", sound: true }
 });
 
 let state = loadState();
@@ -21,7 +21,11 @@ function loadState() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
     if (!raw) return defaultState();
-    return Object.assign(defaultState(), JSON.parse(raw));
+    const parsed = JSON.parse(raw);
+    const s = Object.assign(defaultState(), parsed);
+    // Einstellungen tief mergen, damit neue Optionen (theme/sound) Defaults behalten
+    s.settings = Object.assign(defaultState().settings, parsed.settings || {});
+    return s;
   } catch (e) {
     return defaultState();
   }
@@ -73,6 +77,7 @@ function award(xp, coins) {
   if (after > before) {
     toast(`🎉 Level ${after}! Bravissimo!`);
     burstConfetti();
+    sfx.win();
   }
 }
 
@@ -136,6 +141,55 @@ if ("speechSynthesis" in window) {
   loadVoices();
   // Manche Browser brauchen einen kleinen Anstoß
   setTimeout(loadVoices, 400);
+}
+
+/* =========================================================
+   SOUNDEFFEKTE (Web Audio API — keine Audiodateien nötig)
+   ========================================================= */
+let audioCtx = null;
+function getAudio() {
+  if (!state.settings.sound) return null;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  } catch (e) { return null; }
+}
+function tone(freq, start, dur, type, vol) {
+  const ac = getAudio();
+  if (!ac) return;
+  const t0 = ac.currentTime + start;
+  const osc = ac.createOscillator();
+  const g = ac.createGain();
+  osc.type = type || "sine";
+  osc.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.linearRampToValueAtTime(vol || 0.18, t0 + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  osc.connect(g); g.connect(ac.destination);
+  osc.start(t0); osc.stop(t0 + dur + 0.03);
+}
+const sfx = {
+  correct() { tone(659.25, 0, 0.15, "sine", 0.2); tone(783.99, 0.09, 0.15, "sine", 0.2); tone(1046.5, 0.18, 0.28, "sine", 0.22); },
+  wrong()   { tone(196, 0, 0.18, "sawtooth", 0.11); tone(155.56, 0.09, 0.24, "sawtooth", 0.11); },
+  win()     { [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, i * 0.11, 0.32, "triangle", 0.2)); },
+  click()   { tone(523.25, 0, 0.07, "sine", 0.1); }
+};
+
+/* =========================================================
+   THEME (Tag / Nacht)
+   ========================================================= */
+function applyTheme() {
+  const notte = state.settings.theme === "notte";
+  document.body.classList.toggle("notte", notte);
+  const btn = $("#themeBtn");
+  if (btn) { btn.textContent = notte ? "☀️" : "🌙"; btn.title = notte ? "Tag-Modus" : "Nacht-Modus"; }
+}
+function toggleTheme() {
+  state.settings.theme = state.settings.theme === "notte" ? "giorno" : "notte";
+  saveState();
+  applyTheme();
+  toast(state.settings.theme === "notte" ? "🌙 Buonanotte!" : "☀️ Buongiorno!");
 }
 
 /* =========================================================
@@ -258,6 +312,7 @@ function setMode(mode) {
 
 function renderMode() {
   if (current.mode === "learn") renderLearn();
+  else if (current.mode === "listen") renderListen();
   else if (current.mode === "quiz") renderQuiz();
   else if (current.mode === "match") renderMatch();
 }
@@ -399,10 +454,12 @@ function answerQuiz(btn, isCorrect, w) {
     fb.textContent = ["Bravo! 🎉", "Esatto! ✨", "Perfetto! 👏", "Sì! 🌟"][quizState.pos % 4];
     fb.style.color = "var(--olive)";
     award(5, 1);
+    sfx.correct();
   } else {
     btn.classList.add("wrong");
     fb.textContent = `Quasi! Richtig: „${w.de}"`;
     fb.style.color = "var(--red-it)";
+    sfx.wrong();
   }
   setTimeout(() => { quizState.pos++; quizState.answered = false; showQuizQuestion(); }, 1150);
 }
@@ -446,7 +503,7 @@ function finishQuiz() {
   $("#toMatch").addEventListener("click", () => setMode("match"));
   $("#toHome").addEventListener("click", goHome);
 
-  if (stars >= 2) burstConfetti();
+  if (stars >= 2) { burstConfetti(); sfx.win(); }
   renderHome();
 }
 
@@ -519,10 +576,12 @@ function selectMatch(el, side, w) {
     matchState.selected = null;
     matchState.done++;
     award(4, 1);
+    sfx.correct();
     setProgress(Math.round((matchState.done / matchState.total) * 100));
     if (matchState.done === matchState.total) finishMatch();
   } else {
     const a = sel.el, b = el;
+    sfx.wrong();
     a.classList.add("shake"); b.classList.add("shake");
     setTimeout(() => { a.classList.remove("shake", "selected"); b.classList.remove("shake"); }, 420);
     matchState.selected = null;
@@ -535,6 +594,7 @@ function finishMatch() {
   saveState();
   checkBadges();
   burstConfetti();
+  sfx.win();
 
   const body = $("#lessonBody");
   setTimeout(() => {
@@ -553,6 +613,127 @@ function finishMatch() {
     $("#toQuiz2").addEventListener("click", () => setMode("quiz"));
     $("#toHome2").addEventListener("click", goHome);
   }, 500);
+}
+
+/* =========================================================
+   MODUS 4 — HÖREN (Ascolto / Diktat)
+   ========================================================= */
+let listenState = null;
+
+function normalizeText(s) {
+  return (s || "")
+    .toLowerCase().trim()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")  // Akzente entfernen (è -> e)
+    .replace(/['’.,!?;:"]/g, "")                        // Satzzeichen entfernen
+    .replace(/\s+/g, " ");
+}
+
+function renderListen() {
+  const { lesson } = current;
+  listenState = { order: shuffle(lesson.words.map((_, i) => i)), pos: 0, correct: 0, answered: false };
+  showListen();
+}
+
+function showListen() {
+  const { lesson } = current;
+  if (listenState.pos >= listenState.order.length) return finishListen();
+  setProgress(Math.round((listenState.pos / listenState.order.length) * 100));
+  const w = lesson.words[listenState.order[listenState.pos]];
+
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="listen-stage">
+      <div class="listen-card">
+        <span class="listen-q-label">Hör zu und schreibe es auf Italienisch · ${listenState.pos + 1}/${listenState.order.length}</span>
+        <button class="listen-big-speak" id="bigSpeak" title="Anhören">🔊</button>
+        <button class="listen-replay" id="replayBtn">↻ nochmal anhören</button>
+        <input type="text" class="listen-input" id="listenInput"
+               placeholder="… tippe, was du hörst" autocomplete="off"
+               autocapitalize="off" autocorrect="off" spellcheck="false" />
+        <div class="listen-solution" id="listenSolution"></div>
+      </div>
+      <div class="listen-actions">
+        <button class="btn btn-ghost" id="listenSkip">🙈 Lösung</button>
+        <button class="btn btn-primary" id="listenCheck">Prüfen ✓</button>
+      </div>
+    </div>`;
+
+  const speakBtn = $("#bigSpeak");
+  speakBtn.addEventListener("click", () => speak(w.it, speakBtn));
+  $("#replayBtn").addEventListener("click", () => speak(w.it, speakBtn));
+  $("#listenCheck").addEventListener("click", () => checkListen(w));
+  $("#listenSkip").addEventListener("click", () => revealListen(w));
+
+  const inp = $("#listenInput");
+  inp.addEventListener("keydown", (e) => { if (e.key === "Enter") checkListen(w); });
+  inp.focus();
+
+  setTimeout(() => speak(w.it, speakBtn), 250);
+}
+
+function checkListen(w) {
+  if (listenState.answered) { nextListen(); return; }
+  const inp = $("#listenInput");
+  if (!inp.value.trim()) { speak(w.it); inp.focus(); return; }
+
+  const ok = normalizeText(inp.value) === normalizeText(w.it);
+  listenState.answered = true;
+  inp.disabled = true;
+  inp.classList.add(ok ? "correct" : "wrong");
+  const sol = $("#listenSolution");
+
+  if (ok) {
+    sol.innerHTML = `✅ <span style="color:var(--olive)">Esatto! „${w.it}" — ${w.de}</span>`;
+    listenState.correct++;
+    award(6, 2);
+    sfx.correct();
+  } else {
+    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">„${w.it}"</span> <span class="listen-de-hint">(${w.de})</span>`;
+    sfx.wrong();
+  }
+  const last = listenState.pos >= listenState.order.length - 1;
+  $("#listenCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+}
+
+function revealListen(w) {
+  if (listenState.answered) return;
+  listenState.answered = true;
+  const inp = $("#listenInput");
+  inp.value = w.it; inp.disabled = true;
+  $("#listenSolution").innerHTML = `👀 <span style="color:var(--terracotta-d)">„${w.it}"</span> <span class="listen-de-hint">(${w.de})</span>`;
+  const last = listenState.pos >= listenState.order.length - 1;
+  $("#listenCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+}
+
+function nextListen() { listenState.pos++; showListen(); }
+
+function finishListen() {
+  const total = listenState.order.length;
+  const score = listenState.correct;
+  const ratio = total ? score / total : 0;
+  setProgress(100);
+
+  if (ratio >= 0.7) { state.lessons[current.lesson.id].completed = true; saveState(); }
+  award(score * 3 + (ratio === 1 ? 15 : 0), score * 2);
+  checkBadges();
+  if (ratio >= 0.7) { sfx.win(); burstConfetti(); }
+
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="done-screen">
+      <div class="done-emoji">${ratio === 1 ? "🏆" : ratio >= 0.7 ? "🎧✨" : "💪"}</div>
+      <h3>${score} / ${total} richtig gehört</h3>
+      <p>${ratio === 1 ? "Perfekt diktiert! " : "Gut zugehört! "}<em>Ottimo orecchio!</em></p>
+      <div class="done-actions">
+        <button class="btn btn-primary" id="retryListen">↻ Nochmal</button>
+        <button class="btn btn-ghost" id="listenToQuiz">🎯 Quiz</button>
+        <button class="btn btn-ghost" id="listenToHome">🏠 Startseite</button>
+      </div>
+    </div>`;
+  $("#retryListen").addEventListener("click", () => setMode("listen"));
+  $("#listenToQuiz").addEventListener("click", () => setMode("quiz"));
+  $("#listenToHome").addEventListener("click", goHome);
+  renderHome();
 }
 
 /* =========================================================
@@ -664,6 +845,13 @@ $("#randomBtn").addEventListener("click", randomLesson);
 
 $$(".mode-tab").forEach((t) => t.addEventListener("click", () => setMode(t.dataset.mode)));
 
+$("#themeBtn").addEventListener("click", toggleTheme);
+$("#soundToggle").addEventListener("change", (e) => {
+  state.settings.sound = e.target.checked;
+  saveState();
+  if (e.target.checked) sfx.click();
+});
+
 $("#settingsBtn").addEventListener("click", openSettings);
 $("#settingsClose").addEventListener("click", closeSettings);
 $("#settingsModal").addEventListener("click", (e) => { if (e.target.id === "settingsModal") closeSettings(); });
@@ -712,5 +900,7 @@ document.addEventListener("keydown", (e) => {
    ========================================================= */
 $("#rateRange").value = state.settings.rate;
 $("#rateVal").textContent = (state.settings.rate || 0.95).toFixed(2) + "×";
+$("#soundToggle").checked = state.settings.sound !== false;
+applyTheme();
 renderStats();
 renderHome();

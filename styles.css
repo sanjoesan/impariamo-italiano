@@ -366,6 +366,9 @@ main { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; p
 input[type="range"] { accent-color: var(--terracotta); }
 .btn-test { width: 100%; margin-bottom: 6px; }
 .divider { border: none; border-top: 1px dashed rgba(60,46,34,0.25); margin: 18px 0; }
+.field-check { display: flex; align-items: center; gap: 10px; margin: 16px 0 4px; cursor: pointer; }
+.field-check input { width: 20px; height: 20px; accent-color: var(--terracotta); cursor: pointer; }
+.field-check span { font-weight: 800; }
 
 /* ===================== TOAST + CONFETTI ===================== */
 .toast {
@@ -377,6 +380,68 @@ input[type="range"] { accent-color: var(--terracotta); }
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 110; }
+
+/* ===================== HÖR-MODUS (Ascolto) ===================== */
+.listen-stage { max-width: 520px; margin: 0 auto; text-align: center; }
+.listen-card {
+  background: var(--paper-card); border-radius: 22px; padding: 34px 24px;
+  box-shadow: 0 10px 26px var(--shadow); border: 2px solid rgba(60,46,34,0.1);
+  margin-bottom: 20px;
+}
+.listen-q-label { font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); font-weight: 800; }
+.listen-big-speak {
+  width: 110px; height: 110px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--teal); color: #fff; font-size: 2.6rem; margin: 18px auto 6px; display: block;
+  box-shadow: 0 8px 0 #1f5a50; transition: transform .15s;
+}
+.listen-big-speak:active { transform: translateY(5px); box-shadow: 0 3px 0 #1f5a50; }
+.listen-big-speak.speaking { animation: pulse .8s infinite; }
+.listen-replay { background: none; border: none; color: var(--ink-soft); font-weight: 800; cursor: pointer; font-size: .9rem; font-family: "Nunito", sans-serif; }
+.listen-input {
+  width: 100%; padding: 15px 18px; border-radius: 14px; font-size: 1.25rem;
+  border: 2px solid rgba(60,46,34,0.2); background: #fff; color: var(--ink);
+  font-family: "Playfair Display", serif; text-align: center; margin: 14px 0;
+}
+.listen-input:focus { outline: none; border-color: var(--terracotta); }
+.listen-input.correct { border-color: var(--olive); background: #e3f0d8; }
+.listen-input.wrong { border-color: var(--red-it); background: #f4dcd8; }
+.listen-actions { display: flex; gap: 10px; justify-content: center; }
+.listen-solution { margin-top: 14px; min-height: 26px; font-weight: 800; font-family: "Playfair Display", serif; font-size: 1.1rem; }
+.listen-de-hint { color: var(--ink-soft); font-style: italic; margin-top: 6px; }
+
+/* ===================== DARK MODE — "Notte Romana" ===================== */
+body.notte {
+  --paper:        #211b16;
+  --paper-2:      #2a221b;
+  --paper-card:   #2f2620;
+  --ink:          #f1e4cd;
+  --ink-soft:     #b9a487;
+  --terracotta:   #e07a52;
+  --terracotta-d: #c75b39;
+  --gold:         #e7b450;
+  --gold-l:       #f2c869;
+  --teal:         #4aa593;
+  --shadow:       rgba(0, 0, 0, 0.45);
+}
+body.notte {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, rgba(231, 180, 80, 0.16), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(74, 165, 147, 0.10), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+body.notte .topbar { background: rgba(33, 27, 22, 0.85); border-bottom-color: rgba(224,122,82,0.25); }
+body.notte .bg-sun { background: radial-gradient(circle, rgba(231,180,80,0.20), rgba(231,180,80,0) 70%); }
+body.notte .brand-text, body.notte .brand-mark { color: var(--terracotta); }
+body.notte .hero-title { color: var(--terracotta); text-shadow: 2px 3px 0 rgba(0,0,0,0.3); }
+body.notte .flash-face.front { background: linear-gradient(160deg, #352a22, #2a211a); }
+body.notte .flash-face.back { background: linear-gradient(160deg, #3a2c22, #2c211a); }
+body.notte .field select, body.notte .listen-input { background: #1c1713; color: var(--ink); border-color: rgba(224,122,82,0.3); }
+body.notte .quiz-opt:hover, body.notte .btn-ghost:hover { background: #3a3028; }
+body.notte .lc-stamp { color: #211b16; }
+body.notte .quiz-opt.correct, body.notte .match-item.done, body.notte .listen-input.correct { background: #2f3d22; color: #cfe0b0; }
+body.notte .quiz-opt.wrong, body.notte .listen-input.wrong { background: #432420; color: #f0bcb2; }
+body.notte .match-item.selected { background: #1f3a34; }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 620px) {

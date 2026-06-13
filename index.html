@@ -46,6 +46,7 @@
           <span class="stat-icon">🪙</span>
           <span class="stat-val" id="statCoins">0</span>
         </div>
+        <button class="icon-btn" id="themeBtn" title="Tag / Nacht" aria-label="Tag- oder Nachtmodus">🌙</button>
         <button class="icon-btn" id="settingsBtn" title="Einstellungen" aria-label="Einstellungen">⚙️</button>
       </div>
     </div>
@@ -92,6 +93,7 @@
         </div>
         <div class="mode-tabs" id="modeTabs">
           <button class="mode-tab active" data-mode="learn">📖 Lernen</button>
+          <button class="mode-tab" data-mode="listen">🎧 Hören</button>
           <button class="mode-tab" data-mode="quiz">🎯 Quiz</button>
           <button class="mode-tab" data-mode="match">🧩 Zuordnen</button>
         </div>
@@ -121,6 +123,11 @@
       </label>
 
       <button class="btn btn-ghost btn-test" id="testVoice">🎙️ Stimme testen — „Buongiorno!"</button>
+
+      <label class="field field-check">
+        <input type="checkbox" id="soundToggle" />
+        <span class="field-label" style="margin:0">🔔 Soundeffekte (Klänge bei richtig/falsch)</span>
+      </label>
 
       <hr class="divider" />
 
