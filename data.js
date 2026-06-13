@@ -193,6 +193,82 @@ const LESSONS = [
       { it: "La mancia", de: "das Trinkgeld", emoji: "💶", ex: "Lasciamo la mancia.", exDe: "Wir geben Trinkgeld." },
       { it: "Buon appetito!", de: "Guten Appetit!", emoji: "😋", ex: "Buon appetito a tutti!", exDe: "Guten Appetit allerseits!" }
     ]
+  },
+  {
+    id: "verbi",
+    title: "Verbi Utili",
+    de: "Nützliche Verben",
+    emoji: "🏃",
+    color: "#7a5ca0",
+    words: [
+      { it: "Essere", de: "sein", emoji: "🧍", ex: "Io sono italiano.", exDe: "Ich bin Italiener." },
+      { it: "Avere", de: "haben", emoji: "🤲", ex: "Ho fame.", exDe: "Ich habe Hunger." },
+      { it: "Fare", de: "machen / tun", emoji: "🔨", ex: "Cosa fai?", exDe: "Was machst du?" },
+      { it: "Andare", de: "gehen / fahren", emoji: "🚶", ex: "Vado a casa.", exDe: "Ich gehe nach Hause." },
+      { it: "Mangiare", de: "essen", emoji: "🍴", ex: "Mangiamo insieme.", exDe: "Wir essen zusammen." },
+      { it: "Bere", de: "trinken", emoji: "🥤", ex: "Bevo un caffè.", exDe: "Ich trinke einen Kaffee." },
+      { it: "Parlare", de: "sprechen", emoji: "💬", ex: "Parlo italiano.", exDe: "Ich spreche Italienisch." },
+      { it: "Capire", de: "verstehen", emoji: "💡", ex: "Non capisco bene.", exDe: "Ich verstehe nicht gut." },
+      { it: "Volere", de: "wollen", emoji: "✨", ex: "Voglio un gelato.", exDe: "Ich will ein Eis." },
+      { it: "Potere", de: "können", emoji: "💪", ex: "Posso aiutare?", exDe: "Kann ich helfen?" }
+    ]
+  },
+  {
+    id: "meteo",
+    title: "Tempo Meteo",
+    de: "Das Wetter",
+    emoji: "🌤️",
+    color: "#3f93b8",
+    words: [
+      { it: "Il sole", de: "die Sonne", emoji: "☀️", ex: "C'è il sole oggi.", exDe: "Heute scheint die Sonne." },
+      { it: "La pioggia", de: "der Regen", emoji: "🌧️", ex: "La pioggia cade piano.", exDe: "Der Regen fällt leise." },
+      { it: "Il vento", de: "der Wind", emoji: "💨", ex: "Oggi tira vento.", exDe: "Heute ist es windig." },
+      { it: "La neve", de: "der Schnee", emoji: "❄️", ex: "La neve è bianca.", exDe: "Der Schnee ist weiß." },
+      { it: "Le nuvole", de: "die Wolken", emoji: "☁️", ex: "Ci sono molte nuvole.", exDe: "Es gibt viele Wolken." },
+      { it: "Il temporale", de: "das Gewitter", emoji: "⛈️", ex: "Arriva un temporale.", exDe: "Ein Gewitter zieht auf." },
+      { it: "Il caldo", de: "die Hitze", emoji: "🥵", ex: "Oggi fa caldo.", exDe: "Heute ist es heiß." },
+      { it: "Il freddo", de: "die Kälte", emoji: "🥶", ex: "In montagna fa freddo.", exDe: "In den Bergen ist es kalt." },
+      { it: "L'arcobaleno", de: "der Regenbogen", emoji: "🌈", ex: "Che bell'arcobaleno!", exDe: "Was für ein schöner Regenbogen!" },
+      { it: "La nebbia", de: "der Nebel", emoji: "🌫️", ex: "C'è nebbia stamattina.", exDe: "Heute Morgen ist Nebel." }
+    ]
+  },
+  {
+    id: "corpo",
+    title: "Il Corpo",
+    de: "Der Körper",
+    emoji: "🧑",
+    color: "#bd6a5a",
+    words: [
+      { it: "La testa", de: "der Kopf", emoji: "🧠", ex: "Ho mal di testa.", exDe: "Ich habe Kopfschmerzen." },
+      { it: "Gli occhi", de: "die Augen", emoji: "👀", ex: "Hai gli occhi belli.", exDe: "Du hast schöne Augen." },
+      { it: "Il naso", de: "die Nase", emoji: "👃", ex: "Il naso è freddo.", exDe: "Die Nase ist kalt." },
+      { it: "La bocca", de: "der Mund", emoji: "👄", ex: "Apri la bocca.", exDe: "Mach den Mund auf." },
+      { it: "Le orecchie", de: "die Ohren", emoji: "👂", ex: "Le orecchie sentono bene.", exDe: "Die Ohren hören gut." },
+      { it: "La mano", de: "die Hand", emoji: "✋", ex: "Dammi la mano.", exDe: "Gib mir die Hand." },
+      { it: "Il braccio", de: "der Arm", emoji: "💪", ex: "Mi fa male il braccio.", exDe: "Mir tut der Arm weh." },
+      { it: "La gamba", de: "das Bein", emoji: "🦵", ex: "Ho le gambe stanche.", exDe: "Ich habe müde Beine." },
+      { it: "Il piede", de: "der Fuß", emoji: "🦶", ex: "Il piede è piccolo.", exDe: "Der Fuß ist klein." },
+      { it: "Il cuore", de: "das Herz", emoji: "❤️", ex: "Il cuore batte forte.", exDe: "Das Herz schlägt schnell." }
+    ]
+  },
+  {
+    id: "animali",
+    title: "Gli Animali",
+    de: "Die Tiere",
+    emoji: "🐾",
+    color: "#5f9e54",
+    words: [
+      { it: "Il cane", de: "der Hund", emoji: "🐶", ex: "Il cane abbaia.", exDe: "Der Hund bellt." },
+      { it: "Il gatto", de: "die Katze", emoji: "🐱", ex: "Il gatto dorme.", exDe: "Die Katze schläft." },
+      { it: "Il cavallo", de: "das Pferd", emoji: "🐴", ex: "Il cavallo corre veloce.", exDe: "Das Pferd rennt schnell." },
+      { it: "L'uccello", de: "der Vogel", emoji: "🐦", ex: "L'uccello canta.", exDe: "Der Vogel singt." },
+      { it: "La mucca", de: "die Kuh", emoji: "🐮", ex: "La mucca fa il latte.", exDe: "Die Kuh gibt Milch." },
+      { it: "Il topo", de: "die Maus", emoji: "🐭", ex: "Il topo è piccolo.", exDe: "Die Maus ist klein." },
+      { it: "Il leone", de: "der Löwe", emoji: "🦁", ex: "Il leone è forte.", exDe: "Der Löwe ist stark." },
+      { it: "La farfalla", de: "der Schmetterling", emoji: "🦋", ex: "La farfalla vola.", exDe: "Der Schmetterling fliegt." },
+      { it: "L'ape", de: "die Biene", emoji: "🐝", ex: "L'ape fa il miele.", exDe: "Die Biene macht Honig." },
+      { it: "Il coniglio", de: "das Kaninchen", emoji: "🐰", ex: "Il coniglio salta.", exDe: "Das Kaninchen hüpft." }
+    ]
   }
 ];
 

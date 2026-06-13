@@ -11,8 +11,9 @@ Lerne Italienisch mit Sprachausgabe, Quiz und einem Hauch toskanischer Sonne. �
 
 - **🔊 Sprachausgabe** – natürliche italienische Aussprache über die Web Speech API.
   Die beste verfügbare Stimme wird automatisch gewählt; Stimme & Tempo sind in den Einstellungen anpassbar.
-- **📚 10 Themen** mit ~100 Vokabeln und Beispielsätzen
-  (Begrüßung, Zahlen, Essen, Reisen, Familie, Farben, Zeit, In der Stadt, Nützliche Sätze, Im Restaurant).
+- **📚 14 Themen** mit ~140 Vokabeln und Beispielsätzen
+  (Begrüßung, Zahlen, Essen, Reisen, Familie, Farben, Zeit, In der Stadt, Nützliche Sätze, Im Restaurant,
+  Verben, Wetter, Körper, Tiere).
 - **🎮 Vier Spielmodi pro Lektion:**
   - **📖 Lernen** – Karteikarten zum Umdrehen, mit automatischer Aussprache
   - **🎧 Hören** – Diktat: du hörst die Vokabel und tippst sie (tolerant bei Akzenten & Satzzeichen)
