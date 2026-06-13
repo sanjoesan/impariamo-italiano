@@ -260,6 +260,8 @@ main { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; p
 .flash-face.back { transform: rotateY(180deg); background: linear-gradient(160deg, #fdf3e4, #f6dfc2); }
 .flash-emoji { font-size: 3.4rem; margin-bottom: 8px; filter: drop-shadow(0 3px 3px rgba(0,0,0,.15)); }
 .flash-word { font-family: "Playfair Display", serif; font-size: 2.1rem; font-weight: 700; color: var(--terracotta-d); }
+.flash-word.is-sentence { font-size: 1.45rem; line-height: 1.25; }
+.quiz-word.is-sentence { font-size: 1.4rem; line-height: 1.25; display: block; }
 .flash-de { font-size: 1.7rem; font-family: "Playfair Display", serif; color: var(--ink); }
 .flash-ex { margin-top: 12px; font-style: italic; color: var(--ink-soft); font-size: .98rem; max-width: 90%; }
 .flash-ex .ex-de { display: block; font-style: normal; font-size: .85rem; opacity: .8; margin-top: 2px; }
@@ -443,6 +445,84 @@ body.notte .lc-stamp { color: #211b16; }
 body.notte .quiz-opt.correct, body.notte .match-item.done, body.notte .listen-input.correct { background: #2f3d22; color: #cfe0b0; }
 body.notte .quiz-opt.wrong, body.notte .listen-input.wrong { background: #432420; color: #f0bcb2; }
 body.notte .match-item.selected { background: #1f3a34; }
+
+/* ===================== KONJUGATIONEN ===================== */
+.section-sub { color: var(--ink-soft); font-style: italic; margin: -8px 0 16px; }
+
+.conj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.conj-card {
+  position: relative; background: var(--paper-card); border-radius: var(--radius);
+  padding: 16px 14px; cursor: pointer; text-align: center;
+  border: 1px solid rgba(60,46,34,0.10); box-shadow: 0 5px 14px var(--shadow);
+  transition: transform .18s, box-shadow .2s;
+}
+.conj-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: var(--card-color, var(--terracotta)); border-radius: var(--radius) var(--radius) 0 0; }
+.conj-card:hover { transform: translateY(-4px) rotate(.4deg); box-shadow: 0 12px 26px var(--shadow); }
+.conj-card .cc-emoji { font-size: 2rem; display: block; margin: 4px 0 6px; }
+.conj-card .cc-inf { font-family: "Playfair Display", serif; font-size: 1.25rem; font-weight: 700; color: var(--terracotta-d); }
+.conj-card .cc-de { font-size: .85rem; color: var(--ink-soft); font-style: italic; }
+.conj-card .cc-tag { display: inline-block; margin-top: 8px; font-size: .68rem; font-weight: 800; color: var(--ink-soft); background: rgba(60,46,34,0.07); padding: 3px 8px; border-radius: 999px; }
+
+.conj-inf-de { font-style: italic; color: var(--ink-soft); font-size: 1rem; align-self: center; }
+
+.tense-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 4px; }
+.tense-tab {
+  border: 2px solid rgba(60,46,34,0.14); background: var(--paper-card); cursor: pointer;
+  padding: 8px 14px; border-radius: 999px; font-weight: 800; font-size: .88rem;
+  color: var(--ink-soft); font-family: "Nunito", sans-serif; transition: all .18s;
+  display: flex; flex-direction: column; align-items: center; line-height: 1.15;
+}
+.tense-tab small { font-weight: 700; opacity: .7; font-size: .72rem; }
+.tense-tab.active { background: var(--terracotta); color: #fff7ea; border-color: var(--terracotta-d); }
+
+/* Konjugationstabelle */
+.conj-table { max-width: 620px; margin: 8px auto 0; display: flex; flex-direction: column; gap: 8px; }
+.conj-row {
+  display: grid; grid-template-columns: 88px 1fr auto 1.1fr; align-items: center; gap: 10px;
+  background: var(--paper-card); border-radius: 12px; padding: 10px 14px;
+  border: 1px solid rgba(60,46,34,0.1); box-shadow: 0 3px 8px var(--shadow);
+}
+.conj-row .cr-pron { font-weight: 800; color: var(--teal); }
+.conj-row .cr-form { font-family: "Playfair Display", serif; font-size: 1.25rem; font-weight: 700; color: var(--terracotta-d); }
+.conj-row .cr-de { color: var(--ink-soft); font-size: .9rem; text-align: right; font-style: italic; }
+.cr-speak {
+  width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--teal); color: #fff; font-size: 1rem; box-shadow: 0 3px 0 #1f5a50; transition: transform .12s;
+}
+.cr-speak:active { transform: translateY(2px); box-shadow: 0 1px 0 #1f5a50; }
+.cr-speak.speaking { animation: pulse .8s infinite; }
+.conj-table-foot { text-align: center; margin-top: 18px; }
+
+/* Konjugations-Übung */
+.conj-practice { max-width: 520px; margin: 0 auto; text-align: center; }
+.conj-prompt {
+  background: var(--paper-card); border-radius: 22px; padding: 28px 24px;
+  box-shadow: 0 10px 26px var(--shadow); border: 2px solid rgba(60,46,34,0.1); margin-bottom: 18px;
+}
+.conj-prompt .cp-label { font-size: .8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); font-weight: 800; }
+.conj-prompt .cp-cue { font-family: "Playfair Display", serif; font-size: 1.9rem; color: var(--terracotta-d); font-weight: 700; margin: 10px 0 2px; }
+.conj-prompt .cp-cue b { color: var(--gold); }
+.conj-prompt .cp-hint { color: var(--ink-soft); font-style: italic; }
+.conj-input {
+  width: 100%; padding: 14px 18px; border-radius: 14px; font-size: 1.2rem;
+  border: 2px solid rgba(60,46,34,0.2); background: #fff; color: var(--ink);
+  font-family: "Playfair Display", serif; text-align: center; margin: 14px 0;
+}
+.conj-input:focus { outline: none; border-color: var(--terracotta); }
+.conj-input.correct { border-color: var(--olive); background: #e3f0d8; }
+.conj-input.wrong { border-color: var(--red-it); background: #f4dcd8; }
+.conj-solution { min-height: 26px; font-weight: 800; font-family: "Playfair Display", serif; font-size: 1.1rem; margin-top: 10px; }
+
+/* Dark-Mode-Feinheiten Konjugation */
+body.notte .conj-input { background: #1c1713; color: var(--ink); border-color: rgba(224,122,82,0.3); }
+body.notte .conj-input.correct { background: #2f3d22; color: #cfe0b0; }
+body.notte .conj-input.wrong { background: #432420; color: #f0bcb2; }
+body.notte .tense-tab { background: var(--paper-card); }
+
+@media (max-width: 560px) {
+  .conj-row { grid-template-columns: 64px 1fr auto; }
+  .conj-row .cr-de { display: none; }
+}
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 620px) {

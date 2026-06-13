@@ -73,6 +73,13 @@
       <div class="lesson-grid" id="lessonGrid"><!-- per JS --></div>
 
       <div class="section-head">
+        <h2>Coniugazioni · Zeiten &amp; Beugungen</h2>
+        <div class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+      <p class="section-sub">Beuge italienische Verben durch alle Personen – in vier Zeiten. Mit Tabelle, Aussprache und Übung.</p>
+      <div class="conj-grid" id="conjGrid"><!-- per JS --></div>
+
+      <div class="section-head">
         <h2>Distintivi · Abzeichen</h2>
         <div class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
       </div>
@@ -102,6 +109,26 @@
       <div class="progress-line"><div class="progress-line-fill" id="lessonProgress"></div></div>
 
       <div class="lesson-body" id="lessonBody"><!-- per JS --></div>
+    </section>
+
+    <!-- ===================== KONJUGATION ===================== -->
+    <section class="view view-conj hidden" id="viewConj">
+      <div class="lesson-top">
+        <button class="btn btn-back" id="conjBack">‹ Zurück</button>
+        <div class="lesson-title-wrap">
+          <span class="lesson-emoji" id="conjEmoji">🧍</span>
+          <h2 id="conjTitle">Essere</h2>
+          <span class="conj-inf-de" id="conjInfDe">sein</span>
+        </div>
+        <div class="mode-tabs" id="conjModeTabs">
+          <button class="mode-tab active" data-cmode="table">📋 Tabelle</button>
+          <button class="mode-tab" data-cmode="practice">✍️ Üben</button>
+        </div>
+      </div>
+
+      <div class="tense-tabs" id="tenseTabs"><!-- per JS --></div>
+      <div class="progress-line"><div class="progress-line-fill" id="conjProgress"></div></div>
+      <div class="conj-body" id="conjBody"><!-- per JS --></div>
     </section>
   </main>
 

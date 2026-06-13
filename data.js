@@ -269,6 +269,86 @@ const LESSONS = [
       { it: "L'ape", de: "die Biene", emoji: "🐝", ex: "L'ape fa il miele.", exDe: "Die Biene macht Honig." },
       { it: "Il coniglio", de: "das Kaninchen", emoji: "🐰", ex: "Il coniglio salta.", exDe: "Das Kaninchen hüpft." }
     ]
+  },
+  {
+    id: "conversazione",
+    title: "Conversazione",
+    de: "Smalltalk – ganze Sätze",
+    emoji: "🗨️",
+    color: "#c77d39",
+    sentences: true,
+    words: [
+      { it: "Come ti chiami?", de: "Wie heißt du?", emoji: "🙋", ex: "Mi chiamo Marco.", exDe: "Ich heiße Marco." },
+      { it: "Di dove sei?", de: "Woher kommst du?", emoji: "🌍", ex: "Sono di Roma.", exDe: "Ich komme aus Rom." },
+      { it: "Piacere di conoscerti!", de: "Freut mich, dich kennenzulernen!", emoji: "🤝", ex: "Il piacere è mio.", exDe: "Die Freude ist ganz meinerseits." },
+      { it: "Come stai oggi?", de: "Wie geht es dir heute?", emoji: "😊", ex: "Non c'è male, grazie.", exDe: "Nicht schlecht, danke." },
+      { it: "Che lavoro fai?", de: "Was arbeitest du?", emoji: "💼", ex: "Faccio l'insegnante.", exDe: "Ich bin Lehrer." },
+      { it: "Quanti anni hai?", de: "Wie alt bist du?", emoji: "🎂", ex: "Ho trent'anni.", exDe: "Ich bin dreißig." },
+      { it: "Parli tedesco?", de: "Sprichst du Deutsch?", emoji: "🇩🇪", ex: "Solo un po'.", exDe: "Nur ein bisschen." },
+      { it: "Cosa fai nel tempo libero?", de: "Was machst du in der Freizeit?", emoji: "🎨", ex: "Mi piace leggere.", exDe: "Ich lese gern." },
+      { it: "Hai fratelli o sorelle?", de: "Hast du Geschwister?", emoji: "👨‍👩‍👧", ex: "Ho una sorella.", exDe: "Ich habe eine Schwester." },
+      { it: "Ci vediamo presto!", de: "Wir sehen uns bald!", emoji: "👋", ex: "Va bene, a presto!", exDe: "In Ordnung, bis bald!" }
+    ]
+  },
+  {
+    id: "albar",
+    title: "Al Bar",
+    de: "Im Café – ganze Sätze",
+    emoji: "☕",
+    color: "#a86b2f",
+    sentences: true,
+    words: [
+      { it: "Vorrei un cappuccino.", de: "Ich hätte gern einen Cappuccino.", emoji: "☕", ex: "Subito, signore.", exDe: "Sofort, mein Herr." },
+      { it: "Quanto costa un caffè?", de: "Was kostet ein Kaffee?", emoji: "💶", ex: "Un euro e dieci.", exDe: "Einen Euro zehn." },
+      { it: "Posso avere il conto?", de: "Kann ich die Rechnung haben?", emoji: "🧾", ex: "Certo, ecco a Lei.", exDe: "Sicher, bitte sehr." },
+      { it: "Avete qualcosa da mangiare?", de: "Habt ihr etwas zu essen?", emoji: "🥐", ex: "Sì, abbiamo i cornetti.", exDe: "Ja, wir haben Hörnchen." },
+      { it: "Un tavolo per due, per favore.", de: "Einen Tisch für zwei, bitte.", emoji: "🍽️", ex: "Vi accompagno.", exDe: "Ich begleite Sie." },
+      { it: "Accettate la carta?", de: "Nehmt ihr Karte?", emoji: "💳", ex: "Sì, nessun problema.", exDe: "Ja, kein Problem." },
+      { it: "Lo prendo al banco.", de: "Ich nehme ihn an der Theke.", emoji: "🧍", ex: "Va bene, costa meno.", exDe: "Gut, das ist günstiger." },
+      { it: "Dov'è il bagno?", de: "Wo ist die Toilette?", emoji: "🚻", ex: "In fondo a destra.", exDe: "Ganz hinten rechts." },
+      { it: "Per me un'acqua naturale.", de: "Für mich ein stilles Wasser.", emoji: "💧", ex: "Frizzante o naturale?", exDe: "Mit oder ohne Kohlensäure?" },
+      { it: "Grazie, buona giornata!", de: "Danke, schönen Tag noch!", emoji: "🌞", ex: "Altrettanto!", exDe: "Ebenfalls!" }
+    ]
+  },
+  {
+    id: "indicazioni",
+    title: "Chiedere Indicazioni",
+    de: "Nach dem Weg fragen – ganze Sätze",
+    emoji: "🧭",
+    color: "#3f8a6b",
+    sentences: true,
+    words: [
+      { it: "Scusi, dov'è la stazione?", de: "Entschuldigung, wo ist der Bahnhof?", emoji: "🚉", ex: "È vicino, a sinistra.", exDe: "Er ist in der Nähe, links." },
+      { it: "È lontano da qui?", de: "Ist es weit von hier?", emoji: "📏", ex: "No, dieci minuti a piedi.", exDe: "Nein, zehn Minuten zu Fuß." },
+      { it: "Vada sempre dritto.", de: "Gehen Sie immer geradeaus.", emoji: "⬆️", ex: "E poi?", exDe: "Und dann?" },
+      { it: "Giri a destra al semaforo.", de: "Biegen Sie an der Ampel rechts ab.", emoji: "🚦", ex: "Ho capito, grazie.", exDe: "Verstanden, danke." },
+      { it: "Mi sono perso.", de: "Ich habe mich verlaufen.", emoji: "😕", ex: "La aiuto io.", exDe: "Ich helfe Ihnen." },
+      { it: "Quanto tempo ci vuole?", de: "Wie lange dauert es?", emoji: "⏱️", ex: "Circa un quarto d'ora.", exDe: "Etwa eine Viertelstunde." },
+      { it: "C'è una farmacia qui vicino?", de: "Gibt es hier in der Nähe eine Apotheke?", emoji: "💊", ex: "Sì, dopo la piazza.", exDe: "Ja, nach dem Platz." },
+      { it: "Può ripetere, per favore?", de: "Können Sie das wiederholen, bitte?", emoji: "🔁", ex: "Certo, più piano.", exDe: "Sicher, langsamer." },
+      { it: "Dove posso prendere l'autobus?", de: "Wo kann ich den Bus nehmen?", emoji: "🚌", ex: "Alla fermata laggiù.", exDe: "An der Haltestelle dort drüben." },
+      { it: "Grazie per l'aiuto!", de: "Danke für die Hilfe!", emoji: "🙏", ex: "Di niente, buon viaggio!", exDe: "Gern geschehen, gute Reise!" }
+    ]
+  },
+  {
+    id: "emozioni",
+    title: "Esprimere Emozioni",
+    de: "Gefühle ausdrücken – ganze Sätze",
+    emoji: "💖",
+    color: "#c2548a",
+    sentences: true,
+    words: [
+      { it: "Sono molto felice oggi.", de: "Ich bin heute sehr glücklich.", emoji: "😄", ex: "Sono contento per te.", exDe: "Das freut mich für dich." },
+      { it: "Mi sento un po' stanco.", de: "Ich fühle mich etwas müde.", emoji: "😴", ex: "Riposati allora.", exDe: "Dann ruh dich aus." },
+      { it: "Che bella sorpresa!", de: "Was für eine schöne Überraschung!", emoji: "🎉", ex: "Speravo ti piacesse.", exDe: "Ich hoffte, es gefällt dir." },
+      { it: "Mi manchi tanto.", de: "Du fehlst mir sehr.", emoji: "🥺", ex: "Anche tu mi manchi.", exDe: "Du fehlst mir auch." },
+      { it: "Sono d'accordo con te.", de: "Ich bin deiner Meinung.", emoji: "👍", ex: "Meno male!", exDe: "Gott sei Dank!" },
+      { it: "Non mi piace per niente.", de: "Das gefällt mir gar nicht.", emoji: "👎", ex: "Capisco, scusa.", exDe: "Ich verstehe, Entschuldigung." },
+      { it: "Sono orgoglioso di te.", de: "Ich bin stolz auf dich.", emoji: "🌟", ex: "Grazie, significa molto.", exDe: "Danke, das bedeutet viel." },
+      { it: "Mi dispiace tanto.", de: "Es tut mir sehr leid.", emoji: "😞", ex: "Non fa niente.", exDe: "Macht nichts." },
+      { it: "Che bella giornata!", de: "Was für ein schöner Tag!", emoji: "🌈", ex: "Approfittiamone!", exDe: "Nutzen wir ihn!" },
+      { it: "Ti voglio bene.", de: "Ich hab dich lieb.", emoji: "❤️", ex: "Anch'io ti voglio bene.", exDe: "Ich hab dich auch lieb." }
+    ]
   }
 ];
 
@@ -282,4 +362,110 @@ const BADGES = [
   { id: "stelle",    emoji: "⭐", name: "Tre Stelle",      desc: "3 Sterne in einer Lektion" },
   { id: "ricco",     emoji: "🪙", name: "Ricco",           desc: "200 Soldi gesammelt" },
   { id: "poliglotta",emoji: "🦜", name: "Poliglotta",      desc: "100 Vokabeln gelernt" }
+];
+
+/* =========================================================
+   KONJUGATIONEN — Verben in 4 Zeiten × 6 Personen (IT + DE)
+   Reihenfolge der Personen: io, tu, lui/lei, noi, voi, loro
+   ========================================================= */
+const CONJ_PRONOUNS = ["io", "tu", "lui/lei", "noi", "voi", "loro"];
+const CONJ_PRONOUNS_DE = ["ich", "du", "er/sie", "wir", "ihr", "sie"];
+const CONJ_TENSES = [
+  { id: "presente",   it: "Presente",         de: "Gegenwart" },
+  { id: "passato",    it: "Passato Prossimo", de: "Perfekt" },
+  { id: "imperfetto", it: "Imperfetto",       de: "Imperfekt" },
+  { id: "futuro",     it: "Futuro Semplice",  de: "Zukunft" }
+];
+
+const CONJUGATIONS = [
+  {
+    id: "essere", inf: "Essere", infDe: "sein", emoji: "🧍", color: "#7a5ca0",
+    forms: {
+      presente:   ["sono", "sei", "è", "siamo", "siete", "sono"],
+      passato:    ["sono stato", "sei stato", "è stato", "siamo stati", "siete stati", "sono stati"],
+      imperfetto: ["ero", "eri", "era", "eravamo", "eravate", "erano"],
+      futuro:     ["sarò", "sarai", "sarà", "saremo", "sarete", "saranno"]
+    },
+    formsDe: {
+      presente:   ["ich bin", "du bist", "er/sie ist", "wir sind", "ihr seid", "sie sind"],
+      passato:    ["ich bin gewesen", "du bist gewesen", "er/sie ist gewesen", "wir sind gewesen", "ihr seid gewesen", "sie sind gewesen"],
+      imperfetto: ["ich war", "du warst", "er/sie war", "wir waren", "ihr wart", "sie waren"],
+      futuro:     ["ich werde sein", "du wirst sein", "er/sie wird sein", "wir werden sein", "ihr werdet sein", "sie werden sein"]
+    }
+  },
+  {
+    id: "avere", inf: "Avere", infDe: "haben", emoji: "🤲", color: "#2e7d6f",
+    forms: {
+      presente:   ["ho", "hai", "ha", "abbiamo", "avete", "hanno"],
+      passato:    ["ho avuto", "hai avuto", "ha avuto", "abbiamo avuto", "avete avuto", "hanno avuto"],
+      imperfetto: ["avevo", "avevi", "aveva", "avevamo", "avevate", "avevano"],
+      futuro:     ["avrò", "avrai", "avrà", "avremo", "avrete", "avranno"]
+    },
+    formsDe: {
+      presente:   ["ich habe", "du hast", "er/sie hat", "wir haben", "ihr habt", "sie haben"],
+      passato:    ["ich habe gehabt", "du hast gehabt", "er/sie hat gehabt", "wir haben gehabt", "ihr habt gehabt", "sie haben gehabt"],
+      imperfetto: ["ich hatte", "du hattest", "er/sie hatte", "wir hatten", "ihr hattet", "sie hatten"],
+      futuro:     ["ich werde haben", "du wirst haben", "er/sie wird haben", "wir werden haben", "ihr werdet haben", "sie werden haben"]
+    }
+  },
+  {
+    id: "fare", inf: "Fare", infDe: "machen / tun", emoji: "🔨", color: "#c75b39",
+    forms: {
+      presente:   ["faccio", "fai", "fa", "facciamo", "fate", "fanno"],
+      passato:    ["ho fatto", "hai fatto", "ha fatto", "abbiamo fatto", "avete fatto", "hanno fatto"],
+      imperfetto: ["facevo", "facevi", "faceva", "facevamo", "facevate", "facevano"],
+      futuro:     ["farò", "farai", "farà", "faremo", "farete", "faranno"]
+    },
+    formsDe: {
+      presente:   ["ich mache", "du machst", "er/sie macht", "wir machen", "ihr macht", "sie machen"],
+      passato:    ["ich habe gemacht", "du hast gemacht", "er/sie hat gemacht", "wir haben gemacht", "ihr habt gemacht", "sie haben gemacht"],
+      imperfetto: ["ich machte", "du machtest", "er/sie machte", "wir machten", "ihr machtet", "sie machten"],
+      futuro:     ["ich werde machen", "du wirst machen", "er/sie wird machen", "wir werden machen", "ihr werdet machen", "sie werden machen"]
+    }
+  },
+  {
+    id: "andare", inf: "Andare", infDe: "gehen / fahren", emoji: "🚶", color: "#5a7d9b",
+    forms: {
+      presente:   ["vado", "vai", "va", "andiamo", "andate", "vanno"],
+      passato:    ["sono andato", "sei andato", "è andato", "siamo andati", "siete andati", "sono andati"],
+      imperfetto: ["andavo", "andavi", "andava", "andavamo", "andavate", "andavano"],
+      futuro:     ["andrò", "andrai", "andrà", "andremo", "andrete", "andranno"]
+    },
+    formsDe: {
+      presente:   ["ich gehe", "du gehst", "er/sie geht", "wir gehen", "ihr geht", "sie gehen"],
+      passato:    ["ich bin gegangen", "du bist gegangen", "er/sie ist gegangen", "wir sind gegangen", "ihr seid gegangen", "sie sind gegangen"],
+      imperfetto: ["ich ging", "du gingst", "er/sie ging", "wir gingen", "ihr gingt", "sie gingen"],
+      futuro:     ["ich werde gehen", "du wirst gehen", "er/sie wird gehen", "wir werden gehen", "ihr werdet gehen", "sie werden gehen"]
+    }
+  },
+  {
+    id: "parlare", inf: "Parlare", infDe: "sprechen", emoji: "💬", color: "#3f7d8a",
+    forms: {
+      presente:   ["parlo", "parli", "parla", "parliamo", "parlate", "parlano"],
+      passato:    ["ho parlato", "hai parlato", "ha parlato", "abbiamo parlato", "avete parlato", "hanno parlato"],
+      imperfetto: ["parlavo", "parlavi", "parlava", "parlavamo", "parlavate", "parlavano"],
+      futuro:     ["parlerò", "parlerai", "parlerà", "parleremo", "parlerete", "parleranno"]
+    },
+    formsDe: {
+      presente:   ["ich spreche", "du sprichst", "er/sie spricht", "wir sprechen", "ihr sprecht", "sie sprechen"],
+      passato:    ["ich habe gesprochen", "du hast gesprochen", "er/sie hat gesprochen", "wir haben gesprochen", "ihr habt gesprochen", "sie haben gesprochen"],
+      imperfetto: ["ich sprach", "du sprachst", "er/sie sprach", "wir sprachen", "ihr spracht", "sie sprachen"],
+      futuro:     ["ich werde sprechen", "du wirst sprechen", "er/sie wird sprechen", "wir werden sprechen", "ihr werdet sprechen", "sie werden sprechen"]
+    }
+  },
+  {
+    id: "mangiare", inf: "Mangiare", infDe: "essen", emoji: "🍴", color: "#b8442e",
+    forms: {
+      presente:   ["mangio", "mangi", "mangia", "mangiamo", "mangiate", "mangiano"],
+      passato:    ["ho mangiato", "hai mangiato", "ha mangiato", "abbiamo mangiato", "avete mangiato", "hanno mangiato"],
+      imperfetto: ["mangiavo", "mangiavi", "mangiava", "mangiavamo", "mangiavate", "mangiavano"],
+      futuro:     ["mangerò", "mangerai", "mangerà", "mangeremo", "mangerete", "mangeranno"]
+    },
+    formsDe: {
+      presente:   ["ich esse", "du isst", "er/sie isst", "wir essen", "ihr esst", "sie essen"],
+      passato:    ["ich habe gegessen", "du hast gegessen", "er/sie hat gegessen", "wir haben gegessen", "ihr habt gegessen", "sie haben gegessen"],
+      imperfetto: ["ich aß", "du aßt", "er/sie aß", "wir aßen", "ihr aßt", "sie aßen"],
+      futuro:     ["ich werde essen", "du wirst essen", "er/sie wird essen", "wir werden essen", "ihr werdet essen", "sie werden essen"]
+    }
+  }
 ];

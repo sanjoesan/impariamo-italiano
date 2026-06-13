@@ -14,7 +14,9 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (f) => readFileSync(join(ROOT, f), "utf8");
 
 // Vokabeldaten direkt verfügbar machen (data.js ist kein Modul)
-const LESSONS = new Function(read("data.js") + "\n;return LESSONS;")();
+const DATA = new Function(read("data.js") +
+  "\n;return {LESSONS,BADGES,CONJUGATIONS,CONJ_TENSES,CONJ_PRONOUNS};")();
+const { LESSONS, CONJUGATIONS, CONJ_TENSES, CONJ_PRONOUNS } = DATA;
 
 /* ---------- App in jsdom hochfahren ---------- */
 function makeApp() {
@@ -227,4 +229,58 @@ test("CSS-Hygiene: Klammern ausgeglichen, Dark-Mode definiert, keine Tippfehler"
   const used = new Set([...css.matchAll(/var\(\s*(--[\w-]+)\s*\)/g)].map((m) => m[1]));
   const missing = [...used].filter((v) => !defined.has(v));
   assert.deepEqual(missing, [], "keine undefinierten CSS-Variablen: " + missing.join(", "));
+});
+
+test("Konjugationen: Datenintegrität (jede Zeit 6 Personen, IT+DE)", () => {
+  assert.ok(CONJUGATIONS.length >= 6, "mindestens 6 Verben");
+  const ids = new Set();
+  for (const v of CONJUGATIONS) {
+    ids.add(v.id);
+    assert.ok(v.inf && v.infDe && v.emoji && v.color, `${v.id}: Kopf-Felder`);
+    for (const t of CONJ_TENSES) {
+      assert.equal(v.forms[t.id]?.length, 6, `${v.id}/${t.id}: 6 IT-Formen`);
+      assert.equal(v.formsDe[t.id]?.length, 6, `${v.id}/${t.id}: 6 DE-Formen`);
+      for (const f of v.forms[t.id]) assert.ok(f && f.trim(), `${v.id}/${t.id}: keine leere Form`);
+    }
+  }
+  assert.equal(ids.size, CONJUGATIONS.length, "Verb-IDs eindeutig");
+});
+
+test("Konjugationen: Karten auf Startseite + Tabelle zeigt 6 Formen", () => {
+  const app = makeApp();
+  const cards = app.$$(".conj-card");
+  assert.equal(cards.length, CONJUGATIONS.length, "alle Verb-Karten gerendert");
+
+  cards[0].click();                                   // erstes Verb = essere
+  assert.equal(app.$("#viewConj").classList.contains("hidden"), false, "Konjugations-Ansicht offen");
+  const rows = app.$$(".conj-row");
+  assert.equal(rows.length, 6, "Tabelle hat 6 Personen-Zeilen");
+  // Presente von essere: io -> sono
+  const firstForm = rows[0].querySelector(".cr-form").textContent;
+  assert.equal(firstForm, CONJUGATIONS[0].forms.presente[0], "erste Form korrekt (sono)");
+  app.close();
+});
+
+test("Konjugationen: Übungsmodus prüft ALLE Personen & wertet korrekt", () => {
+  const app = makeApp();
+  app.$$(".conj-card")[0].click();                    // essere
+  app.$('#conjModeTabs .mode-tab[data-cmode="practice"]').click();
+
+  const verb = CONJUGATIONS[0];
+  const total = CONJ_PRONOUNS.length;
+  let scored = 0;
+  for (let i = 0; i < total; i++) {
+    const pron = app.$(".cp-cue b").textContent.trim();
+    const idx = CONJ_PRONOUNS.indexOf(pron);
+    assert.ok(idx >= 0, `Pronomen erkannt: ${pron}`);
+    app.$("#conjInput").value = verb.forms.presente[idx];   // korrekte Form
+    app.$("#conjCheck").click();                            // prüfen
+    const sol = app.$("#conjSolution").textContent;
+    assert.ok(/Esatto/.test(sol), `Frage ${i + 1}: korrekt gewertet`);
+    if (/Esatto/.test(sol)) scored++;
+    app.$("#conjCheck").click();                            // weiter / fertig
+  }
+  assert.equal(scored, total, `alle ${total} Personen geprüft`);
+  assert.ok(app.$("#conjBody").textContent.includes(`${total} / ${total} richtig`), "Abschluss zeigt volle Punktzahl");
+  app.close();
 });

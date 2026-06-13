@@ -232,7 +232,26 @@ function renderHome() {
     card.addEventListener("click", () => openLesson(lesson.id));
     grid.appendChild(card);
   });
+  renderConjGrid();
   renderBadges();
+}
+
+function renderConjGrid() {
+  const grid = $("#conjGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+  CONJUGATIONS.forEach((v) => {
+    const card = document.createElement("button");
+    card.className = "conj-card";
+    card.style.setProperty("--card-color", v.color);
+    card.innerHTML = `
+      <span class="cc-emoji">${v.emoji}</span>
+      <span class="cc-inf">${v.inf}</span>
+      <span class="cc-de">${v.infDe}</span>
+      <span class="cc-tag">${CONJ_TENSES.length} Zeiten</span>`;
+    card.addEventListener("click", () => openConj(v.id));
+    grid.appendChild(card);
+  });
 }
 
 function renderBadges() {
@@ -298,6 +317,7 @@ function openLesson(id) {
 function goHome() {
   speechSynthesis && speechSynthesis.cancel();
   $("#viewLesson").classList.add("hidden");
+  $("#viewConj").classList.add("hidden");
   $("#viewHome").classList.remove("hidden");
   renderStats();
   renderHome();
@@ -334,7 +354,7 @@ function renderLearn() {
         <div class="flash-inner">
           <div class="flash-face front">
             <span class="flash-emoji">${w.emoji}</span>
-            <div class="flash-word">${w.it}</div>
+            <div class="flash-word${lesson.sentences ? " is-sentence" : ""}">${w.it}</div>
             <div class="flash-ex"><em>${w.ex}</em></div>
             <div class="flash-hint">↻ Tippen zum Umdrehen</div>
           </div>
@@ -420,7 +440,7 @@ function showQuizQuestion() {
       <div class="quiz-prompt">
         <span class="quiz-q-label">Was bedeutet …?</span>
         <span class="quiz-emoji">${w.emoji}</span>
-        <span class="quiz-word">${w.it}</span>
+        <span class="quiz-word${lesson.sentences ? " is-sentence" : ""}">${w.it}</span>
         <div><button class="speak-btn" id="qSpeak">🔊 Anhören</button></div>
       </div>
       <div class="quiz-options" id="quizOptions"></div>
@@ -738,6 +758,198 @@ function finishListen() {
 }
 
 /* =========================================================
+   KONJUGATIONEN — Tabelle & Übung
+   ========================================================= */
+let currentConj = { verb: null, tense: "presente", cmode: "table" };
+let conjPractice = null;
+
+function openConj(id) {
+  const verb = CONJUGATIONS.find((v) => v.id === id);
+  if (!verb) return;
+  touchStreak();
+  currentConj = { verb, tense: "presente", cmode: "table" };
+
+  $("#viewHome").classList.add("hidden");
+  $("#viewLesson").classList.add("hidden");
+  $("#viewConj").classList.remove("hidden");
+  $("#conjEmoji").textContent = verb.emoji;
+  $("#conjTitle").textContent = verb.inf;
+  $("#conjInfDe").textContent = verb.infDe;
+  $$("#conjModeTabs .mode-tab").forEach((t) => t.classList.toggle("active", t.dataset.cmode === "table"));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  renderTenseTabs();
+  renderConjMode();
+}
+
+function renderTenseTabs() {
+  const wrap = $("#tenseTabs");
+  wrap.innerHTML = "";
+  CONJ_TENSES.forEach((t) => {
+    const b = document.createElement("button");
+    b.className = "tense-tab" + (t.id === currentConj.tense ? " active" : "");
+    b.innerHTML = `${t.it}<small>${t.de}</small>`;
+    b.addEventListener("click", () => { currentConj.tense = t.id; renderTenseTabs(); renderConjMode(); });
+    wrap.appendChild(b);
+  });
+}
+
+function setConjMode(cmode) {
+  currentConj.cmode = cmode;
+  $$("#conjModeTabs .mode-tab").forEach((t) => t.classList.toggle("active", t.dataset.cmode === cmode));
+  renderConjMode();
+}
+
+function renderConjMode() {
+  if (currentConj.cmode === "table") renderConjTable();
+  else renderConjPractice();
+}
+
+function renderConjTable() {
+  const { verb, tense } = currentConj;
+  const forms = verb.forms[tense];
+  const formsDe = verb.formsDe[tense];
+  $("#conjProgress").style.width = "100%";
+
+  const body = $("#conjBody");
+  const rows = CONJ_PRONOUNS.map((pron, i) => `
+    <div class="conj-row">
+      <span class="cr-pron">${pron}</span>
+      <span class="cr-form">${forms[i]}</span>
+      <button class="cr-speak" data-i="${i}" title="Anhören">🔊</button>
+      <span class="cr-de">${formsDe[i]}</span>
+    </div>`).join("");
+
+  body.innerHTML = `
+    <div class="conj-table">
+      ${rows}
+    </div>
+    <div class="conj-table-foot">
+      <button class="btn btn-ghost" id="speakAll">🔊 Ganze Reihe anhören</button>
+      <button class="btn btn-primary" id="toPractice">✍️ Diese Zeit üben</button>
+    </div>`;
+
+  $$("#conjBody .cr-speak").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const i = +e.currentTarget.dataset.i;
+      speak(`${CONJ_PRONOUNS[i]} ${forms[i]}`, e.currentTarget);
+    });
+  });
+  $("#speakAll").addEventListener("click", () => {
+    // nacheinander aussprechen
+    forms.forEach((f, i) => setTimeout(() => speak(`${CONJ_PRONOUNS[i]} ${f}`), i * 1100));
+  });
+  $("#toPractice").addEventListener("click", () => setConjMode("practice"));
+}
+
+function renderConjPractice() {
+  const { verb, tense } = currentConj;
+  conjPractice = { order: shuffle(CONJ_PRONOUNS.map((_, i) => i)), pos: 0, correct: 0, answered: false };
+  showConjQuestion();
+}
+
+function showConjQuestion() {
+  const { verb, tense } = currentConj;
+  if (conjPractice.pos >= conjPractice.order.length) return finishConjPractice();
+  conjPractice.answered = false;
+  const i = conjPractice.order[conjPractice.pos];
+  const tenseObj = CONJ_TENSES.find((t) => t.id === tense);
+  $("#conjProgress").style.width = Math.round((conjPractice.pos / conjPractice.order.length) * 100) + "%";
+
+  const body = $("#conjBody");
+  body.innerHTML = `
+    <div class="conj-practice">
+      <div class="conj-prompt">
+        <span class="cp-label">${tenseObj.it} · ${tenseObj.de} · ${conjPractice.pos + 1}/${conjPractice.order.length}</span>
+        <div class="cp-cue"><b>${CONJ_PRONOUNS[i]}</b> … (${verb.inf})</div>
+        <div class="cp-hint">${verb.infDe} — ${CONJ_PRONOUNS_DE[i]} …</div>
+        <input type="text" class="conj-input" id="conjInput"
+               placeholder="Verbform eingeben" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+        <div class="conj-solution" id="conjSolution"></div>
+      </div>
+      <div class="listen-actions">
+        <button class="btn btn-ghost" id="conjReveal">🙈 Lösung</button>
+        <button class="btn btn-primary" id="conjCheck">Prüfen ✓</button>
+      </div>
+    </div>`;
+
+  const inp = $("#conjInput");
+  inp.addEventListener("keydown", (e) => { if (e.key === "Enter") checkConj(); });
+  inp.focus();
+  $("#conjCheck").addEventListener("click", checkConj);
+  $("#conjReveal").addEventListener("click", revealConj);
+}
+
+function currentConjForm() {
+  const i = conjPractice.order[conjPractice.pos];
+  return currentConj.verb.forms[currentConj.tense][i];
+}
+
+function checkConj() {
+  if (conjPractice.answered) { conjPractice.pos++; showConjQuestion(); return; }
+  const inp = $("#conjInput");
+  if (!inp.value.trim()) { inp.focus(); return; }
+
+  const correct = currentConjForm();
+  const ok = normalizeText(inp.value) === normalizeText(correct);
+  conjPractice.answered = true;
+  inp.disabled = true;
+  inp.classList.add(ok ? "correct" : "wrong");
+  const sol = $("#conjSolution");
+  if (ok) {
+    sol.innerHTML = `✅ <span style="color:var(--olive)">Esatto! ${correct}</span>`;
+    conjPractice.correct++;
+    award(6, 2);
+    sfx.correct();
+  } else {
+    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">${correct}</span>`;
+    sfx.wrong();
+  }
+  speak(correct);
+  const last = conjPractice.pos >= conjPractice.order.length - 1;
+  $("#conjCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+}
+
+function revealConj() {
+  if (conjPractice.answered) return;
+  conjPractice.answered = true;
+  const correct = currentConjForm();
+  const inp = $("#conjInput");
+  inp.value = correct; inp.disabled = true;
+  $("#conjSolution").innerHTML = `👀 <span style="color:var(--terracotta-d)">${correct}</span>`;
+  speak(correct);
+  const last = conjPractice.pos >= conjPractice.order.length - 1;
+  $("#conjCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+}
+
+function finishConjPractice() {
+  const { verb, tense } = currentConj;
+  const total = conjPractice.order.length;
+  const score = conjPractice.correct;
+  const tenseObj = CONJ_TENSES.find((t) => t.id === tense);
+  $("#conjProgress").style.width = "100%";
+  if (score === total) { award(15, 10); sfx.win(); burstConfetti(); }
+  checkBadges();
+
+  const body = $("#conjBody");
+  body.innerHTML = `
+    <div class="done-screen">
+      <div class="done-emoji">${score === total ? "🏆" : "💪"}</div>
+      <h3>${score} / ${total} richtig</h3>
+      <p>${verb.inf} · ${tenseObj.it} — <em>${score === total ? "Perfetto!" : "Übung macht den Meister!"}</em></p>
+      <div class="done-actions">
+        <button class="btn btn-primary" id="conjRetry">↻ Nochmal</button>
+        <button class="btn btn-ghost" id="conjToTable">📋 Tabelle</button>
+        <button class="btn btn-ghost" id="conjHome">🏠 Startseite</button>
+      </div>
+    </div>`;
+  $("#conjRetry").addEventListener("click", () => setConjMode("practice"));
+  $("#conjToTable").addEventListener("click", () => setConjMode("table"));
+  $("#conjHome").addEventListener("click", goHome);
+  renderStats();
+}
+
+/* =========================================================
    EINSTELLUNGEN
    ========================================================= */
 function populateVoiceSelect() {
@@ -841,6 +1053,8 @@ function randomLesson() { openLesson(LESSONS[Math.floor(Math.random() * LESSONS.
    ========================================================= */
 $("#brandBtn").addEventListener("click", goHome);
 $("#backBtn").addEventListener("click", goHome);
+$("#conjBack").addEventListener("click", goHome);
+$$("#conjModeTabs .mode-tab").forEach((t) => t.addEventListener("click", () => setConjMode(t.dataset.cmode)));
 $("#continueBtn").addEventListener("click", continueLesson);
 $("#randomBtn").addEventListener("click", randomLesson);
 
