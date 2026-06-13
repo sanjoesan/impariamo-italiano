@@ -637,6 +637,7 @@ function renderListen() {
 function showListen() {
   const { lesson } = current;
   if (listenState.pos >= listenState.order.length) return finishListen();
+  listenState.answered = false;   // WICHTIG: für jede neue Frage zurücksetzen
   setProgress(Math.round((listenState.pos / listenState.order.length) * 100));
   const w = lesson.words[listenState.order[listenState.pos]];
 

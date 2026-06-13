@@ -1,0 +1,15 @@
+{
+  "name": "impariamo-italiano",
+  "version": "1.0.0",
+  "description": "Spielerisch Italienisch lernen — nostalgische Lernplattform mit Sprachausgabe",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check data.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.3"
+  },
+  "license": "MIT"
+}

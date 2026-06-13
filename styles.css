@@ -109,7 +109,8 @@ em { font-style: italic; }
   font-size: 1.25rem; padding: 4px; border-radius: 8px;
   transition: transform .2s;
 }
-.icon-btn:hover { transform: rotate(40deg) scale(1.1); }
+.icon-btn:hover { transform: scale(1.15); }
+#settingsBtn:hover { transform: rotate(40deg) scale(1.1); }
 
 /* ===================== LAYOUT ===================== */
 main { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 18px 60px; }
