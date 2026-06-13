@@ -55,11 +55,11 @@ Schriften: Pacifico, Playfair Display, Nunito (Google Fonts).
 
 ## ✅ Qualitätssicherung
 
-Headless-Integrationstests mit **jsdom**: die App wird komplett geladen, echte
+**12 Headless-Integrationstests** mit **jsdom**: die App wird komplett geladen, echte
 Nutzer-Flows werden durchgespielt (Lektion öffnen, alle Hör-Fragen beantworten,
-Theme umschalten, Quiz lösen …) und das Verhalten wird geprüft. Zusätzlich:
-Datenintegrität aller Vokabeln und CSS-Hygiene (Klammern, Dark-Mode-Variablen).
-Jeder Push läuft automatisch durch die **GitHub-Actions-CI**.
+Theme umschalten, Quiz lösen, Konjugationen üben …) und das Verhalten wird geprüft. Zusätzlich:
+Datenintegrität aller Vokabeln **und Konjugationen** (jede Zeit, 6 Personen, IT + DE)
+sowie CSS-Hygiene (Klammern, Dark-Mode-Variablen). Jeder Push läuft automatisch durch die **GitHub-Actions-CI**.
 
 ```bash
 npm install   # einmalig (nur für Tests; die Seite selbst braucht nichts)
@@ -73,7 +73,9 @@ Diktat-Fragen gewertet wurde.
 
 ## 📝 Eigene Vokabeln hinzufügen
 
-Alle Inhalte stehen in [`data.js`](data.js). Eine neue Lektion ist einfach ein weiterer Eintrag im `LESSONS`-Array.
+Alle Inhalte stehen in [`data.js`](data.js): Vokabeln/Sätze im `LESSONS`-Array, Verben im
+`CONJUGATIONS`-Array (Formen je Zeit in `forms`/`formsDe`). Eine neue Lektion oder ein neues
+Verb ist einfach ein weiterer Eintrag – die Tests prüfen die Vollständigkeit automatisch.
 
 ---
 
