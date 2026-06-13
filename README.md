@@ -15,9 +15,9 @@ Lerne Italienisch mit Sprachausgabe, Quiz und einem Hauch toskanischer Sonne. �
   (Begrüßung, Zahlen, Essen, Reisen, Familie, Farben, Zeit, In der Stadt, Nützliche Sätze, Im Restaurant,
   Verben, Wetter, Körper, Tiere) – plus **4 Satz-Lektionen** als echte Mini-Dialoge
   (Smalltalk, Im Café, Nach dem Weg fragen, Gefühle ausdrücken).
-- **🔀 Konjugations-Trainer** („Coniugazioni") – italienische Verben durch alle 6 Personen
-  in **4 Zeiten** (Presente, Passato Prossimo, Imperfetto, Futuro), mit Tabelle (deutsche Formen +
-  Aussprache pro Form) und Übungsmodus zum Eintippen.
+- **🔀 Konjugations-Trainer** („Coniugazioni") – **9 Verben** durch alle 6 Personen
+  in **6 Zeiten/Modi** (Presente, Passato Prossimo, Imperfetto, Futuro, Condizionale, Congiuntivo),
+  mit Tabelle (deutsche Formen + Aussprache pro Form) und Übungsmodus zum Eintippen.
 - **🎮 Vier Spielmodi pro Lektion:**
   - **📖 Lernen** – Karteikarten zum Umdrehen, mit automatischer Aussprache
   - **🎧 Hören** – Diktat: du hörst die Vokabel und tippst sie (tolerant bei Akzenten & Satzzeichen)
