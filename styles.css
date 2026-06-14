@@ -911,3 +911,144 @@ body.londra.notte .topbar { background: rgba(26,20,38,0.85); }
 body.londra.notte .flash-face.front { background: linear-gradient(160deg, #2c2140, #3a2238); }
 body.londra.notte .flash-face.back  { background: linear-gradient(160deg, #22203f, #3a2238); }
 body.londra.notte .lang-toggle { background: rgba(0,0,0,0.3); }
+
+/* =========================================================
+   SPANISCH-KURS — "Fiesta / Sol" (warmes Flamenco-Rot & Safran)
+   ========================================================= */
+body.espana {
+  --paper:        #fdf3e0;
+  --paper-2:      #f7e6c4;
+  --paper-card:   #fffaf0;
+  --ink:          #3a1f1a;
+  --ink-soft:     #7a5142;
+  --terracotta:   #d1232a;   /* Flamenco-Rot = Primärfarbe */
+  --terracotta-d: #a4161a;
+  --olive:        #7a8b1f;
+  --teal:         #1f8a8a;
+  --gold:         #f0a500;    /* Safran */
+  --gold-l:       #ffc233;
+  --wine:         #8a2e3b;
+  --sky:          #e0801e;    /* warmes Orange */
+  --green-it:     #aa151b;
+  --red-it:       #d1232a;
+  --shadow:       rgba(80, 30, 20, 0.18);
+}
+body.espana {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(900px 520px at 50% -10%, rgba(240,165,0,0.28), transparent 60%),
+    radial-gradient(760px 520px at 108% 4%, rgba(209,35,42,0.18), transparent 60%),
+    radial-gradient(720px 520px at -8% 16%, rgba(224,128,30,0.20), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+body.espana .topbar { background: rgba(253,243,224,0.85); border-bottom-color: rgba(209,35,42,0.28); }
+body.espana .bg-sun { background: radial-gradient(circle, rgba(240,165,0,0.30), rgba(240,165,0,0) 70%); }
+body.espana .hero-title { color: var(--terracotta-d); text-shadow: 2px 3px 0 rgba(240,165,0,0.30); }
+body.espana .hero-kicker { color: var(--terracotta-d); }
+body.espana .flag-stripe span:nth-child(1) { background: #aa151b; }
+body.espana .flag-stripe span:nth-child(2) { background: #f1bf00; }
+body.espana .flag-stripe span:nth-child(3) { background: #aa151b; }
+body.espana .flash-face.front { background: linear-gradient(160deg, #fff6e6, #ffe2b0); }
+body.espana .flash-face.back  { background: linear-gradient(160deg, #ffeede, #ffd9b0); }
+body.espana.notte {
+  --paper: #241310; --paper-2: #2c1813; --paper-card: #311b16;
+  --ink: #ffe9d2; --ink-soft: #d4a78c; --terracotta: #f2585f; --terracotta-d: #d1232a;
+  --gold: #ffc233; --shadow: rgba(0,0,0,0.5);
+}
+body.espana.notte { background-color: var(--paper); }
+body.espana.notte .topbar { background: rgba(36,19,16,0.85); }
+body.espana.notte .lang-toggle { background: rgba(0,0,0,0.3); }
+
+/* =========================================================
+   FRANZÖSISCH-KURS — "Belle Époque / Paris" (Marineblau & Altrosa)
+   ========================================================= */
+body.paris {
+  --paper:        #f5f1ea;
+  --paper-2:      #e9e0d2;
+  --paper-card:   #fdfaf4;
+  --ink:          #1e2742;
+  --ink-soft:     #5a6079;
+  --terracotta:   #2e4374;   /* Marineblau = Primärfarbe */
+  --terracotta-d: #1f2e54;
+  --olive:        #4f7a4f;
+  --teal:         #3a7ca5;
+  --gold:         #c8a24a;    /* Champagner-Gold */
+  --gold-l:       #e0bf66;
+  --wine:         #9e2b4e;
+  --sky:          #c45d7c;    /* Altrosa */
+  --green-it:     #1d3a8f;
+  --red-it:       #c1121f;
+  --shadow:       rgba(30, 30, 60, 0.16);
+}
+body.paris {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(900px 520px at 50% -10%, rgba(46,67,116,0.18), transparent 60%),
+    radial-gradient(760px 520px at 108% 4%, rgba(196,93,124,0.16), transparent 60%),
+    radial-gradient(720px 520px at -8% 16%, rgba(200,162,74,0.16), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+body.paris .topbar { background: rgba(245,241,234,0.85); border-bottom-color: rgba(46,67,116,0.25); }
+body.paris .bg-sun { background: radial-gradient(circle, rgba(196,93,124,0.18), rgba(196,93,124,0) 70%); }
+body.paris .hero-title { color: var(--terracotta-d); text-shadow: 2px 3px 0 rgba(196,93,124,0.25); }
+body.paris .hero-kicker { color: var(--sky); }
+body.paris .flag-stripe span:nth-child(1) { background: #1d3a8f; }
+body.paris .flag-stripe span:nth-child(2) { background: #ffffff; }
+body.paris .flag-stripe span:nth-child(3) { background: #c1121f; }
+body.paris .flash-face.front { background: linear-gradient(160deg, #fbf6ef, #ece0ec); }
+body.paris .flash-face.back  { background: linear-gradient(160deg, #eef1f8, #f6e6ec); }
+body.paris.notte {
+  --paper: #14182a; --paper-2: #1b2138; --paper-card: #1f2742;
+  --ink: #e9ecf7; --ink-soft: #a9b0cc; --terracotta: #6b86c8; --terracotta-d: #4a63a0;
+  --sky: #e08aa6; --gold: #e0bf66; --shadow: rgba(0,0,0,0.5);
+}
+body.paris.notte { background-color: var(--paper); }
+body.paris.notte .topbar { background: rgba(20,24,42,0.85); }
+body.paris.notte .lang-toggle { background: rgba(0,0,0,0.3); }
+
+/* =========================================================
+   PORTUGIESISCH-KURS — "Azulejo / Mar" (Kachelblau & Korall-Akzent)
+   ========================================================= */
+body.lisboa {
+  --paper:        #eef4f6;
+  --paper-2:      #dce8ec;
+  --paper-card:   #f8fbfc;
+  --ink:          #143b4a;
+  --ink-soft:     #4d6f7a;
+  --terracotta:   #1f6f9f;   /* Azulejo-Blau = Primärfarbe */
+  --terracotta-d: #155277;
+  --olive:        #2e8b57;
+  --teal:         #2a9d8f;
+  --gold:         #e9a23b;
+  --gold-l:       #f4bd5e;
+  --wine:         #b5482f;
+  --sky:          #e07a5f;    /* Korall-Akzent */
+  --green-it:     #006847;
+  --red-it:       #d52b1e;
+  --shadow:       rgba(20, 59, 74, 0.16);
+}
+body.lisboa {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(900px 520px at 50% -10%, rgba(31,111,159,0.20), transparent 60%),
+    radial-gradient(760px 520px at 108% 4%, rgba(42,157,143,0.16), transparent 60%),
+    radial-gradient(720px 520px at -8% 16%, rgba(224,122,95,0.18), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+body.lisboa .topbar { background: rgba(238,244,246,0.85); border-bottom-color: rgba(31,111,159,0.28); }
+body.lisboa .bg-sun { background: radial-gradient(circle, rgba(31,111,159,0.20), rgba(31,111,159,0) 70%); }
+body.lisboa .hero-title { color: var(--terracotta-d); text-shadow: 2px 3px 0 rgba(224,122,95,0.28); }
+body.lisboa .hero-kicker { color: var(--teal); }
+body.lisboa .flag-stripe span:nth-child(1) { background: #006847; }
+body.lisboa .flag-stripe span:nth-child(2) { background: #ffffff; }
+body.lisboa .flag-stripe span:nth-child(3) { background: #d52b1e; }
+body.lisboa .flash-face.front { background: linear-gradient(160deg, #f3f9fb, #d8ecf0); }
+body.lisboa .flash-face.back  { background: linear-gradient(160deg, #eef6f8, #ffe6dc); }
+body.lisboa.notte {
+  --paper: #0f2730; --paper-2: #14333d; --paper-card: #173a45;
+  --ink: #e3f2f5; --ink-soft: #9fc0c8; --terracotta: #3da3d4; --terracotta-d: #1f6f9f;
+  --sky: #f0967c; --gold: #f4bd5e; --shadow: rgba(0,0,0,0.5);
+}
+body.lisboa.notte { background-color: var(--paper); }
+body.lisboa.notte .topbar { background: rgba(15,39,48,0.85); }
+body.lisboa.notte .lang-toggle { background: rgba(0,0,0,0.3); }

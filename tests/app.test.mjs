@@ -428,6 +428,54 @@ test("Sprach-Umschalter: Spracherkennung wechselt auf en-GB", () => {
   app.close();
 });
 
+test("Fünf Kurse: ES/FR/PT bauen mit Präfix, eigener Verbalik & ≥100 B2/C1/C2", () => {
+  const it = courseProbe("it");
+  const expect = {
+    es: { tense0: "Presente", pron0: "yo" },
+    fr: { tense0: "Présent", pron0: "je" },
+    pt: { tense0: "Presente", pron0: "eu" }
+  };
+  for (const lang of ["es", "fr", "pt"]) {
+    const c = courseProbe(lang);
+    assert.equal(c.lang, lang, `${lang} aktiv`);
+    assert.ok(c.firstId.startsWith(lang + ":"), `${lang}:-Präfix (getrennter Fortschritt)`);
+    assert.equal(c.lessons, it.lessons, `${lang} gleicher Umfang`);
+    for (const code of ["B2", "C1", "C2"]) {
+      assert.ok((c.perLevel[code] || 0) >= 100, `${lang} ${code} >= 100 (${c.perLevel[code]})`);
+    }
+    assert.equal(c.tense0, expect[lang].tense0, `${lang} Zeit-Label`);
+    assert.equal(c.pron0, expect[lang].pron0, `${lang} Pronomen`);
+    assert.notEqual(c.vocabTitle, it.vocabTitle, `${lang} Titel übersetzt`);
+    assert.notEqual(c.badge0, it.badge0, `${lang} Abzeichen lokalisiert`);
+  }
+  courseProbe("it");
+});
+
+test("Sprach-Umschalter: ES/FR/PT setzen eigenes Theme & Sprache", () => {
+  const app = makeApp();
+  const cases = [
+    { lang: "es", theme: "espana", speech: "es-ES", sec: /Las Lecciones/ },
+    { lang: "fr", theme: "paris", speech: "fr-FR", sec: /Les Leçons/ },
+    { lang: "pt", theme: "lisboa", speech: "pt-PT", sec: /As Lições/ }
+  ];
+  for (const c of cases) {
+    app.$(`#langToggle [data-lang="${c.lang}"]`).click();
+    assert.equal(app.state().lang, c.lang, `${c.lang} aktiv`);
+    assert.ok(app.doc.body.classList.contains(c.theme), `${c.lang}: Theme ${c.theme}`);
+    // nur EINE Theme-Klasse aktiv
+    const themed = ["londra", "espana", "paris", "lisboa"].filter((t) => app.doc.body.classList.contains(t));
+    assert.deepEqual(themed, [c.theme], `${c.lang}: nur ${c.theme}`);
+    assert.match(app.$("#secLessonsH").textContent, c.sec, `${c.lang}: Abschnitt-Text`);
+    app.window.startRecognition({});
+    assert.equal(app.window.__lastRec.lang, c.speech, `${c.lang}: Erkennung ${c.speech}`);
+    assert.ok(app.$$(".lesson-card").length > 0, `${c.lang}: Lektionen gerendert`);
+  }
+  // zurück zu IT: keine Theme-Klasse
+  app.$('#langToggle [data-lang="it"]').click();
+  assert.ok(!["londra", "espana", "paris", "lisboa"].some((t) => app.doc.body.classList.contains(t)), "IT ohne Theme-Klasse");
+  app.close();
+});
+
 test("Datenintegrität: viele Lektionen, alle Felder, IDs eindeutig", () => {
   let words = 0;
   const ids = new Set();

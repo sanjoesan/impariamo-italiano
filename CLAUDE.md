@@ -4,10 +4,13 @@ Guidance for working in this repository.
 
 ## Was das ist
 
-Eine spielerische, **deutschsprachige** Web-App zum Sprachenlernen mit **zwei Kursen**,
-oben per Flagge umschaltbar (🇮🇹/🇬🇧):
-- **Italienisch** („Impariamo!", La-Dolce-Vita-Stil) — Standard.
-- **Englisch** („Let's Learn!", „Swinging London" 60er/70er-Pop-Stil, `body.londra`).
+Eine spielerische, **deutschsprachige** Web-App zum Sprachenlernen mit **fünf Kursen**,
+oben per Flagge umschaltbar (🇮🇹/🇬🇧/🇪🇸/🇫🇷/🇵🇹), jeder mit eigenem Farb-Theme:
+- **Italienisch** („Impariamo!", La-Dolce-Vita) — Standard, kein Theme-Suffix.
+- **Englisch** („Let's Learn!", Swinging London 60/70er) — `body.londra`.
+- **Spanisch** („¡Vamos!", Fiesta/Sol) — `body.espana`.
+- **Französisch** („Apprenons", Belle Époque) — `body.paris`.
+- **Portugiesisch** („Vamos!", Azulejo/Mar) — `body.lisboa`.
 
 Die UI bleibt durchgehend Deutsch; nur Lern-Sprache, Flair, Theme und Sprachausgabe
 wechseln. Reine statische Client-App, **kein Build-Schritt, keine Runtime-Abhängigkeiten**.
@@ -33,19 +36,24 @@ Es gibt keinen Dev-Server/Bundler. Zum manuellen Testen `index.html` öffnen.
 
 ## Architektur
 
-### Zwei Kurse / Sprachen (`data.js` + `app.js`)
-- Pro Sprache eigene Daten: IT-Quellen (`CORPUS`/`DIALOGHI`/`CONJUGATIONS`/…) und EN-Quellen
-  (`CORPUS_EN`/`DIALOGHI_EN`/`CONJ_EN`/`CONJ_TENSES_EN`/`BADGES_EN`/…). Der EN-Korpus ist die
-  **strukturgleiche** englische Lokalisierung (gleiche IDs, `de`-Felder bleiben Deutsch).
-- Die aktiven Daten (`CORPUS`, `LESSONS`, `STORY`, `CONJUGATIONS`, `BADGES`, …) sind **`let`**
-  und werden von **`selectCourse(lang)`** (in `data.js`) umgehängt + neu gebaut.
-- Im EN-Kurs prefixt `buildLessons()` alle Lektions-IDs mit **`en:`** → getrennter
-  Lernfortschritt (`state.lessons`), obwohl die Themen-IDs identisch sind.
-- `app.js`: `setLanguage(lang)` ruft `selectCourse`, setzt `speechLang` (it-IT/en-GB),
-  rebaut `lessonById`/`DIALOG_USER_LINES`, schaltet `body.londra` und ruft `applyCourseChrome()`
-  (Oberflächentexte aus `UISTR`). Umschalter `#langToggle` → `switchLanguage`. Persistiert in `state.lang`.
-- Funktions-Abschnitte (Sfide/Ripasso/Dialoge/Grammatica) werden via `areaLabel()` für EN
-  übersetzt; Verben-Trainer nutzt englische Zeiten (Present Simple … Present Perfect).
+### Fünf Kurse / Sprachen (`data.js` + `app.js`)
+- Pro Sprache eigene Daten: IT-Quellen (`CORPUS`/`DIALOGHI`/`CONJUGATIONS`/…) und je Sprache
+  `CORPUS_EN`/`CORPUS_ES`/`CORPUS_FR`/`CORPUS_PT` + `DIALOGHI_*`/`CONJ_*`/`CONJ_TENSES_*`/
+  `CONJ_PRONOUNS_*`/`BADGES_*`. Alle sind **strukturgleiche** Lokalisierungen (gleiche Themen-IDs,
+  gleiche Level-Keys & Anzahl pro Stufe; `de`-Felder bleiben Deutsch).
+- Registry **`COURSES[lang]`** bündelt corpus/dialoghi/conj/tenses/pron/pronDe/badges.
+  Die aktiven Daten (`CORPUS`, `LESSONS`, `STORY`, `CONJUGATIONS`, `BADGES`, …) sind **`let`**
+  und werden von **`selectCourse(lang)`** umgehängt + neu gebaut. `COURSES.es/fr/pt` werden
+  am Datei-Ende nach dem ersten `selectCourse("it")` registriert.
+- In Nicht-IT-Kursen prefixt `buildLessons()` alle Lektions-IDs mit **`<lang>:`** (z. B. `es:`)
+  → getrennter Lernfortschritt (`state.lessons`). IT bleibt ohne Präfix.
+- `app.js`: `setLanguage(lang)` ruft `selectCourse`, setzt `speechLang` via `SPEECH_LANG`
+  (it-IT/en-GB/es-ES/fr-FR/pt-PT), rebaut `lessonById`/`DIALOG_USER_LINES`, setzt die Theme-Klasse
+  via `THEME_CLASS` (londra/espana/paris/lisboa) und ruft `applyCourseChrome()` (Texte aus `UISTR`).
+  Umschalter `#langToggle` → `switchLanguage`. Persistiert in `state.lang`.
+- Funktions-Abschnitte (Sfide/Ripasso/Dialoge/Grammatica), Karten-Tags & „Tutti" werden via
+  `areaLabel()` / `CARD_TAGS` pro Sprache übersetzt; Verben-Trainer nutzt je Sprache eigene
+  Zeiten/Pronomen (gleiche Tense-IDs presente/passato/…).
 
 ### Daten & Generator (`data.js`)
 Lektionen werden **zur Laufzeit generiert**, nicht von Hand gepflegt:
@@ -87,11 +95,14 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
   `renderConjGrid`, `renderBadges`.
 - Lektions-Spielmodi (in `MODE_META`): `learn, dialogue, listen, quiz, match, build, gap, speak`.
 - `AREA_ORDER` / `AREA_EMOJI` steuern Reihenfolge & Icons der Bereiche.
-- Sprachausgabe = `speechSynthesis` (it-IT), Sprechen-Modus = `SpeechRecognition` (it-IT).
+- Sprachausgabe = `speechSynthesis`, Sprechen-Modus = `SpeechRecognition`; beide nutzen
+  `speechLang` der aktiven Sprache (it-IT/en-GB/es-ES/fr-FR/pt-PT).
 
 ## Konventionen
 - **UI-Sprache: Deutsch** (Lern-Inhalt Italienisch + Deutsch). Kommentare auf Deutsch.
-- Dateien sind **CRLF** (Windows). Skripte, die `data.js` patchen, müssen CRLF beachten.
+- Zeilenenden: app.js/styles.css/index.html sind **CRLF**; **`data.js` ist LF** (autocrlf
+  normalisiert die riesige Datei mit 500 KB-Zeilen nicht zuverlässig → bei Bedarf
+  `node -e` mit `replace(/\r\n/g,"\n")` und `git add` für sauberen Diff).
 - Design über **CSS-Variablen** (`:root`, Dark-Mode überschreibt sie in `body.notte`).
   Keine `var(--x)` ohne Definition — ein Test prüft Klammern-Balance & undefinierte Variablen.
 - Responsive: Breakpoints bei 720 / 620 / 560 / 380 px; nichts darf seitlich überlaufen.

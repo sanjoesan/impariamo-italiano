@@ -1,10 +1,15 @@
-# 🇮🇹🇬🇧 Impariamo! / Let's Learn! — Spielerisch Italienisch **oder** Englisch lernen
+# 🇮🇹🇬🇧🇪🇸🇫🇷🇵🇹 Impariamo! — Spielerisch fünf Sprachen lernen
 
-Eine liebevoll gestaltete, **deutschsprachige** Lernplattform mit **zwei Kursen**, oben per
-Flagge umschaltbar: **Italienisch** im nostalgischen **„La Dolce Vita"**-Stil ☀️ und
-**Englisch** im **„Swinging London"** 60er/70er-Pop-Look 🎸. Mit Sprachausgabe,
-**Spracherkennung**, Dialogen und Grammatik – pro Kurs eigene Stimme (it-IT / en-GB),
-eigenes Theme und getrennter Fortschritt.
+Eine liebevoll gestaltete, **deutschsprachige** Lernplattform mit **fünf Kursen**, oben per
+Flagge umschaltbar – jeder mit eigenem Farb-Look:
+- 🇮🇹 **Italienisch** — „La Dolce Vita" ☀️
+- 🇬🇧 **Englisch** — „Swinging London" 60er/70er-Pop 🎸
+- 🇪🇸 **Spanisch** — „Fiesta & Sol" (Flamenco-Rot & Safran) 💃
+- 🇫🇷 **Französisch** — „Belle Époque" (Marineblau & Altrosa) 🥐
+- 🇵🇹 **Portugiesisch** — „Azulejo & Mar" (Kachelblau & Korall) 🌊
+
+Mit Sprachausgabe, **Spracherkennung**, Dialogen und Grammatik – pro Kurs eigene Stimme
+(it-IT / en-GB / es-ES / fr-FR / pt-PT), eigenes Theme und **getrennter Fortschritt**.
 
 **▶︎ Live:** https://sanjoesan.github.io/impariamo-italiano/
 
@@ -12,8 +17,9 @@ eigenes Theme und getrennter Fortschritt.
 
 ## ✨ Funktionen
 
-- **🌍 Zwei Kurse, ein Klick:** oben zwischen 🇮🇹 Italienisch und 🇬🇧 Englisch wechseln –
-  inklusive passendem Look, Flair und Lautsprache. Beide Kurse mit vollem Umfang (A1–C2).
+- **🌍 Fünf Kurse, ein Klick:** oben zwischen 🇮🇹 🇬🇧 🇪🇸 🇫🇷 🇵🇹 wechseln –
+  inklusive passendem Look, Flair und Lautsprache. Jeder Kurs mit vollem Umfang
+  (A1–C2, ~826 Lektionen, 70 Themen, 20 Dialoge, 19 Verben).
 - **🎚️ Sechs Schwierigkeitsgrade (CEFR A1–C2)** – jede Lektion ist klar eingestuft,
   von „Principiante" 🌱 bis „Padronanza" 👑. Auf der Startseite **nach Stufe und nach
   Abschnitt (Lebensbereich) filterbar**. Auch die Oberstufen **B2, C1 und C2 haben

@@ -280,6 +280,69 @@ const UISTR = {
     voiceSample: "Hello! Good morning!",
     docTitle: "Let's Learn English · Spielerisch Englisch lernen",
     switched: "🇬🇧 English course — let's go, baby!"
+  },
+  es: {
+    flag: "🇪🇸", brand: "¡Vamos",
+    kicker: "Bienvenidos · Willkommen",
+    title: "¡Aprendamos<br />Español!",
+    sub: `Lerne Spanisch mit viel Sonne, Temperament und Stimme – mit einem Hauch <em>fiesta</em> und Flamenco.`,
+    story: "🗺️ El Camino – Lernpfad",
+    random: "🎲 Zufall",
+    secStory: "El Camino · Dein Lernpfad",
+    secStorySub: "Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.",
+    secLessons: "Las Lecciones · Deine Lektionen",
+    secLessonsSub: "Wähle deinen Schwierigkeitsgrad und leg los. Jede Lektion bietet bis zu sieben Spielmodi.",
+    secConj: "Verbos & Tiempos · Zeiten",
+    secConjSub: "Beuge spanische Verben durch alle Personen – in sechs Zeiten. Mit Tabelle, Aussprache und Übung.",
+    secBadges: "Insignias · Abzeichen",
+    footer: `Hecho con <span class="heart">♥</span> · <em>¡Olé!</em>`,
+    heroStats: (n) => `📚 ${n} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`,
+    sample: "¡Buenos días! ¡Vamos a aprender español!",
+    voiceSample: "¡Hola! ¡Buenos días!",
+    docTitle: "¡Vamos! · Spielerisch Spanisch lernen",
+    switched: "🇪🇸 ¡Curso de español — vamos!"
+  },
+  fr: {
+    flag: "🇫🇷", brand: "Apprenons",
+    kicker: "Bienvenue · Willkommen",
+    title: "Apprenons<br />le Français",
+    sub: `Lerne Französisch mit Eleganz, Stimme und ganz viel <em>savoir-vivre</em> – im Stil der Belle Époque.`,
+    story: "🗺️ Le Parcours – Lernpfad",
+    random: "🎲 Zufall",
+    secStory: "Le Parcours · Dein Lernpfad",
+    secStorySub: "Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.",
+    secLessons: "Les Leçons · Deine Lektionen",
+    secLessonsSub: "Wähle deinen Schwierigkeitsgrad und leg los. Jede Lektion bietet bis zu sieben Spielmodi.",
+    secConj: "Verbes & Temps · Zeiten",
+    secConjSub: "Beuge französische Verben durch alle Personen – in sechs Zeiten. Mit Tabelle, Aussprache und Übung.",
+    secBadges: "Badges · Abzeichen",
+    footer: `Fait avec <span class="heart">♥</span> · <em>À la vôtre !</em>`,
+    heroStats: (n) => `📚 ${n} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`,
+    sample: "Bonjour ! Apprenons le français ensemble !",
+    voiceSample: "Bonjour ! Salut !",
+    docTitle: "Apprenons ! · Spielerisch Französisch lernen",
+    switched: "🇫🇷 Cours de français — c'est parti !"
+  },
+  pt: {
+    flag: "🇵🇹", brand: "Vamos lá",
+    kicker: "Bem-vindos · Willkommen",
+    title: "Vamos aprender<br />Português",
+    sub: `Lerne Portugiesisch mit Meeresbrise, Stimme und ganz viel <em>saudade</em> – im Azulejo-Stil.`,
+    story: "🗺️ O Caminho – Lernpfad",
+    random: "🎲 Zufall",
+    secStory: "O Caminho · Dein Lernpfad",
+    secStorySub: "Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.",
+    secLessons: "As Lições · Deine Lektionen",
+    secLessonsSub: "Wähle deinen Schwierigkeitsgrad und leg los. Jede Lektion bietet bis zu sieben Spielmodi.",
+    secConj: "Verbos & Tempos · Zeiten",
+    secConjSub: "Beuge portugiesische Verben durch alle Personen – in sechs Zeiten. Mit Tabelle, Aussprache und Übung.",
+    secBadges: "Emblemas · Abzeichen",
+    footer: `Feito com <span class="heart">♥</span> · <em>Boa sorte!</em>`,
+    heroStats: (n) => `📚 ${n} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`,
+    sample: "Bom dia! Vamos aprender português!",
+    voiceSample: "Olá! Bom dia!",
+    docTitle: "Vamos! · Spielerisch Portugiesisch lernen",
+    switched: "🇵🇹 Curso de português — vamos lá!"
   }
 };
 function ui() { return UISTR[state.lang] || UISTR.it; }
@@ -309,16 +372,21 @@ function applyCourseChrome() {
 }
 
 /* Kurs/Sprache aktiv setzen: Daten neu bauen, Stimme, Theme-Klasse, Texte */
+const SPEECH_LANG = { it: "it-IT", en: "en-GB", es: "es-ES", fr: "fr-FR", pt: "pt-PT" };
+const THEME_CLASS = { en: "londra", es: "espana", fr: "paris", pt: "lisboa" };
+const ALL_THEME_CLASSES = ["londra", "espana", "paris", "lisboa"];
+
 function setLanguage(lang) {
-  lang = (lang === "en") ? "en" : "it";
+  if (!UISTR[lang]) lang = "it";
   state.lang = lang;
   saveState();
   selectCourse(lang);                                   // data.js: LESSONS/STORY/CONJ/DIALOGHI/BADGES neu
-  speechLang = (lang === "en") ? "en-GB" : "it-IT";
+  speechLang = SPEECH_LANG[lang] || "it-IT";
   lessonById = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
   DIALOG_USER_LINES = computeDialogUserLines();
   pickVoice();
-  document.body.classList.toggle("londra", lang === "en");
+  ALL_THEME_CLASSES.forEach((c) => document.body.classList.remove(c));
+  if (THEME_CLASS[lang]) document.body.classList.add(THEME_CLASS[lang]);
   applyCourseChrome();
 }
 
@@ -356,9 +424,23 @@ function lessonLearnedCount(l, prog) {
 }
 function getProg(id) { return state.lessons[id] || { stars: 0, completed: false, learned: [] }; }
 
-/* Englische Anzeige-Namen für die funktionalen Abschnitte */
-const AREA_LABEL_EN = { "Sfide": "Challenges", "Ripasso": "Review", "Dialoge": "Dialogues", "Grammatica": "Grammar" };
-function areaLabel(area) { return (state.lang === "en" && AREA_LABEL_EN[area]) || area; }
+/* Anzeige-Namen der funktionalen Abschnitte je Kurs-Sprache */
+const AREA_LABELS = {
+  en: { "Sfide": "Challenges", "Ripasso": "Review", "Dialoge": "Dialogues", "Grammatica": "Grammar" },
+  es: { "Sfide": "Retos", "Ripasso": "Repaso", "Dialoge": "Diálogos", "Grammatica": "Gramática" },
+  fr: { "Sfide": "Défis", "Ripasso": "Révision", "Dialoge": "Dialogues", "Grammatica": "Grammaire" },
+  pt: { "Sfide": "Desafios", "Ripasso": "Revisão", "Dialoge": "Diálogos", "Grammatica": "Gramática" }
+};
+function areaLabel(area) { const m = AREA_LABELS[state.lang]; return (m && m[area]) || area; }
+/* Karten-Tags & „Tutti"/„Lektionen" je Kurs-Sprache */
+const CARD_TAGS = {
+  it: { dialogue: "💬 Dialog", grammar: "🔤 Grammatik", sfide: "🎯 Sfida", ripasso: "🔁 Ripasso", done: "Fatto", all: "Tutti", lessons: "Lektionen" },
+  en: { dialogue: "💬 Dialogue", grammar: "🔤 Grammar", sfide: "🎯 Challenge", ripasso: "🔁 Review", done: "Done", all: "All", lessons: "lessons" },
+  es: { dialogue: "💬 Diálogo", grammar: "🔤 Gramática", sfide: "🎯 Reto", ripasso: "🔁 Repaso", done: "Hecho", all: "Todos", lessons: "lecciones" },
+  fr: { dialogue: "💬 Dialogue", grammar: "🔤 Grammaire", sfide: "🎯 Défi", ripasso: "🔁 Révision", done: "Fini", all: "Tous", lessons: "leçons" },
+  pt: { dialogue: "💬 Diálogo", grammar: "🔤 Gramática", sfide: "🎯 Desafio", ripasso: "🔁 Revisão", done: "Feito", all: "Todos", lessons: "lições" }
+};
+function tags() { return CARD_TAGS[state.lang] || CARD_TAGS.it; }
 
 function makeLessonCard(lesson) {
   const prog = getProg(lesson.id);
@@ -367,17 +449,17 @@ function makeLessonCard(lesson) {
   const pct = total ? Math.round((learnedCount / total) * 100) : 0;
   const stars = "★".repeat(prog.stars || 0) + "☆".repeat(3 - (prog.stars || 0));
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
-  const en = state.lang === "en";
-  const kindTag = lesson.kind === "dialogue" ? (en ? "💬 Dialogue" : "💬 Dialog")
-                : lesson.kind === "grammar" ? (en ? "🔤 Grammar" : "🔤 Grammatik")
-                : lesson.area === "Sfide" ? (en ? "🎯 Challenge" : "🎯 Sfida")
-                : lesson.area === "Ripasso" ? (en ? "🔁 Review" : "🔁 Ripasso") : "📚";
+  const tg = tags();
+  const kindTag = lesson.kind === "dialogue" ? tg.dialogue
+                : lesson.kind === "grammar" ? tg.grammar
+                : lesson.area === "Sfide" ? tg.sfide
+                : lesson.area === "Ripasso" ? tg.ripasso : "📚";
 
   const card = document.createElement("button");
   card.className = "lesson-card";
   card.style.setProperty("--card-color", lesson.color);
   card.innerHTML = `
-    ${prog.completed ? `<span class="lc-stamp">✓ ${en ? "Done" : "Fatto"}</span>` : ""}
+    ${prog.completed ? `<span class="lc-stamp">✓ ${tg.done}</span>` : ""}
     <span class="lc-badge" style="--lv:${lvl ? lvl.color : lesson.color}">${lesson.levelCode}</span>
     <span class="lc-emoji">${lesson.emoji}</span>
     <span class="lc-title">${lesson.title}</span>
@@ -454,7 +536,7 @@ function renderLevelFilter() {
   const wrap = $("#levelFilter");
   if (!wrap) return;
   wrap.innerHTML = "";
-  const opts = [{ code: "all", emoji: "🌈", label: state.lang === "en" ? "All" : "Tutti" }]
+  const opts = [{ code: "all", emoji: "🌈", label: tags().all }]
     .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, label: l.code, color: l.color })));
   opts.forEach((o) => {
     const b = document.createElement("button");
@@ -494,8 +576,7 @@ function renderAreaFilter(levelList) {
   if (!wrap) return;
   wrap.innerHTML = "";
   const present = [...new Set(levelList.map((l) => l.area))].sort((a, b) => areaIdx(a) - areaIdx(b));
-  const allLabel = state.lang === "en" ? "All" : "Tutti";
-  const opts = [{ area: "all", emoji: "🗂️", label: allLabel, count: levelList.length }]
+  const opts = [{ area: "all", emoji: "🗂️", label: tags().all, count: levelList.length }]
     .concat(present.map((a) => ({
       area: a, emoji: areaEmoji(a), label: areaLabel(a),
       count: levelList.filter((l) => l.area === a).length
@@ -537,7 +618,7 @@ function renderLessonGrid() {
   areas.forEach((area) => {
     const head = document.createElement("div");
     head.className = "area-head";
-    head.innerHTML = `<span>${areaEmoji(area)} ${areaLabel(area)}</span><small>${groups[area].length} ${state.lang === "en" ? "lessons" : "Lektionen"}</small>`;
+    head.innerHTML = `<span>${areaEmoji(area)} ${areaLabel(area)}</span><small>${groups[area].length} ${tags().lessons}</small>`;
     grid.appendChild(head);
     const row = document.createElement("div");
     row.className = "area-grid";
@@ -2019,7 +2100,7 @@ function toast(msg) {
 function openLevelModal() {
   const pick = $("#levelPick");
   pick.innerHTML = "";
-  const opts = [{ code: "all", emoji: "🌈", code2: state.lang === "en" ? "All" : "Tutti", de: "Egal" }]
+  const opts = [{ code: "all", emoji: "🌈", code2: tags().all, de: "Egal" }]
     .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, code2: l.code, de: l.de, color: l.color })));
   opts.forEach((o) => {
     const b = document.createElement("button");
