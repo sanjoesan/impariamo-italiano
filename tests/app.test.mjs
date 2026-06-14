@@ -274,40 +274,69 @@ test("Dialog: Antworten aus Bausteinen führen zum Abschluss", () => {
   app.close();
 });
 
-test("Story: Schwierigkeit steigt & Fortschritt rückt vor", () => {
+test("Story: Schwierigkeit steigt & Lernpfad rückt nach Abschluss vor", () => {
   const app = makeApp();
   // Story ist nach Level sortiert -> Anfang ist A1, Ende höher
   const first = LESSONS.find((l) => l.id === STORY[0]);
   const last = LESSONS.find((l) => l.id === STORY[STORY.length - 1]);
   assert.ok(first.level <= last.level, "Story steigt in der Schwierigkeit");
 
-  assert.equal(app.state().storyPos || 0, 0, "Story startet bei 0");
-  app.window.advanceStoryIfMatch(STORY[0]);
-  assert.equal(app.state().storyPos, 1, "Story rückt nach Abschluss der Etappe vor");
+  // nächste Etappe = erste noch nicht abgeschlossene Lektion
+  const next0 = app.window.nextStoryLesson();
+  assert.ok(next0, "es gibt eine nächste Etappe");
+
+  // Etappe abschließen -> nächste Etappe rückt vor
+  app.open(next0.id);
+  app.window.completeLesson(3);
+  const next1 = app.window.nextStoryLesson();
+  assert.notEqual(next1.id, next0.id, "nach Abschluss kommt die nächste Etappe");
   app.close();
 });
 
-test("Story-Start: Fortgeschrittene können bei höherem Niveau einsteigen", () => {
+test("Story-Start: Start-Niveau generell & nachträglich wählbar", () => {
   const app = makeApp();
-  // Start-Niveau-Chips werden im Story-Panel angeboten
+  // Start-Niveau-Chips werden im Story-Panel angeboten (alle 6 Stufen)
   assert.ok(app.$$(".story-lv-chip").length >= 2, "Start-Niveau-Chips gerendert");
 
-  // Höchste in der Story vorkommende Stufe wählen
+  // Höchste vorkommende Stufe wählen
   const target = Math.max(...STORY.map((id) => LESSONS.find((l) => l.id === id).level));
-  const expectedIdx = STORY.findIndex((id) => LESSONS.find((l) => l.id === id).level === target);
-  assert.ok(target > 1 && expectedIdx > 0, "Story enthält höhere Stufen nach A1");
+  assert.ok(target > 1, "Story enthält höhere Stufen als A1");
 
-  app.window.setStoryStartLevel(target);
-  assert.equal(app.state().storyPos, expectedIdx, "Story springt an den Anfang der gewählten Stufe");
+  app.window.setStartLevel(target);
+  assert.equal(app.state().startLevel, target, "Start-Niveau wird gespeichert");
 
-  // Panel zeigt nun eine Lektion genau dieser Stufe
-  const shown = LESSONS.find((l) => l.id === STORY[expectedIdx]);
-  assert.equal(app.$(".story-title").textContent, shown.title, "Panel zeigt Lektion der gewählten Stufe");
-  assert.equal(shown.level, target, "Gezeigte Lektion hat das gewählte Niveau");
+  // nächste Etappe liegt genau auf dem gewählten Niveau
+  const next = app.window.nextStoryLesson();
+  assert.equal(next.level, target, "nächste Etappe hat das gewählte Niveau");
+  assert.equal(app.$(".story-title").textContent, next.title, "Panel zeigt diese Lektion");
+
+  // „Weiterlernen" (Hero-Button) wurde entfernt
+  assert.equal(app.$("#continueBtn"), null, "kein separater Weiterlernen-Button mehr");
 
   // Unbekannte Stufe ändert nichts (robust)
-  app.window.setStoryStartLevel(999);
-  assert.equal(app.state().storyPos, expectedIdx, "Ungültige Stufe lässt die Position unverändert");
+  app.window.setStartLevel(999);
+  assert.equal(app.state().startLevel, target, "ungültige Stufe wird ignoriert");
+  app.close();
+});
+
+test("Abschluss-Screen: „Nächste Lektion“ führt zur Folge-Etappe", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.length >= 5);
+  app.open(lesson.id);
+  app.setMode("listen");
+  const total = lesson.words.length;
+  for (let i = 0; i < total; i++) {
+    app.$("#bigSpeak").click();
+    app.$("#listenInput").value = app.window.__spoken;
+    app.$("#listenCheck").click();   // prüfen
+    app.$("#listenCheck").click();   // weiter / fertig
+  }
+  const btn = app.$("#nextLessonBtn");
+  assert.ok(btn, "Nächste-Lektion-Button auf dem Abschluss-Screen vorhanden");
+  const expected = app.window.nextLessonAfterCurrent();
+  assert.ok(expected, "es gibt eine Folge-Lektion");
+  btn.click();
+  assert.equal(app.$("#lessonTitle").textContent, expected.title, "öffnet die Folge-Lektion");
   app.close();
 });
 

@@ -30,7 +30,9 @@ Lerne Italienisch mit Sprachausgabe, **Spracherkennung**, Dialogen, Grammatik un
 - **🔀 Konjugations-Trainer** („Coniugazioni") – **19 Verben** durch alle 6 Personen
   in **6 Zeiten/Modi** (Presente, Passato Prossimo, Imperfetto, Futuro, Condizionale, Congiuntivo).
 - **🗺️ Storia – der Lernpfad:** ein Weg quer durch alle Themen, dessen **Schwierigkeit
-  Schritt für Schritt steigt** (A1 → C2). Der Fortschritt wird gespeichert.
+  Schritt für Schritt steigt** (A1 → C2). Das **Start-Niveau ist frei wählbar – generell
+  und jederzeit nachträglich**; der Pfad beginnt dann dort. Nach jeder Lektion geht's per
+  **„Nächste Lektion"** direkt weiter. Der Fortschritt wird gespeichert.
 - **🎲 Zufalls-Lektion mit Schwierigkeitswahl** – „Wie schwer darf's sein?".
 - **🎮 Bis zu sieben Spielmodi pro Lektion:**
   - **📖 Lernen** – Karteikarten zum Umdrehen, mit automatischer Aussprache (Grammatik-Regel inklusive)

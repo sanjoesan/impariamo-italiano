@@ -12,8 +12,8 @@ const defaultState = () => ({
   lastActive: null,            // "YYYY-MM-DD"
   lessons: {},                 // id -> { stars, completed, learned: [indices] }
   badges: [],                  // ids
-  storyPos: 0,                 // Index in STORY (steigende Schwierigkeit)
-  storyDone: 0,                // wie viele Story-Etappen geschafft
+  startLevel: null,            // gewähltes Start-Niveau (1–6); null = ab A1
+  storyDone: 0,                // wie viele Lektionen abgeschlossen (Lernpfad)
   levelFilter: "A1",           // aktiver Level-Filter auf der Startseite
   areaFilter: "all",           // aktiver Bereichs-Filter (Abschnitt)
   settings: { voiceURI: null, rate: 0.95, theme: "giorno", sound: true }
@@ -300,27 +300,32 @@ function renderHome() {
 function renderStoryPanel() {
   const panel = $("#storyPanel");
   if (!panel) return;
-  const pos = Math.min(state.storyPos || 0, STORY.length - 1);
-  const lesson = lessonById[STORY[pos]];
+  const path = storyPath();
+  if (!path.length) { panel.innerHTML = ""; return; }
+  const total = path.length;
+  const done = path.filter((l) => isLessonDone(l.id)).length;
+  const lesson = nextStoryLesson();
   if (!lesson) { panel.innerHTML = ""; return; }
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
-  const pct = Math.round((pos / STORY.length) * 100);
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const step = Math.min(done + 1, total);
+  const cur = effectiveStartLevel();
+  const allDone = done >= total;
 
-  // Start-Niveau-Wahl: nur Stufen anbieten, die in der Story wirklich vorkommen
-  const levelsInStory = LEVELS.filter((L) => storyStartIndexForLevel(L.n) >= 0);
-  const chips = levelsInStory.map((L) =>
-    `<button class="story-lv-chip${L.n === lesson.level ? " active" : ""}" data-storylv="${L.n}"
-       style="--lv:${L.color}" title="Story ab ${L.code} – ${L.de}">${L.emoji} ${L.code}</button>`
+  // Start-Niveau wählbar (gilt generell & jederzeit änderbar)
+  const chips = LEVELS.map((L) =>
+    `<button class="story-lv-chip${L.n === cur ? " active" : ""}" data-startlv="${L.n}"
+       style="--lv:${L.color}" title="Einstieg ab ${L.code} – ${L.de}">${L.emoji} ${L.code}</button>`
   ).join("");
 
   panel.innerHTML = `
     <div class="story-card" style="--card-color:${lvl ? lvl.color : lesson.color}">
       <div class="story-head">
-        <span class="story-step">Etappe ${pos + 1} / ${STORY.length}</span>
+        <span class="story-step">Etappe ${step} / ${total}</span>
         <span class="story-lv" style="--lv:${lvl ? lvl.color : lesson.color}">${lvl ? lvl.emoji + " " + lvl.code : lesson.levelCode}</span>
       </div>
       <div class="story-levels">
-        <span class="story-levels-label">🎚️ Start-Niveau:</span>
+        <span class="story-levels-label">🎚️ Start-Niveau (jederzeit änderbar):</span>
         <div class="story-lv-chips">${chips}</div>
       </div>
       <div class="story-next">
@@ -331,11 +336,11 @@ function renderStoryPanel() {
         </div>
       </div>
       <div class="story-prog"><i style="width:${pct}%"></i></div>
-      <button class="btn btn-primary" id="storyGo">▶︎ Etappe starten</button>
+      <button class="btn btn-primary" id="storyGo">${allDone ? "↻ Nochmal üben" : done ? "▶︎ Weiterlernen" : "▶︎ Los geht's"}</button>
     </div>`;
   $("#storyGo").addEventListener("click", startStory);
-  $$("#storyPanel [data-storylv]").forEach((b) =>
-    b.addEventListener("click", () => setStoryStartLevel(parseInt(b.dataset.storylv, 10)))
+  $$("#storyPanel [data-startlv]").forEach((b) =>
+    b.addEventListener("click", () => setStartLevel(parseInt(b.dataset.startlv, 10)))
   );
 }
 
@@ -584,16 +589,29 @@ function wireOtherModes(scope) {
     b.addEventListener("click", () => setMode(b.dataset.goto)));
 }
 
+/* „Nächste Lektion"-Button für die Abschluss-Screens (folgt dem Lernpfad) */
+function nextLessonBtnHtml() {
+  return nextLessonAfterCurrent() ? `<button class="btn btn-primary" id="nextLessonBtn">➡️ Nächste Lektion</button>` : "";
+}
+function wireNextLesson(scope) {
+  const b = (scope || document).querySelector("#nextLessonBtn");
+  if (b) b.addEventListener("click", () => { const n = nextLessonAfterCurrent(); if (n) openLesson(n.id); });
+}
+
 /* markiert die Lektion als abgeschlossen + rückt ggf. die Story vor */
 function completeLesson(stars) {
   const p = state.lessons[current.lesson.id];
+  const wasDone = p.completed;
   if (typeof stars === "number") p.stars = Math.max(p.stars || 0, stars);
   p.completed = true;
   if (/^[3-6]$/.test(String(current.lesson.level)) || current.lesson.levelCode[0] === "B" || current.lesson.levelCode[0] === "C") {
     grantBadge("scalatore");
   }
+  if (!wasDone) {
+    state.storyDone = (state.storyDone || 0) + 1;
+    if (state.storyDone >= 10) grantBadge("narratore");
+  }
   saveState();
-  advanceStoryIfMatch(current.lesson.id);
 }
 
 /* =========================================================
@@ -771,11 +789,13 @@ function finishQuiz() {
       <h3>${score} / ${total} richtig</h3>
       <p>${stars === 3 ? "Fehlerfrei – " : ""}${msgs[stars] || "Weiter so!"} <em>(+${score * 4 + (stars === 3 ? 20 : 0)} XP)</em></p>
       <div class="done-actions">
-        <button class="btn btn-primary" id="retryQuiz">↻ Nochmal</button>
+        ${nextLessonBtnHtml()}
+        <button class="btn btn-ghost" id="retryQuiz">↻ Nochmal</button>
         <button class="btn btn-ghost" id="toMatch">🧩 Zuordnen</button>
         <button class="btn btn-ghost" id="toHome">🏠 Startseite</button>
       </div>
     </div>`;
+  wireNextLesson(body);
   $("#retryQuiz").addEventListener("click", () => setMode("quiz"));
   $("#toMatch").addEventListener("click", () => setMode("match"));
   $("#toHome").addEventListener("click", goHome);
@@ -881,11 +901,13 @@ function finishMatch() {
         <h3>Tutto abbinato!</h3>
         <p>Alle Paare gefunden. <em>Sei bravissimo!</em></p>
         <div class="done-actions">
-          <button class="btn btn-primary" id="againMatch">↻ Neue Runde</button>
+          ${nextLessonBtnHtml()}
+          <button class="btn btn-ghost" id="againMatch">↻ Neue Runde</button>
           <button class="btn btn-ghost" id="toQuiz2">🎯 Quiz</button>
           <button class="btn btn-ghost" id="toHome2">🏠 Startseite</button>
         </div>
       </div>`;
+    wireNextLesson(body);
     $("#againMatch").addEventListener("click", () => setMode("match"));
     $("#toQuiz2").addEventListener("click", () => setMode("quiz"));
     $("#toHome2").addEventListener("click", goHome);
@@ -1003,11 +1025,13 @@ function finishListen() {
       <h3>${score} / ${total} richtig gehört</h3>
       <p>${ratio === 1 ? "Perfekt diktiert! " : "Gut zugehört! "}<em>Ottimo orecchio!</em></p>
       <div class="done-actions">
-        <button class="btn btn-primary" id="retryListen">↻ Nochmal</button>
+        ${nextLessonBtnHtml()}
+        <button class="btn btn-ghost" id="retryListen">↻ Nochmal</button>
         ${otherModesHtml("listen")}
         <button class="btn btn-ghost" id="listenToHome">🏠 Startseite</button>
       </div>
     </div>`;
+  wireNextLesson(body);
   $("#retryListen").addEventListener("click", () => setMode("listen"));
   $("#listenToHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1160,11 +1184,13 @@ function finishBuild() {
       <h3>${score} / ${total} Sätze gebaut</h3>
       <p><em>${ratio === 1 ? "Costruttore provetto!" : "Continua a costruire!"}</em></p>
       <div class="done-actions">
-        <button class="btn btn-primary" id="retryBuild">↻ Nochmal</button>
+        ${nextLessonBtnHtml()}
+        <button class="btn btn-ghost" id="retryBuild">↻ Nochmal</button>
         ${otherModesHtml("build")}
         <button class="btn btn-ghost" id="buildHome">🏠 Startseite</button>
       </div>
     </div>`;
+  wireNextLesson(body);
   $("#retryBuild").addEventListener("click", () => setMode("build"));
   $("#buildHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1282,11 +1308,13 @@ function finishGap() {
       <h3>${score} / ${total} Lücken gefüllt</h3>
       <p><em>${ratio === 1 ? "Senza errori!" : "Quasi perfetto!"}</em></p>
       <div class="done-actions">
-        <button class="btn btn-primary" id="retryGap">↻ Nochmal</button>
+        ${nextLessonBtnHtml()}
+        <button class="btn btn-ghost" id="retryGap">↻ Nochmal</button>
         ${otherModesHtml("gap")}
         <button class="btn btn-ghost" id="gapHome">🏠 Startseite</button>
       </div>
     </div>`;
+  wireNextLesson(body);
   $("#retryGap").addEventListener("click", () => setMode("gap"));
   $("#gapHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1411,11 +1439,13 @@ function finishSpeak() {
       <h3>${score} / ${total} ausgesprochen</h3>
       <p><em>${ratio >= 0.6 ? "Che bella pronuncia!" : "L'esercizio rende perfetti!"}</em></p>
       <div class="done-actions">
-        <button class="btn btn-primary" id="retrySpeak">↻ Nochmal</button>
+        ${nextLessonBtnHtml()}
+        <button class="btn btn-ghost" id="retrySpeak">↻ Nochmal</button>
         ${otherModesHtml("speak")}
         <button class="btn btn-ghost" id="speakHome">🏠 Startseite</button>
       </div>
     </div>`;
+  wireNextLesson(body);
   $("#retrySpeak").addEventListener("click", () => setMode("speak"));
   $("#speakHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1514,11 +1544,13 @@ function finishDialogue() {
     <h3>Dialogo completato!</h3>
     <p><em>${dialogState.mistakes === 0 ? "Senza esitazioni — bravissimo!" : "Ben fatto, hai tenuto botta!"}</em></p>
     <div class="done-actions">
-      <button class="btn btn-primary" id="retryDlg">↻ Nochmal</button>
+      ${nextLessonBtnHtml()}
+      <button class="btn btn-ghost" id="retryDlg">↻ Nochmal</button>
       ${otherModesHtml("dialogue")}
       <button class="btn btn-ghost" id="dlgHome">🏠 Startseite</button>
     </div>`;
   body.appendChild(done);
+  wireNextLesson(done);
   $("#retryDlg").addEventListener("click", () => setMode("dialogue"));
   $("#dlgHome").addEventListener("click", goHome);
   wireOtherModes(done);
@@ -1534,38 +1566,49 @@ const DIALOG_USER_LINES = (() => {
   return out;
 })();
 
+/* ---- Lernpfad: dynamisch, ab dem gewählten Start-Niveau ---- */
+function effectiveStartLevel() {
+  const n = state.startLevel;
+  return (n >= 1 && n <= 6) ? n : 1;        // null/ungültig → ab A1
+}
+function isLessonDone(id) {
+  return !!(state.lessons[id] && state.lessons[id].completed);
+}
+/* Alle Lektionen des Pfads (nach Schwierigkeit) ab dem Start-Niveau */
+function storyPath() {
+  const min = effectiveStartLevel();
+  return STORY.map((id) => lessonById[id]).filter((l) => l && l.level >= min);
+}
+/* Nächste noch nicht abgeschlossene Etappe (sonst die letzte) */
+function nextStoryLesson() {
+  const path = storyPath();
+  return path.find((l) => !isLessonDone(l.id)) || path[path.length - 1] || lessonById[STORY[0]] || null;
+}
+/* Folgelektion direkt nach der aktuellen (für „Nächste Lektion") */
+function nextLessonAfterCurrent() {
+  if (!current.lesson) return null;
+  const i = STORY.indexOf(current.lesson.id);
+  if (i < 0) return null;
+  for (let j = i + 1; j < STORY.length; j++) {
+    if (!isLessonDone(STORY[j])) return lessonById[STORY[j]];
+  }
+  return i + 1 < STORY.length ? lessonById[STORY[i + 1]] : null;
+}
+
 function startStory() {
-  const pos = Math.min(state.storyPos || 0, STORY.length - 1);
-  const id = STORY[pos];
-  if (id) openLesson(id);
+  const l = nextStoryLesson();
+  if (l) openLesson(l.id);
 }
 
-/* Erste Story-Etappe einer Stufe (-1 falls Stufe nicht vorkommt) */
-function storyStartIndexForLevel(levelN) {
-  return STORY.findIndex((id) => lessonById[id] && lessonById[id].level === levelN);
-}
-
-/* Story-Startpunkt auf den Beginn der gewählten Stufe setzen
-   (für Fortgeschrittene, die nicht bei A1 anfangen wollen) */
-function setStoryStartLevel(levelN) {
-  const idx = storyStartIndexForLevel(levelN);
-  if (idx < 0) return;
-  state.storyPos = idx;
+/* Start-Niveau wählen — generell & jederzeit nachträglich änderbar.
+   Steuert, wo Storia/Lernpfad beginnt und fortsetzt. */
+function setStartLevel(levelN) {
+  if (!LEVELS.some((L) => L.n === levelN)) return;   // ungültige Stufe ignorieren
+  state.startLevel = levelN;
   saveState();
   renderStoryPanel();
   const L = LEVELS.find((x) => x.n === levelN);
-  if (L) toast(`🗺️ Story beginnt jetzt bei ${L.emoji} ${L.code} – ${L.de}`);
-}
-
-function advanceStoryIfMatch(lessonId) {
-  const pos = state.storyPos || 0;
-  if (STORY[pos] === lessonId) {
-    state.storyPos = Math.min(pos + 1, STORY.length);
-    state.storyDone = (state.storyDone || 0) + 1;
-    if (state.storyDone >= 10) grantBadge("narratore");
-    saveState();
-    toast(`🗺️ Story-Etappe ${state.storyDone} geschafft! Es wird schwieriger …`);
-  }
+  if (L) toast(`🎚️ Start-Niveau: ${L.emoji} ${L.code} – ${L.de}`);
 }
 
 function grantBadge(id) {
@@ -1858,14 +1901,8 @@ function toast(msg) {
 }
 
 /* =========================================================
-   "WEITERLERNEN" / ZUFALL
+   ZUFALL
    ========================================================= */
-function continueLesson() {
-  // erste nicht abgeschlossene Lektion, sonst erste
-  const next = LESSONS.find((l) => !(state.lessons[l.id] && state.lessons[l.id].completed)) || LESSONS[0];
-  openLesson(next.id);
-}
-
 /* Zufalls-Lektion mit Schwierigkeitswahl */
 function openLevelModal() {
   const pick = $("#levelPick");
@@ -1897,7 +1934,6 @@ $("#backBtn").addEventListener("click", goHome);
 $("#conjBack").addEventListener("click", goHome);
 $$("#conjModeTabs .mode-tab").forEach((t) => t.addEventListener("click", () => setConjMode(t.dataset.cmode)));
 $("#storyBtn").addEventListener("click", startStory);
-$("#continueBtn").addEventListener("click", continueLesson);
 $("#randomBtn").addEventListener("click", openLevelModal);
 $("#levelModalClose").addEventListener("click", closeLevelModal);
 $("#levelModal").addEventListener("click", (e) => { if (e.target.id === "levelModal") closeLevelModal(); });

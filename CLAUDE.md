@@ -57,8 +57,13 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
 
 ### App-Logik (`app.js`)
 - `state` in `localStorage` (Key `impariamo_v1`): xp, coins, streak, lessons-Fortschritt,
-  badges, `storyPos`, `levelFilter`, `areaFilter`, settings.
-- Home: `renderStoryPanel` (inkl. **Start-Niveau-Wahl** via `setStoryStartLevel`),
+  badges, `startLevel`, `storyDone`, `levelFilter`, `areaFilter`, settings.
+- Lernpfad (Storia) ist **dynamisch**: `storyPath()` = alle Lektionen nach Schwierigkeit
+  **ab `state.startLevel`** (1–6); `nextStoryLesson()` = nächste offene Etappe.
+  `setStartLevel(n)` wählt das Start-Niveau (generell & jederzeit änderbar). Es gibt
+  keinen separaten „Weiterlernen"-Button mehr — die Story-Karte übernimmt das.
+  Abschluss-Screens bieten **„Nächste Lektion"** (`nextLessonAfterCurrent`).
+- Home: `renderStoryPanel` (inkl. **Start-Niveau-Chips** via `setStartLevel`),
   `renderLevelFilter`, `renderAreaFilter` (Bereichs-/Abschnitt-Filter), `renderLessonGrid`,
   `renderConjGrid`, `renderBadges`.
 - Lektions-Spielmodi (in `MODE_META`): `learn, dialogue, listen, quiz, match, build, gap, speak`.
