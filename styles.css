@@ -165,10 +165,12 @@ main { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; p
 .flag-stripe span:nth-child(3) { background: var(--red-it); }
 
 /* ===================== LESSON GRID (Postkarten) ===================== */
+/* Container = senkrechter Stapel von Bereichen (Titel + Karten darunter),
+   damit Titel-Abschnitte und Lektionen NICHT spaltig vermischt werden. */
 .lesson-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 .lesson-card {
   position: relative;
@@ -560,6 +562,9 @@ body.notte .tense-tab { background: var(--paper-card); }
   .match-stage { gap: 14px; }
   .hero-title { text-shadow: 1px 2px 0 rgba(212,146,42,0.25); }
   .hero-cta-row .btn { flex: 1 1 auto; }
+
+  /* Lektionskarten: volle Breite, mittig */
+  .area-grid .lesson-card { flex: 1 1 100%; width: auto; max-width: 380px; }
 }
 
 /* ---- Kleines Smartphone ---- */
@@ -568,7 +573,6 @@ body.notte .tense-tab { background: var(--paper-card); }
   .lvl-de { display: none; }            /* Level-Badge: nur "🌱 A1" */
   .stats { gap: 8px; }
   .stat-icon { font-size: 1.05rem; }
-  .lesson-grid { grid-template-columns: 1fr; }
   .hero-title { font-size: clamp(2.1rem, 11vw, 3rem); }
   .flash-word { font-size: 1.8rem; }
   .quiz-word { font-size: 1.7rem; }
@@ -579,7 +583,7 @@ body.notte .tense-tab { background: var(--paper-card); }
    ========================================================= */
 
 /* ---------- Level-Filter (Chips) ---------- */
-.level-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.level-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; justify-content: center; }
 .lv-chip {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--paper-card); color: var(--ink);
@@ -594,14 +598,39 @@ body.notte .tense-tab { background: var(--paper-card); }
   border-color: var(--lv, var(--terracotta));
 }
 
-/* ---------- Bereichs-Überschriften & Karten-Reihen ---------- */
-.area-head {
-  display: flex; align-items: baseline; gap: 8px; margin: 18px 0 10px;
-  font-family: "Playfair Display", serif; font-weight: 700; color: var(--terracotta-d);
-  font-size: 1.15rem; border-bottom: 2px dotted color-mix(in srgb, var(--terracotta) 35%, transparent); padding-bottom: 4px;
+/* ---------- Bereichs-Filter (Abschnitte) ---------- */
+.area-filter { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 auto 20px; justify-content: center; max-width: 880px; }
+.area-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--paper-card); color: var(--ink);
+  border: 2px solid rgba(60,46,34,0.14);
+  border-radius: 999px; padding: 6px 13px; cursor: pointer; font-weight: 800;
+  font-family: inherit; font-size: 0.88rem; transition: transform .12s, background .12s, border-color .12s;
 }
-.area-head small { font-weight: 700; color: var(--ink-soft); font-size: 0.8rem; }
-.area-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-bottom: 6px; }
+.area-chip small { opacity: .6; font-weight: 700; }
+.area-chip:hover { transform: translateY(-2px); }
+.area-chip.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+body.notte .area-chip { background: var(--paper-card); }
+
+/* ---------- Bereichs-Überschriften & Karten-Reihen ---------- */
+/* Bereichs-Titel: zentriert, mit kleinem Akzent darunter */
+.area-head {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  margin: 4px 0 6px; text-align: center;
+}
+.area-head span {
+  font-family: "Playfair Display", serif; font-weight: 700; color: var(--terracotta-d);
+  font-size: 1.35rem;
+}
+.area-head span::after {
+  content: ""; display: block; width: 54px; height: 3px; margin: 7px auto 0;
+  border-radius: 3px; background: color-mix(in srgb, var(--terracotta) 55%, transparent);
+}
+.area-head small { font-weight: 800; color: var(--ink-soft); font-size: 0.78rem; }
+
+/* Karten eines Bereichs: zentriert umbrechend (auch die letzte Reihe mittig) */
+.area-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 2px; }
+.area-grid .lesson-card { flex: 0 1 260px; width: 260px; }
 
 /* Level-Badge auf der Lektionskarte */
 .lc-badge {
@@ -772,7 +801,6 @@ body.notte .story-card { background: linear-gradient(160deg, #2f2620, #251f19); 
 
 @media (max-width: 560px) {
   .gap-options, .level-pick { grid-template-columns: 1fr; }
-  .area-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .mic-btn { width: 92px; height: 92px; font-size: 2.3rem; }
   .dlg-bubble { max-width: 92%; }
 }

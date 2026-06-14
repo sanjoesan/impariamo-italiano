@@ -15,6 +15,7 @@ const defaultState = () => ({
   storyPos: 0,                 // Index in STORY (steigende Schwierigkeit)
   storyDone: 0,                // wie viele Story-Etappen geschafft
   levelFilter: "A1",           // aktiver Level-Filter auf der Startseite
+  areaFilter: "all",           // aktiver Bereichs-Filter (Abschnitt)
   settings: { voiceURI: null, rate: 0.95, theme: "giorno", sound: true }
 });
 
@@ -358,25 +359,73 @@ function renderLevelFilter() {
   });
 }
 
+/* Feste Reihenfolge & Icons der Bereiche (Abschnitte) */
+const AREA_ORDER = [
+  "Grundlagen", "Soziales", "Alltag", "Beruf", "Reisen", "Gesundheit", "Natur", "Freizeit",
+  "Lavoro & Economia", "Società & Politica", "Scienza & Ambiente", "Tecnologia & Media",
+  "Arte & Cultura", "Lingua avanzata", "Diritto & Salute", "Mente & Espressioni",
+  "Grammatica", "Dialoge", "Sfide", "Ripasso"
+];
+const AREA_EMOJI = {
+  "Grundlagen": "🧱", "Soziales": "💬", "Alltag": "🏠", "Beruf": "💼", "Reisen": "✈️",
+  "Gesundheit": "🩺", "Natur": "🌿", "Freizeit": "🎉", "Lavoro & Economia": "📈",
+  "Società & Politica": "🏛️", "Scienza & Ambiente": "🔬", "Tecnologia & Media": "💻",
+  "Arte & Cultura": "🎨", "Lingua avanzata": "✒️", "Diritto & Salute": "⚖️",
+  "Mente & Espressioni": "🧠", "Grammatica": "🔤", "Dialoge": "🎭", "Sfide": "🎯", "Ripasso": "🔁"
+};
+const areaIdx = (a) => { const i = AREA_ORDER.indexOf(a); return i < 0 ? 99 : i; };
+const areaEmoji = (a) => AREA_EMOJI[a] || "📚";
+
+/* Zweiter Filter: Abschnitt/Bereich — zeigt nur Bereiche, die es auf der
+   aktuell gewählten Stufe wirklich gibt. */
+function renderAreaFilter(levelList) {
+  const wrap = $("#areaFilter");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  const present = [...new Set(levelList.map((l) => l.area))].sort((a, b) => areaIdx(a) - areaIdx(b));
+  const opts = [{ area: "all", emoji: "🗂️", label: "Tutti", count: levelList.length }]
+    .concat(present.map((a) => ({
+      area: a, emoji: areaEmoji(a), label: a,
+      count: levelList.filter((l) => l.area === a).length
+    })));
+  opts.forEach((o) => {
+    const b = document.createElement("button");
+    b.className = "area-chip" + (state.areaFilter === o.area ? " active" : "");
+    b.innerHTML = `${o.emoji} ${o.label} <small>${o.count}</small>`;
+    b.addEventListener("click", () => {
+      state.areaFilter = o.area; saveState();
+      renderLessonGrid();
+    });
+    wrap.appendChild(b);
+  });
+}
+
 function renderLessonGrid() {
   const grid = $("#lessonGrid");
   grid.innerHTML = "";
   const filter = state.levelFilter || "all";
-  const list = LESSONS.filter((l) => filter === "all" || l.levelCode === filter);
+  const levelList = LESSONS.filter((l) => filter === "all" || l.levelCode === filter);
+
+  // Bereichs-Filter aktualisieren; ungültige Auswahl auf "Tutti" zurücksetzen
+  const available = new Set(levelList.map((l) => l.area));
+  if (state.areaFilter !== "all" && !available.has(state.areaFilter)) {
+    state.areaFilter = "all"; saveState();
+  }
+  renderAreaFilter(levelList);
+
+  const list = state.areaFilter === "all"
+    ? levelList
+    : levelList.filter((l) => l.area === state.areaFilter);
 
   // nach Bereich gruppieren, in fester Reihenfolge
-  const order = ["Grundlagen", "Soziales", "Alltag", "Beruf", "Reisen", "Gesundheit", "Natur", "Freizeit", "Grammatica", "Dialoge", "Sfide", "Ripasso"];
   const groups = {};
   list.forEach((l) => { (groups[l.area] = groups[l.area] || []).push(l); });
-  const areas = Object.keys(groups).sort((a, b) => {
-    const ia = order.indexOf(a), ib = order.indexOf(b);
-    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
-  });
+  const areas = Object.keys(groups).sort((a, b) => areaIdx(a) - areaIdx(b));
 
   areas.forEach((area) => {
     const head = document.createElement("div");
     head.className = "area-head";
-    head.innerHTML = `<span>${area}</span><small>${groups[area].length}</small>`;
+    head.innerHTML = `<span>${areaEmoji(area)} ${area}</span><small>${groups[area].length} Lektionen</small>`;
     grid.appendChild(head);
     const row = document.createElement("div");
     row.className = "area-grid";

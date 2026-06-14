@@ -1302,6 +1302,6783 @@ const CORPUS = [
 ];
 
 /* =========================================================
+   ADVANCED_CORPUS — B2/C1/C2-Themen (fortgeschrittenes Italienisch).
+   Wird in CORPUS eingehaengt; der Generator baut daraus Vokabel-,
+   Ripasso- und Sfida-Lektionen (wie bei A1-B1).
+   ========================================================= */
+const ADVANCED_CORPUS = [
+  {
+    "id": "adv-lavoro",
+    "title": "Mondo del Lavoro",
+    "de": "Arbeitswelt & Beruf",
+    "emoji": "💼",
+    "color": "#3f6f8a",
+    "area": "Lavoro & Economia",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il colloquio di lavoro",
+          "de": "das Vorstellungsgespräch",
+          "emoji": "🤝",
+          "ex": "Ho un colloquio di lavoro molto importante domani mattina.",
+          "exDe": "Ich habe morgen früh ein sehr wichtiges Vorstellungsgespräch."
+        },
+        {
+          "it": "il contratto a tempo indeterminato",
+          "de": "der unbefristete Vertrag",
+          "emoji": "📄",
+          "ex": "Finalmente mi hanno offerto un contratto a tempo indeterminato.",
+          "exDe": "Endlich hat man mir einen unbefristeten Vertrag angeboten."
+        },
+        {
+          "it": "il curriculum",
+          "de": "der Lebenslauf",
+          "emoji": "📋",
+          "ex": "Ho aggiornato il curriculum prima di inviarlo all'azienda.",
+          "exDe": "Ich habe den Lebenslauf aktualisiert, bevor ich ihn an die Firma geschickt habe."
+        },
+        {
+          "it": "lo stipendio",
+          "de": "das Gehalt",
+          "emoji": "💶",
+          "ex": "Lo stipendio viene versato il ventisette di ogni mese.",
+          "exDe": "Das Gehalt wird am siebenundzwanzigsten jedes Monats überwiesen."
+        },
+        {
+          "it": "il datore di lavoro",
+          "de": "der Arbeitgeber",
+          "emoji": "👔",
+          "ex": "Il mio datore di lavoro è molto comprensivo con i dipendenti.",
+          "exDe": "Mein Arbeitgeber ist sehr verständnisvoll gegenüber den Angestellten."
+        },
+        {
+          "it": "il dipendente",
+          "de": "der Angestellte",
+          "emoji": "🧑‍💻",
+          "ex": "L'azienda conta più di duecento dipendenti.",
+          "exDe": "Das Unternehmen zählt mehr als zweihundert Angestellte."
+        },
+        {
+          "it": "le ferie",
+          "de": "der Urlaub",
+          "emoji": "🏖️",
+          "ex": "Quest'anno prenderò le ferie nel mese di agosto.",
+          "exDe": "Dieses Jahr nehme ich meinen Urlaub im August."
+        },
+        {
+          "it": "lo straordinario",
+          "de": "die Überstunde",
+          "emoji": "⏰",
+          "ex": "Questa settimana ho fatto molti straordinari per finire il progetto.",
+          "exDe": "Diese Woche habe ich viele Überstunden gemacht, um das Projekt abzuschließen."
+        },
+        {
+          "it": "il capo",
+          "de": "der Chef",
+          "emoji": "👨‍💼",
+          "ex": "Il capo ci ha convocati per una riunione urgente.",
+          "exDe": "Der Chef hat uns zu einer dringenden Besprechung einberufen."
+        },
+        {
+          "it": "il collega",
+          "de": "der Kollege",
+          "emoji": "👥",
+          "ex": "Vado d'accordo con tutti i miei colleghi.",
+          "exDe": "Ich verstehe mich mit allen meinen Kollegen gut."
+        },
+        {
+          "it": "la scadenza",
+          "de": "die Frist",
+          "emoji": "📅",
+          "ex": "Dobbiamo consegnare il rapporto entro la scadenza di venerdì.",
+          "exDe": "Wir müssen den Bericht bis zur Frist am Freitag abgeben."
+        },
+        {
+          "it": "il tirocinio",
+          "de": "das Praktikum",
+          "emoji": "🎓",
+          "ex": "Ho svolto un tirocinio di sei mesi in uno studio legale.",
+          "exDe": "Ich habe ein sechsmonatiges Praktikum in einer Anwaltskanzlei absolviert."
+        },
+        {
+          "it": "il licenziamento",
+          "de": "die Kündigung",
+          "emoji": "📤",
+          "ex": "Il licenziamento è arrivato senza alcun preavviso.",
+          "exDe": "Die Kündigung kam ohne jede Vorwarnung."
+        },
+        {
+          "it": "le dimissioni",
+          "de": "die Kündigung (durch den Arbeitnehmer)",
+          "emoji": "✍️",
+          "ex": "Ha rassegnato le dimissioni per accettare un'offerta migliore.",
+          "exDe": "Er hat gekündigt, um ein besseres Angebot anzunehmen."
+        },
+        {
+          "it": "la riunione",
+          "de": "die Besprechung",
+          "emoji": "🗣️",
+          "ex": "La riunione di lunedì durerà almeno due ore.",
+          "exDe": "Die Besprechung am Montag wird mindestens zwei Stunden dauern."
+        },
+        {
+          "it": "il lavoro da remoto",
+          "de": "die Fernarbeit",
+          "emoji": "🏠",
+          "ex": "Da quando lavoro da remoto, risparmio molto tempo negli spostamenti.",
+          "exDe": "Seit ich von zu Hause aus arbeite, spare ich viel Zeit beim Pendeln."
+        },
+        {
+          "it": "l'orario flessibile",
+          "de": "die Gleitzeit",
+          "emoji": "🕘",
+          "ex": "Grazie all'orario flessibile posso accompagnare i figli a scuola.",
+          "exDe": "Dank der Gleitzeit kann ich die Kinder zur Schule bringen."
+        },
+        {
+          "it": "il settore",
+          "de": "die Branche",
+          "emoji": "🏭",
+          "ex": "Lavoro nel settore informatico da più di dieci anni.",
+          "exDe": "Ich arbeite seit mehr als zehn Jahren in der IT-Branche."
+        },
+        {
+          "it": "la mansione",
+          "de": "die Aufgabe / Tätigkeit",
+          "emoji": "🛠️",
+          "ex": "Le mie mansioni includono la gestione dei clienti.",
+          "exDe": "Zu meinen Aufgaben gehört die Betreuung der Kunden."
+        },
+        {
+          "it": "l'aumento di stipendio",
+          "de": "die Gehaltserhöhung",
+          "emoji": "📈",
+          "ex": "Ho chiesto al capo un aumento di stipendio.",
+          "exDe": "Ich habe den Chef um eine Gehaltserhöhung gebeten."
+        }
+      ],
+      "C1": [
+        {
+          "it": "la conciliazione vita-lavoro",
+          "de": "die Vereinbarkeit von Beruf und Privatleben",
+          "emoji": "⚖️",
+          "ex": "L'azienda investe molto nella conciliazione vita-lavoro dei suoi dipendenti.",
+          "exDe": "Das Unternehmen investiert viel in die Vereinbarkeit von Beruf und Privatleben seiner Mitarbeiter."
+        },
+        {
+          "it": "il percorso di carriera",
+          "de": "der Karriereweg",
+          "emoji": "🪜",
+          "ex": "Ha tracciato un percorso di carriera ambizioso ma realistico.",
+          "exDe": "Er hat einen ehrgeizigen, aber realistischen Karriereweg vorgezeichnet."
+        },
+        {
+          "it": "le competenze trasversali",
+          "de": "die überfachlichen Kompetenzen",
+          "emoji": "🧩",
+          "ex": "Oggi le competenze trasversali contano quanto quelle tecniche.",
+          "exDe": "Heute zählen die überfachlichen Kompetenzen ebenso viel wie die fachlichen."
+        },
+        {
+          "it": "la valutazione delle prestazioni",
+          "de": "die Leistungsbeurteilung",
+          "emoji": "📊",
+          "ex": "La valutazione delle prestazioni avviene una volta all'anno.",
+          "exDe": "Die Leistungsbeurteilung erfolgt einmal im Jahr."
+        },
+        {
+          "it": "il clima aziendale",
+          "de": "das Betriebsklima",
+          "emoji": "🌡️",
+          "ex": "Un buon clima aziendale aumenta la produttività del team.",
+          "exDe": "Ein gutes Betriebsklima steigert die Produktivität des Teams."
+        },
+        {
+          "it": "la riconversione professionale",
+          "de": "die berufliche Umschulung",
+          "emoji": "🔄",
+          "ex": "Dopo i quarant'anni ha intrapreso una riconversione professionale nel digitale.",
+          "exDe": "Mit über vierzig hat er eine berufliche Umschulung im digitalen Bereich begonnen."
+        },
+        {
+          "it": "il carico di lavoro",
+          "de": "die Arbeitsbelastung",
+          "emoji": "🏋️",
+          "ex": "Il carico di lavoro è diventato insostenibile negli ultimi mesi.",
+          "exDe": "Die Arbeitsbelastung ist in den letzten Monaten unerträglich geworden."
+        },
+        {
+          "it": "delegare le responsabilità",
+          "de": "Verantwortung delegieren",
+          "emoji": "🤲",
+          "ex": "Un buon dirigente sa delegare le responsabilità al momento giusto.",
+          "exDe": "Eine gute Führungskraft weiß, wann sie Verantwortung delegieren muss."
+        },
+        {
+          "it": "il colloquio conoscitivo",
+          "de": "das Kennenlerngespräch",
+          "emoji": "💬",
+          "ex": "Il primo incontro è stato solo un colloquio conoscitivo informale.",
+          "exDe": "Das erste Treffen war nur ein informelles Kennenlerngespräch."
+        },
+        {
+          "it": "la fidelizzazione dei dipendenti",
+          "de": "die Mitarbeiterbindung",
+          "emoji": "🔗",
+          "ex": "La fidelizzazione dei dipendenti riduce i costi di selezione.",
+          "exDe": "Die Mitarbeiterbindung senkt die Kosten für die Personalauswahl."
+        },
+        {
+          "it": "il esaurimento professionale",
+          "de": "das Burnout",
+          "emoji": "😵‍💫",
+          "ex": "Troppi straordinari possono portare all'esaurimento professionale.",
+          "exDe": "Zu viele Überstunden können zum Burnout führen."
+        },
+        {
+          "it": "la mobilità interna",
+          "de": "die interne Versetzung",
+          "emoji": "🚪",
+          "ex": "L'azienda incoraggia la mobilità interna prima di assumere dall'esterno.",
+          "exDe": "Das Unternehmen fördert die interne Versetzung, bevor es von außen einstellt."
+        },
+        {
+          "it": "il colloquio di uscita",
+          "de": "das Austrittsgespräch",
+          "emoji": "🚶",
+          "ex": "Durante il colloquio di uscita ha spiegato le ragioni della sua partenza.",
+          "exDe": "Während des Austrittsgesprächs erläuterte er die Gründe für seinen Weggang."
+        },
+        {
+          "it": "raggiungere gli obiettivi",
+          "de": "die Ziele erreichen",
+          "emoji": "🎯",
+          "ex": "Il reparto ha raggiunto tutti gli obiettivi prefissati per il trimestre.",
+          "exDe": "Die Abteilung hat alle für das Quartal gesteckten Ziele erreicht."
+        },
+        {
+          "it": "la formazione continua",
+          "de": "die Weiterbildung",
+          "emoji": "📚",
+          "ex": "La formazione continua è ormai indispensabile in ogni professione.",
+          "exDe": "Weiterbildung ist mittlerweile in jedem Beruf unverzichtbar."
+        },
+        {
+          "it": "il telelavoro ibrido",
+          "de": "die hybride Arbeit",
+          "emoji": "💻",
+          "ex": "Abbiamo adottato un modello di telelavoro ibrido tre giorni a settimana.",
+          "exDe": "Wir haben ein hybrides Arbeitsmodell mit drei Tagen pro Woche eingeführt."
+        },
+        {
+          "it": "la trattativa salariale",
+          "de": "die Gehaltsverhandlung",
+          "emoji": "🤝",
+          "ex": "La trattativa salariale si è conclusa con un compromesso soddisfacente.",
+          "exDe": "Die Gehaltsverhandlung endete mit einem zufriedenstellenden Kompromiss."
+        },
+        {
+          "it": "il colletto bianco",
+          "de": "der Angestellte im Büro / die Bürofachkraft",
+          "emoji": "👔",
+          "ex": "I colletti bianchi sono stati i primi a passare allo smart working.",
+          "exDe": "Die Büroangestellten waren die Ersten, die ins Homeoffice wechselten."
+        },
+        {
+          "it": "la precarietà lavorativa",
+          "de": "die berufliche Unsicherheit / prekäre Beschäftigung",
+          "emoji": "🎲",
+          "ex": "I giovani soffrono particolarmente la precarietà lavorativa.",
+          "exDe": "Junge Menschen leiden besonders unter der prekären Beschäftigung."
+        },
+        {
+          "it": "il colloquio di gruppo",
+          "de": "das Gruppengespräch / Assessment",
+          "emoji": "👫",
+          "ex": "Il colloquio di gruppo serve a valutare le capacità di collaborazione.",
+          "exDe": "Das Gruppengespräch dient dazu, die Fähigkeit zur Zusammenarbeit zu bewerten."
+        }
+      ],
+      "C2": [
+        {
+          "it": "il demansionamento",
+          "de": "die Herabstufung / Aufgabenbeschneidung",
+          "emoji": "⬇️",
+          "ex": "Il dipendente ha denunciato un demansionamento ingiustificato delle sue funzioni.",
+          "exDe": "Der Angestellte hat eine ungerechtfertigte Herabstufung seiner Funktionen angezeigt."
+        },
+        {
+          "it": "il mobbing sul posto di lavoro",
+          "de": "das Mobbing am Arbeitsplatz",
+          "emoji": "🚫",
+          "ex": "Le accuse di mobbing sul posto di lavoro hanno scosso l'intera dirigenza.",
+          "exDe": "Die Mobbingvorwürfe am Arbeitsplatz haben die gesamte Führungsebene erschüttert."
+        },
+        {
+          "it": "la cassa integrazione",
+          "de": "die Kurzarbeit (mit staatlicher Lohnergänzung)",
+          "emoji": "🏦",
+          "ex": "Durante la crisi, migliaia di operai sono finiti in cassa integrazione.",
+          "exDe": "Während der Krise sind Tausende Arbeiter in Kurzarbeit geschickt worden."
+        },
+        {
+          "it": "il patto di non concorrenza",
+          "de": "das Wettbewerbsverbot",
+          "emoji": "🤐",
+          "ex": "Il dirigente era vincolato da un severo patto di non concorrenza.",
+          "exDe": "Die Führungskraft war an ein strenges Wettbewerbsverbot gebunden."
+        },
+        {
+          "it": "l'esubero di personale",
+          "de": "der Personalüberhang / Personalabbau",
+          "emoji": "📉",
+          "ex": "La ristrutturazione ha comportato un consistente esubero di personale.",
+          "exDe": "Die Umstrukturierung führte zu einem erheblichen Personalabbau."
+        },
+        {
+          "it": "il welfare aziendale",
+          "de": "die betrieblichen Sozialleistungen",
+          "emoji": "🎁",
+          "ex": "Un solido welfare aziendale attira i talenti più ambiti del mercato.",
+          "exDe": "Solide betriebliche Sozialleistungen ziehen die begehrtesten Talente des Marktes an."
+        },
+        {
+          "it": "la dimissione in tronco",
+          "de": "die fristlose Kündigung",
+          "emoji": "💥",
+          "ex": "Dopo l'ennesimo sopruso, ha dato le dimissioni in tronco.",
+          "exDe": "Nach der x-ten Schikane hat er fristlos gekündigt."
+        },
+        {
+          "it": "il knowledge worker",
+          "de": "der Wissensarbeiter",
+          "emoji": "🧠",
+          "ex": "Nell'economia odierna, il knowledge worker rappresenta una risorsa strategica.",
+          "exDe": "In der heutigen Wirtschaft stellt der Wissensarbeiter eine strategische Ressource dar."
+        },
+        {
+          "it": "il dimissionamento silenzioso",
+          "de": "das stille Kündigen (quiet quitting)",
+          "emoji": "🤫",
+          "ex": "Il dimissionamento silenzioso è la risposta di molti a un management tossico.",
+          "exDe": "Das stille Kündigen ist die Antwort vieler auf ein toxisches Management."
+        },
+        {
+          "it": "ricoprire un incarico apicale",
+          "de": "eine Spitzenposition bekleiden",
+          "emoji": "👑",
+          "ex": "Ricopre un incarico apicale in una multinazionale farmaceutica.",
+          "exDe": "Sie bekleidet eine Spitzenposition in einem multinationalen Pharmakonzern."
+        },
+        {
+          "it": "l'ammortizzatore sociale",
+          "de": "das soziale Auffangnetz / die soziale Absicherung",
+          "emoji": "🪂",
+          "ex": "Senza adeguati ammortizzatori sociali, i licenziamenti diventano drammatici.",
+          "exDe": "Ohne angemessene soziale Auffangnetze werden Entlassungen dramatisch."
+        },
+        {
+          "it": "la fuga di cervelli",
+          "de": "die Abwanderung von Fachkräften (brain drain)",
+          "emoji": "🧳",
+          "ex": "La fuga di cervelli impoverisce il tessuto produttivo del Paese.",
+          "exDe": "Die Abwanderung von Fachkräften verarmt das wirtschaftliche Gefüge des Landes."
+        },
+        {
+          "it": "il contratto di somministrazione",
+          "de": "der Arbeitnehmerüberlassungsvertrag (Leiharbeit)",
+          "emoji": "🔁",
+          "ex": "È stato assunto con un contratto di somministrazione tramite un'agenzia interinale.",
+          "exDe": "Er wurde über eine Zeitarbeitsfirma mit einem Arbeitnehmerüberlassungsvertrag eingestellt."
+        },
+        {
+          "it": "rassegnare le proprie spettanze",
+          "de": "die ausstehenden Ansprüche geltend machen",
+          "emoji": "🧾",
+          "ex": "Al termine del rapporto ha rassegnato tutte le proprie spettanze maturate.",
+          "exDe": "Am Ende des Arbeitsverhältnisses hat er alle seine erworbenen Ansprüche geltend gemacht."
+        },
+        {
+          "it": "il presenzialismo",
+          "de": "der Präsentismus (krank zur Arbeit erscheinen)",
+          "emoji": "🤒",
+          "ex": "Il presenzialismo cronico danneggia la salute più dell'assenteismo.",
+          "exDe": "Chronischer Präsentismus schadet der Gesundheit mehr als der Absentismus."
+        },
+        {
+          "it": "il soffitto di cristallo",
+          "de": "die gläserne Decke",
+          "emoji": "🪟",
+          "ex": "Molte donne qualificate si scontrano ancora con il soffitto di cristallo.",
+          "exDe": "Viele qualifizierte Frauen stoßen noch immer an die gläserne Decke."
+        },
+        {
+          "it": "l'inquadramento contrattuale",
+          "de": "die tarifliche Eingruppierung",
+          "emoji": "🗂️",
+          "ex": "Ha contestato il proprio inquadramento contrattuale ritenendolo inadeguato.",
+          "exDe": "Er hat seine tarifliche Eingruppierung angefochten, weil er sie für unangemessen hielt."
+        },
+        {
+          "it": "la liberatoria transattiva",
+          "de": "die einvernehmliche Aufhebungsvereinbarung",
+          "emoji": "🤝",
+          "ex": "Le parti hanno firmato una liberatoria transattiva per chiudere ogni contenzioso.",
+          "exDe": "Die Parteien unterzeichneten eine einvernehmliche Aufhebungsvereinbarung, um jeden Rechtsstreit zu beenden."
+        },
+        {
+          "it": "l'onere della prova",
+          "de": "die Beweislast",
+          "emoji": "⚖️",
+          "ex": "Nei casi di licenziamento illegittimo, l'onere della prova ricade sul datore.",
+          "exDe": "Bei rechtswidrigen Kündigungen liegt die Beweislast beim Arbeitgeber."
+        },
+        {
+          "it": "il trattamento di fine rapporto",
+          "de": "die Abfindung bei Vertragsende",
+          "emoji": "💰",
+          "ex": "Ha investito il trattamento di fine rapporto in un fondo pensione.",
+          "exDe": "Er hat seine Abfindung in einen Pensionsfonds investiert."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-economia",
+    "title": "Economia & Finanza",
+    "de": "Wirtschaft & Finanzen",
+    "emoji": "📈",
+    "color": "#2e7d6f",
+    "area": "Lavoro & Economia",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il mercato",
+          "de": "der Markt",
+          "emoji": "🏪",
+          "ex": "Il mercato dell'usato è cresciuto molto negli ultimi anni.",
+          "exDe": "Der Gebrauchtwarenmarkt ist in den letzten Jahren stark gewachsen."
+        },
+        {
+          "it": "il prezzo",
+          "de": "der Preis",
+          "emoji": "🏷️",
+          "ex": "Il prezzo del caffè è aumentato del dieci per cento.",
+          "exDe": "Der Preis für Kaffee ist um zehn Prozent gestiegen."
+        },
+        {
+          "it": "il risparmio",
+          "de": "die Ersparnis",
+          "emoji": "🐷",
+          "ex": "Ho messo da parte un piccolo risparmio per le emergenze.",
+          "exDe": "Ich habe eine kleine Ersparnis für Notfälle zurückgelegt."
+        },
+        {
+          "it": "l'investimento",
+          "de": "die Investition",
+          "emoji": "📊",
+          "ex": "L'investimento in formazione ripaga sempre nel lungo periodo.",
+          "exDe": "Die Investition in Bildung zahlt sich langfristig immer aus."
+        },
+        {
+          "it": "il conto corrente",
+          "de": "das Girokonto",
+          "emoji": "🏦",
+          "ex": "Ho aperto un conto corrente in una banca online.",
+          "exDe": "Ich habe ein Girokonto bei einer Onlinebank eröffnet."
+        },
+        {
+          "it": "il prestito",
+          "de": "das Darlehen / der Kredit",
+          "emoji": "💳",
+          "ex": "Abbiamo chiesto un prestito per comprare la casa.",
+          "exDe": "Wir haben ein Darlehen aufgenommen, um das Haus zu kaufen."
+        },
+        {
+          "it": "il tasso di interesse",
+          "de": "der Zinssatz",
+          "emoji": "📉",
+          "ex": "Il tasso di interesse sul mutuo è salito di nuovo.",
+          "exDe": "Der Zinssatz für die Hypothek ist wieder gestiegen."
+        },
+        {
+          "it": "la tassa",
+          "de": "die Steuer",
+          "emoji": "🧾",
+          "ex": "Ogni anno bisogna pagare le tasse entro la fine di giugno.",
+          "exDe": "Jedes Jahr müssen die Steuern bis Ende Juni bezahlt werden."
+        },
+        {
+          "it": "il guadagno",
+          "de": "der Gewinn / Verdienst",
+          "emoji": "💵",
+          "ex": "Il guadagno mensile non basta più a coprire le spese.",
+          "exDe": "Der monatliche Verdienst reicht nicht mehr aus, um die Kosten zu decken."
+        },
+        {
+          "it": "la spesa",
+          "de": "die Ausgabe",
+          "emoji": "🛒",
+          "ex": "Le spese familiari sono aumentate notevolmente.",
+          "exDe": "Die Familienausgaben sind erheblich gestiegen."
+        },
+        {
+          "it": "il debito",
+          "de": "die Schuld",
+          "emoji": "📛",
+          "ex": "È riuscito a estinguere tutti i suoi debiti in due anni.",
+          "exDe": "Er hat es geschafft, alle seine Schulden in zwei Jahren zu tilgen."
+        },
+        {
+          "it": "l'azienda",
+          "de": "das Unternehmen",
+          "emoji": "🏢",
+          "ex": "L'azienda ha aperto una nuova filiale all'estero.",
+          "exDe": "Das Unternehmen hat eine neue Niederlassung im Ausland eröffnet."
+        },
+        {
+          "it": "il cliente",
+          "de": "der Kunde",
+          "emoji": "🙋",
+          "ex": "Il cliente ha sempre ragione, dice il proverbio.",
+          "exDe": "Der Kunde hat immer recht, sagt das Sprichwort."
+        },
+        {
+          "it": "il fornitore",
+          "de": "der Lieferant",
+          "emoji": "🚚",
+          "ex": "Abbiamo cambiato fornitore per ridurre i costi.",
+          "exDe": "Wir haben den Lieferanten gewechselt, um die Kosten zu senken."
+        },
+        {
+          "it": "la fattura",
+          "de": "die Rechnung",
+          "emoji": "📨",
+          "ex": "Devo ancora pagare la fattura del mese scorso.",
+          "exDe": "Ich muss noch die Rechnung vom letzten Monat bezahlen."
+        },
+        {
+          "it": "l'inflazione",
+          "de": "die Inflation",
+          "emoji": "🎈",
+          "ex": "L'inflazione ha eroso il potere d'acquisto delle famiglie.",
+          "exDe": "Die Inflation hat die Kaufkraft der Familien geschmälert."
+        },
+        {
+          "it": "la borsa",
+          "de": "die Börse",
+          "emoji": "📈",
+          "ex": "La borsa ha chiuso in rialzo dopo una giornata volatile.",
+          "exDe": "Die Börse hat nach einem volatilen Tag im Plus geschlossen."
+        },
+        {
+          "it": "il bilancio",
+          "de": "die Bilanz / der Haushalt",
+          "emoji": "📚",
+          "ex": "Il bilancio dell'azienda quest'anno è in attivo.",
+          "exDe": "Die Bilanz des Unternehmens ist dieses Jahr positiv."
+        },
+        {
+          "it": "la moneta",
+          "de": "die Währung",
+          "emoji": "🪙",
+          "ex": "L'euro è la moneta comune di gran parte dell'Europa.",
+          "exDe": "Der Euro ist die gemeinsame Währung des größten Teils Europas."
+        },
+        {
+          "it": "il consumatore",
+          "de": "der Verbraucher",
+          "emoji": "🛍️",
+          "ex": "I consumatori sono diventati più attenti alla sostenibilità.",
+          "exDe": "Die Verbraucher achten mehr auf Nachhaltigkeit."
+        }
+      ],
+      "C1": [
+        {
+          "it": "il potere d'acquisto",
+          "de": "die Kaufkraft",
+          "emoji": "💪",
+          "ex": "L'aumento dei prezzi ha ridotto il potere d'acquisto dei salari.",
+          "exDe": "Der Preisanstieg hat die Kaufkraft der Löhne verringert."
+        },
+        {
+          "it": "la congiuntura economica",
+          "de": "die Konjunktur",
+          "emoji": "🔄",
+          "ex": "La congiuntura economica mostra segnali di ripresa.",
+          "exDe": "Die Konjunktur zeigt Anzeichen einer Erholung."
+        },
+        {
+          "it": "il prodotto interno lordo",
+          "de": "das Bruttoinlandsprodukt",
+          "emoji": "🌍",
+          "ex": "Il prodotto interno lordo è cresciuto dello zero virgola cinque per cento.",
+          "exDe": "Das Bruttoinlandsprodukt ist um null Komma fünf Prozent gewachsen."
+        },
+        {
+          "it": "la domanda e l'offerta",
+          "de": "Angebot und Nachfrage",
+          "emoji": "↔️",
+          "ex": "Il prezzo è determinato dall'incontro tra domanda e offerta.",
+          "exDe": "Der Preis ergibt sich aus dem Zusammentreffen von Angebot und Nachfrage."
+        },
+        {
+          "it": "il fatturato",
+          "de": "der Umsatz",
+          "emoji": "💹",
+          "ex": "Il fatturato annuale ha superato i cento milioni di euro.",
+          "exDe": "Der Jahresumsatz hat hundert Millionen Euro überschritten."
+        },
+        {
+          "it": "la quota di mercato",
+          "de": "der Marktanteil",
+          "emoji": "🥧",
+          "ex": "L'impresa ha conquistato una quota di mercato del venti per cento.",
+          "exDe": "Das Unternehmen hat einen Marktanteil von zwanzig Prozent erobert."
+        },
+        {
+          "it": "la redditività",
+          "de": "die Rentabilität",
+          "emoji": "📐",
+          "ex": "La redditività dell'investimento si è rivelata inferiore alle attese.",
+          "exDe": "Die Rentabilität der Investition erwies sich als geringer als erwartet."
+        },
+        {
+          "it": "il flusso di cassa",
+          "de": "der Cashflow / Liquiditätsfluss",
+          "emoji": "💧",
+          "ex": "Un flusso di cassa positivo garantisce la solvibilità dell'azienda.",
+          "exDe": "Ein positiver Cashflow gewährleistet die Zahlungsfähigkeit des Unternehmens."
+        },
+        {
+          "it": "diversificare il portafoglio",
+          "de": "das Portfolio diversifizieren",
+          "emoji": "🎒",
+          "ex": "Per ridurre il rischio conviene diversificare il portafoglio.",
+          "exDe": "Um das Risiko zu senken, empfiehlt es sich, das Portfolio zu diversifizieren."
+        },
+        {
+          "it": "il debito pubblico",
+          "de": "die Staatsverschuldung",
+          "emoji": "🏛️",
+          "ex": "Il debito pubblico italiano resta tra i più elevati d'Europa.",
+          "exDe": "Die italienische Staatsverschuldung gehört weiterhin zu den höchsten in Europa."
+        },
+        {
+          "it": "la politica monetaria",
+          "de": "die Geldpolitik",
+          "emoji": "🎛️",
+          "ex": "La banca centrale ha inasprito la politica monetaria per frenare l'inflazione.",
+          "exDe": "Die Zentralbank hat die Geldpolitik verschärft, um die Inflation zu bremsen."
+        },
+        {
+          "it": "il rendimento",
+          "de": "die Rendite",
+          "emoji": "🌱",
+          "ex": "I titoli di Stato offrono un rendimento modesto ma sicuro.",
+          "exDe": "Staatsanleihen bieten eine bescheidene, aber sichere Rendite."
+        },
+        {
+          "it": "la pressione fiscale",
+          "de": "die Steuerlast",
+          "emoji": "🗜️",
+          "ex": "La pressione fiscale sulle piccole imprese è particolarmente onerosa.",
+          "exDe": "Die Steuerlast für kleine Unternehmen ist besonders drückend."
+        },
+        {
+          "it": "l'economia sommersa",
+          "de": "die Schattenwirtschaft",
+          "emoji": "🌑",
+          "ex": "L'economia sommersa rappresenta una quota rilevante del PIL.",
+          "exDe": "Die Schattenwirtschaft macht einen beträchtlichen Anteil am BIP aus."
+        },
+        {
+          "it": "la recessione",
+          "de": "die Rezession",
+          "emoji": "📉",
+          "ex": "Due trimestri di crescita negativa segnalano una recessione tecnica.",
+          "exDe": "Zwei Quartale mit negativem Wachstum signalisieren eine technische Rezession."
+        },
+        {
+          "it": "il regime fiscale",
+          "de": "das Steuersystem / die Steuerregelung",
+          "emoji": "📑",
+          "ex": "Hanno scelto un regime fiscale agevolato per le start-up.",
+          "exDe": "Sie haben eine begünstigte Steuerregelung für Start-ups gewählt."
+        },
+        {
+          "it": "la fusione aziendale",
+          "de": "die Unternehmensfusion",
+          "emoji": "🤝",
+          "ex": "La fusione aziendale ha dato vita a un colosso del settore.",
+          "exDe": "Die Unternehmensfusion hat einen Branchenriesen entstehen lassen."
+        },
+        {
+          "it": "il capitale di rischio",
+          "de": "das Risikokapital / Wagniskapital",
+          "emoji": "🚀",
+          "ex": "La startup ha raccolto capitale di rischio da diversi investitori.",
+          "exDe": "Das Start-up hat Risikokapital von mehreren Investoren eingesammelt."
+        },
+        {
+          "it": "la sostenibilità economica",
+          "de": "die wirtschaftliche Nachhaltigkeit",
+          "emoji": "♻️",
+          "ex": "La sostenibilità economica del progetto dipende dai finanziamenti pubblici.",
+          "exDe": "Die wirtschaftliche Nachhaltigkeit des Projekts hängt von öffentlichen Mitteln ab."
+        },
+        {
+          "it": "l'indebitamento",
+          "de": "die Verschuldung",
+          "emoji": "⛓️",
+          "ex": "L'eccessivo indebitamento ha portato l'impresa sull'orlo del fallimento.",
+          "exDe": "Die übermäßige Verschuldung hat das Unternehmen an den Rand des Konkurses gebracht."
+        }
+      ],
+      "C2": [
+        {
+          "it": "la liquidità di mercato",
+          "de": "die Marktliquidität",
+          "emoji": "🌊",
+          "ex": "Una scarsa liquidità di mercato amplifica la volatilità dei prezzi.",
+          "exDe": "Eine geringe Marktliquidität verstärkt die Preisvolatilität."
+        },
+        {
+          "it": "l'allentamento quantitativo",
+          "de": "die quantitative Lockerung",
+          "emoji": "🖨️",
+          "ex": "L'allentamento quantitativo ha inondato i mercati di liquidità.",
+          "exDe": "Die quantitative Lockerung hat die Märkte mit Liquidität überschwemmt."
+        },
+        {
+          "it": "lo spread",
+          "de": "der Renditeabstand (Spread)",
+          "emoji": "📏",
+          "ex": "Lo spread tra i titoli italiani e quelli tedeschi si è allargato bruscamente.",
+          "exDe": "Der Renditeabstand zwischen italienischen und deutschen Anleihen hat sich abrupt vergrößert."
+        },
+        {
+          "it": "la stagflazione",
+          "de": "die Stagflation",
+          "emoji": "🥶",
+          "ex": "La stagflazione combina stagnazione economica e alta inflazione.",
+          "exDe": "Die Stagflation verbindet wirtschaftliche Stagnation mit hoher Inflation."
+        },
+        {
+          "it": "il rischio sistemico",
+          "de": "das Systemrisiko",
+          "emoji": "🕸️",
+          "ex": "Il fallimento di una grande banca può generare un rischio sistemico.",
+          "exDe": "Der Zusammenbruch einer Großbank kann ein Systemrisiko auslösen."
+        },
+        {
+          "it": "l'arbitraggio",
+          "de": "die Arbitrage",
+          "emoji": "🔀",
+          "ex": "Gli operatori sfruttano l'arbitraggio per lucrare sulle differenze di prezzo.",
+          "exDe": "Die Händler nutzen die Arbitrage, um aus Preisunterschieden Gewinn zu schlagen."
+        },
+        {
+          "it": "la cartolarizzazione",
+          "de": "die Verbriefung",
+          "emoji": "📜",
+          "ex": "La cartolarizzazione dei mutui fu tra le cause della crisi del 2008.",
+          "exDe": "Die Verbriefung von Hypotheken war eine der Ursachen der Krise von 2008."
+        },
+        {
+          "it": "il fondo sovrano",
+          "de": "der Staatsfonds",
+          "emoji": "🏰",
+          "ex": "Il fondo sovrano norvegese è uno dei maggiori investitori al mondo.",
+          "exDe": "Der norwegische Staatsfonds ist einer der größten Investoren der Welt."
+        },
+        {
+          "it": "la leva finanziaria",
+          "de": "der Verschuldungshebel (Leverage)",
+          "emoji": "🏗️",
+          "ex": "Un eccesso di leva finanziaria espone l'impresa a perdite ingenti.",
+          "exDe": "Ein übermäßiger Verschuldungshebel setzt das Unternehmen enormen Verlusten aus."
+        },
+        {
+          "it": "il merito creditizio",
+          "de": "die Bonität / Kreditwürdigkeit",
+          "emoji": "🏅",
+          "ex": "Le agenzie di rating hanno declassato il merito creditizio dello Stato.",
+          "exDe": "Die Ratingagenturen haben die Bonität des Staates herabgestuft."
+        },
+        {
+          "it": "la svalutazione competitiva",
+          "de": "die Abwertung zur Wettbewerbsförderung",
+          "emoji": "🪂",
+          "ex": "Alcuni Paesi ricorrono alla svalutazione competitiva per sostenere le esportazioni.",
+          "exDe": "Einige Länder greifen zur wettbewerbsfördernden Abwertung, um die Exporte zu stützen."
+        },
+        {
+          "it": "l'elusione fiscale",
+          "de": "die Steuervermeidung",
+          "emoji": "🦊",
+          "ex": "L'elusione fiscale, pur legale, solleva delicate questioni etiche.",
+          "exDe": "Die Steuervermeidung wirft, obwohl legal, heikle ethische Fragen auf."
+        },
+        {
+          "it": "il default sovrano",
+          "de": "der Staatsbankrott / Zahlungsausfall des Staates",
+          "emoji": "💀",
+          "ex": "Il rischio di un default sovrano ha fatto crollare i mercati.",
+          "exDe": "Das Risiko eines Staatsbankrotts hat die Märkte einbrechen lassen."
+        },
+        {
+          "it": "la bolla speculativa",
+          "de": "die Spekulationsblase",
+          "emoji": "🫧",
+          "ex": "Lo scoppio della bolla speculativa ha bruciato miliardi di capitalizzazione.",
+          "exDe": "Das Platzen der Spekulationsblase hat Milliarden an Marktwert vernichtet."
+        },
+        {
+          "it": "il salasso fiscale",
+          "de": "der Steueraderlass / die drückende Besteuerung",
+          "emoji": "🩸",
+          "ex": "I lavoratori autonomi lamentano un vero e proprio salasso fiscale.",
+          "exDe": "Die Selbstständigen beklagen einen regelrechten steuerlichen Aderlass."
+        },
+        {
+          "it": "la disintermediazione",
+          "de": "die Disintermediation",
+          "emoji": "🔌",
+          "ex": "La disintermediazione bancaria avvantaggia le piattaforme fintech.",
+          "exDe": "Die Disintermediation der Banken begünstigt die Fintech-Plattformen."
+        },
+        {
+          "it": "il vincolo di bilancio",
+          "de": "die Haushaltsbeschränkung / Budgetbindung",
+          "emoji": "🔒",
+          "ex": "Il rigido vincolo di bilancio limita gli investimenti pubblici.",
+          "exDe": "Die strenge Haushaltsbeschränkung begrenzt die öffentlichen Investitionen."
+        },
+        {
+          "it": "l'economia di scala",
+          "de": "die Skaleneffekte / Größenvorteile",
+          "emoji": "🏭",
+          "ex": "Le economie di scala consentono di abbattere i costi unitari di produzione.",
+          "exDe": "Die Skaleneffekte ermöglichen es, die Stückkosten der Produktion zu senken."
+        },
+        {
+          "it": "la pressione inflazionistica",
+          "de": "der Inflationsdruck",
+          "emoji": "🌡️",
+          "ex": "Le tensioni sull'energia alimentano una persistente pressione inflazionistica.",
+          "exDe": "Die Spannungen auf dem Energiemarkt nähren einen anhaltenden Inflationsdruck."
+        },
+        {
+          "it": "il tessuto imprenditoriale",
+          "de": "das unternehmerische Gefüge",
+          "emoji": "🧵",
+          "ex": "Il tessuto imprenditoriale italiano è composto in prevalenza da piccole imprese.",
+          "exDe": "Das italienische unternehmerische Gefüge besteht überwiegend aus Kleinunternehmen."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-politica",
+    "title": "Politica & Istituzioni",
+    "de": "Politik & Institutionen",
+    "emoji": "🏛️",
+    "color": "#8a2e3b",
+    "area": "Società & Politica",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il governo",
+          "de": "die Regierung",
+          "emoji": "🏛️",
+          "ex": "Il governo ha approvato una nuova legge sul lavoro.",
+          "exDe": "Die Regierung hat ein neues Arbeitsgesetz verabschiedet."
+        },
+        {
+          "it": "il parlamento",
+          "de": "das Parlament",
+          "emoji": "🏢",
+          "ex": "Il parlamento si riunisce ogni settimana per votare le proposte.",
+          "exDe": "Das Parlament tritt jede Woche zusammen, um über die Vorschläge abzustimmen."
+        },
+        {
+          "it": "il partito politico",
+          "de": "die politische Partei",
+          "emoji": "🎗️",
+          "ex": "Quel partito politico ha vinto le ultime elezioni.",
+          "exDe": "Diese politische Partei hat die letzten Wahlen gewonnen."
+        },
+        {
+          "it": "le elezioni",
+          "de": "die Wahlen",
+          "emoji": "🗳️",
+          "ex": "Le elezioni si terranno la prossima primavera.",
+          "exDe": "Die Wahlen finden im kommenden Frühjahr statt."
+        },
+        {
+          "it": "votare",
+          "de": "wählen, abstimmen",
+          "emoji": "✅",
+          "ex": "Domenica andremo a votare per il nuovo sindaco.",
+          "exDe": "Am Sonntag gehen wir wählen, um den neuen Bürgermeister zu bestimmen."
+        },
+        {
+          "it": "il cittadino",
+          "de": "der Bürger",
+          "emoji": "🧑",
+          "ex": "Ogni cittadino ha il diritto di esprimere la propria opinione.",
+          "exDe": "Jeder Bürger hat das Recht, seine eigene Meinung zu äußern."
+        },
+        {
+          "it": "la legge",
+          "de": "das Gesetz",
+          "emoji": "📜",
+          "ex": "La nuova legge entrerà in vigore il mese prossimo.",
+          "exDe": "Das neue Gesetz tritt nächsten Monat in Kraft."
+        },
+        {
+          "it": "il ministro",
+          "de": "der Minister",
+          "emoji": "👔",
+          "ex": "Il ministro dell'economia ha presentato il bilancio annuale.",
+          "exDe": "Der Wirtschaftsminister hat den Jahreshaushalt vorgestellt."
+        },
+        {
+          "it": "il sindaco",
+          "de": "der Bürgermeister",
+          "emoji": "🏙️",
+          "ex": "Il sindaco ha promesso di migliorare i trasporti pubblici.",
+          "exDe": "Der Bürgermeister hat versprochen, den öffentlichen Nahverkehr zu verbessern."
+        },
+        {
+          "it": "il presidente",
+          "de": "der Präsident",
+          "emoji": "🎖️",
+          "ex": "Il presidente ha tenuto un discorso davanti alla nazione.",
+          "exDe": "Der Präsident hielt eine Rede vor der Nation."
+        },
+        {
+          "it": "la maggioranza",
+          "de": "die Mehrheit",
+          "emoji": "📊",
+          "ex": "La maggioranza ha approvato la riforma senza difficoltà.",
+          "exDe": "Die Mehrheit hat die Reform ohne Schwierigkeiten verabschiedet."
+        },
+        {
+          "it": "l'opposizione",
+          "de": "die Opposition",
+          "emoji": "⚔️",
+          "ex": "L'opposizione critica duramente le scelte del governo.",
+          "exDe": "Die Opposition kritisiert die Entscheidungen der Regierung scharf."
+        },
+        {
+          "it": "la campagna elettorale",
+          "de": "der Wahlkampf",
+          "emoji": "📣",
+          "ex": "Durante la campagna elettorale i candidati girano tutto il paese.",
+          "exDe": "Während des Wahlkampfs reisen die Kandidaten durch das ganze Land."
+        },
+        {
+          "it": "il diritto",
+          "de": "das Recht",
+          "emoji": "⚖️",
+          "ex": "Tutti hanno il diritto a un'istruzione gratuita.",
+          "exDe": "Alle haben das Recht auf eine kostenlose Bildung."
+        },
+        {
+          "it": "il dovere",
+          "de": "die Pflicht",
+          "emoji": "📋",
+          "ex": "Pagare le tasse è un dovere di ogni cittadino.",
+          "exDe": "Steuern zu zahlen ist die Pflicht jedes Bürgers."
+        },
+        {
+          "it": "la democrazia",
+          "de": "die Demokratie",
+          "emoji": "🕊️",
+          "ex": "La democrazia si basa sulla partecipazione dei cittadini.",
+          "exDe": "Die Demokratie beruht auf der Beteiligung der Bürger."
+        },
+        {
+          "it": "la costituzione",
+          "de": "die Verfassung",
+          "emoji": "📖",
+          "ex": "La costituzione garantisce la libertà di stampa.",
+          "exDe": "Die Verfassung garantiert die Pressefreiheit."
+        },
+        {
+          "it": "il comune",
+          "de": "die Gemeinde, das Rathaus",
+          "emoji": "🏤",
+          "ex": "Devo andare al comune per rinnovare la carta d'identità.",
+          "exDe": "Ich muss zur Gemeinde gehen, um meinen Personalausweis zu erneuern."
+        },
+        {
+          "it": "la riforma",
+          "de": "die Reform",
+          "emoji": "🔧",
+          "ex": "La riforma della scuola ha suscitato molte discussioni.",
+          "exDe": "Die Schulreform hat viele Diskussionen ausgelöst."
+        },
+        {
+          "it": "il candidato",
+          "de": "der Kandidat",
+          "emoji": "🙋",
+          "ex": "Il candidato più giovane ha conquistato i voti dei giovani.",
+          "exDe": "Der jüngste Kandidat gewann die Stimmen der jungen Leute."
+        }
+      ],
+      "C1": [
+        {
+          "it": "l'astensionismo",
+          "de": "die Wahlenthaltung",
+          "emoji": "🚫",
+          "ex": "L'astensionismo crescente preoccupa tutti i partiti tradizionali.",
+          "exDe": "Die wachsende Wahlenthaltung beunruhigt alle traditionellen Parteien."
+        },
+        {
+          "it": "il decreto legge",
+          "de": "die Gesetzesverordnung",
+          "emoji": "📑",
+          "ex": "Il governo è ricorso a un decreto legge per affrontare l'emergenza.",
+          "exDe": "Die Regierung griff zu einer Gesetzesverordnung, um den Notstand zu bewältigen."
+        },
+        {
+          "it": "la coalizione",
+          "de": "die Koalition",
+          "emoji": "🤝",
+          "ex": "La coalizione di governo ha mostrato le prime crepe interne.",
+          "exDe": "Die Regierungskoalition zeigte erste interne Risse."
+        },
+        {
+          "it": "varare una legge",
+          "de": "ein Gesetz verabschieden",
+          "emoji": "📜",
+          "ex": "Il parlamento ha finalmente varato la legge sulla privacy.",
+          "exDe": "Das Parlament hat endlich das Datenschutzgesetz verabschiedet."
+        },
+        {
+          "it": "la mozione di sfiducia",
+          "de": "der Misstrauensantrag",
+          "emoji": "✋",
+          "ex": "L'opposizione ha presentato una mozione di sfiducia contro il ministro.",
+          "exDe": "Die Opposition stellte einen Misstrauensantrag gegen den Minister."
+        },
+        {
+          "it": "il referendum",
+          "de": "das Referendum, die Volksabstimmung",
+          "emoji": "🗳️",
+          "ex": "Il referendum abrogativo ha cambiato l'esito della legge.",
+          "exDe": "Das aufhebende Referendum hat den Ausgang des Gesetzes verändert."
+        },
+        {
+          "it": "la circoscrizione elettorale",
+          "de": "der Wahlkreis",
+          "emoji": "🗺️",
+          "ex": "In quella circoscrizione elettorale il risultato è stato sorprendente.",
+          "exDe": "In jenem Wahlkreis war das Ergebnis überraschend."
+        },
+        {
+          "it": "il quorum",
+          "de": "das Quorum, die Beschlussfähigkeit",
+          "emoji": "🔢",
+          "ex": "Il referendum non ha raggiunto il quorum necessario.",
+          "exDe": "Das Referendum erreichte das erforderliche Quorum nicht."
+        },
+        {
+          "it": "promulgare",
+          "de": "verkünden, ausfertigen",
+          "emoji": "✍️",
+          "ex": "Il capo dello Stato ha promulgato la legge senza obiezioni.",
+          "exDe": "Das Staatsoberhaupt hat das Gesetz ohne Einwände ausgefertigt."
+        },
+        {
+          "it": "la separazione dei poteri",
+          "de": "die Gewaltenteilung",
+          "emoji": "⚖️",
+          "ex": "La separazione dei poteri è un pilastro dello Stato di diritto.",
+          "exDe": "Die Gewaltenteilung ist eine Säule des Rechtsstaats."
+        },
+        {
+          "it": "l'iter legislativo",
+          "de": "das Gesetzgebungsverfahren",
+          "emoji": "🔄",
+          "ex": "L'iter legislativo di questa riforma è stato lungo e tortuoso.",
+          "exDe": "Das Gesetzgebungsverfahren dieser Reform war lang und verschlungen."
+        },
+        {
+          "it": "il portavoce",
+          "de": "der Sprecher",
+          "emoji": "🎤",
+          "ex": "Il portavoce del governo ha smentito le voci di dimissioni.",
+          "exDe": "Der Regierungssprecher dementierte die Gerüchte über einen Rücktritt."
+        },
+        {
+          "it": "lo scrutinio",
+          "de": "die Stimmenauszählung",
+          "emoji": "🧮",
+          "ex": "Lo scrutinio dei voti è proseguito fino a tarda notte.",
+          "exDe": "Die Stimmenauszählung dauerte bis spät in die Nacht."
+        },
+        {
+          "it": "la legislatura",
+          "de": "die Legislaturperiode",
+          "emoji": "📆",
+          "ex": "La legislatura si è conclusa con elezioni anticipate.",
+          "exDe": "Die Legislaturperiode endete mit vorgezogenen Neuwahlen."
+        },
+        {
+          "it": "il dissenso",
+          "de": "der Dissens, der Widerspruch",
+          "emoji": "🙅",
+          "ex": "Il dissenso interno al partito ha indebolito la leadership.",
+          "exDe": "Der parteiinterne Dissens hat die Führung geschwächt."
+        },
+        {
+          "it": "la sovranità",
+          "de": "die Souveränität",
+          "emoji": "👑",
+          "ex": "Il dibattito sulla sovranità nazionale è tornato di attualità.",
+          "exDe": "Die Debatte über die nationale Souveränität ist wieder aktuell geworden."
+        },
+        {
+          "it": "l'emendamento",
+          "de": "der Änderungsantrag",
+          "emoji": "📝",
+          "ex": "L'emendamento proposto ha modificato sostanzialmente il testo.",
+          "exDe": "Der vorgeschlagene Änderungsantrag hat den Text wesentlich verändert."
+        },
+        {
+          "it": "il consenso popolare",
+          "de": "der Rückhalt in der Bevölkerung",
+          "emoji": "📈",
+          "ex": "Il premier gode ancora di un ampio consenso popolare.",
+          "exDe": "Der Ministerpräsident genießt noch immer breiten Rückhalt in der Bevölkerung."
+        },
+        {
+          "it": "la tornata elettorale",
+          "de": "der Wahlgang, die Wahlrunde",
+          "emoji": "🔁",
+          "ex": "Alla seconda tornata elettorale il candidato ha prevalso di poco.",
+          "exDe": "Im zweiten Wahlgang setzte sich der Kandidat knapp durch."
+        },
+        {
+          "it": "il decentramento",
+          "de": "die Dezentralisierung",
+          "emoji": "🌐",
+          "ex": "Il decentramento ha trasferito più poteri alle regioni.",
+          "exDe": "Die Dezentralisierung hat den Regionen mehr Befugnisse übertragen."
+        }
+      ],
+      "C2": [
+        {
+          "it": "il trasformismo",
+          "de": "der Opportunismus politischer Lagerwechsel",
+          "emoji": "🔀",
+          "ex": "Il trasformismo parlamentare ha eroso la fiducia degli elettori.",
+          "exDe": "Der opportunistische Lagerwechsel im Parlament hat das Vertrauen der Wähler untergraben."
+        },
+        {
+          "it": "l'inciucio",
+          "de": "die undurchsichtige Hinterzimmerabsprache",
+          "emoji": "🤫",
+          "ex": "La stampa ha denunciato un inciucio tra maggioranza e opposizione.",
+          "exDe": "Die Presse prangerte eine Hinterzimmerabsprache zwischen Regierung und Opposition an."
+        },
+        {
+          "it": "il sottosegretario",
+          "de": "der Staatssekretär",
+          "emoji": "🗂️",
+          "ex": "Il sottosegretario ha gestito il dossier con discrezione.",
+          "exDe": "Der Staatssekretär bearbeitete den Vorgang mit Diskretion."
+        },
+        {
+          "it": "la dietrologia",
+          "de": "das Hineindeuten verborgener Hintergründe",
+          "emoji": "🕵️",
+          "ex": "In Italia la dietrologia accompagna ogni scandalo politico.",
+          "exDe": "In Italien begleitet das Hineindeuten verborgener Hintergründe jeden politischen Skandal."
+        },
+        {
+          "it": "il cerchio magico",
+          "de": "der innerste Kreis der Vertrauten",
+          "emoji": "🔮",
+          "ex": "Le decisioni nascevano sempre nel cerchio magico del leader.",
+          "exDe": "Die Entscheidungen entstanden stets im innersten Kreis der Vertrauten des Anführers."
+        },
+        {
+          "it": "il franco tiratore",
+          "de": "der heimliche Abweichler bei geheimer Abstimmung",
+          "emoji": "🎯",
+          "ex": "Alcuni franchi tiratori hanno affossato la candidatura ufficiale.",
+          "exDe": "Einige heimliche Abweichler ließen die offizielle Kandidatur scheitern."
+        },
+        {
+          "it": "la lottizzazione",
+          "de": "die parteipolitische Postenaufteilung",
+          "emoji": "🧩",
+          "ex": "La lottizzazione degli enti pubblici ha sempre frenato il merito.",
+          "exDe": "Die parteipolitische Aufteilung der öffentlichen Ämter hat das Leistungsprinzip stets gebremst."
+        },
+        {
+          "it": "il ribaltone",
+          "de": "der plötzliche Machtumschwung",
+          "emoji": "🔃",
+          "ex": "Il ribaltone ha portato al potere chi era appena uscito sconfitto.",
+          "exDe": "Der plötzliche Machtumschwung brachte denjenigen an die Macht, der gerade noch unterlegen war."
+        },
+        {
+          "it": "il malgoverno",
+          "de": "die Misswirtschaft, das schlechte Regieren",
+          "emoji": "📉",
+          "ex": "Anni di malgoverno hanno lasciato le casse pubbliche dissestate.",
+          "exDe": "Jahre der Misswirtschaft haben die öffentlichen Kassen zerrüttet hinterlassen."
+        },
+        {
+          "it": "l'ostruzionismo",
+          "de": "die Obstruktionspolitik, die Verzögerungstaktik",
+          "emoji": "🚧",
+          "ex": "L'ostruzionismo dell'opposizione ha bloccato i lavori per settimane.",
+          "exDe": "Die Verzögerungstaktik der Opposition blockierte die Arbeiten wochenlang."
+        },
+        {
+          "it": "la consociazione",
+          "de": "die stillschweigende Machtteilung der Parteien",
+          "emoji": "🔗",
+          "ex": "La consociazione tra i grandi partiti soffocava ogni vera alternativa.",
+          "exDe": "Die stillschweigende Machtteilung der großen Parteien erstickte jede echte Alternative."
+        },
+        {
+          "it": "il fumus persecutionis",
+          "de": "der Verdacht politisch motivierter Verfolgung",
+          "emoji": "⚠️",
+          "ex": "La difesa ha invocato il fumus persecutionis per respingere l'accusa.",
+          "exDe": "Die Verteidigung berief sich auf den Verdacht politisch motivierter Verfolgung, um die Anklage zurückzuweisen."
+        },
+        {
+          "it": "lo statista",
+          "de": "der Staatsmann von Format",
+          "emoji": "🎩",
+          "ex": "Solo un vero statista sa anteporre il bene comune al consenso immediato.",
+          "exDe": "Nur ein wahrer Staatsmann von Format stellt das Gemeinwohl über den unmittelbaren Beifall."
+        },
+        {
+          "it": "la realpolitik",
+          "de": "die Realpolitik, das interessengeleitete Handeln",
+          "emoji": "♟️",
+          "ex": "In nome della realpolitik furono accantonati molti principi proclamati.",
+          "exDe": "Im Namen der Realpolitik wurden viele verkündete Grundsätze beiseitegeschoben."
+        },
+        {
+          "it": "l'asse di governo",
+          "de": "die tragende Regierungsachse",
+          "emoji": "📐",
+          "ex": "L'asse di governo si è incrinato sulla legge di bilancio.",
+          "exDe": "Die tragende Regierungsachse bekam beim Haushaltsgesetz Risse."
+        },
+        {
+          "it": "il voto di scambio",
+          "de": "der Stimmenkauf",
+          "emoji": "💱",
+          "ex": "L'inchiesta ha portato alla luce un sistema di voto di scambio.",
+          "exDe": "Die Ermittlung brachte ein System des Stimmenkaufs ans Licht."
+        },
+        {
+          "it": "la nomenklatura",
+          "de": "die etablierte Machtelite",
+          "emoji": "🏷️",
+          "ex": "La nuova generazione voleva scardinare la vecchia nomenklatura.",
+          "exDe": "Die neue Generation wollte die alte Machtelite aus den Angeln heben."
+        },
+        {
+          "it": "il bizantinismo",
+          "de": "die übertriebene formalistische Spitzfindigkeit",
+          "emoji": "🌀",
+          "ex": "Il dibattito si è perso in un bizantinismo procedurale sterile.",
+          "exDe": "Die Debatte verlor sich in einer unfruchtbaren prozeduralen Spitzfindigkeit."
+        },
+        {
+          "it": "la moral suasion",
+          "de": "die sanfte Einflussnahme ohne Zwang",
+          "emoji": "🪶",
+          "ex": "Il presidente ha esercitato una discreta moral suasion sui partiti.",
+          "exDe": "Der Präsident übte eine diskrete, sanfte Einflussnahme auf die Parteien aus."
+        },
+        {
+          "it": "la governabilità",
+          "de": "die Regierbarkeit",
+          "emoji": "🧭",
+          "ex": "La frammentazione del voto mette a rischio la governabilità del paese.",
+          "exDe": "Die Zersplitterung der Stimmen gefährdet die Regierbarkeit des Landes."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-societa",
+    "title": "Società & Attualità",
+    "de": "Gesellschaft & Aktuelles",
+    "emoji": "👥",
+    "color": "#c2548a",
+    "area": "Società & Politica",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "la società",
+          "de": "die Gesellschaft",
+          "emoji": "👥",
+          "ex": "La società moderna cambia più rapidamente che mai.",
+          "exDe": "Die moderne Gesellschaft verändert sich schneller als je zuvor."
+        },
+        {
+          "it": "la disoccupazione",
+          "de": "die Arbeitslosigkeit",
+          "emoji": "📉",
+          "ex": "La disoccupazione giovanile resta un problema serio.",
+          "exDe": "Die Jugendarbeitslosigkeit bleibt ein ernstes Problem."
+        },
+        {
+          "it": "l'immigrazione",
+          "de": "die Einwanderung",
+          "emoji": "🌍",
+          "ex": "L'immigrazione ha cambiato il volto di molte città.",
+          "exDe": "Die Einwanderung hat das Gesicht vieler Städte verändert."
+        },
+        {
+          "it": "la povertà",
+          "de": "die Armut",
+          "emoji": "🥖",
+          "ex": "Molte associazioni lottano contro la povertà nelle periferie.",
+          "exDe": "Viele Vereine kämpfen gegen die Armut in den Außenbezirken."
+        },
+        {
+          "it": "l'uguaglianza",
+          "de": "die Gleichheit",
+          "emoji": "⚖️",
+          "ex": "L'uguaglianza tra uomini e donne è ancora da raggiungere.",
+          "exDe": "Die Gleichheit zwischen Männern und Frauen ist noch nicht erreicht."
+        },
+        {
+          "it": "la discriminazione",
+          "de": "die Diskriminierung",
+          "emoji": "🚫",
+          "ex": "La discriminazione sul lavoro è vietata dalla legge.",
+          "exDe": "Diskriminierung am Arbeitsplatz ist gesetzlich verboten."
+        },
+        {
+          "it": "l'integrazione",
+          "de": "die Integration",
+          "emoji": "🤝",
+          "ex": "La scuola favorisce l'integrazione dei nuovi arrivati.",
+          "exDe": "Die Schule fördert die Integration der Neuankömmlinge."
+        },
+        {
+          "it": "il volontariato",
+          "de": "die ehrenamtliche Arbeit",
+          "emoji": "🙌",
+          "ex": "Dedica il fine settimana al volontariato in ospedale.",
+          "exDe": "Er widmet das Wochenende der ehrenamtlichen Arbeit im Krankenhaus."
+        },
+        {
+          "it": "i mezzi di comunicazione",
+          "de": "die Medien",
+          "emoji": "📺",
+          "ex": "I mezzi di comunicazione influenzano molto l'opinione pubblica.",
+          "exDe": "Die Medien beeinflussen die öffentliche Meinung stark."
+        },
+        {
+          "it": "l'opinione pubblica",
+          "de": "die öffentliche Meinung",
+          "emoji": "💬",
+          "ex": "L'opinione pubblica si è divisa sul tema dell'ambiente.",
+          "exDe": "Die öffentliche Meinung ist beim Thema Umwelt gespalten."
+        },
+        {
+          "it": "la generazione",
+          "de": "die Generation",
+          "emoji": "👶",
+          "ex": "La nuova generazione è cresciuta con la tecnologia digitale.",
+          "exDe": "Die neue Generation ist mit der digitalen Technik aufgewachsen."
+        },
+        {
+          "it": "il pregiudizio",
+          "de": "das Vorurteil",
+          "emoji": "🙄",
+          "ex": "Bisogna combattere i pregiudizi con l'informazione.",
+          "exDe": "Man muss Vorurteile mit Aufklärung bekämpfen."
+        },
+        {
+          "it": "la solidarietà",
+          "de": "die Solidarität",
+          "emoji": "💞",
+          "ex": "In tempi difficili la solidarietà tra vicini è fondamentale.",
+          "exDe": "In schwierigen Zeiten ist die Solidarität unter Nachbarn entscheidend."
+        },
+        {
+          "it": "l'inquinamento",
+          "de": "die Umweltverschmutzung",
+          "emoji": "🏭",
+          "ex": "L'inquinamento dell'aria peggiora la qualità della vita.",
+          "exDe": "Die Luftverschmutzung verschlechtert die Lebensqualität."
+        },
+        {
+          "it": "il cambiamento climatico",
+          "de": "der Klimawandel",
+          "emoji": "🌡️",
+          "ex": "Il cambiamento climatico minaccia molte specie animali.",
+          "exDe": "Der Klimawandel bedroht viele Tierarten."
+        },
+        {
+          "it": "la manifestazione",
+          "de": "die Demonstration",
+          "emoji": "📢",
+          "ex": "Migliaia di persone hanno partecipato alla manifestazione per la pace.",
+          "exDe": "Tausende Menschen nahmen an der Friedensdemonstration teil."
+        },
+        {
+          "it": "il diritto civile",
+          "de": "das Bürgerrecht",
+          "emoji": "📜",
+          "ex": "Hanno lottato a lungo per ottenere i diritti civili.",
+          "exDe": "Sie haben lange für die Bürgerrechte gekämpft."
+        },
+        {
+          "it": "la classe sociale",
+          "de": "die soziale Schicht",
+          "emoji": "🏷️",
+          "ex": "Le differenze tra le classi sociali sono ancora evidenti.",
+          "exDe": "Die Unterschiede zwischen den sozialen Schichten sind noch immer deutlich."
+        },
+        {
+          "it": "l'attualità",
+          "de": "das aktuelle Geschehen, das Zeitgeschehen",
+          "emoji": "📰",
+          "ex": "Mi piace restare aggiornato sull'attualità leggendo i giornali.",
+          "exDe": "Ich bleibe gern über das Zeitgeschehen auf dem Laufenden, indem ich Zeitungen lese."
+        },
+        {
+          "it": "il benessere",
+          "de": "der Wohlstand, das Wohlergehen",
+          "emoji": "😊",
+          "ex": "Il benessere economico non basta a garantire la felicità.",
+          "exDe": "Wirtschaftlicher Wohlstand reicht nicht aus, um Glück zu garantieren."
+        }
+      ],
+      "C1": [
+        {
+          "it": "l'emarginazione",
+          "de": "die soziale Ausgrenzung",
+          "emoji": "🚷",
+          "ex": "L'emarginazione dei senzatetto richiede politiche più efficaci.",
+          "exDe": "Die soziale Ausgrenzung der Obdachlosen erfordert wirksamere Maßnahmen."
+        },
+        {
+          "it": "il divario sociale",
+          "de": "die soziale Kluft",
+          "emoji": "↔️",
+          "ex": "Il divario sociale tra ricchi e poveri si è ampliato negli ultimi anni.",
+          "exDe": "Die soziale Kluft zwischen Arm und Reich hat sich in den letzten Jahren vergrößert."
+        },
+        {
+          "it": "la coesione sociale",
+          "de": "der gesellschaftliche Zusammenhalt",
+          "emoji": "🧶",
+          "ex": "Le politiche pubbliche mirano a rafforzare la coesione sociale.",
+          "exDe": "Die öffentlichen Maßnahmen zielen darauf ab, den gesellschaftlichen Zusammenhalt zu stärken."
+        },
+        {
+          "it": "il welfare",
+          "de": "der Sozialstaat, die Sozialfürsorge",
+          "emoji": "🛟",
+          "ex": "I tagli al welfare hanno colpito le fasce più deboli.",
+          "exDe": "Die Kürzungen bei der Sozialfürsorge trafen die schwächsten Bevölkerungsschichten."
+        },
+        {
+          "it": "la mobilità sociale",
+          "de": "die soziale Mobilität",
+          "emoji": "🪜",
+          "ex": "In quel paese la mobilità sociale è praticamente bloccata.",
+          "exDe": "In jenem Land ist die soziale Mobilität praktisch zum Stillstand gekommen."
+        },
+        {
+          "it": "l'invecchiamento della popolazione",
+          "de": "die Überalterung der Bevölkerung",
+          "emoji": "👵",
+          "ex": "L'invecchiamento della popolazione mette sotto pressione le pensioni.",
+          "exDe": "Die Überalterung der Bevölkerung setzt das Rentensystem unter Druck."
+        },
+        {
+          "it": "la denatalità",
+          "de": "der Geburtenrückgang",
+          "emoji": "📉",
+          "ex": "La denatalità rappresenta una sfida cruciale per il futuro.",
+          "exDe": "Der Geburtenrückgang stellt eine entscheidende Herausforderung für die Zukunft dar."
+        },
+        {
+          "it": "lo sfruttamento",
+          "de": "die Ausbeutung",
+          "emoji": "⛓️",
+          "ex": "Le indagini hanno svelato lo sfruttamento dei braccianti.",
+          "exDe": "Die Ermittlungen deckten die Ausbeutung der Landarbeiter auf."
+        },
+        {
+          "it": "il disagio giovanile",
+          "de": "das Unbehagen der Jugend",
+          "emoji": "😔",
+          "ex": "Gli esperti studiano le cause del crescente disagio giovanile.",
+          "exDe": "Die Fachleute untersuchen die Ursachen des wachsenden Unbehagens der Jugend."
+        },
+        {
+          "it": "l'integrazione culturale",
+          "de": "die kulturelle Integration",
+          "emoji": "🌐",
+          "ex": "L'integrazione culturale richiede rispetto reciproco e dialogo.",
+          "exDe": "Die kulturelle Integration erfordert gegenseitigen Respekt und Dialog."
+        },
+        {
+          "it": "la sensibilizzazione",
+          "de": "die Sensibilisierung, die Bewusstseinsbildung",
+          "emoji": "💡",
+          "ex": "La campagna di sensibilizzazione ha raggiunto migliaia di scuole.",
+          "exDe": "Die Sensibilisierungskampagne erreichte Tausende von Schulen."
+        },
+        {
+          "it": "il tessuto sociale",
+          "de": "das soziale Gefüge",
+          "emoji": "🕸️",
+          "ex": "La crisi economica ha lacerato il tessuto sociale del quartiere.",
+          "exDe": "Die Wirtschaftskrise hat das soziale Gefüge des Viertels zerrissen."
+        },
+        {
+          "it": "la precarietà",
+          "de": "die Prekarität, die Unsicherheit der Lebensverhältnisse",
+          "emoji": "🪤",
+          "ex": "La precarietà del lavoro impedisce ai giovani di fare progetti.",
+          "exDe": "Die Unsicherheit der Arbeitsverhältnisse hindert junge Menschen daran, Pläne zu schmieden."
+        },
+        {
+          "it": "il pluralismo",
+          "de": "der Pluralismus",
+          "emoji": "🎭",
+          "ex": "Il pluralismo dei media è garanzia di una democrazia sana.",
+          "exDe": "Der Medienpluralismus ist eine Garantie für eine gesunde Demokratie."
+        },
+        {
+          "it": "la disinformazione",
+          "de": "die Desinformation",
+          "emoji": "📵",
+          "ex": "La disinformazione si diffonde rapidamente sui social network.",
+          "exDe": "Die Desinformation verbreitet sich rasch in den sozialen Netzwerken."
+        },
+        {
+          "it": "la sostenibilità",
+          "de": "die Nachhaltigkeit",
+          "emoji": "♻️",
+          "ex": "La sostenibilità ambientale è ormai una priorità per le imprese.",
+          "exDe": "Die ökologische Nachhaltigkeit ist mittlerweile eine Priorität für die Unternehmen."
+        },
+        {
+          "it": "il riscatto sociale",
+          "de": "der soziale Aufstieg aus benachteiligten Verhältnissen",
+          "emoji": "🌟",
+          "ex": "Lo sport è stato per lui uno strumento di riscatto sociale.",
+          "exDe": "Der Sport war für ihn ein Mittel des sozialen Aufstiegs aus benachteiligten Verhältnissen."
+        },
+        {
+          "it": "la mobilitazione",
+          "de": "die Mobilisierung",
+          "emoji": "✊",
+          "ex": "La mobilitazione dei cittadini ha fermato la costruzione dell'impianto.",
+          "exDe": "Die Mobilisierung der Bürger stoppte den Bau der Anlage."
+        },
+        {
+          "it": "l'inclusione",
+          "de": "die Inklusion, die Einbeziehung",
+          "emoji": "🫂",
+          "ex": "L'inclusione delle persone con disabilità è un obiettivo prioritario.",
+          "exDe": "Die Inklusion von Menschen mit Behinderung ist ein vorrangiges Ziel."
+        }
+      ],
+      "C2": [
+        {
+          "it": "la deriva securitaria",
+          "de": "die Abdriftung in einen überzogenen Sicherheitskurs",
+          "emoji": "🔒",
+          "ex": "Molti intellettuali denunciano la deriva securitaria delle nuove norme.",
+          "exDe": "Viele Intellektuelle prangern die Abdriftung der neuen Vorschriften in einen überzogenen Sicherheitskurs an."
+        },
+        {
+          "it": "l'imbarbarimento",
+          "de": "die Verrohung der Sitten",
+          "emoji": "😤",
+          "ex": "Il dibattito pubblico soffre di un progressivo imbarbarimento dei toni.",
+          "exDe": "Die öffentliche Debatte leidet unter einer fortschreitenden Verrohung der Umgangstöne."
+        },
+        {
+          "it": "la pauperizzazione",
+          "de": "die zunehmende Verarmung",
+          "emoji": "🪙",
+          "ex": "La pauperizzazione del ceto medio è un fenomeno ormai conclamato.",
+          "exDe": "Die Verarmung der Mittelschicht ist inzwischen ein unbestreitbares Phänomen."
+        },
+        {
+          "it": "l'atomizzazione sociale",
+          "de": "die soziale Vereinzelung",
+          "emoji": "🧊",
+          "ex": "L'atomizzazione sociale ha indebolito i legami di comunità.",
+          "exDe": "Die soziale Vereinzelung hat die Bindungen der Gemeinschaft geschwächt."
+        },
+        {
+          "it": "il familismo amorale",
+          "de": "die rein eigeninteressierte Familienbindung auf Kosten des Gemeinwohls",
+          "emoji": "👪",
+          "ex": "Il familismo amorale ostacola da sempre lo spirito civico.",
+          "exDe": "Die rein eigeninteressierte Familienbindung auf Kosten des Gemeinwohls behindert seit jeher den Gemeinsinn."
+        },
+        {
+          "it": "la gentrificazione",
+          "de": "die Gentrifizierung",
+          "emoji": "🏘️",
+          "ex": "La gentrificazione del centro ha espulso gli abitanti storici.",
+          "exDe": "Die Gentrifizierung des Zentrums hat die alteingesessenen Bewohner verdrängt."
+        },
+        {
+          "it": "il qualunquismo",
+          "de": "die unpolitische Pauschalverachtung der Politik",
+          "emoji": "🤷",
+          "ex": "Il qualunquismo dilagante alimenta la sfiducia verso ogni istituzione.",
+          "exDe": "Die um sich greifende, unpolitische Pauschalverachtung der Politik nährt das Misstrauen gegenüber jeder Institution."
+        },
+        {
+          "it": "la subcultura",
+          "de": "die Subkultur",
+          "emoji": "🎸",
+          "ex": "Quella subcultura urbana ha sviluppato un proprio linguaggio originale.",
+          "exDe": "Jene urbane Subkultur hat eine eigene, originelle Sprache entwickelt."
+        },
+        {
+          "it": "l'anomia",
+          "de": "die Anomie, der Verfall verbindlicher Normen",
+          "emoji": "🌫️",
+          "ex": "I sociologi parlano di anomia per descrivere il vuoto di valori condivisi.",
+          "exDe": "Die Soziologen sprechen von Anomie, um das Vakuum gemeinsamer Werte zu beschreiben."
+        },
+        {
+          "it": "il vittimismo",
+          "de": "die Neigung, sich stets als Opfer zu inszenieren",
+          "emoji": "😢",
+          "ex": "Il suo discorso oscillava tra rivendicazione e puro vittimismo.",
+          "exDe": "Seine Rede schwankte zwischen berechtigter Forderung und reiner Opferinszenierung."
+        },
+        {
+          "it": "la stigmatizzazione",
+          "de": "die Stigmatisierung",
+          "emoji": "🏷️",
+          "ex": "La stigmatizzazione del malato mentale resta dura a morire.",
+          "exDe": "Die Stigmatisierung psychisch Kranker ist nur schwer auszurotten."
+        },
+        {
+          "it": "l'omologazione",
+          "de": "die kulturelle Gleichmacherei, die Vereinheitlichung",
+          "emoji": "🧱",
+          "ex": "Pasolini denunciava l'omologazione dei consumi e dei costumi.",
+          "exDe": "Pasolini prangerte die Gleichmacherei des Konsums und der Sitten an."
+        },
+        {
+          "it": "la meritocrazia",
+          "de": "die Leistungsgesellschaft, das Leistungsprinzip",
+          "emoji": "🏅",
+          "ex": "Si invoca la meritocrazia, ma le raccomandazioni continuano a prevalere.",
+          "exDe": "Man beschwört das Leistungsprinzip, doch Vetternwirtschaft setzt sich weiterhin durch."
+        },
+        {
+          "it": "la coscienza civica",
+          "de": "das staatsbürgerliche Verantwortungsbewusstsein",
+          "emoji": "🫶",
+          "ex": "Una matura coscienza civica nasce sui banchi di scuola.",
+          "exDe": "Ein gereiftes staatsbürgerliches Verantwortungsbewusstsein entsteht auf der Schulbank."
+        },
+        {
+          "it": "il proletariato digitale",
+          "de": "das digitale Prekariat der Plattformarbeiter",
+          "emoji": "📱",
+          "ex": "I fattorini delle app costituiscono ormai un vero proletariato digitale.",
+          "exDe": "Die Lieferfahrer der Apps bilden inzwischen ein regelrechtes digitales Prekariat der Plattformarbeiter."
+        },
+        {
+          "it": "la cementificazione",
+          "de": "die ungebremste Zubetonierung der Landschaft",
+          "emoji": "🏗️",
+          "ex": "La cementificazione selvaggia della costa ha deturpato il paesaggio.",
+          "exDe": "Die hemmungslose Zubetonierung der Küste hat die Landschaft verschandelt."
+        },
+        {
+          "it": "il disincanto",
+          "de": "die desillusionierte Ernüchterung",
+          "emoji": "🥀",
+          "ex": "Un sottile disincanto pervade ormai la generazione più giovane.",
+          "exDe": "Eine feine, desillusionierte Ernüchterung durchzieht inzwischen die jüngste Generation."
+        },
+        {
+          "it": "la marginalità",
+          "de": "die Randständigkeit, das Dasein am Rand der Gesellschaft",
+          "emoji": "🚪",
+          "ex": "Il romanzo racconta la marginalità di chi vive ai confini della città.",
+          "exDe": "Der Roman erzählt vom Dasein am Rand der Gesellschaft derer, die an den Grenzen der Stadt leben."
+        },
+        {
+          "it": "l'autoreferenzialità",
+          "de": "die Selbstbezogenheit, das Kreisen um sich selbst",
+          "emoji": "🪞",
+          "ex": "L'autoreferenzialità della classe dirigente la rende sorda ai cittadini.",
+          "exDe": "Die Selbstbezogenheit der Führungsschicht macht sie taub gegenüber den Bürgern."
+        },
+        {
+          "it": "la sussidiarietà",
+          "de": "das Subsidiaritätsprinzip",
+          "emoji": "🤲",
+          "ex": "In nome della sussidiarietà molti servizi sono affidati al terzo settore.",
+          "exDe": "Im Namen des Subsidiaritätsprinzips werden viele Dienste dem gemeinnützigen Sektor anvertraut."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-ambiente",
+    "title": "Ambiente & Clima",
+    "de": "Umwelt & Klima",
+    "emoji": "🌍",
+    "color": "#1f8a4c",
+    "area": "Scienza & Ambiente",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il riscaldamento globale",
+          "de": "die globale Erwärmung",
+          "emoji": "🌡️",
+          "ex": "Il riscaldamento globale provoca lo scioglimento dei ghiacciai.",
+          "exDe": "Die globale Erwärmung verursacht das Schmelzen der Gletscher."
+        },
+        {
+          "it": "i rifiuti",
+          "de": "der Abfall",
+          "emoji": "🗑️",
+          "ex": "Dobbiamo ridurre la quantità di rifiuti che produciamo.",
+          "exDe": "Wir müssen die Menge an Abfall verringern, die wir produzieren."
+        },
+        {
+          "it": "la raccolta differenziata",
+          "de": "die Mülltrennung",
+          "emoji": "♻️",
+          "ex": "In molti comuni la raccolta differenziata è obbligatoria.",
+          "exDe": "In vielen Gemeinden ist die Mülltrennung verpflichtend."
+        },
+        {
+          "it": "le energie rinnovabili",
+          "de": "die erneuerbaren Energien",
+          "emoji": "🔋",
+          "ex": "Le energie rinnovabili stanno sostituendo i combustibili fossili.",
+          "exDe": "Die erneuerbaren Energien ersetzen nach und nach die fossilen Brennstoffe."
+        },
+        {
+          "it": "l'effetto serra",
+          "de": "der Treibhauseffekt",
+          "emoji": "🌫️",
+          "ex": "L'effetto serra è causato dai gas presenti nell'atmosfera.",
+          "exDe": "Der Treibhauseffekt wird durch die Gase in der Atmosphäre verursacht."
+        },
+        {
+          "it": "la deforestazione",
+          "de": "die Abholzung",
+          "emoji": "🌲",
+          "ex": "La deforestazione minaccia molte specie animali.",
+          "exDe": "Die Abholzung bedroht viele Tierarten."
+        },
+        {
+          "it": "il riciclaggio",
+          "de": "das Recycling",
+          "emoji": "♻️",
+          "ex": "Il riciclaggio della plastica richiede impianti specializzati.",
+          "exDe": "Das Recycling von Plastik erfordert spezialisierte Anlagen."
+        },
+        {
+          "it": "la siccità",
+          "de": "die Dürre",
+          "emoji": "🏜️",
+          "ex": "La siccità di quest'estate ha danneggiato i raccolti.",
+          "exDe": "Die Dürre dieses Sommers hat die Ernten beschädigt."
+        },
+        {
+          "it": "l'alluvione",
+          "de": "die Überschwemmung",
+          "emoji": "🌊",
+          "ex": "L'alluvione ha costretto molte famiglie a lasciare le loro case.",
+          "exDe": "Die Überschwemmung hat viele Familien gezwungen, ihre Häuser zu verlassen."
+        },
+        {
+          "it": "la specie protetta",
+          "de": "die geschützte Art",
+          "emoji": "🐢",
+          "ex": "La tartaruga marina è una specie protetta in Italia.",
+          "exDe": "Die Meeresschildkröte ist in Italien eine geschützte Art."
+        },
+        {
+          "it": "il risparmio energetico",
+          "de": "die Energieeinsparung",
+          "emoji": "💡",
+          "ex": "Le lampadine a LED garantiscono un notevole risparmio energetico.",
+          "exDe": "LED-Lampen gewährleisten eine erhebliche Energieeinsparung."
+        },
+        {
+          "it": "l'impatto ambientale",
+          "de": "die Umweltauswirkung",
+          "emoji": "📉",
+          "ex": "Bisogna valutare l'impatto ambientale di ogni nuovo progetto.",
+          "exDe": "Man muss die Umweltauswirkung jedes neuen Projekts bewerten."
+        },
+        {
+          "it": "la biodiversità",
+          "de": "die Biodiversität",
+          "emoji": "🦋",
+          "ex": "La biodiversità di questa foresta è davvero straordinaria.",
+          "exDe": "Die Biodiversität dieses Waldes ist wirklich außergewöhnlich."
+        },
+        {
+          "it": "il combustibile fossile",
+          "de": "der fossile Brennstoff",
+          "emoji": "⛽",
+          "ex": "L'uso dei combustibili fossili va ridotto drasticamente.",
+          "exDe": "Der Gebrauch fossiler Brennstoffe muss drastisch reduziert werden."
+        },
+        {
+          "it": "l'ambientalista",
+          "de": "der Umweltschützer",
+          "emoji": "🪧",
+          "ex": "Gli ambientalisti hanno organizzato una manifestazione in piazza.",
+          "exDe": "Die Umweltschützer haben eine Demonstration auf dem Platz organisiert."
+        },
+        {
+          "it": "lo smog",
+          "de": "der Smog",
+          "emoji": "😷",
+          "ex": "A causa dello smog il sindaco ha vietato la circolazione delle auto.",
+          "exDe": "Wegen des Smogs hat der Bürgermeister den Autoverkehr verboten."
+        }
+      ],
+      "C1": [
+        {
+          "it": "le emissioni nocive",
+          "de": "die schädlichen Emissionen",
+          "emoji": "💨",
+          "ex": "Le nuove normative mirano a contenere le emissioni nocive dell'industria.",
+          "exDe": "Die neuen Vorschriften zielen darauf ab, die schädlichen Emissionen der Industrie einzudämmen."
+        },
+        {
+          "it": "l'impronta ecologica",
+          "de": "der ökologische Fußabdruck",
+          "emoji": "👣",
+          "ex": "Calcolare la propria impronta ecologica aiuta a consumare in modo più responsabile.",
+          "exDe": "Den eigenen ökologischen Fußabdruck zu berechnen hilft, bewusster zu konsumieren."
+        },
+        {
+          "it": "il dissesto idrogeologico",
+          "de": "die hydrogeologische Instabilität",
+          "emoji": "⛰️",
+          "ex": "Il dissesto idrogeologico rende molte zone vulnerabili alle frane.",
+          "exDe": "Die hydrogeologische Instabilität macht viele Gebiete anfällig für Erdrutsche."
+        },
+        {
+          "it": "la transizione energetica",
+          "de": "die Energiewende",
+          "emoji": "🔌",
+          "ex": "La transizione energetica comporta investimenti ingenti nelle reti elettriche.",
+          "exDe": "Die Energiewende bringt erhebliche Investitionen in die Stromnetze mit sich."
+        },
+        {
+          "it": "il consumo di suolo",
+          "de": "der Flächenverbrauch",
+          "emoji": "🏗️",
+          "ex": "L'urbanizzazione incontrollata ha accelerato il consumo di suolo.",
+          "exDe": "Die unkontrollierte Verstädterung hat den Flächenverbrauch beschleunigt."
+        },
+        {
+          "it": "mitigare i danni",
+          "de": "die Schäden mildern",
+          "emoji": "🛡️",
+          "ex": "Le politiche ambientali cercano di mitigare i danni provocati dalle alluvioni.",
+          "exDe": "Die Umweltpolitik versucht, die durch Überschwemmungen verursachten Schäden zu mildern."
+        },
+        {
+          "it": "la desertificazione",
+          "de": "die Wüstenbildung",
+          "emoji": "🏜️",
+          "ex": "La desertificazione avanza inesorabilmente nel Mediterraneo meridionale.",
+          "exDe": "Die Wüstenbildung schreitet im südlichen Mittelmeerraum unaufhaltsam voran."
+        },
+        {
+          "it": "l'economia circolare",
+          "de": "die Kreislaufwirtschaft",
+          "emoji": "🔄",
+          "ex": "L'economia circolare punta a riutilizzare le materie prime anziché scartarle.",
+          "exDe": "Die Kreislaufwirtschaft strebt danach, Rohstoffe wiederzuverwenden, statt sie wegzuwerfen."
+        },
+        {
+          "it": "il dissesto ambientale",
+          "de": "die Umweltzerstörung",
+          "emoji": "💥",
+          "ex": "Lo sfruttamento intensivo ha portato a un grave dissesto ambientale della regione.",
+          "exDe": "Die intensive Ausbeutung hat zu einer schweren Umweltzerstörung der Region geführt."
+        },
+        {
+          "it": "la neutralità climatica",
+          "de": "die Klimaneutralität",
+          "emoji": "⚖️",
+          "ex": "L'Unione Europea si è impegnata a raggiungere la neutralità climatica entro il 2050.",
+          "exDe": "Die Europäische Union hat sich verpflichtet, bis 2050 Klimaneutralität zu erreichen."
+        },
+        {
+          "it": "l'acidificazione degli oceani",
+          "de": "die Versauerung der Ozeane",
+          "emoji": "🌊",
+          "ex": "L'acidificazione degli oceani compromette la sopravvivenza dei coralli.",
+          "exDe": "Die Versauerung der Ozeane gefährdet das Überleben der Korallen."
+        },
+        {
+          "it": "salvaguardare l'ecosistema",
+          "de": "das Ökosystem schützen",
+          "emoji": "🌳",
+          "ex": "Le aree protette servono a salvaguardare l'ecosistema locale.",
+          "exDe": "Die Schutzgebiete dienen dazu, das lokale Ökosystem zu schützen."
+        },
+        {
+          "it": "il bilancio idrico",
+          "de": "die Wasserbilanz",
+          "emoji": "💧",
+          "ex": "Le scarse precipitazioni hanno alterato il bilancio idrico del bacino.",
+          "exDe": "Die geringen Niederschläge haben die Wasserbilanz des Beckens verändert."
+        },
+        {
+          "it": "la fonte rinnovabile",
+          "de": "die erneuerbare Quelle",
+          "emoji": "☀️",
+          "ex": "L'eolico è una fonte rinnovabile sempre più competitiva sul mercato.",
+          "exDe": "Die Windkraft ist eine erneuerbare Quelle, die auf dem Markt immer wettbewerbsfähiger wird."
+        },
+        {
+          "it": "il sequestro del carbonio",
+          "de": "die Kohlenstoffbindung",
+          "emoji": "🌲",
+          "ex": "Le foreste svolgono un ruolo cruciale nel sequestro del carbonio.",
+          "exDe": "Die Wälder spielen eine entscheidende Rolle bei der Kohlenstoffbindung."
+        },
+        {
+          "it": "l'evento estremo",
+          "de": "das Extremereignis",
+          "emoji": "🌪️",
+          "ex": "Gli eventi estremi sono diventati più frequenti negli ultimi decenni.",
+          "exDe": "Die Extremereignisse sind in den letzten Jahrzehnten häufiger geworden."
+        },
+        {
+          "it": "il degrado del territorio",
+          "de": "die Landschaftsdegradation",
+          "emoji": "🪨",
+          "ex": "L'abbandono dei campi ha accentuato il degrado del territorio montano.",
+          "exDe": "Die Aufgabe der Felder hat die Degradation des Berglands verstärkt."
+        },
+        {
+          "it": "il consumo idrico",
+          "de": "der Wasserverbrauch",
+          "emoji": "🚰",
+          "ex": "L'agricoltura è responsabile di gran parte del consumo idrico nazionale.",
+          "exDe": "Die Landwirtschaft ist für einen Großteil des nationalen Wasserverbrauchs verantwortlich."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'antropizzazione del paesaggio",
+          "de": "die anthropogene Überformung der Landschaft",
+          "emoji": "🏙️",
+          "ex": "L'antropizzazione del paesaggio costiero ha snaturato interi tratti di litorale.",
+          "exDe": "Die anthropogene Überformung der Küstenlandschaft hat ganze Küstenabschnitte entstellt."
+        },
+        {
+          "it": "la resilienza degli ecosistemi",
+          "de": "die Resilienz der Ökosysteme",
+          "emoji": "🌿",
+          "ex": "La resilienza degli ecosistemi dipende dalla loro complessità intrinseca.",
+          "exDe": "Die Resilienz der Ökosysteme hängt von ihrer inneren Komplexität ab."
+        },
+        {
+          "it": "il punto di non ritorno",
+          "de": "der Kipppunkt",
+          "emoji": "⚠️",
+          "ex": "Diversi climatologi temono che il sistema abbia già superato il punto di non ritorno.",
+          "exDe": "Mehrere Klimaforscher befürchten, dass das System den Kipppunkt bereits überschritten hat."
+        },
+        {
+          "it": "l'esternalità negativa",
+          "de": "der negative externe Effekt",
+          "emoji": "📊",
+          "ex": "Le esternalità negative dell'industria ricadono inevitabilmente sulla collettività.",
+          "exDe": "Die negativen externen Effekte der Industrie fallen unweigerlich der Allgemeinheit zur Last."
+        },
+        {
+          "it": "l'inquinamento diffuso",
+          "de": "die diffuse Verschmutzung",
+          "emoji": "🌫️",
+          "ex": "L'inquinamento diffuso da fertilizzanti è di difficile tracciabilità.",
+          "exDe": "Die diffuse Verschmutzung durch Düngemittel ist schwer nachzuverfolgen."
+        },
+        {
+          "it": "la vocazione naturalistica",
+          "de": "die naturräumliche Eignung",
+          "emoji": "🏞️",
+          "ex": "La vocazione naturalistica di quell'area ne sconsiglia ogni edificazione.",
+          "exDe": "Die naturräumliche Eignung dieses Gebiets spricht gegen jede Bebauung."
+        },
+        {
+          "it": "il dissesto orografico",
+          "de": "die orographische Instabilität",
+          "emoji": "🗻",
+          "ex": "Il dissesto orografico dei versanti impone interventi di consolidamento.",
+          "exDe": "Die orographische Instabilität der Hänge erfordert Sicherungsmaßnahmen."
+        },
+        {
+          "it": "lo scioglimento del permafrost",
+          "de": "das Auftauen des Permafrosts",
+          "emoji": "🧊",
+          "ex": "Lo scioglimento del permafrost libera ingenti quantità di metano.",
+          "exDe": "Das Auftauen des Permafrosts setzt enorme Mengen Methan frei."
+        },
+        {
+          "it": "la mitigazione antropica",
+          "de": "die anthropogene Minderung",
+          "emoji": "🛠️",
+          "ex": "Senza una decisa mitigazione antropica le proiezioni restano allarmanti.",
+          "exDe": "Ohne eine entschlossene anthropogene Minderung bleiben die Prognosen alarmierend."
+        },
+        {
+          "it": "il bilancio radiativo",
+          "de": "die Strahlungsbilanz",
+          "emoji": "🔆",
+          "ex": "L'aumento dei gas serra altera il bilancio radiativo del pianeta.",
+          "exDe": "Die Zunahme der Treibhausgase verändert die Strahlungsbilanz des Planeten."
+        },
+        {
+          "it": "la deriva ecologica",
+          "de": "die ökologische Abdrift",
+          "emoji": "🧭",
+          "ex": "L'introduzione di specie aliene ha innescato una deriva ecologica irreversibile.",
+          "exDe": "Die Einführung gebietsfremder Arten hat eine irreversible ökologische Abdrift ausgelöst."
+        },
+        {
+          "it": "l'incidenza antropogenica",
+          "de": "der menschengemachte Einfluss",
+          "emoji": "🧑‍🏭",
+          "ex": "Gli studi confermano l'incidenza antropogenica sul riscaldamento osservato.",
+          "exDe": "Die Studien bestätigen den menschengemachten Einfluss auf die beobachtete Erwärmung."
+        },
+        {
+          "it": "la rinaturalizzazione",
+          "de": "die Renaturierung",
+          "emoji": "🌾",
+          "ex": "La rinaturalizzazione del fiume ha restituito spazio alle golene originarie.",
+          "exDe": "Die Renaturierung des Flusses hat den ursprünglichen Auen wieder Raum gegeben."
+        },
+        {
+          "it": "il prelievo idrico insostenibile",
+          "de": "die nicht nachhaltige Wasserentnahme",
+          "emoji": "🪣",
+          "ex": "Il prelievo idrico insostenibile ha prosciugato la falda acquifera.",
+          "exDe": "Die nicht nachhaltige Wasserentnahme hat den Grundwasserleiter ausgetrocknet."
+        },
+        {
+          "it": "la coibentazione degli edifici",
+          "de": "die Wärmedämmung der Gebäude",
+          "emoji": "🏠",
+          "ex": "Una corretta coibentazione degli edifici abbatte sensibilmente i consumi.",
+          "exDe": "Eine korrekte Wärmedämmung der Gebäude senkt den Verbrauch spürbar."
+        },
+        {
+          "it": "la forzante climatica",
+          "de": "der Klimaantrieb",
+          "emoji": "🌀",
+          "ex": "I vulcani rappresentano una forzante climatica di natura episodica.",
+          "exDe": "Vulkane stellen einen Klimaantrieb episodischer Natur dar."
+        },
+        {
+          "it": "il deflusso superficiale",
+          "de": "der Oberflächenabfluss",
+          "emoji": "🌧️",
+          "ex": "L'impermeabilizzazione del suolo accentua il deflusso superficiale durante i temporali.",
+          "exDe": "Die Versiegelung des Bodens verstärkt den Oberflächenabfluss bei Gewittern."
+        },
+        {
+          "it": "la compensazione delle emissioni",
+          "de": "die Emissionskompensation",
+          "emoji": "🌳",
+          "ex": "La compensazione delle emissioni non può sostituire una reale decarbonizzazione.",
+          "exDe": "Die Emissionskompensation kann eine echte Dekarbonisierung nicht ersetzen."
+        },
+        {
+          "it": "l'erosione del litorale",
+          "de": "die Küstenerosion",
+          "emoji": "🏖️",
+          "ex": "L'erosione del litorale ha ridotto drasticamente l'ampiezza delle spiagge.",
+          "exDe": "Die Küstenerosion hat die Breite der Strände drastisch verringert."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-scienza",
+    "title": "Scienza & Ricerca",
+    "de": "Wissenschaft & Forschung",
+    "emoji": "🔬",
+    "color": "#3f93b8",
+    "area": "Scienza & Ambiente",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "la ricerca scientifica",
+          "de": "die wissenschaftliche Forschung",
+          "emoji": "🔬",
+          "ex": "La ricerca scientifica richiede finanziamenti costanti.",
+          "exDe": "Die wissenschaftliche Forschung erfordert beständige Finanzierung."
+        },
+        {
+          "it": "l'esperimento",
+          "de": "das Experiment",
+          "emoji": "🧪",
+          "ex": "L'esperimento ha confermato l'ipotesi iniziale dei ricercatori.",
+          "exDe": "Das Experiment hat die ursprüngliche Hypothese der Forscher bestätigt."
+        },
+        {
+          "it": "la scoperta",
+          "de": "die Entdeckung",
+          "emoji": "💡",
+          "ex": "Questa scoperta potrebbe rivoluzionare la medicina moderna.",
+          "exDe": "Diese Entdeckung könnte die moderne Medizin revolutionieren."
+        },
+        {
+          "it": "il laboratorio",
+          "de": "das Labor",
+          "emoji": "🧫",
+          "ex": "Gli studenti passano molte ore in laboratorio.",
+          "exDe": "Die Studenten verbringen viele Stunden im Labor."
+        },
+        {
+          "it": "l'ipotesi",
+          "de": "die Hypothese",
+          "emoji": "❓",
+          "ex": "Il ricercatore ha formulato un'ipotesi audace.",
+          "exDe": "Der Forscher hat eine gewagte Hypothese formuliert."
+        },
+        {
+          "it": "la teoria",
+          "de": "die Theorie",
+          "emoji": "📚",
+          "ex": "La teoria dell'evoluzione è ampiamente accettata.",
+          "exDe": "Die Evolutionstheorie ist weithin anerkannt."
+        },
+        {
+          "it": "il risultato",
+          "de": "das Ergebnis",
+          "emoji": "📈",
+          "ex": "I risultati dello studio sono stati pubblicati su una rivista internazionale.",
+          "exDe": "Die Ergebnisse der Studie wurden in einer internationalen Zeitschrift veröffentlicht."
+        },
+        {
+          "it": "il ricercatore",
+          "de": "der Forscher",
+          "emoji": "👨‍🔬",
+          "ex": "Il ricercatore lavora a questo progetto da diversi anni.",
+          "exDe": "Der Forscher arbeitet seit mehreren Jahren an diesem Projekt."
+        },
+        {
+          "it": "la prova",
+          "de": "der Nachweis",
+          "emoji": "✅",
+          "ex": "Non esiste alcuna prova a sostegno di questa affermazione.",
+          "exDe": "Es gibt keinen Nachweis für diese Behauptung."
+        },
+        {
+          "it": "il microscopio",
+          "de": "das Mikroskop",
+          "emoji": "🔬",
+          "ex": "Al microscopio si possono osservare le cellule.",
+          "exDe": "Unter dem Mikroskop kann man die Zellen beobachten."
+        },
+        {
+          "it": "la cellula",
+          "de": "die Zelle",
+          "emoji": "🦠",
+          "ex": "Ogni cellula contiene il materiale genetico dell'organismo.",
+          "exDe": "Jede Zelle enthält das genetische Material des Organismus."
+        },
+        {
+          "it": "il dato",
+          "de": "die Daten",
+          "emoji": "📊",
+          "ex": "Gli scienziati hanno raccolto i dati per tre anni.",
+          "exDe": "Die Wissenschaftler haben die Daten drei Jahre lang gesammelt."
+        },
+        {
+          "it": "il progresso",
+          "de": "der Fortschritt",
+          "emoji": "🚀",
+          "ex": "Il progresso tecnologico ha cambiato la nostra vita quotidiana.",
+          "exDe": "Der technologische Fortschritt hat unser tägliches Leben verändert."
+        },
+        {
+          "it": "lo studio",
+          "de": "die Studie",
+          "emoji": "📝",
+          "ex": "Lo studio ha coinvolto più di mille partecipanti.",
+          "exDe": "Die Studie umfasste mehr als tausend Teilnehmer."
+        },
+        {
+          "it": "la formula",
+          "de": "die Formel",
+          "emoji": "➗",
+          "ex": "La formula chimica dell'acqua è molto semplice.",
+          "exDe": "Die chemische Formel von Wasser ist sehr einfach."
+        },
+        {
+          "it": "la genetica",
+          "de": "die Genetik",
+          "emoji": "🧬",
+          "ex": "La genetica studia la trasmissione dei caratteri ereditari.",
+          "exDe": "Die Genetik untersucht die Vererbung von Erbmerkmalen."
+        },
+        {
+          "it": "la conclusione",
+          "de": "die Schlussfolgerung",
+          "emoji": "🎯",
+          "ex": "Gli autori sono giunti a una conclusione sorprendente.",
+          "exDe": "Die Autoren sind zu einer überraschenden Schlussfolgerung gelangt."
+        },
+        {
+          "it": "l'innovazione",
+          "de": "die Innovation",
+          "emoji": "✨",
+          "ex": "L'innovazione è fondamentale per la competitività di un paese.",
+          "exDe": "Die Innovation ist entscheidend für die Wettbewerbsfähigkeit eines Landes."
+        },
+        {
+          "it": "il metodo",
+          "de": "die Methode",
+          "emoji": "🧭",
+          "ex": "Hanno applicato un metodo rigoroso per analizzare i campioni.",
+          "exDe": "Sie haben eine strenge Methode angewandt, um die Proben zu analysieren."
+        }
+      ],
+      "C1": [
+        {
+          "it": "la revisione tra pari",
+          "de": "die Begutachtung durch Fachkollegen",
+          "emoji": "🧐",
+          "ex": "Prima della pubblicazione, l'articolo è sottoposto a revisione tra pari.",
+          "exDe": "Vor der Veröffentlichung wird der Artikel einer Begutachtung durch Fachkollegen unterzogen."
+        },
+        {
+          "it": "la sperimentazione clinica",
+          "de": "die klinische Erprobung",
+          "emoji": "💉",
+          "ex": "Il farmaco è ancora in fase di sperimentazione clinica.",
+          "exDe": "Das Medikament befindet sich noch in der Phase der klinischen Erprobung."
+        },
+        {
+          "it": "il campione rappresentativo",
+          "de": "die repräsentative Stichprobe",
+          "emoji": "🎲",
+          "ex": "Senza un campione rappresentativo i risultati non sono attendibili.",
+          "exDe": "Ohne eine repräsentative Stichprobe sind die Ergebnisse nicht zuverlässig."
+        },
+        {
+          "it": "la riproducibilità",
+          "de": "die Reproduzierbarkeit",
+          "emoji": "🔁",
+          "ex": "La riproducibilità degli esperimenti è un requisito imprescindibile.",
+          "exDe": "Die Reproduzierbarkeit der Experimente ist eine unverzichtbare Voraussetzung."
+        },
+        {
+          "it": "confutare una tesi",
+          "de": "eine These widerlegen",
+          "emoji": "❌",
+          "ex": "I nuovi dati permettono di confutare la tesi precedentemente accettata.",
+          "exDe": "Die neuen Daten ermöglichen es, die zuvor anerkannte These zu widerlegen."
+        },
+        {
+          "it": "il rigore metodologico",
+          "de": "die methodische Strenge",
+          "emoji": "📐",
+          "ex": "Lo studio si distingue per il suo rigore metodologico.",
+          "exDe": "Die Studie zeichnet sich durch ihre methodische Strenge aus."
+        },
+        {
+          "it": "la correlazione",
+          "de": "die Korrelation",
+          "emoji": "🔗",
+          "ex": "Una correlazione non implica necessariamente un rapporto di causa-effetto.",
+          "exDe": "Eine Korrelation bedeutet nicht zwangsläufig einen Ursache-Wirkungs-Zusammenhang."
+        },
+        {
+          "it": "il finanziamento alla ricerca",
+          "de": "die Forschungsförderung",
+          "emoji": "💰",
+          "ex": "Il taglio dei finanziamenti alla ricerca preoccupa l'intera comunità accademica.",
+          "exDe": "Die Kürzung der Forschungsförderung beunruhigt die gesamte akademische Gemeinschaft."
+        },
+        {
+          "it": "il quadro teorico",
+          "de": "der theoretische Rahmen",
+          "emoji": "🖼️",
+          "ex": "L'autore inserisce la ricerca in un solido quadro teorico.",
+          "exDe": "Der Autor bettet die Forschung in einen soliden theoretischen Rahmen ein."
+        },
+        {
+          "it": "la variabile dipendente",
+          "de": "die abhängige Variable",
+          "emoji": "📉",
+          "ex": "Nel modello, il reddito funge da variabile dipendente.",
+          "exDe": "Im Modell fungiert das Einkommen als abhängige Variable."
+        },
+        {
+          "it": "l'avanguardia scientifica",
+          "de": "die wissenschaftliche Vorhut",
+          "emoji": "🛰️",
+          "ex": "Quell'istituto si colloca all'avanguardia scientifica nel campo della robotica.",
+          "exDe": "Dieses Institut steht in der wissenschaftlichen Vorhut auf dem Gebiet der Robotik."
+        },
+        {
+          "it": "il presupposto",
+          "de": "die Voraussetzung",
+          "emoji": "🧩",
+          "ex": "L'intero ragionamento poggia su un presupposto discutibile.",
+          "exDe": "Die gesamte Argumentation beruht auf einer fragwürdigen Voraussetzung."
+        },
+        {
+          "it": "la validità statistica",
+          "de": "die statistische Validität",
+          "emoji": "📊",
+          "ex": "Il numero ridotto di soggetti compromette la validità statistica dei risultati.",
+          "exDe": "Die geringe Zahl der Probanden beeinträchtigt die statistische Validität der Ergebnisse."
+        },
+        {
+          "it": "il progresso tecnologico",
+          "de": "der technologische Fortschritt",
+          "emoji": "⚙️",
+          "ex": "Il progresso tecnologico solleva nuovi interrogativi di natura etica.",
+          "exDe": "Der technologische Fortschritt wirft neue Fragen ethischer Natur auf."
+        },
+        {
+          "it": "l'evidenza empirica",
+          "de": "der empirische Beleg",
+          "emoji": "🔎",
+          "ex": "La conclusione si fonda su una solida evidenza empirica.",
+          "exDe": "Die Schlussfolgerung stützt sich auf einen soliden empirischen Beleg."
+        },
+        {
+          "it": "il margine di errore",
+          "de": "die Fehlermarge",
+          "emoji": "±",
+          "ex": "I sondaggi vanno sempre interpretati tenendo conto del margine di errore.",
+          "exDe": "Umfragen müssen stets unter Berücksichtigung der Fehlermarge interpretiert werden."
+        },
+        {
+          "it": "la divulgazione scientifica",
+          "de": "die Wissenschaftskommunikation",
+          "emoji": "📡",
+          "ex": "La divulgazione scientifica avvicina il grande pubblico alla ricerca.",
+          "exDe": "Die Wissenschaftskommunikation bringt das breite Publikum der Forschung näher."
+        },
+        {
+          "it": "l'interdisciplinarietà",
+          "de": "die Interdisziplinarität",
+          "emoji": "🔀",
+          "ex": "L'interdisciplinarietà favorisce soluzioni innovative a problemi complessi.",
+          "exDe": "Die Interdisziplinarität begünstigt innovative Lösungen für komplexe Probleme."
+        },
+        {
+          "it": "il protocollo sperimentale",
+          "de": "das Versuchsprotokoll",
+          "emoji": "📋",
+          "ex": "Ogni passaggio del protocollo sperimentale va documentato con cura.",
+          "exDe": "Jeder Schritt des Versuchsprotokolls muss sorgfältig dokumentiert werden."
+        }
+      ],
+      "C2": [
+        {
+          "it": "il paradigma scientifico",
+          "de": "das wissenschaftliche Paradigma",
+          "emoji": "🔭",
+          "ex": "Una scoperta dirompente può imporre un nuovo paradigma scientifico.",
+          "exDe": "Eine bahnbrechende Entdeckung kann ein neues wissenschaftliches Paradigma durchsetzen."
+        },
+        {
+          "it": "la falsificabilità",
+          "de": "die Falsifizierbarkeit",
+          "emoji": "⚗️",
+          "ex": "Secondo Popper, la falsificabilità distingue la scienza dalla pseudoscienza.",
+          "exDe": "Laut Popper unterscheidet die Falsifizierbarkeit die Wissenschaft von der Pseudowissenschaft."
+        },
+        {
+          "it": "il bias di conferma",
+          "de": "der Bestätigungsfehler",
+          "emoji": "🪞",
+          "ex": "Il bias di conferma induce i ricercatori a privilegiare i dati congeniali alle loro attese.",
+          "exDe": "Der Bestätigungsfehler verleitet Forscher dazu, die ihren Erwartungen genehmen Daten zu bevorzugen."
+        },
+        {
+          "it": "l'inferenza statistica",
+          "de": "die statistische Inferenz",
+          "emoji": "🧮",
+          "ex": "L'inferenza statistica consente di trarre conclusioni sulla popolazione a partire da un campione.",
+          "exDe": "Die statistische Inferenz erlaubt es, aus einer Stichprobe Schlüsse auf die Grundgesamtheit zu ziehen."
+        },
+        {
+          "it": "il nesso di causalità",
+          "de": "der Kausalzusammenhang",
+          "emoji": "🔗",
+          "ex": "Stabilire un autentico nesso di causalità richiede esperimenti controllati.",
+          "exDe": "Einen echten Kausalzusammenhang nachzuweisen erfordert kontrollierte Experimente."
+        },
+        {
+          "it": "l'epistemologia",
+          "de": "die Erkenntnistheorie",
+          "emoji": "🧠",
+          "ex": "L'epistemologia interroga i fondamenti stessi della conoscenza scientifica.",
+          "exDe": "Die Erkenntnistheorie hinterfragt die Grundlagen der wissenschaftlichen Erkenntnis selbst."
+        },
+        {
+          "it": "la soglia di significatività",
+          "de": "das Signifikanzniveau",
+          "emoji": "📏",
+          "ex": "Il risultato non supera la soglia di significatività comunemente adottata.",
+          "exDe": "Das Ergebnis überschreitet das allgemein angewandte Signifikanzniveau nicht."
+        },
+        {
+          "it": "la confutazione empirica",
+          "de": "die empirische Widerlegung",
+          "emoji": "🚫",
+          "ex": "Una sola confutazione empirica può minare un'intera costruzione teorica.",
+          "exDe": "Eine einzige empirische Widerlegung kann ein ganzes theoretisches Gebäude untergraben."
+        },
+        {
+          "it": "il fattore confondente",
+          "de": "der Störfaktor",
+          "emoji": "🌀",
+          "ex": "Gli autori hanno trascurato un fattore confondente di rilievo.",
+          "exDe": "Die Autoren haben einen bedeutenden Störfaktor übersehen."
+        },
+        {
+          "it": "la metanalisi",
+          "de": "die Metaanalyse",
+          "emoji": "📚",
+          "ex": "La metanalisi aggrega i risultati di decine di studi indipendenti.",
+          "exDe": "Die Metaanalyse fasst die Ergebnisse von Dutzenden unabhängiger Studien zusammen."
+        },
+        {
+          "it": "l'euristica",
+          "de": "die Heuristik",
+          "emoji": "🧭",
+          "ex": "L'euristica guida l'intuizione del ricercatore nelle fasi iniziali dell'indagine.",
+          "exDe": "Die Heuristik leitet die Intuition des Forschers in den frühen Phasen der Untersuchung."
+        },
+        {
+          "it": "il riduzionismo metodologico",
+          "de": "der methodologische Reduktionismus",
+          "emoji": "🔬",
+          "ex": "Il riduzionismo metodologico scompone i fenomeni complessi nelle loro componenti elementari.",
+          "exDe": "Der methodologische Reduktionismus zerlegt komplexe Phänomene in ihre elementaren Bestandteile."
+        },
+        {
+          "it": "la robustezza del modello",
+          "de": "die Robustheit des Modells",
+          "emoji": "🏗️",
+          "ex": "La robustezza del modello è stata saggiata con simulazioni ripetute.",
+          "exDe": "Die Robustheit des Modells wurde mit wiederholten Simulationen geprüft."
+        },
+        {
+          "it": "l'incommensurabilità",
+          "de": "die Inkommensurabilität",
+          "emoji": "🧩",
+          "ex": "L'incommensurabilità tra paradigmi rivali ostacola il confronto diretto.",
+          "exDe": "Die Inkommensurabilität zwischen rivalisierenden Paradigmen erschwert den direkten Vergleich."
+        },
+        {
+          "it": "la sperimentazione in doppio cieco",
+          "de": "der Doppelblindversuch",
+          "emoji": "🙈",
+          "ex": "La sperimentazione in doppio cieco neutralizza l'effetto delle aspettative.",
+          "exDe": "Der Doppelblindversuch neutralisiert den Effekt der Erwartungen."
+        },
+        {
+          "it": "il portato euristico",
+          "de": "der heuristische Ertrag",
+          "emoji": "💎",
+          "ex": "Pur essendo imprecisa, l'analogia conserva un notevole portato euristico.",
+          "exDe": "Obwohl sie ungenau ist, behält die Analogie einen beachtlichen heuristischen Ertrag."
+        },
+        {
+          "it": "la parsimonia esplicativa",
+          "de": "die erklärerische Sparsamkeit",
+          "emoji": "🪶",
+          "ex": "Tra due teorie equivalenti si privilegia quella di maggiore parsimonia esplicativa.",
+          "exDe": "Zwischen zwei gleichwertigen Theorien bevorzugt man jene mit der größeren erklärerischen Sparsamkeit."
+        },
+        {
+          "it": "la taratura dello strumento",
+          "de": "die Kalibrierung des Instruments",
+          "emoji": "🎛️",
+          "ex": "Una taratura dello strumento imprecisa vizia l'intera serie di misurazioni.",
+          "exDe": "Eine ungenaue Kalibrierung des Instruments verfälscht die gesamte Messreihe."
+        },
+        {
+          "it": "il dato anomalo",
+          "de": "der Ausreißerwert",
+          "emoji": "📍",
+          "ex": "Prima dell'analisi occorre stabilire come trattare ogni dato anomalo.",
+          "exDe": "Vor der Analyse muss festgelegt werden, wie mit jedem Ausreißerwert zu verfahren ist."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-tecnologia",
+    "title": "Tecnologia & Digitale",
+    "de": "Technologie & Digitales",
+    "emoji": "💻",
+    "color": "#5a7d9b",
+    "area": "Tecnologia & Media",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il dispositivo",
+          "de": "das Gerät",
+          "emoji": "📱",
+          "ex": "Questo dispositivo si collega automaticamente alla rete domestica.",
+          "exDe": "Dieses Gerät verbindet sich automatisch mit dem Heimnetzwerk."
+        },
+        {
+          "it": "scaricare un'applicazione",
+          "de": "eine App herunterladen",
+          "emoji": "⬇️",
+          "ex": "Ho scaricato un'applicazione per gestire le mie spese.",
+          "exDe": "Ich habe eine App heruntergeladen, um meine Ausgaben zu verwalten."
+        },
+        {
+          "it": "l'aggiornamento",
+          "de": "das Update",
+          "emoji": "🔄",
+          "ex": "L'ultimo aggiornamento ha migliorato la durata della batteria.",
+          "exDe": "Das letzte Update hat die Akkulaufzeit verbessert."
+        },
+        {
+          "it": "la password sicura",
+          "de": "das sichere Passwort",
+          "emoji": "🔐",
+          "ex": "Conviene scegliere una password sicura con lettere e numeri.",
+          "exDe": "Es lohnt sich, ein sicheres Passwort mit Buchstaben und Zahlen zu wählen."
+        },
+        {
+          "it": "navigare in rete",
+          "de": "im Internet surfen",
+          "emoji": "🌐",
+          "ex": "Passo troppo tempo a navigare in rete la sera.",
+          "exDe": "Ich verbringe abends zu viel Zeit damit, im Internet zu surfen."
+        },
+        {
+          "it": "la connessione",
+          "de": "die Verbindung",
+          "emoji": "📶",
+          "ex": "La connessione è instabile in questa zona.",
+          "exDe": "Die Verbindung ist in dieser Gegend instabil."
+        },
+        {
+          "it": "il motore di ricerca",
+          "de": "die Suchmaschine",
+          "emoji": "🔍",
+          "ex": "Uso un motore di ricerca diverso per proteggere la privacy.",
+          "exDe": "Ich benutze eine andere Suchmaschine, um die Privatsphäre zu schützen."
+        },
+        {
+          "it": "lo schermo touch",
+          "de": "der Touchscreen",
+          "emoji": "👆",
+          "ex": "Lo schermo touch non risponde più ai miei comandi.",
+          "exDe": "Der Touchscreen reagiert nicht mehr auf meine Befehle."
+        },
+        {
+          "it": "salvare i dati",
+          "de": "die Daten speichern",
+          "emoji": "💾",
+          "ex": "Ricordati di salvare i dati prima di spegnere il computer.",
+          "exDe": "Denk daran, die Daten zu speichern, bevor du den Computer ausschaltest."
+        },
+        {
+          "it": "il file allegato",
+          "de": "die angehängte Datei",
+          "emoji": "📎",
+          "ex": "Ti ho mandato il file allegato nell'ultima e-mail.",
+          "exDe": "Ich habe dir die angehängte Datei in der letzten E-Mail geschickt."
+        },
+        {
+          "it": "la cartella",
+          "de": "der Ordner",
+          "emoji": "📁",
+          "ex": "Ho organizzato le foto in una cartella per ogni anno.",
+          "exDe": "Ich habe die Fotos in einem Ordner pro Jahr organisiert."
+        },
+        {
+          "it": "il caricabatterie",
+          "de": "das Ladegerät",
+          "emoji": "🔌",
+          "ex": "Ho dimenticato il caricabatterie a casa di un amico.",
+          "exDe": "Ich habe das Ladegerät bei einem Freund vergessen."
+        },
+        {
+          "it": "la cuffia wireless",
+          "de": "der kabellose Kopfhörer",
+          "emoji": "🎧",
+          "ex": "Le cuffie wireless si scaricano dopo poche ore.",
+          "exDe": "Die kabellosen Kopfhörer entladen sich nach wenigen Stunden."
+        },
+        {
+          "it": "il backup",
+          "de": "die Sicherungskopie",
+          "emoji": "🗄️",
+          "ex": "Faccio un backup dei documenti ogni settimana.",
+          "exDe": "Ich mache jede Woche eine Sicherungskopie der Dokumente."
+        },
+        {
+          "it": "la videochiamata",
+          "de": "der Videoanruf",
+          "emoji": "📹",
+          "ex": "Facciamo una videochiamata per discutere il progetto.",
+          "exDe": "Wir machen einen Videoanruf, um das Projekt zu besprechen."
+        },
+        {
+          "it": "il virus informatico",
+          "de": "der Computervirus",
+          "emoji": "🦠",
+          "ex": "Un virus informatico ha bloccato tutto l'ufficio.",
+          "exDe": "Ein Computervirus hat das ganze Büro lahmgelegt."
+        },
+        {
+          "it": "il browser",
+          "de": "der Browser",
+          "emoji": "🧭",
+          "ex": "Apri il link in un nuovo browser per evitare problemi.",
+          "exDe": "Öffne den Link in einem neuen Browser, um Probleme zu vermeiden."
+        },
+        {
+          "it": "la memoria piena",
+          "de": "der volle Speicher",
+          "emoji": "📦",
+          "ex": "Non posso scattare altre foto: ho la memoria piena.",
+          "exDe": "Ich kann keine weiteren Fotos machen: Mein Speicher ist voll."
+        },
+        {
+          "it": "configurare le impostazioni",
+          "de": "die Einstellungen konfigurieren",
+          "emoji": "⚙️",
+          "ex": "Devo configurare le impostazioni della stampante.",
+          "exDe": "Ich muss die Einstellungen des Druckers konfigurieren."
+        },
+        {
+          "it": "il telecomando",
+          "de": "die Fernbedienung",
+          "emoji": "🎚️",
+          "ex": "Il telecomando della TV non funziona più bene.",
+          "exDe": "Die Fernbedienung des Fernsehers funktioniert nicht mehr richtig."
+        }
+      ],
+      "C1": [
+        {
+          "it": "l'intelligenza artificiale",
+          "de": "die künstliche Intelligenz",
+          "emoji": "🤖",
+          "ex": "L'intelligenza artificiale sta trasformando interi settori produttivi.",
+          "exDe": "Die künstliche Intelligenz verändert ganze Wirtschaftszweige."
+        },
+        {
+          "it": "l'archiviazione su cloud",
+          "de": "die Cloud-Speicherung",
+          "emoji": "☁️",
+          "ex": "L'archiviazione su cloud consente di accedere ai file ovunque.",
+          "exDe": "Die Cloud-Speicherung ermöglicht den Zugriff auf die Dateien von überall."
+        },
+        {
+          "it": "la violazione dei dati",
+          "de": "die Datenschutzverletzung",
+          "emoji": "🛡️",
+          "ex": "L'azienda ha ammesso una grave violazione dei dati dei clienti.",
+          "exDe": "Das Unternehmen hat eine schwere Verletzung der Kundendaten eingeräumt."
+        },
+        {
+          "it": "l'apprendimento automatico",
+          "de": "das maschinelle Lernen",
+          "emoji": "🧠",
+          "ex": "L'apprendimento automatico richiede enormi quantità di dati.",
+          "exDe": "Das maschinelle Lernen erfordert riesige Datenmengen."
+        },
+        {
+          "it": "l'obsolescenza programmata",
+          "de": "die geplante Obsoleszenz",
+          "emoji": "⏳",
+          "ex": "Molti accusano i produttori di praticare l'obsolescenza programmata.",
+          "exDe": "Viele werfen den Herstellern vor, geplante Obsoleszenz zu betreiben."
+        },
+        {
+          "it": "la tutela della privacy",
+          "de": "der Schutz der Privatsphäre",
+          "emoji": "🕵️",
+          "ex": "La tutela della privacy è diventata una priorità normativa.",
+          "exDe": "Der Schutz der Privatsphäre ist zu einer regulatorischen Priorität geworden."
+        },
+        {
+          "it": "l'interfaccia utente",
+          "de": "die Benutzeroberfläche",
+          "emoji": "🖥️",
+          "ex": "Un'interfaccia utente intuitiva riduce i tempi di formazione.",
+          "exDe": "Eine intuitive Benutzeroberfläche verkürzt die Einarbeitungszeit."
+        },
+        {
+          "it": "il divario digitale",
+          "de": "die digitale Kluft",
+          "emoji": "🌉",
+          "ex": "Il divario digitale penalizza ancora le aree rurali.",
+          "exDe": "Die digitale Kluft benachteiligt nach wie vor die ländlichen Gebiete."
+        },
+        {
+          "it": "implementare un sistema",
+          "de": "ein System einführen",
+          "emoji": "🏗️",
+          "ex": "Hanno deciso di implementare un sistema di gestione integrato.",
+          "exDe": "Sie haben beschlossen, ein integriertes Verwaltungssystem einzuführen."
+        },
+        {
+          "it": "la crittografia",
+          "de": "die Verschlüsselung",
+          "emoji": "🔏",
+          "ex": "La crittografia end-to-end protegge i messaggi da intercettazioni.",
+          "exDe": "Die Ende-zu-Ende-Verschlüsselung schützt die Nachrichten vor Abhören."
+        },
+        {
+          "it": "l'impronta digitale",
+          "de": "der digitale Fingerabdruck",
+          "emoji": "👣",
+          "ex": "Ogni nostra azione online lascia un'impronta digitale.",
+          "exDe": "Jede unserer Handlungen im Netz hinterlässt einen digitalen Fingerabdruck."
+        },
+        {
+          "it": "la realtà aumentata",
+          "de": "die erweiterte Realität",
+          "emoji": "🥽",
+          "ex": "La realtà aumentata apre nuove possibilità nella formazione.",
+          "exDe": "Die erweiterte Realität eröffnet neue Möglichkeiten in der Ausbildung."
+        },
+        {
+          "it": "il flusso di lavoro",
+          "de": "der Arbeitsablauf",
+          "emoji": "🔁",
+          "ex": "L'automazione ha semplificato notevolmente il flusso di lavoro.",
+          "exDe": "Die Automatisierung hat den Arbeitsablauf erheblich vereinfacht."
+        },
+        {
+          "it": "scalabile",
+          "de": "skalierbar",
+          "emoji": "📈",
+          "ex": "L'architettura del software deve essere scalabile e affidabile.",
+          "exDe": "Die Architektur der Software muss skalierbar und zuverlässig sein."
+        },
+        {
+          "it": "il punto debole del sistema",
+          "de": "die Schwachstelle des Systems",
+          "emoji": "🩹",
+          "ex": "Gli hacker hanno individuato il punto debole del sistema.",
+          "exDe": "Die Hacker haben die Schwachstelle des Systems ausfindig gemacht."
+        },
+        {
+          "it": "l'usabilità",
+          "de": "die Benutzerfreundlichkeit",
+          "emoji": "✋",
+          "ex": "I test sull'usabilità hanno rivelato diversi ostacoli per l'utente.",
+          "exDe": "Die Tests zur Benutzerfreundlichkeit haben mehrere Hürden für den Nutzer aufgedeckt."
+        },
+        {
+          "it": "la dipendenza dallo smartphone",
+          "de": "die Smartphone-Abhängigkeit",
+          "emoji": "📵",
+          "ex": "La dipendenza dallo smartphone incide sulla capacità di concentrazione.",
+          "exDe": "Die Smartphone-Abhängigkeit beeinträchtigt die Konzentrationsfähigkeit."
+        },
+        {
+          "it": "monetizzare i contenuti",
+          "de": "Inhalte monetarisieren",
+          "emoji": "💰",
+          "ex": "I creatori cercano nuovi modi per monetizzare i contenuti.",
+          "exDe": "Die Urheber suchen nach neuen Wegen, ihre Inhalte zu monetarisieren."
+        },
+        {
+          "it": "la rete neurale",
+          "de": "das neuronale Netz",
+          "emoji": "🕸️",
+          "ex": "La rete neurale è stata addestrata su milioni di immagini.",
+          "exDe": "Das neuronale Netz wurde mit Millionen von Bildern trainiert."
+        },
+        {
+          "it": "l'integrazione del software",
+          "de": "die Software-Integration",
+          "emoji": "🧩",
+          "ex": "L'integrazione del software con i sistemi esistenti è risultata complessa.",
+          "exDe": "Die Integration der Software in die bestehenden Systeme erwies sich als komplex."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'algoritmo opaco",
+          "de": "der intransparente Algorithmus",
+          "emoji": "🌫️",
+          "ex": "Un algoritmo opaco sottrae all'utente ogni possibilità di controllo.",
+          "exDe": "Ein intransparenter Algorithmus entzieht dem Nutzer jegliche Kontrollmöglichkeit."
+        },
+        {
+          "it": "la sovranità digitale",
+          "de": "die digitale Souveränität",
+          "emoji": "🏛️",
+          "ex": "L'Unione Europea rivendica una propria sovranità digitale di fronte ai colossi tecnologici.",
+          "exDe": "Die Europäische Union beansprucht gegenüber den Technologiekonzernen eine eigene digitale Souveränität."
+        },
+        {
+          "it": "l'iperconnessione",
+          "de": "die Hypervernetzung",
+          "emoji": "🔆",
+          "ex": "L'iperconnessione erode i confini tra vita privata e professionale.",
+          "exDe": "Die Hypervernetzung verwischt die Grenzen zwischen Privat- und Berufsleben."
+        },
+        {
+          "it": "il capitalismo della sorveglianza",
+          "de": "der Überwachungskapitalismus",
+          "emoji": "👁️",
+          "ex": "Il capitalismo della sorveglianza trasforma i comportamenti umani in materia prima.",
+          "exDe": "Der Überwachungskapitalismus verwandelt menschliches Verhalten in einen Rohstoff."
+        },
+        {
+          "it": "l'allucinazione dell'IA",
+          "de": "die KI-Halluzination",
+          "emoji": "🌀",
+          "ex": "Le allucinazioni dell'IA generano affermazioni plausibili ma del tutto infondate.",
+          "exDe": "Die KI-Halluzinationen erzeugen plausibel klingende, aber völlig unbegründete Aussagen."
+        },
+        {
+          "it": "la deriva tecnocratica",
+          "de": "die technokratische Tendenz",
+          "emoji": "⚖️",
+          "ex": "Alcuni intellettuali mettono in guardia da una deriva tecnocratica delle istituzioni.",
+          "exDe": "Manche Intellektuelle warnen vor einer technokratischen Tendenz der Institutionen."
+        },
+        {
+          "it": "l'ineluttabilità del progresso",
+          "de": "die Unausweichlichkeit des Fortschritts",
+          "emoji": "🚀",
+          "ex": "Si dà per scontata l'ineluttabilità del progresso tecnologico, senza interrogarne le ricadute.",
+          "exDe": "Man setzt die Unausweichlichkeit des technologischen Fortschritts als gegeben voraus, ohne dessen Folgen zu hinterfragen."
+        },
+        {
+          "it": "il determinismo tecnologico",
+          "de": "der technologische Determinismus",
+          "emoji": "🧭",
+          "ex": "Il determinismo tecnologico riduce la storia umana a una mera conseguenza degli strumenti.",
+          "exDe": "Der technologische Determinismus reduziert die Menschheitsgeschichte auf eine bloße Folge der Werkzeuge."
+        },
+        {
+          "it": "la cesellatura del codice",
+          "de": "die feinschliffartige Codeoptimierung",
+          "emoji": "🪚",
+          "ex": "La cesellatura del codice ha ridotto i tempi di esecuzione di un ordine di grandezza.",
+          "exDe": "Die feinschliffartige Optimierung des Codes hat die Ausführungszeiten um eine Größenordnung verringert."
+        },
+        {
+          "it": "l'autoreferenzialità degli algoritmi",
+          "de": "die Selbstbezüglichkeit der Algorithmen",
+          "emoji": "♾️",
+          "ex": "L'autoreferenzialità degli algoritmi rischia di rinchiudere l'utente in una bolla cognitiva.",
+          "exDe": "Die Selbstbezüglichkeit der Algorithmen droht den Nutzer in einer kognitiven Blase einzuschließen."
+        },
+        {
+          "it": "la dematerializzazione",
+          "de": "die Entmaterialisierung",
+          "emoji": "💨",
+          "ex": "La dematerializzazione dei documenti ha stravolto le prassi amministrative.",
+          "exDe": "Die Entmaterialisierung der Dokumente hat die Verwaltungspraktiken grundlegend umgewälzt."
+        },
+        {
+          "it": "l'asservimento all'automazione",
+          "de": "die Unterwerfung unter die Automatisierung",
+          "emoji": "🔧",
+          "ex": "L'asservimento all'automazione svuota di senso interi mestieri artigianali.",
+          "exDe": "Die Unterwerfung unter die Automatisierung beraubt ganze Handwerksberufe ihres Sinns."
+        },
+        {
+          "it": "la fallacia del soluzionismo",
+          "de": "der Trugschluss des Solutionismus",
+          "emoji": "🧯",
+          "ex": "La fallacia del soluzionismo pretende di risolvere ogni problema sociale con un'app.",
+          "exDe": "Der Trugschluss des Solutionismus erhebt den Anspruch, jedes gesellschaftliche Problem mit einer App zu lösen."
+        },
+        {
+          "it": "l'effimero digitale",
+          "de": "das digital Flüchtige",
+          "emoji": "🫧",
+          "ex": "L'effimero digitale condanna all'oblio contenuti prodotti in quantità sterminate.",
+          "exDe": "Das digital Flüchtige verurteilt in unermesslichen Mengen produzierte Inhalte zum Vergessen."
+        },
+        {
+          "it": "la ridondanza dei sistemi",
+          "de": "die Systemredundanz",
+          "emoji": "🧷",
+          "ex": "La ridondanza dei sistemi garantisce la continuità operativa anche in caso di guasto.",
+          "exDe": "Die Systemredundanz gewährleistet die Betriebskontinuität selbst im Störungsfall."
+        },
+        {
+          "it": "il primato del dato",
+          "de": "der Primat der Daten",
+          "emoji": "📊",
+          "ex": "Il primato del dato sull'intuizione umana solleva interrogativi epistemologici.",
+          "exDe": "Der Primat der Daten über die menschliche Intuition wirft erkenntnistheoretische Fragen auf."
+        },
+        {
+          "it": "l'opacità computazionale",
+          "de": "die rechnerische Undurchschaubarkeit",
+          "emoji": "🧮",
+          "ex": "L'opacità computazionale dei modelli più avanzati sfugge persino ai loro stessi progettisti.",
+          "exDe": "Die rechnerische Undurchschaubarkeit der fortschrittlichsten Modelle entzieht sich selbst ihren eigenen Entwicklern."
+        },
+        {
+          "it": "la frammentazione dell'attenzione",
+          "de": "die Zersplitterung der Aufmerksamkeit",
+          "emoji": "🪞",
+          "ex": "La frammentazione dell'attenzione indotta dalle notifiche compromette il pensiero profondo.",
+          "exDe": "Die durch Benachrichtigungen ausgelöste Zersplitterung der Aufmerksamkeit beeinträchtigt das tiefe Denken."
+        },
+        {
+          "it": "l'antropizzazione della macchina",
+          "de": "die Vermenschlichung der Maschine",
+          "emoji": "🎭",
+          "ex": "L'antropizzazione della macchina ci induce ad attribuire intenzioni a un mero calcolo statistico.",
+          "exDe": "Die Vermenschlichung der Maschine verleitet uns dazu, einer bloßen statistischen Berechnung Absichten zuzuschreiben."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-media",
+    "title": "Media & Giornalismo",
+    "de": "Medien & Journalismus",
+    "emoji": "📰",
+    "color": "#9b6b3f",
+    "area": "Tecnologia & Media",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il telegiornale",
+          "de": "die Nachrichtensendung",
+          "emoji": "📺",
+          "ex": "Guardo il telegiornale tutte le sere alle otto.",
+          "exDe": "Ich schaue jeden Abend um acht die Nachrichtensendung."
+        },
+        {
+          "it": "il quotidiano",
+          "de": "die Tageszeitung",
+          "emoji": "🗞️",
+          "ex": "Leggo il quotidiano al bar mentre prendo il caffè.",
+          "exDe": "Ich lese die Tageszeitung im Café, während ich meinen Kaffee trinke."
+        },
+        {
+          "it": "l'articolo di giornale",
+          "de": "der Zeitungsartikel",
+          "emoji": "📄",
+          "ex": "Ho letto un articolo di giornale molto interessante sull'argomento.",
+          "exDe": "Ich habe einen sehr interessanten Zeitungsartikel zu dem Thema gelesen."
+        },
+        {
+          "it": "il giornalista",
+          "de": "der Journalist",
+          "emoji": "🧑‍💼",
+          "ex": "Il giornalista ha intervistato il sindaco della città.",
+          "exDe": "Der Journalist hat den Bürgermeister der Stadt interviewt."
+        },
+        {
+          "it": "la notizia",
+          "de": "die Nachricht",
+          "emoji": "❗",
+          "ex": "La notizia è apparsa su tutti i siti web stamattina.",
+          "exDe": "Die Nachricht ist heute Morgen auf allen Webseiten erschienen."
+        },
+        {
+          "it": "il titolo",
+          "de": "die Schlagzeile",
+          "emoji": "📛",
+          "ex": "Il titolo in prima pagina ha attirato la mia attenzione.",
+          "exDe": "Die Schlagzeile auf der Titelseite hat meine Aufmerksamkeit erregt."
+        },
+        {
+          "it": "l'intervista",
+          "de": "das Interview",
+          "emoji": "🎤",
+          "ex": "L'intervista è andata in onda ieri sera.",
+          "exDe": "Das Interview wurde gestern Abend ausgestrahlt."
+        },
+        {
+          "it": "la rivista",
+          "de": "die Zeitschrift",
+          "emoji": "📔",
+          "ex": "Mi sono abbonato a una rivista di viaggi.",
+          "exDe": "Ich habe eine Reisezeitschrift abonniert."
+        },
+        {
+          "it": "il programma televisivo",
+          "de": "die Fernsehsendung",
+          "emoji": "📡",
+          "ex": "Questo programma televisivo va in onda ogni domenica.",
+          "exDe": "Diese Fernsehsendung läuft jeden Sonntag."
+        },
+        {
+          "it": "il conduttore",
+          "de": "der Moderator",
+          "emoji": "🎙️",
+          "ex": "Il conduttore ha presentato gli ospiti della serata.",
+          "exDe": "Der Moderator hat die Gäste des Abends vorgestellt."
+        },
+        {
+          "it": "la pubblicità",
+          "de": "die Werbung",
+          "emoji": "📢",
+          "ex": "La pubblicità interrompe sempre il film nel momento più bello.",
+          "exDe": "Die Werbung unterbricht den Film immer im spannendsten Moment."
+        },
+        {
+          "it": "il social network",
+          "de": "das soziale Netzwerk",
+          "emoji": "📲",
+          "ex": "Molti giovani si informano soprattutto sui social network.",
+          "exDe": "Viele Jugendliche informieren sich vor allem über soziale Netzwerke."
+        },
+        {
+          "it": "il telespettatore",
+          "de": "der Zuschauer",
+          "emoji": "👀",
+          "ex": "Il telespettatore può votare durante la trasmissione.",
+          "exDe": "Der Zuschauer kann während der Sendung abstimmen."
+        },
+        {
+          "it": "l'inviato",
+          "de": "der Korrespondent",
+          "emoji": "🌍",
+          "ex": "L'inviato ha raccontato la situazione direttamente dal luogo.",
+          "exDe": "Der Korrespondent hat über die Lage direkt vom Ort berichtet."
+        },
+        {
+          "it": "il documentario",
+          "de": "der Dokumentarfilm",
+          "emoji": "🎬",
+          "ex": "Abbiamo visto un documentario sulla fauna marina.",
+          "exDe": "Wir haben einen Dokumentarfilm über die Meeresfauna gesehen."
+        },
+        {
+          "it": "la diretta",
+          "de": "die Live-Übertragung",
+          "emoji": "🔴",
+          "ex": "La partita viene trasmessa in diretta su due canali.",
+          "exDe": "Das Spiel wird live auf zwei Kanälen übertragen."
+        },
+        {
+          "it": "il lettore",
+          "de": "der Leser",
+          "emoji": "📖",
+          "ex": "Il giornale ha perso molti lettori negli ultimi anni.",
+          "exDe": "Die Zeitung hat in den letzten Jahren viele Leser verloren."
+        },
+        {
+          "it": "la fonte",
+          "de": "die Quelle",
+          "emoji": "💧",
+          "ex": "Bisogna sempre verificare la fonte di una notizia.",
+          "exDe": "Man muss immer die Quelle einer Nachricht überprüfen."
+        },
+        {
+          "it": "il comunicato stampa",
+          "de": "die Pressemitteilung",
+          "emoji": "📰",
+          "ex": "L'azienda ha diffuso un comunicato stampa per chiarire la vicenda.",
+          "exDe": "Das Unternehmen hat eine Pressemitteilung herausgegeben, um den Vorfall aufzuklären."
+        },
+        {
+          "it": "il podcast",
+          "de": "der Podcast",
+          "emoji": "🎧",
+          "ex": "Ascolto un podcast di attualità mentre vado al lavoro.",
+          "exDe": "Ich höre einen Podcast über aktuelle Themen auf dem Weg zur Arbeit."
+        }
+      ],
+      "C1": [
+        {
+          "it": "la libertà di stampa",
+          "de": "die Pressefreiheit",
+          "emoji": "🕊️",
+          "ex": "La libertà di stampa è un pilastro di ogni democrazia.",
+          "exDe": "Die Pressefreiheit ist eine Säule jeder Demokratie."
+        },
+        {
+          "it": "il giornalismo investigativo",
+          "de": "der investigative Journalismus",
+          "emoji": "🔎",
+          "ex": "Il giornalismo investigativo ha portato alla luce lo scandalo.",
+          "exDe": "Der investigative Journalismus hat den Skandal ans Licht gebracht."
+        },
+        {
+          "it": "la deontologia professionale",
+          "de": "die berufliche Standesethik",
+          "emoji": "📜",
+          "ex": "Il cronista ha violato la deontologia professionale pubblicando quei nomi.",
+          "exDe": "Der Reporter hat gegen die berufliche Standesethik verstoßen, indem er jene Namen veröffentlichte."
+        },
+        {
+          "it": "la verifica dei fatti",
+          "de": "die Faktenprüfung",
+          "emoji": "✅",
+          "ex": "La redazione ha istituito un servizio dedicato alla verifica dei fatti.",
+          "exDe": "Die Redaktion hat eine eigene Abteilung für die Faktenprüfung eingerichtet."
+        },
+        {
+          "it": "la copertura mediatica",
+          "de": "die Medienberichterstattung",
+          "emoji": "📡",
+          "ex": "L'evento ha ricevuto un'ampia copertura mediatica internazionale.",
+          "exDe": "Das Ereignis hat eine breite internationale Medienberichterstattung erfahren."
+        },
+        {
+          "it": "la fonte attendibile",
+          "de": "die verlässliche Quelle",
+          "emoji": "📚",
+          "ex": "Senza una fonte attendibile, la notizia resta una semplice voce.",
+          "exDe": "Ohne eine verlässliche Quelle bleibt die Nachricht ein bloßes Gerücht."
+        },
+        {
+          "it": "l'editoriale",
+          "de": "der Leitartikel",
+          "emoji": "✍️",
+          "ex": "L'editoriale del direttore ha suscitato un acceso dibattito.",
+          "exDe": "Der Leitartikel des Chefredakteurs hat eine hitzige Debatte ausgelöst."
+        },
+        {
+          "it": "la censura",
+          "de": "die Zensur",
+          "emoji": "✂️",
+          "ex": "In quel paese la censura colpisce duramente i media indipendenti.",
+          "exDe": "In jenem Land trifft die Zensur die unabhängigen Medien hart."
+        },
+        {
+          "it": "il clamore mediatico",
+          "de": "der Medienrummel",
+          "emoji": "🎉",
+          "ex": "Il processo ha scatenato un enorme clamore mediatico.",
+          "exDe": "Der Prozess hat einen enormen Medienrummel ausgelöst."
+        },
+        {
+          "it": "manipolare l'informazione",
+          "de": "die Information manipulieren",
+          "emoji": "🎭",
+          "ex": "Alcuni regimi manipolano l'informazione per consolidare il potere.",
+          "exDe": "Manche Regime manipulieren die Information, um ihre Macht zu festigen."
+        },
+        {
+          "it": "il pluralismo dei media",
+          "de": "der Medienpluralismus",
+          "emoji": "🌈",
+          "ex": "Il pluralismo dei media garantisce una varietà di punti di vista.",
+          "exDe": "Der Medienpluralismus gewährleistet eine Vielfalt an Standpunkten."
+        },
+        {
+          "it": "il taglio della notizia",
+          "de": "die Aufmachung der Nachricht",
+          "emoji": "🪡",
+          "ex": "Lo stesso fatto cambia significato a seconda del taglio della notizia.",
+          "exDe": "Derselbe Sachverhalt ändert seine Bedeutung je nach Aufmachung der Nachricht."
+        },
+        {
+          "it": "la fonte anonima",
+          "de": "die anonyme Quelle",
+          "emoji": "🥸",
+          "ex": "L'articolo si basa su una fonte anonima vicina al governo.",
+          "exDe": "Der Artikel stützt sich auf eine anonyme Quelle aus Regierungsnähe."
+        },
+        {
+          "it": "il sensazionalismo",
+          "de": "die Sensationsgier",
+          "emoji": "💥",
+          "ex": "Il sensazionalismo sacrifica l'accuratezza all'audience.",
+          "exDe": "Die Sensationsgier opfert die Genauigkeit der Einschaltquote."
+        },
+        {
+          "it": "la rettifica",
+          "de": "die Richtigstellung",
+          "emoji": "↩️",
+          "ex": "Il giornale ha pubblicato una rettifica il giorno seguente.",
+          "exDe": "Die Zeitung hat am folgenden Tag eine Richtigstellung veröffentlicht."
+        },
+        {
+          "it": "il diritto di cronaca",
+          "de": "das Recht auf Berichterstattung",
+          "emoji": "⚖️",
+          "ex": "Il diritto di cronaca deve bilanciarsi con il rispetto della riservatezza.",
+          "exDe": "Das Recht auf Berichterstattung muss gegen den Schutz der Privatsphäre abgewogen werden."
+        },
+        {
+          "it": "il bacino di utenza",
+          "de": "die Zielgruppe",
+          "emoji": "🎯",
+          "ex": "La testata ha allargato il proprio bacino di utenza tra i giovani.",
+          "exDe": "Das Medienorgan hat seine Zielgruppe unter den Jugendlichen erweitert."
+        },
+        {
+          "it": "il monopolio dell'informazione",
+          "de": "das Informationsmonopol",
+          "emoji": "🏰",
+          "ex": "Un monopolio dell'informazione mette a rischio il dibattito democratico.",
+          "exDe": "Ein Informationsmonopol gefährdet die demokratische Debatte."
+        }
+      ],
+      "C2": [
+        {
+          "it": "la post-verità",
+          "de": "die postfaktische Wahrheit",
+          "emoji": "🌪️",
+          "ex": "Nell'era della post-verità l'appello alle emozioni prevale sui fatti accertati.",
+          "exDe": "Im Zeitalter der postfaktischen Wahrheit überwiegt der Appell an die Gefühle die belegten Fakten."
+        },
+        {
+          "it": "la spettacolarizzazione della cronaca",
+          "de": "die Spektakularisierung der Berichterstattung",
+          "emoji": "🎪",
+          "ex": "La spettacolarizzazione della cronaca nera trasforma il dolore in intrattenimento.",
+          "exDe": "Die Spektakularisierung der Kriminalberichterstattung verwandelt das Leid in Unterhaltung."
+        },
+        {
+          "it": "l'asservimento al potere",
+          "de": "die Unterwerfung unter die Macht",
+          "emoji": "🔗",
+          "ex": "L'asservimento al potere politico svilisce la funzione di vigilanza della stampa.",
+          "exDe": "Die Unterwerfung unter die politische Macht entwürdigt die Wächterfunktion der Presse."
+        },
+        {
+          "it": "la macchina del fango",
+          "de": "die Schmutzkampagnen-Maschinerie",
+          "emoji": "🪣",
+          "ex": "Contro il candidato si è scatenata una vera e propria macchina del fango.",
+          "exDe": "Gegen den Kandidaten wurde eine regelrechte Schmutzkampagnen-Maschinerie in Gang gesetzt."
+        },
+        {
+          "it": "il quarto potere",
+          "de": "die vierte Gewalt",
+          "emoji": "🏛️",
+          "ex": "Il quarto potere dovrebbe vigilare sull'operato delle istituzioni.",
+          "exDe": "Die vierte Gewalt sollte über das Handeln der Institutionen wachen."
+        },
+        {
+          "it": "l'autocensura preventiva",
+          "de": "die vorauseilende Selbstzensur",
+          "emoji": "🤐",
+          "ex": "L'autocensura preventiva è spesso più insidiosa della censura imposta dall'alto.",
+          "exDe": "Die vorauseilende Selbstzensur ist oft tückischer als die von oben verordnete Zensur."
+        },
+        {
+          "it": "la deriva populista dei media",
+          "de": "die populistische Tendenz der Medien",
+          "emoji": "📣",
+          "ex": "La deriva populista dei media asseconda gli istinti viscerali del pubblico.",
+          "exDe": "Die populistische Tendenz der Medien bedient die viszeralen Instinkte des Publikums."
+        },
+        {
+          "it": "l'omologazione del linguaggio",
+          "de": "die Vereinheitlichung der Sprache",
+          "emoji": "📐",
+          "ex": "L'omologazione del linguaggio giornalistico impoverisce il dibattito pubblico.",
+          "exDe": "Die Vereinheitlichung der journalistischen Sprache verarmt die öffentliche Debatte."
+        },
+        {
+          "it": "la spirale del silenzio",
+          "de": "die Schweigespirale",
+          "emoji": "🌀",
+          "ex": "La spirale del silenzio induce a tacere chi teme di trovarsi in minoranza.",
+          "exDe": "Die Schweigespirale veranlasst diejenigen zum Schweigen, die fürchten, in der Minderheit zu sein."
+        },
+        {
+          "it": "la captazione del consenso",
+          "de": "die Einfangung der Zustimmung",
+          "emoji": "🪝",
+          "ex": "La captazione del consenso passa oggi per algoritmi che profilano gli umori collettivi.",
+          "exDe": "Die Einfangung der Zustimmung verläuft heute über Algorithmen, die kollektive Stimmungen profilieren."
+        },
+        {
+          "it": "il giornalismo embedded",
+          "de": "der eingebettete Journalismus",
+          "emoji": "🪖",
+          "ex": "Il giornalismo embedded sacrifica l'indipendenza sull'altare dell'accesso esclusivo.",
+          "exDe": "Der eingebettete Journalismus opfert die Unabhängigkeit auf dem Altar des exklusiven Zugangs."
+        },
+        {
+          "it": "la diffamazione a mezzo stampa",
+          "de": "die üble Nachrede durch die Presse",
+          "emoji": "⚔️",
+          "ex": "Il direttore è stato condannato per diffamazione a mezzo stampa.",
+          "exDe": "Der Chefredakteur wurde wegen übler Nachrede durch die Presse verurteilt."
+        },
+        {
+          "it": "l'agenda setting",
+          "de": "die Themensetzung",
+          "emoji": "🗂️",
+          "ex": "Attraverso l'agenda setting i media decidono non cosa pensare, ma a cosa pensare.",
+          "exDe": "Durch die Themensetzung entscheiden die Medien nicht, was man denken, sondern woran man denken soll."
+        },
+        {
+          "it": "la mistificazione mediatica",
+          "de": "die mediale Verschleierung",
+          "emoji": "🎩",
+          "ex": "La mistificazione mediatica ammanta di obiettività una narrazione di parte.",
+          "exDe": "Die mediale Verschleierung umhüllt eine einseitige Darstellung mit dem Schein der Objektivität."
+        },
+        {
+          "it": "l'effimero della notizia",
+          "de": "die Vergänglichkeit der Nachricht",
+          "emoji": "🍂",
+          "ex": "L'effimero della notizia condanna ogni scandalo a un rapido oblio.",
+          "exDe": "Die Vergänglichkeit der Nachricht verurteilt jeden Skandal zu raschem Vergessen."
+        },
+        {
+          "it": "la connivenza editoriale",
+          "de": "die redaktionelle Komplizenschaft",
+          "emoji": "🤝",
+          "ex": "La connivenza editoriale con gli inserzionisti compromette l'imparzialità della testata.",
+          "exDe": "Die redaktionelle Komplizenschaft mit den Inserenten beeinträchtigt die Unparteilichkeit des Blattes."
+        },
+        {
+          "it": "il riduzionismo narrativo",
+          "de": "der narrative Reduktionismus",
+          "emoji": "🔻",
+          "ex": "Il riduzionismo narrativo appiattisce fenomeni complessi in slogan rassicuranti.",
+          "exDe": "Der narrative Reduktionismus plättet komplexe Phänomene zu beruhigenden Schlagworten."
+        },
+        {
+          "it": "la pervasività del messaggio",
+          "de": "die Allgegenwart der Botschaft",
+          "emoji": "🌐",
+          "ex": "La pervasività del messaggio pubblicitario satura ogni interstizio della vita quotidiana.",
+          "exDe": "Die Allgegenwart der Werbebotschaft durchdringt jeden Zwischenraum des Alltags."
+        },
+        {
+          "it": "l'inchiesta dirompente",
+          "de": "die brisante Enthüllung",
+          "emoji": "🧨",
+          "ex": "Un'inchiesta dirompente ha incrinato la reputazione dell'intero apparato.",
+          "exDe": "Eine brisante Enthüllung hat den Ruf des gesamten Apparats erschüttert."
+        },
+        {
+          "it": "la retorica dell'emergenza",
+          "de": "die Rhetorik des Ausnahmezustands",
+          "emoji": "🚨",
+          "ex": "La retorica dell'emergenza, reiterata dai notiziari, normalizza misure eccezionali.",
+          "exDe": "Die von den Nachrichtensendungen wiederholte Rhetorik des Ausnahmezustands normalisiert außergewöhnliche Maßnahmen."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-arte",
+    "title": "Arte & Architettura",
+    "de": "Kunst & Architektur",
+    "emoji": "🎨",
+    "color": "#b5602f",
+    "area": "Arte & Cultura",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il dipinto",
+          "de": "das Gemälde",
+          "emoji": "🖼️",
+          "ex": "Il dipinto è esposto nella sala principale del museo.",
+          "exDe": "Das Gemälde ist im Hauptsaal des Museums ausgestellt."
+        },
+        {
+          "it": "la scultura",
+          "de": "die Skulptur",
+          "emoji": "🗿",
+          "ex": "Questa scultura in marmo risale al Rinascimento.",
+          "exDe": "Diese Skulptur aus Marmor stammt aus der Renaissance."
+        },
+        {
+          "it": "la mostra",
+          "de": "die Ausstellung",
+          "emoji": "🏛️",
+          "ex": "La mostra sull'arte moderna chiude domenica prossima.",
+          "exDe": "Die Ausstellung über moderne Kunst schließt nächsten Sonntag."
+        },
+        {
+          "it": "l'artista",
+          "de": "der Künstler / die Künstlerin",
+          "emoji": "👩‍🎨",
+          "ex": "L'artista ha dedicato anni a questa opera.",
+          "exDe": "Der Künstler hat diesem Werk Jahre gewidmet."
+        },
+        {
+          "it": "il capolavoro",
+          "de": "das Meisterwerk",
+          "emoji": "🌟",
+          "ex": "La Gioconda è considerata un capolavoro assoluto.",
+          "exDe": "Die Mona Lisa gilt als absolutes Meisterwerk."
+        },
+        {
+          "it": "la tela",
+          "de": "die Leinwand",
+          "emoji": "🎨",
+          "ex": "Il pittore ha applicato il colore direttamente sulla tela.",
+          "exDe": "Der Maler hat die Farbe direkt auf die Leinwand aufgetragen."
+        },
+        {
+          "it": "l'affresco",
+          "de": "das Fresko",
+          "emoji": "🖌️",
+          "ex": "Gli affreschi della cappella sono in fase di restauro.",
+          "exDe": "Die Fresken der Kapelle werden gerade restauriert."
+        },
+        {
+          "it": "la cornice",
+          "de": "der Bilderrahmen",
+          "emoji": "🔲",
+          "ex": "Hanno scelto una cornice dorata per il ritratto.",
+          "exDe": "Sie haben einen goldenen Rahmen für das Porträt gewählt."
+        },
+        {
+          "it": "il pennello",
+          "de": "der Pinsel",
+          "emoji": "🖌️",
+          "ex": "Pulisce sempre i pennelli alla fine della giornata.",
+          "exDe": "Er reinigt am Ende des Tages immer die Pinsel."
+        },
+        {
+          "it": "la galleria d'arte",
+          "de": "die Kunstgalerie",
+          "emoji": "🏛️",
+          "ex": "Ho comprato questa stampa in una galleria d'arte del centro.",
+          "exDe": "Ich habe diesen Druck in einer Kunstgalerie im Zentrum gekauft."
+        },
+        {
+          "it": "il ritratto",
+          "de": "das Porträt",
+          "emoji": "🧑‍🎨",
+          "ex": "Il ritratto della duchessa è di una bellezza straordinaria.",
+          "exDe": "Das Porträt der Herzogin ist von außergewöhnlicher Schönheit."
+        },
+        {
+          "it": "il paesaggio",
+          "de": "die Landschaft (als Bildmotiv)",
+          "emoji": "🏞️",
+          "ex": "Preferisco i paesaggi alle nature morte.",
+          "exDe": "Ich bevorzuge Landschaften gegenüber Stillleben."
+        },
+        {
+          "it": "la cupola",
+          "de": "die Kuppel",
+          "emoji": "⛪",
+          "ex": "La cupola del Brunelleschi domina lo skyline di Firenze.",
+          "exDe": "Brunelleschis Kuppel beherrscht die Skyline von Florenz."
+        },
+        {
+          "it": "l'edificio",
+          "de": "das Gebäude",
+          "emoji": "🏢",
+          "ex": "Questo edificio storico ospita ora una biblioteca.",
+          "exDe": "Dieses historische Gebäude beherbergt heute eine Bibliothek."
+        },
+        {
+          "it": "il restauro",
+          "de": "die Restaurierung",
+          "emoji": "🔧",
+          "ex": "Il restauro della facciata durerà due anni.",
+          "exDe": "Die Restaurierung der Fassade wird zwei Jahre dauern."
+        },
+        {
+          "it": "la facciata",
+          "de": "die Fassade",
+          "emoji": "🏛️",
+          "ex": "La facciata della chiesa è ricoperta di marmi colorati.",
+          "exDe": "Die Fassade der Kirche ist mit farbigem Marmor verkleidet."
+        },
+        {
+          "it": "l'architetto",
+          "de": "der Architekt / die Architektin",
+          "emoji": "📐",
+          "ex": "L'architetto ha presentato il progetto del nuovo teatro.",
+          "exDe": "Der Architekt hat den Entwurf des neuen Theaters vorgestellt."
+        },
+        {
+          "it": "la mostra temporanea",
+          "de": "die Sonderausstellung",
+          "emoji": "📅",
+          "ex": "La mostra temporanea sui Macchiaioli attira molti visitatori.",
+          "exDe": "Die Sonderausstellung über die Macchiaioli zieht viele Besucher an."
+        },
+        {
+          "it": "lo stile",
+          "de": "der Stil",
+          "emoji": "✨",
+          "ex": "Si riconosce subito lo stile inconfondibile di questo pittore.",
+          "exDe": "Man erkennt sofort den unverwechselbaren Stil dieses Malers."
+        },
+        {
+          "it": "il museo civico",
+          "de": "das Stadtmuseum",
+          "emoji": "🏛️",
+          "ex": "Il museo civico conserva reperti di epoca romana.",
+          "exDe": "Das Stadtmuseum bewahrt Fundstücke aus römischer Zeit auf."
+        }
+      ],
+      "C1": [
+        {
+          "it": "il chiaroscuro",
+          "de": "das Helldunkel",
+          "emoji": "🌗",
+          "ex": "Caravaggio padroneggiava il chiaroscuro come pochi altri.",
+          "exDe": "Caravaggio beherrschte das Helldunkel wie kaum ein anderer."
+        },
+        {
+          "it": "la prospettiva",
+          "de": "die Perspektive",
+          "emoji": "📐",
+          "ex": "L'invenzione della prospettiva rivoluzionò la pittura quattrocentesca.",
+          "exDe": "Die Erfindung der Perspektive revolutionierte die Malerei des 15. Jahrhunderts."
+        },
+        {
+          "it": "la pennellata",
+          "de": "der Pinselstrich",
+          "emoji": "🖌️",
+          "ex": "Le pennellate vibranti tradiscono un'esecuzione rapida e istintiva.",
+          "exDe": "Die lebhaften Pinselstriche verraten eine schnelle, instinktive Ausführung."
+        },
+        {
+          "it": "la committenza",
+          "de": "der Auftraggeber / die Auftragsvergabe",
+          "emoji": "📜",
+          "ex": "La committenza dei Medici fu decisiva per il Rinascimento fiorentino.",
+          "exDe": "Die Auftragsvergabe der Medici war entscheidend für die florentinische Renaissance."
+        },
+        {
+          "it": "l'opera d'arte",
+          "de": "das Kunstwerk",
+          "emoji": "🖼️",
+          "ex": "Ogni opera d'arte va contestualizzata nella sua epoca.",
+          "exDe": "Jedes Kunstwerk muss in seine Epoche eingeordnet werden."
+        },
+        {
+          "it": "la corrente artistica",
+          "de": "die Kunstströmung",
+          "emoji": "🌊",
+          "ex": "Il Futurismo fu la corrente artistica più dirompente del primo Novecento.",
+          "exDe": "Der Futurismus war die umwälzendste Kunstströmung des frühen 20. Jahrhunderts."
+        },
+        {
+          "it": "l'avanguardia",
+          "de": "die Avantgarde",
+          "emoji": "🚩",
+          "ex": "Le avanguardie storiche rifiutarono i canoni accademici.",
+          "exDe": "Die historischen Avantgarden lehnten die akademischen Regeln ab."
+        },
+        {
+          "it": "il bozzetto",
+          "de": "die Skizze / der Entwurf",
+          "emoji": "✏️",
+          "ex": "Il bozzetto preparatorio rivela ripensamenti sulla composizione.",
+          "exDe": "Die vorbereitende Skizze offenbart Umentscheidungen bei der Komposition."
+        },
+        {
+          "it": "la pinacoteca",
+          "de": "die Gemäldegalerie",
+          "emoji": "🏛️",
+          "ex": "La pinacoteca custodisce una pregevole raccolta di primitivi.",
+          "exDe": "Die Gemäldegalerie hütet eine wertvolle Sammlung früher Meister."
+        },
+        {
+          "it": "la patina del tempo",
+          "de": "die Patina der Zeit",
+          "emoji": "⏳",
+          "ex": "La patina del tempo conferisce al bronzo un fascino particolare.",
+          "exDe": "Die Patina der Zeit verleiht der Bronze einen besonderen Reiz."
+        },
+        {
+          "it": "il committente",
+          "de": "der Auftraggeber",
+          "emoji": "🤝",
+          "ex": "Il committente impose precise indicazioni iconografiche al pittore.",
+          "exDe": "Der Auftraggeber machte dem Maler genaue ikonografische Vorgaben."
+        },
+        {
+          "it": "la pala d'altare",
+          "de": "das Altarbild",
+          "emoji": "⛪",
+          "ex": "La pala d'altare raffigura l'Annunciazione su fondo oro.",
+          "exDe": "Das Altarbild stellt die Verkündigung auf goldenem Grund dar."
+        },
+        {
+          "it": "l'allestimento",
+          "de": "die Ausstellungsgestaltung",
+          "emoji": "💡",
+          "ex": "L'allestimento sobrio valorizza le singole opere senza distrarre.",
+          "exDe": "Die schlichte Ausstellungsgestaltung hebt die einzelnen Werke hervor, ohne abzulenken."
+        },
+        {
+          "it": "il mecenate",
+          "de": "der Mäzen",
+          "emoji": "💰",
+          "ex": "Senza un mecenate illuminato, molti capolavori non sarebbero nati.",
+          "exDe": "Ohne einen aufgeklärten Mäzen wären viele Meisterwerke nicht entstanden."
+        },
+        {
+          "it": "la volta a crociera",
+          "de": "das Kreuzgewölbe",
+          "emoji": "⛪",
+          "ex": "La navata è coperta da eleganti volte a crociera gotiche.",
+          "exDe": "Das Kirchenschiff ist von eleganten gotischen Kreuzgewölben überspannt."
+        },
+        {
+          "it": "il modellato",
+          "de": "die plastische Modellierung",
+          "emoji": "🗿",
+          "ex": "Il modellato dei panneggi rivela una mano sapiente.",
+          "exDe": "Die Modellierung der Gewandfalten verrät eine gekonnte Hand."
+        },
+        {
+          "it": "la resa cromatica",
+          "de": "die farbliche Wiedergabe",
+          "emoji": "🌈",
+          "ex": "Il restauro ha restituito alla tela la sua originaria resa cromatica.",
+          "exDe": "Die Restaurierung hat der Leinwand ihre ursprüngliche farbliche Wiedergabe zurückgegeben."
+        },
+        {
+          "it": "l'impianto compositivo",
+          "de": "der kompositorische Aufbau",
+          "emoji": "🧩",
+          "ex": "L'impianto compositivo è rigorosamente simmetrico.",
+          "exDe": "Der kompositorische Aufbau ist streng symmetrisch."
+        },
+        {
+          "it": "la fruizione dell'opera",
+          "de": "die Rezeption des Werks",
+          "emoji": "👁️",
+          "ex": "L'illuminazione condiziona profondamente la fruizione dell'opera.",
+          "exDe": "Die Beleuchtung beeinflusst die Rezeption des Werks tiefgreifend."
+        },
+        {
+          "it": "il linguaggio figurativo",
+          "de": "die figurative Bildsprache",
+          "emoji": "🗣️",
+          "ex": "L'artista elabora un linguaggio figurativo del tutto personale.",
+          "exDe": "Der Künstler entwickelt eine völlig eigene figurative Bildsprache."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'ekphrasis",
+          "de": "die Ekphrasis (literarische Bildbeschreibung)",
+          "emoji": "📖",
+          "ex": "L'ekphrasis dello scudo di Achille è un celebre antecedente classico.",
+          "exDe": "Die Ekphrasis des Schildes des Achilleus ist ein berühmtes klassisches Vorbild."
+        },
+        {
+          "it": "il non finito",
+          "de": "das Unvollendete (als Stilmittel)",
+          "emoji": "🪨",
+          "ex": "Il non finito michelangiolesco esalta la lotta della forma con la materia.",
+          "exDe": "Das Unvollendete bei Michelangelo betont das Ringen der Form mit dem Material."
+        },
+        {
+          "it": "lo sfumato",
+          "de": "das Sfumato",
+          "emoji": "🌫️",
+          "ex": "Lo sfumato leonardesco dissolve i contorni in un'atmosfera vaporosa.",
+          "exDe": "Das leonardeske Sfumato löst die Konturen in einer dunstigen Atmosphäre auf."
+        },
+        {
+          "it": "l'horror vacui",
+          "de": "der Horror Vacui (Angst vor leerem Raum)",
+          "emoji": "🌀",
+          "ex": "La decorazione barocca cede spesso a un irrefrenabile horror vacui.",
+          "exDe": "Die barocke Dekoration verfällt oft einem unbändigen Horror Vacui."
+        },
+        {
+          "it": "il sublime",
+          "de": "das Erhabene",
+          "emoji": "⛰️",
+          "ex": "Il paesaggio romantico aspira a evocare il sentimento del sublime.",
+          "exDe": "Die romantische Landschaft strebt danach, das Gefühl des Erhabenen zu evozieren."
+        },
+        {
+          "it": "la pala marciana",
+          "de": "das venezianische Altarretabel",
+          "emoji": "🏛️",
+          "ex": "Lo studioso attribuì la pala marciana a una bottega veneta del Cinquecento.",
+          "exDe": "Der Gelehrte schrieb das venezianische Altarretabel einer venezianischen Werkstatt des 16. Jahrhunderts zu."
+        },
+        {
+          "it": "l'anastilosi",
+          "de": "die Anastylose (Wiederaufbau aus Originalteilen)",
+          "emoji": "🏗️",
+          "ex": "L'anastilosi del tempio ha reimpiegato esclusivamente i frammenti originali.",
+          "exDe": "Die Anastylose des Tempels hat ausschließlich die Originalfragmente wiederverwendet."
+        },
+        {
+          "it": "il partito decorativo",
+          "de": "das dekorative Gliederungssystem",
+          "emoji": "🎀",
+          "ex": "Il partito decorativo della loggia segue un ritmo serrato di lesene.",
+          "exDe": "Das dekorative Gliederungssystem der Loggia folgt einem dichten Rhythmus von Lisenen."
+        },
+        {
+          "it": "la maniera",
+          "de": "die Manier (manieristischer Stil)",
+          "emoji": "💫",
+          "ex": "La maniera tardo-cinquecentesca predilige pose contorte e colori cangianti.",
+          "exDe": "Die spätmanieristische Malweise bevorzugt verschlungene Posen und changierende Farben."
+        },
+        {
+          "it": "l'incarnato",
+          "de": "die Inkarnatfarbe (Hauttöne)",
+          "emoji": "🎨",
+          "ex": "L'incarnato perlaceo delle figure tradisce un'attenta velatura.",
+          "exDe": "Der perlmuttartige Hautton der Figuren verrät eine sorgfältige Lasur."
+        },
+        {
+          "it": "il disegno preparatorio",
+          "de": "die Untermalung / Vorzeichnung",
+          "emoji": "📝",
+          "ex": "La riflettografia ha rivelato un disegno preparatorio sotto la pellicola pittorica.",
+          "exDe": "Die Infrarotreflektografie hat unter der Malschicht eine Vorzeichnung enthüllt."
+        },
+        {
+          "it": "il pentimento",
+          "de": "das Pentiment (übermalte Korrektur)",
+          "emoji": "🔍",
+          "ex": "Un pentimento visibile testimonia un ripensamento dell'autore.",
+          "exDe": "Ein sichtbares Pentiment zeugt von einer nachträglichen Korrektur des Künstlers."
+        },
+        {
+          "it": "la quadratura",
+          "de": "die illusionistische Architekturmalerei",
+          "emoji": "🏛️",
+          "ex": "La quadratura del soffitto dilata illusoriamente lo spazio verso il cielo.",
+          "exDe": "Die illusionistische Architekturmalerei der Decke weitet den Raum scheinbar zum Himmel hin."
+        },
+        {
+          "it": "l'apparato iconografico",
+          "de": "der ikonografische Apparat",
+          "emoji": "📚",
+          "ex": "L'apparato iconografico del ciclo affrescato allude alle virtù cardinali.",
+          "exDe": "Der ikonografische Apparat des Freskenzyklus spielt auf die Kardinaltugenden an."
+        },
+        {
+          "it": "la cifra stilistica",
+          "de": "die stilistische Handschrift",
+          "emoji": "🖋️",
+          "ex": "Quella torsione delle figure è ormai la sua inconfondibile cifra stilistica.",
+          "exDe": "Diese Verdrehung der Figuren ist mittlerweile seine unverkennbare stilistische Handschrift."
+        },
+        {
+          "it": "il diafano",
+          "de": "das Diaphane (lichtdurchlässige Wirkung)",
+          "emoji": "✨",
+          "ex": "Il diafano dei velami conferisce all'immagine una qualità quasi eterea.",
+          "exDe": "Das Diaphane der Schleier verleiht dem Bild eine fast ätherische Qualität."
+        },
+        {
+          "it": "la dismisura barocca",
+          "de": "die barocke Maßlosigkeit",
+          "emoji": "🌪️",
+          "ex": "La dismisura barocca trasforma la facciata in un trionfo di volute e timpani spezzati.",
+          "exDe": "Die barocke Maßlosigkeit verwandelt die Fassade in einen Triumph aus Voluten und gesprengten Giebeln."
+        },
+        {
+          "it": "il restauro filologico",
+          "de": "die philologische Restaurierung",
+          "emoji": "🔬",
+          "ex": "Il restauro filologico rifugge da ogni integrazione arbitraria.",
+          "exDe": "Die philologische Restaurierung scheut jede willkürliche Ergänzung."
+        },
+        {
+          "it": "la temperie culturale",
+          "de": "das kulturelle Klima einer Epoche",
+          "emoji": "🌡️",
+          "ex": "L'opera va letta alla luce della temperie culturale post-tridentina.",
+          "exDe": "Das Werk ist im Licht des kulturellen Klimas nach dem Konzil von Trient zu lesen."
+        },
+        {
+          "it": "l'autografia",
+          "de": "die Eigenhändigkeit (Autorschaft eines Werks)",
+          "emoji": "✍️",
+          "ex": "Gli studiosi dibattono ancora sull'autografia del dipinto.",
+          "exDe": "Die Gelehrten streiten noch über die Eigenhändigkeit des Gemäldes."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-cultura",
+    "title": "Tradizioni & Cultura",
+    "de": "Traditionen & Kultur",
+    "emoji": "🎭",
+    "color": "#d4922a",
+    "area": "Arte & Cultura",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "la tradizione",
+          "de": "die Tradition",
+          "emoji": "📿",
+          "ex": "In questo paese la tradizione del Palio è molto sentita.",
+          "exDe": "In diesem Ort wird die Tradition des Palio sehr lebendig gepflegt."
+        },
+        {
+          "it": "la festa popolare",
+          "de": "das Volksfest",
+          "emoji": "🎉",
+          "ex": "Ogni estate il borgo organizza una festa popolare in piazza.",
+          "exDe": "Jeden Sommer veranstaltet das Dorf ein Volksfest auf dem Platz."
+        },
+        {
+          "it": "il costume tradizionale",
+          "de": "die Tracht",
+          "emoji": "👗",
+          "ex": "Durante la sfilata indossano il costume tradizionale della regione.",
+          "exDe": "Während des Umzugs tragen sie die traditionelle Tracht der Region."
+        },
+        {
+          "it": "la sagra",
+          "de": "das (kulinarische) Dorffest",
+          "emoji": "🍝",
+          "ex": "Alla sagra del tartufo si possono assaggiare molti piatti tipici.",
+          "exDe": "Beim Trüffelfest kann man viele typische Gerichte probieren."
+        },
+        {
+          "it": "il dialetto",
+          "de": "der Dialekt",
+          "emoji": "🗣️",
+          "ex": "Mia nonna parla ancora il dialetto del suo paese.",
+          "exDe": "Meine Großmutter spricht noch den Dialekt ihres Dorfes."
+        },
+        {
+          "it": "l'usanza",
+          "de": "der Brauch",
+          "emoji": "🔄",
+          "ex": "È un'usanza scambiarsi regali la sera della vigilia.",
+          "exDe": "Es ist ein Brauch, sich am Abend vor dem Fest Geschenke zu schenken."
+        },
+        {
+          "it": "la processione",
+          "de": "die Prozession",
+          "emoji": "🕯️",
+          "ex": "La processione attraversa lentamente le vie del centro storico.",
+          "exDe": "Die Prozession zieht langsam durch die Straßen der Altstadt."
+        },
+        {
+          "it": "il patrimonio culturale",
+          "de": "das Kulturerbe",
+          "emoji": "🏛️",
+          "ex": "Questo dialetto fa parte del nostro patrimonio culturale.",
+          "exDe": "Dieser Dialekt gehört zu unserem Kulturerbe."
+        },
+        {
+          "it": "la fiera",
+          "de": "der Jahrmarkt / die Messe",
+          "emoji": "🎪",
+          "ex": "Alla fiera di paese ci sono bancarelle di ogni tipo.",
+          "exDe": "Auf dem Dorfmarkt gibt es Stände aller Art."
+        },
+        {
+          "it": "il folclore",
+          "de": "die Folklore",
+          "emoji": "💃",
+          "ex": "Il gruppo di danza valorizza il folclore della Sardegna.",
+          "exDe": "Die Tanzgruppe pflegt die Folklore Sardiniens."
+        },
+        {
+          "it": "la ricorrenza",
+          "de": "der Jahrestag / der Festtag",
+          "emoji": "📅",
+          "ex": "La ricorrenza viene celebrata ogni anno lo stesso giorno.",
+          "exDe": "Der Festtag wird jedes Jahr am selben Tag gefeiert."
+        },
+        {
+          "it": "il rito",
+          "de": "der Ritus / das Ritual",
+          "emoji": "🔥",
+          "ex": "L'accensione del falò è un rito che si ripete da secoli.",
+          "exDe": "Das Entzünden des Feuers ist ein Ritus, der sich seit Jahrhunderten wiederholt."
+        },
+        {
+          "it": "la leggenda",
+          "de": "die Legende / die Sage",
+          "emoji": "🐉",
+          "ex": "Su quel castello circola una leggenda misteriosa.",
+          "exDe": "Um jenes Schloss rankt sich eine geheimnisvolle Sage."
+        },
+        {
+          "it": "il proverbio",
+          "de": "das Sprichwort",
+          "emoji": "💬",
+          "ex": "C'è un proverbio italiano che dice: chi va piano va sano e va lontano.",
+          "exDe": "Es gibt ein italienisches Sprichwort: Wer langsam geht, geht gesund und kommt weit."
+        },
+        {
+          "it": "la maschera",
+          "de": "die Maske",
+          "emoji": "🎭",
+          "ex": "A Venezia si vendono maschere di carnevale fatte a mano.",
+          "exDe": "In Venedig werden handgemachte Karnevalsmasken verkauft."
+        },
+        {
+          "it": "il pellegrinaggio",
+          "de": "die Wallfahrt / die Pilgerreise",
+          "emoji": "⛪",
+          "ex": "Ogni anno migliaia di fedeli compiono il pellegrinaggio al santuario.",
+          "exDe": "Jedes Jahr unternehmen Tausende von Gläubigen die Wallfahrt zum Heiligtum."
+        },
+        {
+          "it": "la cerimonia",
+          "de": "die Zeremonie",
+          "emoji": "🎀",
+          "ex": "La cerimonia di apertura è stata seguita da un concerto.",
+          "exDe": "Auf die Eröffnungszeremonie folgte ein Konzert."
+        },
+        {
+          "it": "il dolce tipico",
+          "de": "die typische Süßspeise",
+          "emoji": "🍰",
+          "ex": "Il panforte è un dolce tipico della tradizione senese.",
+          "exDe": "Der Panforte ist eine typische Süßspeise der Sieneser Tradition."
+        },
+        {
+          "it": "il santo patrono",
+          "de": "der Schutzheilige",
+          "emoji": "😇",
+          "ex": "La città festeggia il santo patrono con fuochi d'artificio.",
+          "exDe": "Die Stadt feiert ihren Schutzheiligen mit einem Feuerwerk."
+        }
+      ],
+      "C1": [
+        {
+          "it": "il retaggio",
+          "de": "das (überliefertes) Erbe",
+          "emoji": "🧬",
+          "ex": "Quelle usanze sono un retaggio del mondo contadino.",
+          "exDe": "Jene Bräuche sind ein Erbe der bäuerlichen Welt."
+        },
+        {
+          "it": "la trasmissione orale",
+          "de": "die mündliche Überlieferung",
+          "emoji": "👂",
+          "ex": "Le fiabe popolari si sono conservate grazie alla trasmissione orale.",
+          "exDe": "Die Volksmärchen haben sich dank der mündlichen Überlieferung erhalten."
+        },
+        {
+          "it": "il sincretismo",
+          "de": "der Synkretismus (Verschmelzung von Glaubensformen)",
+          "emoji": "🔀",
+          "ex": "Molte feste popolari nascono da un sincretismo tra pagano e cristiano.",
+          "exDe": "Viele Volksfeste entstehen aus einem Synkretismus von Heidnischem und Christlichem."
+        },
+        {
+          "it": "il radicamento",
+          "de": "die Verwurzelung",
+          "emoji": "🌳",
+          "ex": "Il radicamento di questa festa nel territorio è profondissimo.",
+          "exDe": "Die Verwurzelung dieses Festes in der Region ist sehr tief."
+        },
+        {
+          "it": "la trasfigurazione",
+          "de": "die Verklärung / Umdeutung",
+          "emoji": "✨",
+          "ex": "Il rito ha subìto nei secoli una progressiva trasfigurazione simbolica.",
+          "exDe": "Der Ritus hat im Laufe der Jahrhunderte eine fortschreitende symbolische Umdeutung erfahren."
+        },
+        {
+          "it": "l'immaginario collettivo",
+          "de": "das kollektive Vorstellungswelt",
+          "emoji": "🧠",
+          "ex": "La figura del brigante popola ancora l'immaginario collettivo meridionale.",
+          "exDe": "Die Gestalt des Räubers bevölkert noch immer die kollektive Vorstellungswelt des Südens."
+        },
+        {
+          "it": "la cultura popolare",
+          "de": "die Volkskultur",
+          "emoji": "🪕",
+          "ex": "La cultura popolare custodisce saperi che i libri ignorano.",
+          "exDe": "Die Volkskultur bewahrt Wissen, das die Bücher nicht kennen."
+        },
+        {
+          "it": "il senso di appartenenza",
+          "de": "das Zugehörigkeitsgefühl",
+          "emoji": "🤝",
+          "ex": "La festa rafforza il senso di appartenenza alla comunità.",
+          "exDe": "Das Fest stärkt das Zugehörigkeitsgefühl zur Gemeinschaft."
+        },
+        {
+          "it": "la rievocazione storica",
+          "de": "die historische Nachstellung",
+          "emoji": "⚔️",
+          "ex": "La rievocazione storica riporta in vita la battaglia medievale.",
+          "exDe": "Die historische Nachstellung lässt die mittelalterliche Schlacht wieder aufleben."
+        },
+        {
+          "it": "l'identità culturale",
+          "de": "die kulturelle Identität",
+          "emoji": "🪪",
+          "ex": "La lingua è il pilastro dell'identità culturale di un popolo.",
+          "exDe": "Die Sprache ist die Säule der kulturellen Identität eines Volkes."
+        },
+        {
+          "it": "la salvaguardia",
+          "de": "der Schutz / die Bewahrung",
+          "emoji": "🛡️",
+          "ex": "L'UNESCO promuove la salvaguardia del patrimonio immateriale.",
+          "exDe": "Die UNESCO fördert den Schutz des immateriellen Erbes."
+        },
+        {
+          "it": "la contaminazione culturale",
+          "de": "die kulturelle Vermischung",
+          "emoji": "🌍",
+          "ex": "La cucina siciliana nasce da secoli di contaminazione culturale.",
+          "exDe": "Die sizilianische Küche entstand aus Jahrhunderten kultureller Vermischung."
+        },
+        {
+          "it": "la devozione popolare",
+          "de": "die Volksfrömmigkeit",
+          "emoji": "🙏",
+          "ex": "La devozione popolare si esprime in voti e ex voto.",
+          "exDe": "Die Volksfrömmigkeit drückt sich in Gelübden und Votivgaben aus."
+        },
+        {
+          "it": "il tramandare",
+          "de": "das Weitergeben (von Wissen/Bräuchen)",
+          "emoji": "📜",
+          "ex": "Il tramandare i mestieri artigiani è oggi più difficile che mai.",
+          "exDe": "Das Weitergeben der Handwerksberufe ist heute schwieriger denn je."
+        },
+        {
+          "it": "lo spaesamento",
+          "de": "die Entwurzelung / Orientierungslosigkeit",
+          "emoji": "🧭",
+          "ex": "L'emigrazione provocò in molti un profondo spaesamento.",
+          "exDe": "Die Auswanderung verursachte bei vielen eine tiefe Entwurzelung."
+        },
+        {
+          "it": "il sostrato",
+          "de": "das (kulturelle) Substrat",
+          "emoji": "🪨",
+          "ex": "Nel dialetto sopravvive un sostrato linguistico preromano.",
+          "exDe": "Im Dialekt überlebt ein vorrömisches sprachliches Substrat."
+        },
+        {
+          "it": "la ritualità",
+          "de": "die Ritualhaftigkeit",
+          "emoji": "🔔",
+          "ex": "La ritualità del pasto domenicale scandisce la vita familiare.",
+          "exDe": "Die Ritualhaftigkeit des Sonntagsessens strukturiert das Familienleben."
+        },
+        {
+          "it": "la matrice contadina",
+          "de": "der bäuerliche Ursprung",
+          "emoji": "🌾",
+          "ex": "Molti detti popolari hanno una chiara matrice contadina.",
+          "exDe": "Viele volkstümliche Redensarten haben einen klaren bäuerlichen Ursprung."
+        },
+        {
+          "it": "la convivialità",
+          "de": "die Geselligkeit (am Tisch)",
+          "emoji": "🍷",
+          "ex": "Il pranzo della domenica è un rito di convivialità irrinunciabile.",
+          "exDe": "Das Sonntagsessen ist ein unverzichtbares Ritual der Geselligkeit."
+        },
+        {
+          "it": "l'eredità immateriale",
+          "de": "das immaterielle Erbe",
+          "emoji": "🎼",
+          "ex": "I canti di lavoro sono parte dell'eredità immateriale del territorio.",
+          "exDe": "Die Arbeitslieder sind Teil des immateriellen Erbes der Region."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'autoctonia",
+          "de": "die Bodenständigkeit / autochthone Herkunft",
+          "emoji": "🏔️",
+          "ex": "L'antropologo ne sottolineò la presunta autoctonia, smentita poi dalle fonti.",
+          "exDe": "Der Anthropologe betonte die vermeintliche autochthone Herkunft, die später von den Quellen widerlegt wurde."
+        },
+        {
+          "it": "la transustanziazione del rito",
+          "de": "die Wesensverwandlung des Ritus",
+          "emoji": "🕯️",
+          "ex": "Lo studioso parla, non senza ironia, di una transustanziazione del rito in spettacolo turistico.",
+          "exDe": "Der Gelehrte spricht, nicht ohne Ironie, von einer Wesensverwandlung des Ritus in ein touristisches Schauspiel."
+        },
+        {
+          "it": "l'invenzione della tradizione",
+          "de": "die Erfindung der Tradition",
+          "emoji": "🪡",
+          "ex": "Molti costumi creduti antichissimi sono in realtà un caso di invenzione della tradizione ottocentesca.",
+          "exDe": "Viele für uralt gehaltene Bräuche sind in Wirklichkeit ein Fall von Traditionserfindung des 19. Jahrhunderts."
+        },
+        {
+          "it": "la mummificazione folclorica",
+          "de": "die folkloristische Erstarrung",
+          "emoji": "🧊",
+          "ex": "Il rischio del turismo di massa è la mummificazione folclorica delle usanze locali.",
+          "exDe": "Die Gefahr des Massentourismus ist die folkloristische Erstarrung der lokalen Bräuche."
+        },
+        {
+          "it": "il palinsesto culturale",
+          "de": "das kulturelle Palimpsest",
+          "emoji": "📜",
+          "ex": "La città è un palinsesto culturale in cui ogni epoca ha lasciato la propria scrittura.",
+          "exDe": "Die Stadt ist ein kulturelles Palimpsest, in dem jede Epoche ihre eigene Schrift hinterlassen hat."
+        },
+        {
+          "it": "l'ibridazione",
+          "de": "die Hybridisierung",
+          "emoji": "🧬",
+          "ex": "L'ibridazione tra culti agrari e liturgia cristiana è documentabile nelle fonti tardoantiche.",
+          "exDe": "Die Hybridisierung zwischen Agrarkulten und christlicher Liturgie ist in den spätantiken Quellen belegbar."
+        },
+        {
+          "it": "la liminalità",
+          "de": "die Liminalität (Schwellenzustand im Ritual)",
+          "emoji": "🚪",
+          "ex": "Il carnevale incarna una fase di liminalità in cui le gerarchie sociali si rovesciano.",
+          "exDe": "Der Karneval verkörpert eine Phase der Liminalität, in der sich die sozialen Hierarchien umkehren."
+        },
+        {
+          "it": "l'esegesi del mito",
+          "de": "die Exegese des Mythos",
+          "emoji": "🔮",
+          "ex": "L'esegesi del mito fondativo rivela tensioni rimosse della comunità.",
+          "exDe": "Die Exegese des Gründungsmythos offenbart verdrängte Spannungen der Gemeinschaft."
+        },
+        {
+          "it": "la deriva mercificante",
+          "de": "die kommerzialisierende Tendenz",
+          "emoji": "💸",
+          "ex": "La deriva mercificante svuota la festa del suo originario portato sacrale.",
+          "exDe": "Die kommerzialisierende Tendenz entleert das Fest seines ursprünglichen sakralen Gehalts."
+        },
+        {
+          "it": "il portato simbolico",
+          "de": "der symbolische Gehalt",
+          "emoji": "🜂",
+          "ex": "Pochi avvertono ancora il portato simbolico di quel gesto antico.",
+          "exDe": "Nur wenige nehmen noch den symbolischen Gehalt jener uralten Geste wahr."
+        },
+        {
+          "it": "la stratificazione diacronica",
+          "de": "die diachrone Schichtung",
+          "emoji": "🪜",
+          "ex": "La stratificazione diacronica delle usanze rende ardua ogni datazione univoca.",
+          "exDe": "Die diachrone Schichtung der Bräuche macht jede eindeutige Datierung schwierig."
+        },
+        {
+          "it": "l'aura del sacro",
+          "de": "die Aura des Sakralen",
+          "emoji": "🌟",
+          "ex": "La secolarizzazione ha dissipato l'aura del sacro che avvolgeva la ricorrenza.",
+          "exDe": "Die Säkularisierung hat die Aura des Sakralen aufgelöst, die den Festtag umgab."
+        },
+        {
+          "it": "la koinè culturale",
+          "de": "die kulturelle Koiné (gemeinsamer Kulturraum)",
+          "emoji": "🌐",
+          "ex": "Il Mediterraneo antico costituì una vera koinè culturale.",
+          "exDe": "Das antike Mittelmeer bildete eine wahre kulturelle Koiné."
+        },
+        {
+          "it": "il recupero filologico",
+          "de": "die philologische Wiederherstellung (eines Brauchs)",
+          "emoji": "🔎",
+          "ex": "Il recupero filologico del canto evita ogni concessione al gusto contemporaneo.",
+          "exDe": "Die philologische Wiederherstellung des Gesangs vermeidet jedes Zugeständnis an den heutigen Geschmack."
+        },
+        {
+          "it": "la nostalgia identitaria",
+          "de": "die identitäre Nostalgie",
+          "emoji": "🕰️",
+          "ex": "Dietro la riscoperta del dialetto si cela talora una nostalgia identitaria.",
+          "exDe": "Hinter der Wiederentdeckung des Dialekts verbirgt sich bisweilen eine identitäre Nostalgie."
+        },
+        {
+          "it": "la performatività del rito",
+          "de": "die Performativität des Ritus",
+          "emoji": "🎬",
+          "ex": "La performatività del rito non si esaurisce nel suo significato letterale.",
+          "exDe": "Die Performativität des Ritus erschöpft sich nicht in seiner wörtlichen Bedeutung."
+        },
+        {
+          "it": "il genius loci",
+          "de": "der Genius Loci (Geist des Ortes)",
+          "emoji": "🗺️",
+          "ex": "Ogni borgo custodisce un genius loci che resiste all'omologazione.",
+          "exDe": "Jedes Dorf hütet einen Genius Loci, der sich der Vereinheitlichung widersetzt."
+        },
+        {
+          "it": "la reificazione del folclore",
+          "de": "die Verdinglichung der Folklore",
+          "emoji": "📦",
+          "ex": "La reificazione del folclore lo riduce a souvenir privo di senso.",
+          "exDe": "Die Verdinglichung der Folklore reduziert sie zu einem sinnentleerten Souvenir."
+        },
+        {
+          "it": "l'epos identitario",
+          "de": "das identitätsstiftende Epos",
+          "emoji": "📯",
+          "ex": "La rievocazione alimenta un epos identitario condiviso dall'intera valle.",
+          "exDe": "Die Nachstellung nährt ein identitätsstiftendes Epos, das das gesamte Tal teilt."
+        },
+        {
+          "it": "la sedimentazione del costume",
+          "de": "die Ablagerung des Brauchtums",
+          "emoji": "🏺",
+          "ex": "La lenta sedimentazione del costume sfugge a ogni decreto o riforma.",
+          "exDe": "Die langsame Ablagerung des Brauchtums entzieht sich jedem Dekret oder jeder Reform."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-letteratura",
+    "title": "Letteratura & Scrittura",
+    "de": "Literatur & Schreiben",
+    "emoji": "📖",
+    "color": "#7a5ca0",
+    "area": "Lingua avanzata",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "la trama",
+          "de": "die Handlung",
+          "emoji": "🧵",
+          "ex": "La trama del romanzo è avvincente fin dalle prime pagine.",
+          "exDe": "Die Handlung des Romans ist von den ersten Seiten an fesselnd."
+        },
+        {
+          "it": "il personaggio",
+          "de": "die Figur",
+          "emoji": "🎭",
+          "ex": "Il personaggio principale cambia molto nel corso della storia.",
+          "exDe": "Die Hauptfigur verändert sich im Laufe der Geschichte stark."
+        },
+        {
+          "it": "il capitolo",
+          "de": "das Kapitel",
+          "emoji": "📑",
+          "ex": "Ho letto solo il primo capitolo, ma mi ha già conquistato.",
+          "exDe": "Ich habe nur das erste Kapitel gelesen, aber es hat mich schon überzeugt."
+        },
+        {
+          "it": "l'autore",
+          "de": "der Autor",
+          "emoji": "✍️",
+          "ex": "L'autore ha vinto un premio importante con questo libro.",
+          "exDe": "Der Autor hat mit diesem Buch einen wichtigen Preis gewonnen."
+        },
+        {
+          "it": "il romanzo",
+          "de": "der Roman",
+          "emoji": "📕",
+          "ex": "Questo romanzo racconta la vita di una famiglia siciliana.",
+          "exDe": "Dieser Roman erzählt das Leben einer sizilianischen Familie."
+        },
+        {
+          "it": "la poesia",
+          "de": "das Gedicht",
+          "emoji": "🪶",
+          "ex": "Ha imparato a memoria una poesia di Leopardi.",
+          "exDe": "Er hat ein Gedicht von Leopardi auswendig gelernt."
+        },
+        {
+          "it": "il racconto",
+          "de": "die Erzählung",
+          "emoji": "📜",
+          "ex": "Ho scritto un breve racconto per il concorso letterario.",
+          "exDe": "Ich habe eine kurze Erzählung für den Literaturwettbewerb geschrieben."
+        },
+        {
+          "it": "il narratore",
+          "de": "der Erzähler",
+          "emoji": "🗣️",
+          "ex": "Il narratore osserva gli eventi senza giudicare.",
+          "exDe": "Der Erzähler beobachtet die Ereignisse, ohne zu urteilen."
+        },
+        {
+          "it": "la casa editrice",
+          "de": "der Verlag",
+          "emoji": "🏢",
+          "ex": "La casa editrice pubblicherà il suo libro in autunno.",
+          "exDe": "Der Verlag wird sein Buch im Herbst veröffentlichen."
+        },
+        {
+          "it": "la recensione",
+          "de": "die Rezension",
+          "emoji": "⭐",
+          "ex": "Ha scritto una recensione entusiasta del nuovo romanzo.",
+          "exDe": "Sie hat eine begeisterte Rezension des neuen Romans geschrieben."
+        },
+        {
+          "it": "il genere letterario",
+          "de": "die literarische Gattung",
+          "emoji": "📚",
+          "ex": "Il giallo è il suo genere letterario preferito.",
+          "exDe": "Der Krimi ist seine bevorzugte literarische Gattung."
+        },
+        {
+          "it": "la bozza",
+          "de": "der Entwurf",
+          "emoji": "📝",
+          "ex": "Ho finito la prima bozza del mio articolo ieri sera.",
+          "exDe": "Ich habe gestern Abend den ersten Entwurf meines Artikels fertiggestellt."
+        },
+        {
+          "it": "il riassunto",
+          "de": "die Zusammenfassung",
+          "emoji": "📄",
+          "ex": "Scrivi un riassunto del testo in dieci righe.",
+          "exDe": "Schreibe eine Zusammenfassung des Textes in zehn Zeilen."
+        },
+        {
+          "it": "la citazione",
+          "de": "das Zitat",
+          "emoji": "❝",
+          "ex": "Ha aperto il discorso con una citazione di Dante.",
+          "exDe": "Er eröffnete die Rede mit einem Zitat von Dante."
+        },
+        {
+          "it": "la biblioteca",
+          "de": "die Bibliothek",
+          "emoji": "🏛️",
+          "ex": "Passo i pomeriggi in biblioteca a studiare.",
+          "exDe": "Ich verbringe die Nachmittage in der Bibliothek mit Lernen."
+        },
+        {
+          "it": "il manoscritto",
+          "de": "das Manuskript",
+          "emoji": "🖋️",
+          "ex": "Ha inviato il manoscritto a tre editori diversi.",
+          "exDe": "Sie hat das Manuskript an drei verschiedene Verleger geschickt."
+        },
+        {
+          "it": "la lettura",
+          "de": "das Lesen",
+          "emoji": "👓",
+          "ex": "La lettura è la mia passione fin da bambino.",
+          "exDe": "Das Lesen ist seit meiner Kindheit meine Leidenschaft."
+        },
+        {
+          "it": "il protagonista",
+          "de": "der Protagonist",
+          "emoji": "🌟",
+          "ex": "Il protagonista deve affrontare molte difficoltà.",
+          "exDe": "Der Protagonist muss viele Schwierigkeiten überwinden."
+        }
+      ],
+      "C1": [
+        {
+          "it": "la metafora",
+          "de": "die Metapher",
+          "emoji": "🌉",
+          "ex": "L'autore usa la metafora del viaggio per descrivere la vita.",
+          "exDe": "Der Autor verwendet die Metapher der Reise, um das Leben zu beschreiben."
+        },
+        {
+          "it": "la prosa",
+          "de": "die Prosa",
+          "emoji": "📖",
+          "ex": "La sua prosa è densa di immagini e di sottintesi.",
+          "exDe": "Seine Prosa ist reich an Bildern und Andeutungen."
+        },
+        {
+          "it": "il verso",
+          "de": "der Vers",
+          "emoji": "🎵",
+          "ex": "Ogni verso della poesia segue un ritmo preciso.",
+          "exDe": "Jeder Vers des Gedichts folgt einem genauen Rhythmus."
+        },
+        {
+          "it": "l'ambientazione",
+          "de": "der Schauplatz",
+          "emoji": "🏞️",
+          "ex": "L'ambientazione del romanzo è la Napoli del dopoguerra.",
+          "exDe": "Der Schauplatz des Romans ist das Neapel der Nachkriegszeit."
+        },
+        {
+          "it": "il colpo di scena",
+          "de": "die überraschende Wendung",
+          "emoji": "💥",
+          "ex": "Il finale riserva un colpo di scena inaspettato.",
+          "exDe": "Das Ende hält eine unerwartete überraschende Wendung bereit."
+        },
+        {
+          "it": "la voce narrante",
+          "de": "die erzählende Stimme",
+          "emoji": "🔊",
+          "ex": "La voce narrante si rivolge direttamente al lettore.",
+          "exDe": "Die erzählende Stimme wendet sich direkt an den Leser."
+        },
+        {
+          "it": "l'incipit",
+          "de": "der Romananfang",
+          "emoji": "🚪",
+          "ex": "L'incipit di questo libro è tra i più celebri della letteratura.",
+          "exDe": "Der Anfang dieses Buches gehört zu den berühmtesten der Literatur."
+        },
+        {
+          "it": "la trama secondaria",
+          "de": "der Nebenhandlungsstrang",
+          "emoji": "🪡",
+          "ex": "La trama secondaria arricchisce la storia principale.",
+          "exDe": "Der Nebenhandlungsstrang bereichert die Haupthandlung."
+        },
+        {
+          "it": "il flusso di coscienza",
+          "de": "der Bewusstseinsstrom",
+          "emoji": "🌊",
+          "ex": "Joyce è famoso per l'uso del flusso di coscienza.",
+          "exDe": "Joyce ist für die Verwendung des Bewusstseinsstroms berühmt."
+        },
+        {
+          "it": "delineare un personaggio",
+          "de": "eine Figur zeichnen",
+          "emoji": "✏️",
+          "ex": "L'autrice riesce a delineare un personaggio con poche frasi.",
+          "exDe": "Die Autorin schafft es, eine Figur mit wenigen Sätzen zu zeichnen."
+        },
+        {
+          "it": "la chiave di lettura",
+          "de": "der Deutungsschlüssel",
+          "emoji": "🔑",
+          "ex": "La prefazione offre una chiave di lettura del testo.",
+          "exDe": "Das Vorwort bietet einen Deutungsschlüssel für den Text."
+        },
+        {
+          "it": "l'allegoria",
+          "de": "die Allegorie",
+          "emoji": "🦅",
+          "ex": "Il racconto è un'allegoria della condizione umana.",
+          "exDe": "Die Erzählung ist eine Allegorie der menschlichen Existenz."
+        },
+        {
+          "it": "il registro stilistico",
+          "de": "die Stilebene",
+          "emoji": "🎚️",
+          "ex": "L'autore alterna un registro stilistico colto e popolare.",
+          "exDe": "Der Autor wechselt zwischen einer gehobenen und einer volkstümlichen Stilebene."
+        },
+        {
+          "it": "la prefazione",
+          "de": "das Vorwort",
+          "emoji": "📃",
+          "ex": "Nella prefazione il curatore spiega le sue scelte.",
+          "exDe": "Im Vorwort erläutert der Herausgeber seine Entscheidungen."
+        },
+        {
+          "it": "l'opera prima",
+          "de": "das Erstlingswerk",
+          "emoji": "🥇",
+          "ex": "Con la sua opera prima ha conquistato la critica.",
+          "exDe": "Mit seinem Erstlingswerk hat er die Kritik für sich gewonnen."
+        },
+        {
+          "it": "il filo conduttore",
+          "de": "der rote Faden",
+          "emoji": "🧶",
+          "ex": "La memoria è il filo conduttore di tutto il libro.",
+          "exDe": "Die Erinnerung ist der rote Faden des gesamten Buches."
+        },
+        {
+          "it": "rendere giustizia al testo",
+          "de": "dem Text gerecht werden",
+          "emoji": "⚖️",
+          "ex": "La traduzione non sempre riesce a rendere giustizia al testo originale.",
+          "exDe": "Die Übersetzung schafft es nicht immer, dem Originaltext gerecht zu werden."
+        },
+        {
+          "it": "l'ironia",
+          "de": "die Ironie",
+          "emoji": "😏",
+          "ex": "L'ironia pervade ogni pagina del suo saggio.",
+          "exDe": "Die Ironie durchzieht jede Seite seines Essays."
+        },
+        {
+          "it": "la caratterizzazione",
+          "de": "die Charakterisierung",
+          "emoji": "🖼️",
+          "ex": "La caratterizzazione dei personaggi è straordinariamente realistica.",
+          "exDe": "Die Charakterisierung der Figuren ist außerordentlich realistisch."
+        },
+        {
+          "it": "evocare un'atmosfera",
+          "de": "eine Atmosphäre heraufbeschwören",
+          "emoji": "🌫️",
+          "ex": "Con poche parole riesce a evocare un'atmosfera cupa.",
+          "exDe": "Mit wenigen Worten gelingt es ihm, eine düstere Atmosphäre heraufzubeschwören."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'ipotassi",
+          "de": "die Hypotaxe",
+          "emoji": "🪢",
+          "ex": "Lo stile barocco predilige l'ipotassi e i periodi articolati.",
+          "exDe": "Der barocke Stil bevorzugt die Hypotaxe und kunstvoll gegliederte Satzgefüge."
+        },
+        {
+          "it": "la paratassi",
+          "de": "die Parataxe",
+          "emoji": "➖",
+          "ex": "La prosa moderna tende alla paratassi, fatta di frasi brevi.",
+          "exDe": "Die moderne Prosa neigt zur Parataxe, die aus kurzen Sätzen besteht."
+        },
+        {
+          "it": "l'endecasillabo",
+          "de": "der Elfsilbler",
+          "emoji": "🎼",
+          "ex": "La Divina Commedia è scritta interamente in endecasillabi.",
+          "exDe": "Die Göttliche Komödie ist vollständig in Elfsilblern geschrieben."
+        },
+        {
+          "it": "la sinestesia",
+          "de": "die Synästhesie",
+          "emoji": "🌈",
+          "ex": "La sinestesia 'silenzio verde' fonde suono e colore.",
+          "exDe": "Die Synästhesie 'grünes Schweigen' verschmilzt Klang und Farbe."
+        },
+        {
+          "it": "l'enjambement",
+          "de": "das Enjambement",
+          "emoji": "↩️",
+          "ex": "L'enjambement spezza il verso e crea una tensione ritmica.",
+          "exDe": "Das Enjambement bricht den Vers und erzeugt eine rhythmische Spannung."
+        },
+        {
+          "it": "la litote",
+          "de": "die Litotes",
+          "emoji": "🔄",
+          "ex": "Con una litote dice 'non pochi' per intendere 'molti'.",
+          "exDe": "Mit einer Litotes sagt er 'nicht wenige', um 'viele' zu meinen."
+        },
+        {
+          "it": "l'ossimoro",
+          "de": "das Oxymoron",
+          "emoji": "❄️",
+          "ex": "'Ghiaccio bollente' è un classico esempio di ossimoro.",
+          "exDe": "'Kochendes Eis' ist ein klassisches Beispiel für ein Oxymoron."
+        },
+        {
+          "it": "l'anastrofe",
+          "de": "die Anastrophe",
+          "emoji": "🔃",
+          "ex": "L'anastrofe inverte l'ordine consueto delle parole per dare enfasi.",
+          "exDe": "Die Anastrophe kehrt die übliche Wortstellung um, um Nachdruck zu verleihen."
+        },
+        {
+          "it": "il pastiche",
+          "de": "der Pastiche",
+          "emoji": "🧩",
+          "ex": "Il romanzo è un raffinato pastiche di stili e dialetti diversi.",
+          "exDe": "Der Roman ist ein raffinierter Pastiche aus verschiedenen Stilen und Dialekten."
+        },
+        {
+          "it": "l'epifania letteraria",
+          "de": "die literarische Epiphanie",
+          "emoji": "💡",
+          "ex": "Il protagonista vive un'epifania letteraria che ne muta il destino.",
+          "exDe": "Der Protagonist erlebt eine literarische Epiphanie, die sein Schicksal verändert."
+        },
+        {
+          "it": "l'intertestualità",
+          "de": "die Intertextualität",
+          "emoji": "🔗",
+          "ex": "L'intertestualità del testo rimanda a opere classiche e moderne.",
+          "exDe": "Die Intertextualität des Textes verweist auf klassische und moderne Werke."
+        },
+        {
+          "it": "la prolessi",
+          "de": "die Prolepse",
+          "emoji": "⏩",
+          "ex": "La prolessi anticipa al lettore un evento futuro della narrazione.",
+          "exDe": "Die Prolepse nimmt für den Leser ein zukünftiges Ereignis der Erzählung vorweg."
+        },
+        {
+          "it": "l'analessi",
+          "de": "die Analepse",
+          "emoji": "⏪",
+          "ex": "L'analessi riporta il racconto a un episodio dell'infanzia.",
+          "exDe": "Die Analepse führt die Erzählung zu einer Episode aus der Kindheit zurück."
+        },
+        {
+          "it": "lo straniamento",
+          "de": "die Verfremdung",
+          "emoji": "🪞",
+          "ex": "Lo straniamento costringe il lettore a guardare la realtà con occhi nuovi.",
+          "exDe": "Die Verfremdung zwingt den Leser, die Wirklichkeit mit neuen Augen zu sehen."
+        },
+        {
+          "it": "la mise en abyme",
+          "de": "die Verschachtelung (Mise en abyme)",
+          "emoji": "🪆",
+          "ex": "Il racconto nel racconto è un perfetto esempio di mise en abyme.",
+          "exDe": "Die Erzählung in der Erzählung ist ein perfektes Beispiel für eine Mise en abyme."
+        },
+        {
+          "it": "il verso sciolto",
+          "de": "der reimlose Vers",
+          "emoji": "🍃",
+          "ex": "Foscolo compose i suoi carmi in versi sciolti.",
+          "exDe": "Foscolo verfasste seine Gedichte in reimlosen Versen."
+        },
+        {
+          "it": "l'esegesi",
+          "de": "die Exegese",
+          "emoji": "🔍",
+          "ex": "L'esegesi del testo richiede una profonda conoscenza del contesto storico.",
+          "exDe": "Die Exegese des Textes erfordert eine tiefe Kenntnis des historischen Kontexts."
+        },
+        {
+          "it": "il topos letterario",
+          "de": "der literarische Topos",
+          "emoji": "🏛️",
+          "ex": "Il giardino come luogo dell'anima è un topos letterario ricorrente.",
+          "exDe": "Der Garten als Ort der Seele ist ein wiederkehrender literarischer Topos."
+        },
+        {
+          "it": "la prosa d'arte",
+          "de": "die Kunstprosa",
+          "emoji": "💎",
+          "ex": "La prosa d'arte cura ogni parola come fosse poesia.",
+          "exDe": "Die Kunstprosa pflegt jedes Wort, als wäre es Poesie."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-registro",
+    "title": "Registro Formale & Connettivi",
+    "de": "Formelle Sprache & Konnektoren",
+    "emoji": "✒️",
+    "color": "#6b7a3f",
+    "area": "Lingua avanzata",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "tuttavia",
+          "de": "jedoch",
+          "emoji": "↔️",
+          "ex": "Il piano era ottimo; tuttavia, mancavano i fondi per realizzarlo.",
+          "exDe": "Der Plan war ausgezeichnet; es fehlten jedoch die Mittel, um ihn umzusetzen."
+        },
+        {
+          "it": "inoltre",
+          "de": "außerdem",
+          "emoji": "➕",
+          "ex": "Il prodotto è economico; inoltre, è di ottima qualità.",
+          "exDe": "Das Produkt ist günstig; außerdem ist es von hervorragender Qualität."
+        },
+        {
+          "it": "quindi",
+          "de": "also",
+          "emoji": "➡️",
+          "ex": "Aveva studiato molto, quindi ha superato l'esame senza difficoltà.",
+          "exDe": "Er hatte viel gelernt, also hat er die Prüfung ohne Schwierigkeiten bestanden."
+        },
+        {
+          "it": "perciò",
+          "de": "deshalb",
+          "emoji": "✅",
+          "ex": "Pioveva forte, perciò abbiamo rimandato la gita.",
+          "exDe": "Es regnete stark, deshalb haben wir den Ausflug verschoben."
+        },
+        {
+          "it": "infatti",
+          "de": "tatsächlich",
+          "emoji": "✔️",
+          "ex": "Sembrava stanco e infatti si è addormentato subito.",
+          "exDe": "Er wirkte müde und tatsächlich ist er sofort eingeschlafen."
+        },
+        {
+          "it": "comunque",
+          "de": "wie dem auch sei",
+          "emoji": "🤷",
+          "ex": "Non sono d'accordo; comunque, faremo come dici tu.",
+          "exDe": "Ich bin nicht einverstanden; wie dem auch sei, wir machen es, wie du sagst."
+        },
+        {
+          "it": "ovvero",
+          "de": "das heißt",
+          "emoji": "🟰",
+          "ex": "Arriverà domani, ovvero il quindici del mese.",
+          "exDe": "Er kommt morgen an, das heißt am Fünfzehnten des Monats."
+        },
+        {
+          "it": "anzi",
+          "de": "vielmehr",
+          "emoji": "🔁",
+          "ex": "Non mi dispiace, anzi ne sono molto contento.",
+          "exDe": "Es stört mich nicht, vielmehr freue ich mich sehr darüber."
+        },
+        {
+          "it": "in conclusione",
+          "de": "abschließend",
+          "emoji": "🏁",
+          "ex": "In conclusione, il progetto merita il nostro pieno sostegno.",
+          "exDe": "Abschließend verdient das Projekt unsere volle Unterstützung."
+        },
+        {
+          "it": "d'altra parte",
+          "de": "andererseits",
+          "emoji": "✋",
+          "ex": "È costoso; d'altra parte, dura molti anni.",
+          "exDe": "Es ist teuer; andererseits hält es viele Jahre."
+        },
+        {
+          "it": "per quanto riguarda",
+          "de": "was ... betrifft",
+          "emoji": "🔎",
+          "ex": "Per quanto riguarda i costi, ne parleremo domani.",
+          "exDe": "Was die Kosten betrifft, werden wir morgen darüber sprechen."
+        },
+        {
+          "it": "in primo luogo",
+          "de": "erstens",
+          "emoji": "1️⃣",
+          "ex": "In primo luogo, vorrei ringraziare tutti i presenti.",
+          "exDe": "Erstens möchte ich allen Anwesenden danken."
+        },
+        {
+          "it": "secondo me",
+          "de": "meiner Meinung nach",
+          "emoji": "💭",
+          "ex": "Secondo me, questa soluzione è la più ragionevole.",
+          "exDe": "Meiner Meinung nach ist diese Lösung die vernünftigste."
+        },
+        {
+          "it": "a causa di",
+          "de": "aufgrund von",
+          "emoji": "⚠️",
+          "ex": "Il volo è stato cancellato a causa del maltempo.",
+          "exDe": "Der Flug wurde aufgrund des schlechten Wetters gestrichen."
+        },
+        {
+          "it": "grazie a",
+          "de": "dank",
+          "emoji": "🙏",
+          "ex": "Grazie al suo aiuto, abbiamo finito in tempo.",
+          "exDe": "Dank seiner Hilfe haben wir rechtzeitig fertig."
+        },
+        {
+          "it": "nonostante",
+          "de": "trotz",
+          "emoji": "🛡️",
+          "ex": "Nonostante la pioggia, la festa è stata un successo.",
+          "exDe": "Trotz des Regens war das Fest ein Erfolg."
+        },
+        {
+          "it": "in altre parole",
+          "de": "mit anderen Worten",
+          "emoji": "💬",
+          "ex": "In altre parole, dobbiamo cambiare strategia.",
+          "exDe": "Mit anderen Worten, wir müssen die Strategie ändern."
+        },
+        {
+          "it": "ad esempio",
+          "de": "zum Beispiel",
+          "emoji": "📌",
+          "ex": "Molti frutti, ad esempio le arance, sono ricchi di vitamina C.",
+          "exDe": "Viele Früchte, zum Beispiel Orangen, sind reich an Vitamin C."
+        },
+        {
+          "it": "in genere",
+          "de": "im Allgemeinen",
+          "emoji": "📊",
+          "ex": "In genere preferisco lavorare la mattina presto.",
+          "exDe": "Im Allgemeinen arbeite ich lieber früh am Morgen."
+        },
+        {
+          "it": "del resto",
+          "de": "im Übrigen",
+          "emoji": "🗒️",
+          "ex": "Non mi sorprende; del resto, lo avevo previsto.",
+          "exDe": "Es überrascht mich nicht; im Übrigen hatte ich es vorausgesehen."
+        }
+      ],
+      "C1": [
+        {
+          "it": "pertanto",
+          "de": "folglich",
+          "emoji": "➿",
+          "ex": "I dati sono incompleti; pertanto le conclusioni restano provvisorie.",
+          "exDe": "Die Daten sind unvollständig; folglich bleiben die Schlussfolgerungen vorläufig."
+        },
+        {
+          "it": "dunque",
+          "de": "somit",
+          "emoji": "🔗",
+          "ex": "La premessa è falsa, dunque l'intero ragionamento crolla.",
+          "exDe": "Die Prämisse ist falsch, somit bricht die gesamte Argumentation zusammen."
+        },
+        {
+          "it": "ciononostante",
+          "de": "nichtsdestotrotz",
+          "emoji": "🪨",
+          "ex": "Le critiche erano dure; ciononostante non cambiò idea.",
+          "exDe": "Die Kritik war hart; nichtsdestotrotz änderte er seine Meinung nicht."
+        },
+        {
+          "it": "altresì",
+          "de": "ebenso",
+          "emoji": "📎",
+          "ex": "Si richiede esperienza e altresì un'ottima conoscenza dell'inglese.",
+          "exDe": "Erforderlich sind Erfahrung und ebenso ausgezeichnete Englischkenntnisse."
+        },
+        {
+          "it": "in seguito a",
+          "de": "infolge",
+          "emoji": "📉",
+          "ex": "In seguito alle proteste, il governo ha ritirato la legge.",
+          "exDe": "Infolge der Proteste hat die Regierung das Gesetz zurückgezogen."
+        },
+        {
+          "it": "al fine di",
+          "de": "mit dem Ziel zu",
+          "emoji": "🎯",
+          "ex": "Sono state adottate nuove misure al fine di ridurre l'inquinamento.",
+          "exDe": "Es wurden neue Maßnahmen ergriffen mit dem Ziel, die Verschmutzung zu verringern."
+        },
+        {
+          "it": "a tal proposito",
+          "de": "diesbezüglich",
+          "emoji": "📍",
+          "ex": "A tal proposito, vorrei fare alcune precisazioni.",
+          "exDe": "Diesbezüglich möchte ich einige Klarstellungen machen."
+        },
+        {
+          "it": "per di più",
+          "de": "obendrein",
+          "emoji": "➕",
+          "ex": "Il servizio è scadente e per di più costoso.",
+          "exDe": "Der Service ist mangelhaft und obendrein teuer."
+        },
+        {
+          "it": "in tal senso",
+          "de": "in diesem Sinne",
+          "emoji": "🧭",
+          "ex": "In tal senso, la riforma rappresenta un passo decisivo.",
+          "exDe": "In diesem Sinne stellt die Reform einen entscheidenden Schritt dar."
+        },
+        {
+          "it": "vale a dire",
+          "de": "das heißt",
+          "emoji": "🟰",
+          "ex": "Servono interventi strutturali, vale a dire riforme di lungo periodo.",
+          "exDe": "Es bedarf struktureller Eingriffe, das heißt langfristiger Reformen."
+        },
+        {
+          "it": "premesso che",
+          "de": "vorausgeschickt, dass",
+          "emoji": "📋",
+          "ex": "Premesso che i tempi sono stretti, propongo di iniziare subito.",
+          "exDe": "Vorausgeschickt, dass die Zeit knapp ist, schlage ich vor, sofort zu beginnen."
+        },
+        {
+          "it": "a prescindere da",
+          "de": "unabhängig von",
+          "emoji": "🔓",
+          "ex": "A prescindere dal risultato, l'esperienza è stata preziosa.",
+          "exDe": "Unabhängig vom Ergebnis war die Erfahrung wertvoll."
+        },
+        {
+          "it": "in virtù di",
+          "de": "kraft",
+          "emoji": "⚖️",
+          "ex": "In virtù dei poteri conferitigli, il presidente ha firmato il decreto.",
+          "exDe": "Kraft der ihm verliehenen Befugnisse hat der Präsident das Dekret unterzeichnet."
+        },
+        {
+          "it": "laddove",
+          "de": "wohingegen",
+          "emoji": "🔀",
+          "ex": "Alcuni approvano la proposta, laddove altri la respingono.",
+          "exDe": "Einige befürworten den Vorschlag, wohingegen andere ihn ablehnen."
+        },
+        {
+          "it": "in merito a",
+          "de": "bezüglich",
+          "emoji": "🗂️",
+          "ex": "In merito alla sua richiesta, le comunichiamo quanto segue.",
+          "exDe": "Bezüglich Ihrer Anfrage teilen wir Ihnen Folgendes mit."
+        },
+        {
+          "it": "di conseguenza",
+          "de": "demzufolge",
+          "emoji": "📤",
+          "ex": "La domanda è cresciuta e di conseguenza i prezzi sono saliti.",
+          "exDe": "Die Nachfrage ist gestiegen und demzufolge sind die Preise geklettert."
+        },
+        {
+          "it": "purché",
+          "de": "sofern",
+          "emoji": "🔐",
+          "ex": "Acconsento, purché siano rispettate tutte le condizioni.",
+          "exDe": "Ich stimme zu, sofern alle Bedingungen eingehalten werden."
+        },
+        {
+          "it": "in linea di massima",
+          "de": "grundsätzlich",
+          "emoji": "📐",
+          "ex": "In linea di massima sono d'accordo, ma servono alcune modifiche.",
+          "exDe": "Grundsätzlich bin ich einverstanden, aber es sind einige Änderungen nötig."
+        },
+        {
+          "it": "non da ultimo",
+          "de": "nicht zuletzt",
+          "emoji": "🔚",
+          "ex": "Conta l'esperienza e, non da ultimo, la motivazione del candidato.",
+          "exDe": "Es zählt die Erfahrung und, nicht zuletzt, die Motivation des Kandidaten."
+        },
+        {
+          "it": "stante che",
+          "de": "angesichts der Tatsache, dass",
+          "emoji": "📅",
+          "ex": "Stante che le risorse sono limitate, occorre stabilire delle priorità.",
+          "exDe": "Angesichts der Tatsache, dass die Mittel begrenzt sind, müssen Prioritäten gesetzt werden."
+        }
+      ],
+      "C2": [
+        {
+          "it": "nondimeno",
+          "de": "gleichwohl",
+          "emoji": "🗿",
+          "ex": "Le obiezioni erano fondate; nondimeno la commissione approvò il testo.",
+          "exDe": "Die Einwände waren berechtigt; gleichwohl genehmigte der Ausschuss den Text."
+        },
+        {
+          "it": "fermo restando che",
+          "de": "unbeschadet dessen, dass",
+          "emoji": "🧱",
+          "ex": "Fermo restando che la legge va rispettata, si può valutare un'eccezione.",
+          "exDe": "Unbeschadet dessen, dass das Gesetz einzuhalten ist, kann eine Ausnahme erwogen werden."
+        },
+        {
+          "it": "ancorché",
+          "de": "wenngleich",
+          "emoji": "🪶",
+          "ex": "La proposta, ancorché audace, merita un esame attento.",
+          "exDe": "Der Vorschlag verdient, wenngleich kühn, eine sorgfältige Prüfung."
+        },
+        {
+          "it": "onde evitare",
+          "de": "um zu vermeiden",
+          "emoji": "🚧",
+          "ex": "Si raccomanda la massima discrezione, onde evitare malintesi.",
+          "exDe": "Es wird größte Diskretion empfohlen, um Missverständnisse zu vermeiden."
+        },
+        {
+          "it": "alla luce di",
+          "de": "im Lichte von",
+          "emoji": "🔦",
+          "ex": "Alla luce dei nuovi dati, le conclusioni vanno riviste.",
+          "exDe": "Im Lichte der neuen Daten müssen die Schlussfolgerungen überarbeitet werden."
+        },
+        {
+          "it": "in ottemperanza a",
+          "de": "in Befolgung von",
+          "emoji": "📜",
+          "ex": "In ottemperanza alle disposizioni vigenti, l'ufficio resterà chiuso.",
+          "exDe": "In Befolgung der geltenden Bestimmungen bleibt das Büro geschlossen."
+        },
+        {
+          "it": "ferma la facoltà di",
+          "de": "vorbehaltlich des Rechts, zu",
+          "emoji": "🛂",
+          "ex": "Si procede d'ufficio, ferma la facoltà di presentare ricorso.",
+          "exDe": "Es wird von Amts wegen verfahren, vorbehaltlich des Rechts, Einspruch einzulegen."
+        },
+        {
+          "it": "giacché",
+          "de": "zumal",
+          "emoji": "🪧",
+          "ex": "Conviene rinviare la decisione, giacché mancano elementi sufficienti.",
+          "exDe": "Es empfiehlt sich, die Entscheidung aufzuschieben, zumal ausreichende Anhaltspunkte fehlen."
+        },
+        {
+          "it": "posto che",
+          "de": "gesetzt den Fall, dass",
+          "emoji": "🎲",
+          "ex": "Posto che la tesi sia corretta, ne deriverebbero conseguenze notevoli.",
+          "exDe": "Gesetzt den Fall, dass die These zutrifft, ergäben sich daraus beträchtliche Folgen."
+        },
+        {
+          "it": "per converso",
+          "de": "umgekehrt",
+          "emoji": "🔄",
+          "ex": "I costi diminuiscono; per converso, cala anche la qualità.",
+          "exDe": "Die Kosten sinken; umgekehrt nimmt auch die Qualität ab."
+        },
+        {
+          "it": "in subordine",
+          "de": "hilfsweise",
+          "emoji": "🪜",
+          "ex": "Si chiede l'annullamento e, in subordine, la riduzione della sanzione.",
+          "exDe": "Es wird die Aufhebung und, hilfsweise, die Herabsetzung der Sanktion beantragt."
+        },
+        {
+          "it": "a far data da",
+          "de": "mit Wirkung ab",
+          "emoji": "🗓️",
+          "ex": "Le nuove tariffe entreranno in vigore a far data dal primo gennaio.",
+          "exDe": "Die neuen Tarife treten mit Wirkung ab dem ersten Januar in Kraft."
+        },
+        {
+          "it": "in ragione di",
+          "de": "in Anbetracht",
+          "emoji": "🧮",
+          "ex": "In ragione della gravità dei fatti, si è disposta la sospensione.",
+          "exDe": "In Anbetracht der Schwere der Vorfälle wurde die Aussetzung angeordnet."
+        },
+        {
+          "it": "viepiù",
+          "de": "umso mehr",
+          "emoji": "📈",
+          "ex": "La questione si fa viepiù urgente con il passare del tempo.",
+          "exDe": "Die Frage wird mit der Zeit umso dringlicher."
+        },
+        {
+          "it": "epperò",
+          "de": "und doch",
+          "emoji": "🌗",
+          "ex": "Le premesse erano incoraggianti, epperò l'esito deluse le attese.",
+          "exDe": "Die Voraussetzungen waren ermutigend, und doch enttäuschte das Ergebnis die Erwartungen."
+        },
+        {
+          "it": "salvo che",
+          "de": "es sei denn",
+          "emoji": "🚫",
+          "ex": "Il contratto si intende rinnovato, salvo che una parte non receda.",
+          "exDe": "Der Vertrag gilt als verlängert, es sei denn, eine Partei tritt zurück."
+        },
+        {
+          "it": "atteso che",
+          "de": "in Erwägung dessen, dass",
+          "emoji": "🔖",
+          "ex": "Atteso che le parti hanno raggiunto un accordo, la causa è estinta.",
+          "exDe": "In Erwägung dessen, dass die Parteien eine Einigung erzielt haben, ist das Verfahren eingestellt."
+        },
+        {
+          "it": "a tale stregua",
+          "de": "demgemäß",
+          "emoji": "🧷",
+          "ex": "A tale stregua, ogni eccezione andrebbe valutata caso per caso.",
+          "exDe": "Demgemäß wäre jede Ausnahme von Fall zu Fall zu beurteilen."
+        },
+        {
+          "it": "di talché",
+          "de": "sodass",
+          "emoji": "🪡",
+          "ex": "Le prove sono concordi, di talché ogni dubbio risulta superato.",
+          "exDe": "Die Beweise stimmen überein, sodass jeder Zweifel ausgeräumt ist."
+        },
+        {
+          "it": "vieppiù che",
+          "de": "umso mehr als",
+          "emoji": "🔺",
+          "ex": "La cautela è doverosa, vieppiù che la materia è assai delicata.",
+          "exDe": "Vorsicht ist geboten, umso mehr als die Angelegenheit äußerst heikel ist."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-diritto",
+    "title": "Diritto & Giustizia",
+    "de": "Recht & Justiz",
+    "emoji": "⚖️",
+    "color": "#5e5b8a",
+    "area": "Diritto & Salute",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "il tribunale",
+          "de": "das Gericht",
+          "emoji": "🏛️",
+          "ex": "Il tribunale ha rinviato l'udienza alla settimana prossima.",
+          "exDe": "Das Gericht hat die Verhandlung auf nächste Woche vertagt."
+        },
+        {
+          "it": "l'avvocato",
+          "de": "der Anwalt",
+          "emoji": "👨‍⚖️",
+          "ex": "Ho chiamato il mio avvocato per chiedere un consiglio legale.",
+          "exDe": "Ich habe meinen Anwalt angerufen, um einen rechtlichen Rat einzuholen."
+        },
+        {
+          "it": "il giudice",
+          "de": "der Richter",
+          "emoji": "🧑‍⚖️",
+          "ex": "Il giudice ha ascoltato attentamente entrambe le parti.",
+          "exDe": "Der Richter hat beiden Parteien aufmerksam zugehört."
+        },
+        {
+          "it": "il reato",
+          "de": "die Straftat",
+          "emoji": "🚨",
+          "ex": "Il furto è considerato un reato contro il patrimonio.",
+          "exDe": "Diebstahl gilt als eine Straftat gegen das Vermögen."
+        },
+        {
+          "it": "il processo",
+          "de": "der Prozess",
+          "emoji": "⚖️",
+          "ex": "Il processo è durato quasi due anni.",
+          "exDe": "Der Prozess dauerte fast zwei Jahre."
+        },
+        {
+          "it": "la testimonianza",
+          "de": "die Zeugenaussage",
+          "emoji": "🗣️",
+          "ex": "La sua testimonianza è stata decisiva per il verdetto.",
+          "exDe": "Seine Zeugenaussage war entscheidend für das Urteil."
+        },
+        {
+          "it": "il testimone",
+          "de": "der Zeuge",
+          "emoji": "👁️",
+          "ex": "Il testimone ha riconosciuto l'imputato in aula.",
+          "exDe": "Der Zeuge hat den Angeklagten im Gerichtssaal wiedererkannt."
+        },
+        {
+          "it": "la denuncia",
+          "de": "die Anzeige",
+          "emoji": "📝",
+          "ex": "Ha presentato una denuncia alla polizia per il furto dell'auto.",
+          "exDe": "Er hat bei der Polizei eine Anzeige wegen des Autodiebstahls erstattet."
+        },
+        {
+          "it": "la condanna",
+          "de": "die Verurteilung",
+          "emoji": "🔒",
+          "ex": "La condanna prevede cinque anni di reclusione.",
+          "exDe": "Die Verurteilung sieht fünf Jahre Haft vor."
+        },
+        {
+          "it": "l'imputato",
+          "de": "der Angeklagte",
+          "emoji": "🙍‍♂️",
+          "ex": "L'imputato si è dichiarato innocente davanti alla corte.",
+          "exDe": "Der Angeklagte hat sich vor Gericht für unschuldig erklärt."
+        },
+        {
+          "it": "la multa",
+          "de": "das Bußgeld",
+          "emoji": "💸",
+          "ex": "Ho preso una multa per eccesso di velocità.",
+          "exDe": "Ich habe ein Bußgeld wegen überhöhter Geschwindigkeit bekommen."
+        },
+        {
+          "it": "il contratto",
+          "de": "der Vertrag",
+          "emoji": "🤝",
+          "ex": "Prima di firmare il contratto, leggi bene tutte le clausole.",
+          "exDe": "Bevor du den Vertrag unterschreibst, lies alle Klauseln genau durch."
+        },
+        {
+          "it": "l'innocenza",
+          "de": "die Unschuld",
+          "emoji": "🕊️",
+          "ex": "Ha lottato a lungo per dimostrare la propria innocenza.",
+          "exDe": "Er hat lange gekämpft, um seine Unschuld zu beweisen."
+        },
+        {
+          "it": "la colpa",
+          "de": "die Schuld",
+          "emoji": "😔",
+          "ex": "Il giudice ha stabilito la colpa dell'imputato.",
+          "exDe": "Der Richter hat die Schuld des Angeklagten festgestellt."
+        },
+        {
+          "it": "la giustizia",
+          "de": "die Gerechtigkeit",
+          "emoji": "⚖️",
+          "ex": "La vittima chiede soltanto giustizia.",
+          "exDe": "Das Opfer fordert nur Gerechtigkeit."
+        }
+      ],
+      "C1": [
+        {
+          "it": "l'ordinamento giuridico",
+          "de": "die Rechtsordnung",
+          "emoji": "🏛️",
+          "ex": "L'ordinamento giuridico italiano si fonda sulla Costituzione.",
+          "exDe": "Die italienische Rechtsordnung gründet sich auf die Verfassung."
+        },
+        {
+          "it": "comminare una sanzione",
+          "de": "eine Sanktion verhängen",
+          "emoji": "📉",
+          "ex": "L'autorità ha comminato una sanzione pesante all'azienda inadempiente.",
+          "exDe": "Die Behörde hat eine schwere Sanktion gegen das säumige Unternehmen verhängt."
+        },
+        {
+          "it": "presumere l'innocenza",
+          "de": "die Unschuld vermuten",
+          "emoji": "🤔",
+          "ex": "Fino alla sentenza definitiva bisogna presumere l'innocenza dell'imputato.",
+          "exDe": "Bis zum rechtskräftigen Urteil muss die Unschuld des Angeklagten vermutet werden."
+        },
+        {
+          "it": "il ricorso in appello",
+          "de": "die Berufung",
+          "emoji": "📤",
+          "ex": "La difesa ha annunciato un ricorso in appello contro la sentenza.",
+          "exDe": "Die Verteidigung hat eine Berufung gegen das Urteil angekündigt."
+        },
+        {
+          "it": "la giurisprudenza",
+          "de": "die Rechtsprechung",
+          "emoji": "📚",
+          "ex": "La giurisprudenza recente ha consolidato questo principio.",
+          "exDe": "Die jüngste Rechtsprechung hat diesen Grundsatz gefestigt."
+        },
+        {
+          "it": "il dolo",
+          "de": "der Vorsatz",
+          "emoji": "🎯",
+          "ex": "Per configurare il reato è necessario dimostrare il dolo.",
+          "exDe": "Um die Straftat zu begründen, muss der Vorsatz nachgewiesen werden."
+        },
+        {
+          "it": "la colpa grave",
+          "de": "die grobe Fahrlässigkeit",
+          "emoji": "⚠️",
+          "ex": "Il danno è stato attribuito alla colpa grave del dipendente.",
+          "exDe": "Der Schaden wurde der groben Fahrlässigkeit des Angestellten zugeschrieben."
+        },
+        {
+          "it": "il risarcimento del danno",
+          "de": "der Schadensersatz",
+          "emoji": "💰",
+          "ex": "La vittima ha ottenuto il risarcimento del danno subito.",
+          "exDe": "Das Opfer hat den Schadensersatz für den erlittenen Schaden erhalten."
+        },
+        {
+          "it": "il contraddittorio",
+          "de": "das kontradiktorische Verfahren",
+          "emoji": "🔄",
+          "ex": "Il principio del contraddittorio garantisce a entrambe le parti di esporre le proprie ragioni.",
+          "exDe": "Der Grundsatz des kontradiktorischen Verfahrens sichert beiden Parteien zu, ihre Gründe darzulegen."
+        },
+        {
+          "it": "l'archiviazione",
+          "de": "die Einstellung des Verfahrens",
+          "emoji": "🗄️",
+          "ex": "Il pubblico ministero ha chiesto l'archiviazione del caso.",
+          "exDe": "Der Staatsanwalt hat die Einstellung des Verfahrens beantragt."
+        },
+        {
+          "it": "la prescrizione",
+          "de": "die Verjährung",
+          "emoji": "⏳",
+          "ex": "Il reato è caduto in prescrizione prima della sentenza.",
+          "exDe": "Die Straftat ist vor dem Urteil verjährt."
+        },
+        {
+          "it": "l'imputabilità",
+          "de": "die Schuldfähigkeit",
+          "emoji": "🧠",
+          "ex": "La perizia psichiatrica ha messo in dubbio l'imputabilità dell'accusato.",
+          "exDe": "Das psychiatrische Gutachten hat die Schuldfähigkeit des Angeklagten in Frage gestellt."
+        },
+        {
+          "it": "la querela",
+          "de": "der Strafantrag",
+          "emoji": "✍️",
+          "ex": "La parte offesa ha sporto querela entro i termini di legge.",
+          "exDe": "Der Geschädigte hat innerhalb der gesetzlichen Fristen einen Strafantrag gestellt."
+        },
+        {
+          "it": "il patrocinio legale",
+          "de": "der Rechtsbeistand",
+          "emoji": "🛡️",
+          "ex": "Chi non può permetterselo ha diritto al patrocinio legale gratuito.",
+          "exDe": "Wer es sich nicht leisten kann, hat Anspruch auf unentgeltlichen Rechtsbeistand."
+        },
+        {
+          "it": "l'illecito",
+          "de": "die Rechtswidrigkeit",
+          "emoji": "🚫",
+          "ex": "Il comportamento dell'impresa costituisce un illecito amministrativo.",
+          "exDe": "Das Verhalten des Unternehmens stellt eine verwaltungsrechtliche Rechtswidrigkeit dar."
+        },
+        {
+          "it": "la legittima difesa",
+          "de": "die Notwehr",
+          "emoji": "🛡️",
+          "ex": "Il giudice ha riconosciuto la legittima difesa e lo ha assolto.",
+          "exDe": "Der Richter hat die Notwehr anerkannt und ihn freigesprochen."
+        },
+        {
+          "it": "la presunzione di non colpevolezza",
+          "de": "die Unschuldsvermutung",
+          "emoji": "⚖️",
+          "ex": "La presunzione di non colpevolezza è un pilastro dello Stato di diritto.",
+          "exDe": "Die Unschuldsvermutung ist eine Säule des Rechtsstaats."
+        },
+        {
+          "it": "il dispositivo della sentenza",
+          "de": "der Urteilstenor",
+          "emoji": "📋",
+          "ex": "Il dispositivo della sentenza è stato letto in aula.",
+          "exDe": "Der Urteilstenor wurde im Gerichtssaal verlesen."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'esegesi normativa",
+          "de": "die Gesetzesauslegung",
+          "emoji": "🔬",
+          "ex": "L'esegesi normativa del testo richiede una conoscenza approfondita della ratio legis.",
+          "exDe": "Die Gesetzesauslegung des Textes erfordert eine vertiefte Kenntnis der ratio legis."
+        },
+        {
+          "it": "il fumus boni iuris",
+          "de": "die Erfolgsaussicht des Anspruchs",
+          "emoji": "📜",
+          "ex": "Il giudice ha concesso la misura cautelare ravvisando il fumus boni iuris.",
+          "exDe": "Der Richter hat die einstweilige Maßnahme gewährt, da er die Erfolgsaussicht des Anspruchs erkannte."
+        },
+        {
+          "it": "l'eccezione di incostituzionalità",
+          "de": "die Einrede der Verfassungswidrigkeit",
+          "emoji": "🏛️",
+          "ex": "La difesa ha sollevato un'eccezione di incostituzionalità della norma applicata.",
+          "exDe": "Die Verteidigung hat die Einrede der Verfassungswidrigkeit der angewandten Norm erhoben."
+        },
+        {
+          "it": "la riserva di legge",
+          "de": "der Gesetzesvorbehalt",
+          "emoji": "📕",
+          "ex": "In materia penale vige il principio della riserva di legge.",
+          "exDe": "Im Strafrecht gilt der Grundsatz des Gesetzesvorbehalts."
+        },
+        {
+          "it": "il giudicato",
+          "de": "die Rechtskraft",
+          "emoji": "🔏",
+          "ex": "Una volta passata in giudicato, la sentenza non è più impugnabile.",
+          "exDe": "Sobald das Urteil in Rechtskraft erwächst, ist es nicht mehr anfechtbar."
+        },
+        {
+          "it": "la potestà punitiva dello Stato",
+          "de": "der staatliche Strafanspruch",
+          "emoji": "⚔️",
+          "ex": "La pena è espressione della potestà punitiva dello Stato.",
+          "exDe": "Die Strafe ist Ausdruck des staatlichen Strafanspruchs."
+        },
+        {
+          "it": "il principio di legalità",
+          "de": "das Legalitätsprinzip",
+          "emoji": "📐",
+          "ex": "Il principio di legalità impone che nessuno sia punito per un fatto non previsto dalla legge.",
+          "exDe": "Das Legalitätsprinzip verlangt, dass niemand für eine gesetzlich nicht vorgesehene Tat bestraft wird."
+        },
+        {
+          "it": "la disamina del merito",
+          "de": "die Sachprüfung",
+          "emoji": "🧐",
+          "ex": "La Corte ha proceduto alla disamina del merito della controversia.",
+          "exDe": "Das Gericht hat die Sachprüfung des Rechtsstreits vorgenommen."
+        },
+        {
+          "it": "l'inadempimento contrattuale",
+          "de": "die Vertragsverletzung",
+          "emoji": "📄",
+          "ex": "L'inadempimento contrattuale legittima la risoluzione del contratto.",
+          "exDe": "Die Vertragsverletzung rechtfertigt die Auflösung des Vertrags."
+        },
+        {
+          "it": "la litispendenza",
+          "de": "die Rechtshängigkeit",
+          "emoji": "⚖️",
+          "ex": "L'eccezione di litispendenza è stata accolta dal collegio giudicante.",
+          "exDe": "Die Einrede der Rechtshängigkeit wurde vom Spruchkörper anerkannt."
+        },
+        {
+          "it": "l'usucapione",
+          "de": "die Ersitzung",
+          "emoji": "🏡",
+          "ex": "Ha acquisito la proprietà del terreno per usucapione.",
+          "exDe": "Er hat das Eigentum am Grundstück durch Ersitzung erworben."
+        },
+        {
+          "it": "il foro competente",
+          "de": "der zuständige Gerichtsstand",
+          "emoji": "🗺️",
+          "ex": "Le parti hanno pattuito il foro competente in caso di lite.",
+          "exDe": "Die Parteien haben den zuständigen Gerichtsstand für den Streitfall vereinbart."
+        },
+        {
+          "it": "la clausola vessatoria",
+          "de": "die missbräuchliche Klausel",
+          "emoji": "🚩",
+          "ex": "Il tribunale ha dichiarato nulla la clausola vessatoria del contratto.",
+          "exDe": "Das Gericht hat die missbräuchliche Klausel des Vertrags für nichtig erklärt."
+        },
+        {
+          "it": "il sindacato di legittimità",
+          "de": "die Rechtmäßigkeitskontrolle",
+          "emoji": "🔎",
+          "ex": "La Corte di Cassazione esercita un sindacato di legittimità, non di merito.",
+          "exDe": "Der Kassationshof übt eine Rechtmäßigkeitskontrolle aus, keine Sachprüfung."
+        },
+        {
+          "it": "la responsabilità extracontrattuale",
+          "de": "die deliktische Haftung",
+          "emoji": "💥",
+          "ex": "Il sinistro ha dato luogo a responsabilità extracontrattuale.",
+          "exDe": "Der Unfall hat zu einer deliktischen Haftung geführt."
+        },
+        {
+          "it": "l'esimente",
+          "de": "der Rechtfertigungsgrund",
+          "emoji": "🛡️",
+          "ex": "Lo stato di necessità è considerato un'esimente.",
+          "exDe": "Der Notstand gilt als ein Rechtfertigungsgrund."
+        },
+        {
+          "it": "la sussunzione",
+          "de": "die Subsumtion",
+          "emoji": "🧩",
+          "ex": "La sussunzione del fatto nella fattispecie astratta è compito del giudice.",
+          "exDe": "Die Subsumtion des Sachverhalts unter den abstrakten Tatbestand ist Aufgabe des Richters."
+        },
+        {
+          "it": "il favor rei",
+          "de": "der Grundsatz in dubio pro reo",
+          "emoji": "🤲",
+          "ex": "In caso di dubbio il giudice deve applicare il favor rei.",
+          "exDe": "Im Zweifelsfall muss der Richter den Grundsatz in dubio pro reo anwenden."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-salute",
+    "title": "Salute & Medicina",
+    "de": "Gesundheit & Medizin",
+    "emoji": "🩺",
+    "color": "#c75b39",
+    "area": "Diritto & Salute",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "la visita medica",
+          "de": "die ärztliche Untersuchung",
+          "emoji": "🩺",
+          "ex": "Ho prenotato una visita medica per la prossima settimana.",
+          "exDe": "Ich habe für nächste Woche eine ärztliche Untersuchung vereinbart."
+        },
+        {
+          "it": "la diagnosi",
+          "de": "die Diagnose",
+          "emoji": "📋",
+          "ex": "Il medico ha fatto una diagnosi precisa dopo gli esami.",
+          "exDe": "Der Arzt hat nach den Untersuchungen eine genaue Diagnose gestellt."
+        },
+        {
+          "it": "la terapia",
+          "de": "die Therapie",
+          "emoji": "💉",
+          "ex": "La terapia durerà almeno tre mesi.",
+          "exDe": "Die Therapie wird mindestens drei Monate dauern."
+        },
+        {
+          "it": "il sintomo",
+          "de": "das Symptom",
+          "emoji": "🤒",
+          "ex": "La febbre è il sintomo più comune dell'influenza.",
+          "exDe": "Fieber ist das häufigste Symptom der Grippe."
+        },
+        {
+          "it": "la ricetta medica",
+          "de": "das Rezept",
+          "emoji": "📝",
+          "ex": "Per comprare questo farmaco serve la ricetta medica.",
+          "exDe": "Um dieses Medikament zu kaufen, braucht man ein Rezept."
+        },
+        {
+          "it": "il farmaco",
+          "de": "das Medikament",
+          "emoji": "💊",
+          "ex": "Devi prendere il farmaco due volte al giorno.",
+          "exDe": "Du musst das Medikament zweimal täglich einnehmen."
+        },
+        {
+          "it": "il reparto",
+          "de": "die Station",
+          "emoji": "🏥",
+          "ex": "È stato ricoverato nel reparto di cardiologia.",
+          "exDe": "Er wurde auf der kardiologischen Station aufgenommen."
+        },
+        {
+          "it": "il pronto soccorso",
+          "de": "die Notaufnahme",
+          "emoji": "🚑",
+          "ex": "L'abbiamo portato subito al pronto soccorso.",
+          "exDe": "Wir haben ihn sofort in die Notaufnahme gebracht."
+        },
+        {
+          "it": "il ricovero",
+          "de": "die Einweisung ins Krankenhaus",
+          "emoji": "🛏️",
+          "ex": "Il medico ha disposto il ricovero immediato.",
+          "exDe": "Der Arzt hat die sofortige Einweisung ins Krankenhaus angeordnet."
+        },
+        {
+          "it": "l'intervento chirurgico",
+          "de": "der chirurgische Eingriff",
+          "emoji": "🔪",
+          "ex": "L'intervento chirurgico è riuscito perfettamente.",
+          "exDe": "Der chirurgische Eingriff ist einwandfrei verlaufen."
+        },
+        {
+          "it": "la guarigione",
+          "de": "die Genesung",
+          "emoji": "🌿",
+          "ex": "Dopo settimane di riposo, la guarigione è stata completa.",
+          "exDe": "Nach Wochen der Ruhe war die Genesung vollständig."
+        },
+        {
+          "it": "la prevenzione",
+          "de": "die Vorbeugung",
+          "emoji": "🛡️",
+          "ex": "La prevenzione è fondamentale per evitare molte malattie.",
+          "exDe": "Die Vorbeugung ist entscheidend, um viele Krankheiten zu vermeiden."
+        },
+        {
+          "it": "il vaccino",
+          "de": "der Impfstoff",
+          "emoji": "💉",
+          "ex": "Il vaccino antinfluenzale è consigliato agli anziani.",
+          "exDe": "Der Grippeimpfstoff wird älteren Menschen empfohlen."
+        },
+        {
+          "it": "la pressione sanguigna",
+          "de": "der Blutdruck",
+          "emoji": "🩸",
+          "ex": "L'infermiera mi ha misurato la pressione sanguigna.",
+          "exDe": "Die Krankenschwester hat mir den Blutdruck gemessen."
+        },
+        {
+          "it": "le analisi del sangue",
+          "de": "die Blutuntersuchung",
+          "emoji": "🧪",
+          "ex": "Le analisi del sangue hanno rivelato una carenza di ferro.",
+          "exDe": "Die Blutuntersuchung hat einen Eisenmangel ergeben."
+        },
+        {
+          "it": "la malattia cronica",
+          "de": "die chronische Krankheit",
+          "emoji": "🩹",
+          "ex": "Convive con una malattia cronica da molti anni.",
+          "exDe": "Er lebt seit vielen Jahren mit einer chronischen Krankheit."
+        },
+        {
+          "it": "il dolore",
+          "de": "der Schmerz",
+          "emoji": "😣",
+          "ex": "Sente un forte dolore alla schiena da giorni.",
+          "exDe": "Er verspürt seit Tagen starke Schmerzen im Rücken."
+        },
+        {
+          "it": "il riposo",
+          "de": "die Ruhe",
+          "emoji": "😴",
+          "ex": "Il medico le ha prescritto qualche giorno di riposo.",
+          "exDe": "Der Arzt hat ihr ein paar Tage Ruhe verordnet."
+        },
+        {
+          "it": "lo specialista",
+          "de": "der Facharzt",
+          "emoji": "👩‍⚕️",
+          "ex": "Il medico di base mi ha mandato da uno specialista.",
+          "exDe": "Der Hausarzt hat mich zu einem Facharzt überwiesen."
+        }
+      ],
+      "C1": [
+        {
+          "it": "la patologia",
+          "de": "die Erkrankung",
+          "emoji": "🔬",
+          "ex": "Si tratta di una patologia rara che richiede cure specifiche.",
+          "exDe": "Es handelt sich um eine seltene Erkrankung, die spezifische Behandlungen erfordert."
+        },
+        {
+          "it": "la prognosi",
+          "de": "die Prognose",
+          "emoji": "📈",
+          "ex": "La prognosi resta riservata nonostante i miglioramenti.",
+          "exDe": "Die Prognose bleibt trotz der Verbesserungen unsicher."
+        },
+        {
+          "it": "la decorrenza della malattia",
+          "de": "der Krankheitsverlauf",
+          "emoji": "📉",
+          "ex": "I medici monitorano attentamente la decorrenza della malattia.",
+          "exDe": "Die Ärzte überwachen den Krankheitsverlauf aufmerksam."
+        },
+        {
+          "it": "gli effetti collaterali",
+          "de": "die Nebenwirkungen",
+          "emoji": "⚠️",
+          "ex": "Il farmaco può provocare effetti collaterali come nausea e vertigini.",
+          "exDe": "Das Medikament kann Nebenwirkungen wie Übelkeit und Schwindel hervorrufen."
+        },
+        {
+          "it": "la posologia",
+          "de": "die Dosierung",
+          "emoji": "💊",
+          "ex": "Rispetta sempre la posologia indicata dal medico.",
+          "exDe": "Halte dich stets an die vom Arzt angegebene Dosierung."
+        },
+        {
+          "it": "il decorso post-operatorio",
+          "de": "der postoperative Verlauf",
+          "emoji": "🏥",
+          "ex": "Il decorso post-operatorio è stato privo di complicazioni.",
+          "exDe": "Der postoperative Verlauf war ohne Komplikationen."
+        },
+        {
+          "it": "la riabilitazione",
+          "de": "die Rehabilitation",
+          "emoji": "🦿",
+          "ex": "Dopo l'incidente ha iniziato un lungo percorso di riabilitazione.",
+          "exDe": "Nach dem Unfall hat er einen langen Weg der Rehabilitation begonnen."
+        },
+        {
+          "it": "il quadro clinico",
+          "de": "das klinische Bild",
+          "emoji": "🩻",
+          "ex": "Il quadro clinico del paziente è migliorato sensibilmente.",
+          "exDe": "Das klinische Bild des Patienten hat sich merklich gebessert."
+        },
+        {
+          "it": "il consenso informato",
+          "de": "die Einwilligung nach Aufklärung",
+          "emoji": "✍️",
+          "ex": "Prima dell'operazione il paziente deve firmare il consenso informato.",
+          "exDe": "Vor der Operation muss der Patient die Einwilligung nach Aufklärung unterschreiben."
+        },
+        {
+          "it": "la predisposizione genetica",
+          "de": "die genetische Veranlagung",
+          "emoji": "🧬",
+          "ex": "Esiste una predisposizione genetica a questo tipo di tumore.",
+          "exDe": "Es besteht eine genetische Veranlagung für diese Art von Tumor."
+        },
+        {
+          "it": "l'anamnesi",
+          "de": "die Anamnese",
+          "emoji": "📑",
+          "ex": "Il medico ha raccolto un'anamnesi dettagliata del paziente.",
+          "exDe": "Der Arzt hat eine ausführliche Anamnese des Patienten erhoben."
+        },
+        {
+          "it": "il quadro sintomatologico",
+          "de": "das Symptombild",
+          "emoji": "🤧",
+          "ex": "Il quadro sintomatologico è compatibile con un'infezione virale.",
+          "exDe": "Das Symptombild ist mit einer Virusinfektion vereinbar."
+        },
+        {
+          "it": "la profilassi",
+          "de": "die Prophylaxe",
+          "emoji": "🛡️",
+          "ex": "La profilassi antibiotica viene somministrata prima dell'intervento.",
+          "exDe": "Die antibiotische Prophylaxe wird vor dem Eingriff verabreicht."
+        },
+        {
+          "it": "l'insufficienza renale",
+          "de": "die Niereninsuffizienz",
+          "emoji": "🫘",
+          "ex": "Il paziente soffre di insufficienza renale cronica.",
+          "exDe": "Der Patient leidet an chronischer Niereninsuffizienz."
+        },
+        {
+          "it": "la recidiva",
+          "de": "der Rückfall",
+          "emoji": "🔁",
+          "ex": "Dopo due anni si è verificata una recidiva della malattia.",
+          "exDe": "Nach zwei Jahren ist ein Rückfall der Krankheit aufgetreten."
+        },
+        {
+          "it": "il decesso",
+          "de": "der Todesfall",
+          "emoji": "🕯️",
+          "ex": "Il decesso è sopraggiunto in seguito a complicazioni respiratorie.",
+          "exDe": "Der Tod trat infolge von Atemkomplikationen ein."
+        },
+        {
+          "it": "l'esito degli esami",
+          "de": "das Untersuchungsergebnis",
+          "emoji": "📊",
+          "ex": "Stiamo ancora attendendo l'esito degli esami istologici.",
+          "exDe": "Wir warten noch auf das Ergebnis der histologischen Untersuchungen."
+        },
+        {
+          "it": "la somministrazione del farmaco",
+          "de": "die Verabreichung des Medikaments",
+          "emoji": "💉",
+          "ex": "La somministrazione del farmaco avviene per via endovenosa.",
+          "exDe": "Die Verabreichung des Medikaments erfolgt intravenös."
+        },
+        {
+          "it": "il monitoraggio dei parametri vitali",
+          "de": "die Überwachung der Vitalparameter",
+          "emoji": "📟",
+          "ex": "In terapia intensiva è costante il monitoraggio dei parametri vitali.",
+          "exDe": "Auf der Intensivstation erfolgt eine ständige Überwachung der Vitalparameter."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'eziologia",
+          "de": "die Ätiologie",
+          "emoji": "🔍",
+          "ex": "L'eziologia della malattia rimane tuttora poco chiara.",
+          "exDe": "Die Ätiologie der Krankheit ist bis heute weitgehend ungeklärt."
+        },
+        {
+          "it": "la patogenesi",
+          "de": "die Pathogenese",
+          "emoji": "🧫",
+          "ex": "Gli studi recenti hanno chiarito la patogenesi dell'infiammazione.",
+          "exDe": "Jüngste Studien haben die Pathogenese der Entzündung aufgeklärt."
+        },
+        {
+          "it": "la comorbilità",
+          "de": "die Komorbidität",
+          "emoji": "➕",
+          "ex": "La presenza di comorbilità complica notevolmente il trattamento.",
+          "exDe": "Das Vorliegen von Komorbidität erschwert die Behandlung erheblich."
+        },
+        {
+          "it": "l'esacerbazione",
+          "de": "die Exazerbation",
+          "emoji": "📛",
+          "ex": "L'esacerbazione dei sintomi ha reso necessario il ricovero.",
+          "exDe": "Die Exazerbation der Symptome machte eine Krankenhauseinweisung erforderlich."
+        },
+        {
+          "it": "la sintomatologia conclamata",
+          "de": "die voll ausgeprägte Symptomatik",
+          "emoji": "🌡️",
+          "ex": "Alla diagnosi la sintomatologia era ormai conclamata.",
+          "exDe": "Bei der Diagnose war die Symptomatik bereits voll ausgeprägt."
+        },
+        {
+          "it": "il referto istologico",
+          "de": "der histologische Befund",
+          "emoji": "🔬",
+          "ex": "Il referto istologico ha confermato la natura benigna della lesione.",
+          "exDe": "Der histologische Befund hat die gutartige Natur der Läsion bestätigt."
+        },
+        {
+          "it": "la remissione completa",
+          "de": "die vollständige Remission",
+          "emoji": "✨",
+          "ex": "Dopo la chemioterapia il paziente è entrato in remissione completa.",
+          "exDe": "Nach der Chemotherapie ist der Patient in vollständige Remission gegangen."
+        },
+        {
+          "it": "l'iter diagnostico",
+          "de": "der diagnostische Ablauf",
+          "emoji": "🧭",
+          "ex": "L'iter diagnostico ha previsto numerosi esami strumentali.",
+          "exDe": "Der diagnostische Ablauf umfasste zahlreiche apparative Untersuchungen."
+        },
+        {
+          "it": "la farmacoresistenza",
+          "de": "die Arzneimittelresistenz",
+          "emoji": "🧪",
+          "ex": "La farmacoresistenza batterica è una sfida crescente per la sanità.",
+          "exDe": "Die bakterielle Arzneimittelresistenz ist eine wachsende Herausforderung für das Gesundheitswesen."
+        },
+        {
+          "it": "l'insorgenza acuta",
+          "de": "der akute Beginn",
+          "emoji": "⚡",
+          "ex": "L'insorgenza acuta dei sintomi ha allarmato i sanitari.",
+          "exDe": "Der akute Beginn der Symptome hat das Pflegepersonal alarmiert."
+        },
+        {
+          "it": "la diagnosi differenziale",
+          "de": "die Differenzialdiagnose",
+          "emoji": "⚖️",
+          "ex": "La diagnosi differenziale ha permesso di escludere una neoplasia.",
+          "exDe": "Die Differenzialdiagnose hat es ermöglicht, eine Neoplasie auszuschließen."
+        },
+        {
+          "it": "il deficit cognitivo",
+          "de": "das kognitive Defizit",
+          "emoji": "🧠",
+          "ex": "Il deficit cognitivo progredisce lentamente nei pazienti affetti.",
+          "exDe": "Das kognitive Defizit schreitet bei den betroffenen Patienten langsam fort."
+        },
+        {
+          "it": "la sepsi",
+          "de": "die Sepsis",
+          "emoji": "🦠",
+          "ex": "La sepsi può evolvere rapidamente in shock settico.",
+          "exDe": "Die Sepsis kann sich schnell zu einem septischen Schock entwickeln."
+        },
+        {
+          "it": "l'aderenza terapeutica",
+          "de": "die Therapietreue",
+          "emoji": "🤝",
+          "ex": "Una scarsa aderenza terapeutica compromette l'efficacia della cura.",
+          "exDe": "Eine geringe Therapietreue beeinträchtigt die Wirksamkeit der Behandlung."
+        },
+        {
+          "it": "la cachessia",
+          "de": "die Kachexie",
+          "emoji": "📉",
+          "ex": "Nelle fasi avanzate il paziente ha sviluppato una grave cachessia.",
+          "exDe": "In den fortgeschrittenen Stadien hat der Patient eine schwere Kachexie entwickelt."
+        },
+        {
+          "it": "il quadro auscultatorio",
+          "de": "der Auskultationsbefund",
+          "emoji": "🩺",
+          "ex": "Il quadro auscultatorio rivelava rantoli a entrambi i polmoni.",
+          "exDe": "Der Auskultationsbefund zeigte Rasselgeräusche in beiden Lungen."
+        },
+        {
+          "it": "l'esito infausto",
+          "de": "der ungünstige Ausgang",
+          "emoji": "🕯️",
+          "ex": "Nonostante le cure, la malattia ha avuto un esito infausto.",
+          "exDe": "Trotz der Behandlung nahm die Krankheit einen ungünstigen Ausgang."
+        },
+        {
+          "it": "la palliazione",
+          "de": "die Palliativversorgung",
+          "emoji": "🤲",
+          "ex": "Quando la guarigione non è più possibile si ricorre alla palliazione.",
+          "exDe": "Wenn eine Heilung nicht mehr möglich ist, greift man auf die Palliativversorgung zurück."
+        },
+        {
+          "it": "l'immunosoppressione",
+          "de": "die Immunsuppression",
+          "emoji": "🛡️",
+          "ex": "L'immunosoppressione post-trapianto richiede un monitoraggio costante.",
+          "exDe": "Die Immunsuppression nach der Transplantation erfordert eine ständige Überwachung."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-psicologia",
+    "title": "Mente & Emozioni",
+    "de": "Psyche & Gefühle",
+    "emoji": "🧠",
+    "color": "#3f8a6b",
+    "area": "Mente & Espressioni",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "l'autostima",
+          "de": "das Selbstwertgefühl",
+          "emoji": "💪",
+          "ex": "Dopo quel successo la sua autostima è cresciuta molto.",
+          "exDe": "Nach diesem Erfolg ist sein Selbstwertgefühl stark gewachsen."
+        },
+        {
+          "it": "lo stress",
+          "de": "der Stress",
+          "emoji": "😰",
+          "ex": "Lo stress sul lavoro mi sta togliendo il sonno.",
+          "exDe": "Der Stress auf der Arbeit raubt mir den Schlaf."
+        },
+        {
+          "it": "essere giù di morale",
+          "de": "niedergeschlagen sein",
+          "emoji": "😞",
+          "ex": "Da qualche giorno sono un po' giù di morale.",
+          "exDe": "Seit ein paar Tagen bin ich etwas niedergeschlagen."
+        },
+        {
+          "it": "la fiducia in sé stessi",
+          "de": "das Selbstvertrauen",
+          "emoji": "🦁",
+          "ex": "Per parlare in pubblico serve molta fiducia in sé stessi.",
+          "exDe": "Um in der Öffentlichkeit zu sprechen, braucht man viel Selbstvertrauen."
+        },
+        {
+          "it": "l'ansia",
+          "de": "die Angst, die Beklemmung",
+          "emoji": "😟",
+          "ex": "Prima degli esami soffro sempre di ansia.",
+          "exDe": "Vor Prüfungen leide ich immer unter Angst."
+        },
+        {
+          "it": "la delusione",
+          "de": "die Enttäuschung",
+          "emoji": "💔",
+          "ex": "Quella notizia è stata una grande delusione per tutti noi.",
+          "exDe": "Diese Nachricht war eine große Enttäuschung für uns alle."
+        },
+        {
+          "it": "essere di buon umore",
+          "de": "guter Laune sein",
+          "emoji": "😊",
+          "ex": "Stamattina sono di buon umore e voglio uscire.",
+          "exDe": "Heute Morgen bin ich guter Laune und möchte rausgehen."
+        },
+        {
+          "it": "la gelosia",
+          "de": "die Eifersucht",
+          "emoji": "😒",
+          "ex": "La sua gelosia ha rovinato il rapporto.",
+          "exDe": "Seine Eifersucht hat die Beziehung ruiniert."
+        },
+        {
+          "it": "l'orgoglio",
+          "de": "der Stolz",
+          "emoji": "🦚",
+          "ex": "Il suo orgoglio gli impedisce di chiedere scusa.",
+          "exDe": "Sein Stolz hindert ihn daran, sich zu entschuldigen."
+        },
+        {
+          "it": "sentirsi in colpa",
+          "de": "sich schuldig fühlen",
+          "emoji": "😣",
+          "ex": "Mi sento in colpa per non averla aiutata.",
+          "exDe": "Ich fühle mich schuldig, weil ich ihr nicht geholfen habe."
+        },
+        {
+          "it": "la nostalgia",
+          "de": "die Sehnsucht, das Heimweh",
+          "emoji": "🕰️",
+          "ex": "Provo una forte nostalgia dei tempi dell'università.",
+          "exDe": "Ich empfinde eine starke Sehnsucht nach der Studienzeit."
+        },
+        {
+          "it": "la rabbia",
+          "de": "die Wut, der Zorn",
+          "emoji": "😡",
+          "ex": "Ha represso la rabbia per non litigare.",
+          "exDe": "Er hat die Wut unterdrückt, um nicht zu streiten."
+        },
+        {
+          "it": "la timidezza",
+          "de": "die Schüchternheit",
+          "emoji": "🙈",
+          "ex": "La sua timidezza svanisce tra gli amici.",
+          "exDe": "Seine Schüchternheit verschwindet unter Freunden."
+        },
+        {
+          "it": "il sollievo",
+          "de": "die Erleichterung",
+          "emoji": "😮‍💨",
+          "ex": "Ho tirato un sospiro di sollievo dopo l'esito positivo.",
+          "exDe": "Ich habe nach dem positiven Ergebnis erleichtert aufgeatmet."
+        },
+        {
+          "it": "essere stressato",
+          "de": "gestresst sein",
+          "emoji": "🤯",
+          "ex": "Sono talmente stressato che non riesco a concentrarmi.",
+          "exDe": "Ich bin so gestresst, dass ich mich nicht konzentrieren kann."
+        },
+        {
+          "it": "la paura",
+          "de": "die Furcht, die Angst",
+          "emoji": "😨",
+          "ex": "Ho una paura terribile dei ragni.",
+          "exDe": "Ich habe schreckliche Angst vor Spinnen."
+        },
+        {
+          "it": "la felicità",
+          "de": "das Glück, die Freude",
+          "emoji": "😄",
+          "ex": "La vera felicità sta nelle piccole cose.",
+          "exDe": "Das wahre Glück liegt in den kleinen Dingen."
+        },
+        {
+          "it": "perdere la pazienza",
+          "de": "die Geduld verlieren",
+          "emoji": "😤",
+          "ex": "Con questi rumori sto per perdere la pazienza.",
+          "exDe": "Bei diesem Lärm verliere ich gleich die Geduld."
+        },
+        {
+          "it": "il senso di colpa",
+          "de": "das Schuldgefühl",
+          "emoji": "⚖️",
+          "ex": "Un forte senso di colpa lo tormentava da settimane.",
+          "exDe": "Ein starkes Schuldgefühl quälte ihn seit Wochen."
+        },
+        {
+          "it": "la malinconia",
+          "de": "die Wehmut, die Melancholie",
+          "emoji": "🍂",
+          "ex": "L'autunno mi mette addosso una dolce malinconia.",
+          "exDe": "Der Herbst versetzt mich in eine süße Wehmut."
+        }
+      ],
+      "C1": [
+        {
+          "it": "lo sconforto",
+          "de": "die Mutlosigkeit, die Niedergeschlagenheit",
+          "emoji": "😔",
+          "ex": "Di fronte all'ennesimo rifiuto cadde nello sconforto.",
+          "exDe": "Angesichts der x-ten Absage verfiel er in Mutlosigkeit."
+        },
+        {
+          "it": "l'inquietudine",
+          "de": "die Unruhe, die innere Beunruhigung",
+          "emoji": "🌪️",
+          "ex": "Un'inquietudine sottile gli impediva di dormire.",
+          "exDe": "Eine feine Unruhe hinderte ihn am Schlafen."
+        },
+        {
+          "it": "l'autocontrollo",
+          "de": "die Selbstbeherrschung",
+          "emoji": "🧘",
+          "ex": "Mantenne l'autocontrollo nonostante le provocazioni.",
+          "exDe": "Er bewahrte trotz der Provokationen die Selbstbeherrschung."
+        },
+        {
+          "it": "la resilienza",
+          "de": "die Resilienz, die seelische Widerstandskraft",
+          "emoji": "🌱",
+          "ex": "La sua resilienza le ha permesso di superare il lutto.",
+          "exDe": "Ihre Resilienz hat es ihr ermöglicht, die Trauer zu überwinden."
+        },
+        {
+          "it": "l'empatia",
+          "de": "die Empathie, das Einfühlungsvermögen",
+          "emoji": "🤝",
+          "ex": "Ascolta gli altri con grande empatia.",
+          "exDe": "Er hört anderen mit großem Einfühlungsvermögen zu."
+        },
+        {
+          "it": "il rimorso",
+          "de": "die Gewissensbisse, die Reue",
+          "emoji": "🥀",
+          "ex": "Il rimorso per quelle parole non lo abbandonava mai.",
+          "exDe": "Die Reue über jene Worte verließ ihn nie."
+        },
+        {
+          "it": "l'apprensione",
+          "de": "die Besorgnis, die bange Erwartung",
+          "emoji": "😬",
+          "ex": "Attendeva i risultati con evidente apprensione.",
+          "exDe": "Er erwartete die Ergebnisse mit sichtlicher Besorgnis."
+        },
+        {
+          "it": "essere in preda al panico",
+          "de": "von Panik erfasst sein",
+          "emoji": "🚨",
+          "ex": "Quando si spense la luce fu in preda al panico.",
+          "exDe": "Als das Licht ausging, wurde sie von Panik erfasst."
+        },
+        {
+          "it": "l'angoscia",
+          "de": "die Beklemmung, die existenzielle Angst",
+          "emoji": "🌫️",
+          "ex": "Provava un'angoscia indescrivibile pensando al futuro.",
+          "exDe": "Sie empfand eine unbeschreibliche Beklemmung, wenn sie an die Zukunft dachte."
+        },
+        {
+          "it": "il disagio",
+          "de": "das Unbehagen, das Unwohlsein",
+          "emoji": "😖",
+          "ex": "Avvertì un certo disagio in quella conversazione.",
+          "exDe": "Er verspürte ein gewisses Unbehagen in diesem Gespräch."
+        },
+        {
+          "it": "la consapevolezza di sé",
+          "de": "die Selbstwahrnehmung, das Selbstbewusstsein",
+          "emoji": "🪞",
+          "ex": "La terapia ha rafforzato la sua consapevolezza di sé.",
+          "exDe": "Die Therapie hat seine Selbstwahrnehmung gestärkt."
+        },
+        {
+          "it": "abbattersi",
+          "de": "den Mut verlieren, deprimiert sein",
+          "emoji": "📉",
+          "ex": "Non abbatterti per una sola brutta giornata.",
+          "exDe": "Lass dich nicht von einem einzigen schlechten Tag entmutigen."
+        },
+        {
+          "it": "l'irrequietezza",
+          "de": "die Ruhelosigkeit, die innere Getriebenheit",
+          "emoji": "🦗",
+          "ex": "Un'irrequietezza costante lo spingeva a cambiare città.",
+          "exDe": "Eine ständige Ruhelosigkeit trieb ihn dazu, die Stadt zu wechseln."
+        },
+        {
+          "it": "la fragilità emotiva",
+          "de": "die emotionale Verletzlichkeit",
+          "emoji": "🪶",
+          "ex": "Nascondeva la sua fragilità emotiva dietro un sorriso.",
+          "exDe": "Sie verbarg ihre emotionale Verletzlichkeit hinter einem Lächeln."
+        },
+        {
+          "it": "l'autostima ferita",
+          "de": "das verletzte Selbstwertgefühl",
+          "emoji": "🩹",
+          "ex": "Quella critica colpì la sua autostima ferita.",
+          "exDe": "Diese Kritik traf sein ohnehin verletztes Selbstwertgefühl."
+        },
+        {
+          "it": "covare rancore",
+          "de": "Groll hegen",
+          "emoji": "🐍",
+          "ex": "Da anni cova un profondo rancore verso il fratello.",
+          "exDe": "Seit Jahren hegt er einen tiefen Groll gegen seinen Bruder."
+        },
+        {
+          "it": "il distacco emotivo",
+          "de": "die emotionale Distanz",
+          "emoji": "🧊",
+          "ex": "Parlava della tragedia con un sorprendente distacco emotivo.",
+          "exDe": "Er sprach über die Tragödie mit überraschender emotionaler Distanz."
+        },
+        {
+          "it": "lo smarrimento",
+          "de": "die Verwirrung, das Sich-verloren-Fühlen",
+          "emoji": "🧭",
+          "ex": "Provò un profondo smarrimento dopo il trasferimento.",
+          "exDe": "Nach dem Umzug fühlte er sich zutiefst verloren."
+        },
+        {
+          "it": "la suscettibilità",
+          "de": "die Empfindlichkeit, die Reizbarkeit",
+          "emoji": "🌡️",
+          "ex": "La sua suscettibilità rende difficile criticarlo.",
+          "exDe": "Seine Empfindlichkeit macht es schwer, ihn zu kritisieren."
+        },
+        {
+          "it": "lasciarsi andare",
+          "de": "sich gehen lassen, sich hingeben",
+          "emoji": "🍃",
+          "ex": "Per una volta si lasciò andare alle emozioni.",
+          "exDe": "Ausnahmsweise ließ er sich von den Gefühlen treiben."
+        }
+      ],
+      "C2": [
+        {
+          "it": "l'accidia",
+          "de": "die Trägheit der Seele, die geistige Antriebslosigkeit",
+          "emoji": "🕯️",
+          "ex": "Un'accidia opprimente gli toglieva ogni voglia di agire.",
+          "exDe": "Eine erdrückende seelische Trägheit nahm ihm jeden Tatendrang."
+        },
+        {
+          "it": "lo struggimento",
+          "de": "das sehnsüchtige Schmachten, das verzehrende Verlangen",
+          "emoji": "🌒",
+          "ex": "Lo struggimento per la patria perduta pervade i suoi versi.",
+          "exDe": "Das sehnsüchtige Schmachten nach der verlorenen Heimat durchzieht seine Verse."
+        },
+        {
+          "it": "la trepidazione",
+          "de": "das bange Hoffen, die zitternde Erwartung",
+          "emoji": "🫨",
+          "ex": "Aspettava il verdetto con trepidazione mal celata.",
+          "exDe": "Sie erwartete das Urteil mit kaum verhohlenem bangem Hoffen."
+        },
+        {
+          "it": "l'abulia",
+          "de": "die Willenlosigkeit, der krankhafte Antriebsverlust",
+          "emoji": "🛌",
+          "ex": "La depressione lo aveva ridotto a uno stato di abulia totale.",
+          "exDe": "Die Depression hatte ihn in einen Zustand völliger Willenlosigkeit versetzt."
+        },
+        {
+          "it": "il turbamento",
+          "de": "die seelische Erschütterung, die innere Verstörung",
+          "emoji": "🌊",
+          "ex": "Quelle parole le procurarono un turbamento profondo.",
+          "exDe": "Jene Worte lösten in ihr eine tiefe seelische Erschütterung aus."
+        },
+        {
+          "it": "la magnanimità",
+          "de": "der Edelmut, die Großmut",
+          "emoji": "👑",
+          "ex": "Perdonò il traditore con sorprendente magnanimità.",
+          "exDe": "Er verzieh dem Verräter mit überraschendem Edelmut."
+        },
+        {
+          "it": "l'ineffabilità",
+          "de": "die Unaussprechlichkeit (eines Gefühls)",
+          "emoji": "✨",
+          "ex": "Tentò invano di descrivere l'ineffabilità di quella gioia.",
+          "exDe": "Vergeblich versuchte er, die Unaussprechlichkeit jener Freude zu beschreiben."
+        },
+        {
+          "it": "la pusillanimità",
+          "de": "die Kleinmütigkeit, die Feigheit",
+          "emoji": "🐁",
+          "ex": "La sua pusillanimità gli impedì di difendere l'amico.",
+          "exDe": "Seine Kleinmütigkeit hinderte ihn daran, den Freund zu verteidigen."
+        },
+        {
+          "it": "l'estasi",
+          "de": "die Ekstase, die Verzückung",
+          "emoji": "🌟",
+          "ex": "Ascoltava la musica come rapito in estasi.",
+          "exDe": "Er lauschte der Musik wie in Verzückung versunken."
+        },
+        {
+          "it": "l'ipocondria",
+          "de": "die Hypochondrie, die krankhafte Krankheitsangst",
+          "emoji": "🩺",
+          "ex": "La sua ipocondria lo portava a consultare medici di continuo.",
+          "exDe": "Seine Hypochondrie veranlasste ihn, ständig Ärzte aufzusuchen."
+        },
+        {
+          "it": "la commozione",
+          "de": "die tiefe Rührung, die Ergriffenheit",
+          "emoji": "🥹",
+          "ex": "Lesse la lettera trattenendo a stento la commozione.",
+          "exDe": "Er las den Brief und konnte die Rührung kaum zurückhalten."
+        },
+        {
+          "it": "l'esultanza",
+          "de": "der Jubel, das Frohlocken",
+          "emoji": "🎉",
+          "ex": "Alla vittoria seguì un'esultanza incontenibile.",
+          "exDe": "Auf den Sieg folgte ein unbändiger Jubel."
+        },
+        {
+          "it": "la prostrazione",
+          "de": "die völlige Erschöpfung, die Niedergeschlagenheit",
+          "emoji": "🪦",
+          "ex": "Dopo il lutto cadde in uno stato di prostrazione.",
+          "exDe": "Nach dem Trauerfall verfiel er in einen Zustand völliger Niedergeschlagenheit."
+        },
+        {
+          "it": "il sgomento",
+          "de": "das Entsetzen, die fassungslose Bestürzung",
+          "emoji": "😱",
+          "ex": "Guardò la scena con muto sgomento.",
+          "exDe": "Sie betrachtete die Szene mit stummem Entsetzen."
+        },
+        {
+          "it": "l'animosità",
+          "de": "die Feindseligkeit, die erbitterte Abneigung",
+          "emoji": "⚔️",
+          "ex": "Tra le due famiglie regnava una sorda animosità.",
+          "exDe": "Zwischen den beiden Familien herrschte eine dumpfe Feindseligkeit."
+        },
+        {
+          "it": "la compunzione",
+          "de": "die zerknirschte Reue, die andächtige Zerknirschung",
+          "emoji": "🙏",
+          "ex": "Confessò la colpa con sincera compunzione.",
+          "exDe": "Er gestand die Schuld mit aufrichtiger Zerknirschung."
+        },
+        {
+          "it": "l'ebbrezza",
+          "de": "der Rausch, die berauschte Hochstimmung",
+          "emoji": "🍷",
+          "ex": "Provò l'ebbrezza della libertà appena ritrovata.",
+          "exDe": "Er kostete den Rausch der gerade wiedergewonnenen Freiheit."
+        },
+        {
+          "it": "il fastidio viscerale",
+          "de": "die tief sitzende Abneigung, der instinktive Widerwille",
+          "emoji": "🤢",
+          "ex": "Provava un fastidio viscerale per l'ipocrisia.",
+          "exDe": "Er empfand einen instinktiven Widerwillen gegen Heuchelei."
+        },
+        {
+          "it": "la riottosità",
+          "de": "die Aufsässigkeit, die widerspenstige Trotzhaltung",
+          "emoji": "🐐",
+          "ex": "La riottosità del ragazzo metteva a dura prova gli insegnanti.",
+          "exDe": "Die Aufsässigkeit des Jungen stellte die Lehrer auf eine harte Probe."
+        }
+      ]
+    }
+  },
+  {
+    "id": "adv-idiomi",
+    "title": "Modi di Dire",
+    "de": "Redewendungen & Sprichwörter",
+    "emoji": "💬",
+    "color": "#a8472b",
+    "area": "Mente & Espressioni",
+    "advanced": true,
+    "levels": {
+      "B2": [
+        {
+          "it": "in bocca al lupo",
+          "de": "viel Glück! (wörtl.: in den Rachen des Wolfes)",
+          "emoji": "🐺",
+          "ex": "In bocca al lupo per l'esame di domani!",
+          "exDe": "Viel Glück für die Prüfung morgen!"
+        },
+        {
+          "it": "costare un occhio della testa",
+          "de": "ein Vermögen kosten (wörtl.: ein Auge des Kopfes kosten)",
+          "emoji": "💸",
+          "ex": "Questa macchina mi è costata un occhio della testa.",
+          "exDe": "Dieses Auto hat mich ein Vermögen gekostet."
+        },
+        {
+          "it": "non vedere l'ora",
+          "de": "es kaum erwarten können",
+          "emoji": "⏰",
+          "ex": "Non vedo l'ora di partire per le vacanze.",
+          "exDe": "Ich kann es kaum erwarten, in den Urlaub zu fahren."
+        },
+        {
+          "it": "avere le mani bucate",
+          "de": "das Geld mit vollen Händen ausgeben (wörtl.: durchlöcherte Hände haben)",
+          "emoji": "🕳️",
+          "ex": "Mio fratello ha le mani bucate, non risparmia mai.",
+          "exDe": "Mein Bruder gibt das Geld mit vollen Händen aus, er spart nie."
+        },
+        {
+          "it": "essere al verde",
+          "de": "pleite sein (wörtl.: beim Grünen sein)",
+          "emoji": "💚",
+          "ex": "A fine mese sono sempre al verde.",
+          "exDe": "Am Monatsende bin ich immer pleite."
+        },
+        {
+          "it": "prendere due piccioni con una fava",
+          "de": "zwei Fliegen mit einer Klappe schlagen (wörtl.: zwei Tauben mit einer Bohne fangen)",
+          "emoji": "🐦",
+          "ex": "Andando in centro ho preso due piccioni con una fava.",
+          "exDe": "Indem ich in die Stadt ging, habe ich zwei Fliegen mit einer Klappe geschlagen."
+        },
+        {
+          "it": "essere un libro aperto",
+          "de": "ein offenes Buch sein",
+          "emoji": "📖",
+          "ex": "Con me Luca è un libro aperto, capisco tutto.",
+          "exDe": "Mir gegenüber ist Luca ein offenes Buch, ich verstehe alles."
+        },
+        {
+          "it": "tagliare la corda",
+          "de": "sich aus dem Staub machen (wörtl.: das Seil durchschneiden)",
+          "emoji": "🏃",
+          "ex": "Appena è arrivata la polizia ha tagliato la corda.",
+          "exDe": "Sobald die Polizei kam, hat er sich aus dem Staub gemacht."
+        },
+        {
+          "it": "avere la testa fra le nuvole",
+          "de": "mit dem Kopf in den Wolken sein, verträumt sein",
+          "emoji": "☁️",
+          "ex": "Oggi hai la testa fra le nuvole, cosa ti succede?",
+          "exDe": "Heute bist du mit dem Kopf in den Wolken, was ist mit dir los?"
+        },
+        {
+          "it": "rompere il ghiaccio",
+          "de": "das Eis brechen",
+          "emoji": "🧊",
+          "ex": "Una battuta è bastata a rompere il ghiaccio.",
+          "exDe": "Ein Witz genügte, um das Eis zu brechen."
+        },
+        {
+          "it": "fare orecchie da mercante",
+          "de": "auf taube Ohren stoßen lassen, sich taub stellen (wörtl.: Krämerohren machen)",
+          "emoji": "🙉",
+          "ex": "Gli ho detto di smettere ma fa orecchie da mercante.",
+          "exDe": "Ich habe ihm gesagt, er soll aufhören, aber er stellt sich taub."
+        },
+        {
+          "it": "essere come il cane e il gatto",
+          "de": "wie Hund und Katze sein",
+          "emoji": "🐶",
+          "ex": "I due fratelli sono come il cane e il gatto.",
+          "exDe": "Die beiden Brüder sind wie Hund und Katze."
+        },
+        {
+          "it": "togliersi un peso dallo stomaco",
+          "de": "sich etwas von der Seele reden (wörtl.: ein Gewicht vom Magen nehmen)",
+          "emoji": "😮‍💨",
+          "ex": "Dopo averle parlato mi sono tolto un peso dallo stomaco.",
+          "exDe": "Nachdem ich mit ihr gesprochen hatte, fiel mir ein Stein vom Herzen."
+        },
+        {
+          "it": "piove sul bagnato",
+          "de": "ein Unglück kommt selten allein (wörtl.: es regnet aufs Nasse)",
+          "emoji": "🌧️",
+          "ex": "Ho perso il lavoro e ora anche il portafoglio: piove sul bagnato.",
+          "exDe": "Ich habe den Job verloren und jetzt auch noch das Portemonnaie: ein Unglück kommt selten allein."
+        },
+        {
+          "it": "non avere peli sulla lingua",
+          "de": "kein Blatt vor den Mund nehmen (wörtl.: keine Haare auf der Zunge haben)",
+          "emoji": "👅",
+          "ex": "Mia nonna non ha peli sulla lingua e dice ciò che pensa.",
+          "exDe": "Meine Oma nimmt kein Blatt vor den Mund und sagt, was sie denkt."
+        },
+        {
+          "it": "fare il passo più lungo della gamba",
+          "de": "sich übernehmen (wörtl.: einen Schritt länger als das Bein machen)",
+          "emoji": "🦵",
+          "ex": "Comprando quella casa ha fatto il passo più lungo della gamba.",
+          "exDe": "Mit dem Kauf dieses Hauses hat er sich übernommen."
+        },
+        {
+          "it": "essere al settimo cielo",
+          "de": "im siebten Himmel sein",
+          "emoji": "☁️",
+          "ex": "Da quando si è fidanzata è al settimo cielo.",
+          "exDe": "Seit sie verlobt ist, schwebt sie im siebten Himmel."
+        },
+        {
+          "it": "chi dorme non piglia pesci",
+          "de": "wer nicht handelt, geht leer aus (wörtl.: wer schläft, fängt keine Fische)",
+          "emoji": "🐟",
+          "ex": "Alzati e datti da fare: chi dorme non piglia pesci.",
+          "exDe": "Steh auf und tu was: Wer nicht handelt, geht leer aus."
+        },
+        {
+          "it": "avere un diavolo per capello",
+          "de": "fuchsteufelswild sein (wörtl.: einen Teufel pro Haar haben)",
+          "emoji": "😈",
+          "ex": "Dopo quella telefonata aveva un diavolo per capello.",
+          "exDe": "Nach diesem Anruf war sie fuchsteufelswild."
+        },
+        {
+          "it": "mettere il dito nella piaga",
+          "de": "den Finger in die Wunde legen",
+          "emoji": "🩹",
+          "ex": "Parlando del divorzio ha messo il dito nella piaga.",
+          "exDe": "Indem er die Scheidung ansprach, legte er den Finger in die Wunde."
+        }
+      ],
+      "C1": [
+        {
+          "it": "avere le mani in pasta",
+          "de": "überall die Finger im Spiel haben (wörtl.: die Hände im Teig haben)",
+          "emoji": "🍞",
+          "ex": "In questo affare lui ha le mani in pasta da anni.",
+          "exDe": "Bei diesem Geschäft hat er seit Jahren die Finger im Spiel."
+        },
+        {
+          "it": "prendere lucciole per lanterne",
+          "de": "etwas gründlich verwechseln, sich völlig irren (wörtl.: Glühwürmchen für Laternen halten)",
+          "emoji": "🪔",
+          "ex": "Se credi che ti voglia ingannare, prendi lucciole per lanterne.",
+          "exDe": "Wenn du glaubst, dass er dich täuschen will, irrst du dich gewaltig."
+        },
+        {
+          "it": "non tutte le ciambelle riescono col buco",
+          "de": "es klappt nicht immer alles (wörtl.: nicht allen Krapfen gelingt das Loch)",
+          "emoji": "🍩",
+          "ex": "Il progetto è fallito, ma non tutte le ciambelle riescono col buco.",
+          "exDe": "Das Projekt ist gescheitert, aber es klappt eben nicht immer alles."
+        },
+        {
+          "it": "menare il can per l'aia",
+          "de": "um den heißen Brei herumreden (wörtl.: den Hund über den Hof führen)",
+          "emoji": "🐕",
+          "ex": "Smettila di menare il can per l'aia e dimmi la verità.",
+          "exDe": "Hör auf, um den heißen Brei herumzureden, und sag mir die Wahrheit."
+        },
+        {
+          "it": "fare il diavolo a quattro",
+          "de": "einen Höllenlärm machen, alles aufmischen (wörtl.: den Teufel zu viert machen)",
+          "emoji": "🎭",
+          "ex": "I bambini hanno fatto il diavolo a quattro tutta la sera.",
+          "exDe": "Die Kinder haben den ganzen Abend einen Höllenlärm gemacht."
+        },
+        {
+          "it": "cadere dalla padella alla brace",
+          "de": "vom Regen in die Traufe kommen (wörtl.: von der Pfanne in die Glut fallen)",
+          "emoji": "🔥",
+          "ex": "Cambiando lavoro è caduto dalla padella alla brace.",
+          "exDe": "Mit dem Jobwechsel ist er vom Regen in die Traufe gekommen."
+        },
+        {
+          "it": "avere la coda di paglia",
+          "de": "ein schlechtes Gewissen haben (wörtl.: einen Strohschwanz haben)",
+          "emoji": "🌾",
+          "ex": "Si è offeso subito: segno che ha la coda di paglia.",
+          "exDe": "Er hat sich sofort beleidigt gefühlt: ein Zeichen, dass er ein schlechtes Gewissen hat."
+        },
+        {
+          "it": "tirare l'acqua al proprio mulino",
+          "de": "sein eigenes Süppchen kochen, nur an den eigenen Vorteil denken (wörtl.: das Wasser auf die eigene Mühle leiten)",
+          "emoji": "💧",
+          "ex": "In riunione tira sempre l'acqua al proprio mulino.",
+          "exDe": "In Sitzungen denkt er immer nur an den eigenen Vorteil."
+        },
+        {
+          "it": "fare di tutta l'erba un fascio",
+          "de": "alle über einen Kamm scheren (wörtl.: aus allem Gras ein Bündel machen)",
+          "emoji": "🌿",
+          "ex": "Non fare di tutta l'erba un fascio: non sono tutti disonesti.",
+          "exDe": "Scher nicht alle über einen Kamm: Nicht alle sind unehrlich."
+        },
+        {
+          "it": "essere al verde più del prezzemolo",
+          "de": "völlig blank sein, total pleite (wörtl.: grüner sein als die Petersilie)",
+          "emoji": "🌿",
+          "ex": "Dopo le vacanze sono al verde più del prezzemolo.",
+          "exDe": "Nach dem Urlaub bin ich völlig blank."
+        },
+        {
+          "it": "raddrizzare le gambe ai cani",
+          "de": "Unmögliches versuchen (wörtl.: den Hunden die Beine geraderichten)",
+          "emoji": "🦴",
+          "ex": "Convincerlo a studiare è come raddrizzare le gambe ai cani.",
+          "exDe": "Ihn zum Lernen zu bewegen ist ein Ding der Unmöglichkeit."
+        },
+        {
+          "it": "avere il prosciutto sugli occhi",
+          "de": "mit Blindheit geschlagen sein, das Offensichtliche nicht sehen (wörtl.: Schinken auf den Augen haben)",
+          "emoji": "🥓",
+          "ex": "Hai il prosciutto sugli occhi, ti sta chiaramente mentendo.",
+          "exDe": "Du bist mit Blindheit geschlagen, sie belügt dich ganz offensichtlich."
+        },
+        {
+          "it": "passare la nottata",
+          "de": "das Schlimmste überstehen, über den Berg sein (wörtl.: die Nacht durchstehen)",
+          "emoji": "🌃",
+          "ex": "Il malato ha passato la nottata, ora va meglio.",
+          "exDe": "Der Kranke hat das Schlimmste überstanden, jetzt geht es besser."
+        },
+        {
+          "it": "gettare la spugna",
+          "de": "das Handtuch werfen, aufgeben (wörtl.: den Schwamm werfen)",
+          "emoji": "🧽",
+          "ex": "Dopo tanti tentativi ha gettato la spugna.",
+          "exDe": "Nach vielen Versuchen hat er das Handtuch geworfen."
+        },
+        {
+          "it": "battere il ferro finché è caldo",
+          "de": "das Eisen schmieden, solange es heiß ist",
+          "emoji": "🔨",
+          "ex": "L'offerta è ottima, batti il ferro finché è caldo.",
+          "exDe": "Das Angebot ist hervorragend, schmiede das Eisen, solange es heiß ist."
+        },
+        {
+          "it": "rendere pan per focaccia",
+          "de": "Gleiches mit Gleichem vergelten (wörtl.: Brot mit Fladen vergelten)",
+          "emoji": "🫓",
+          "ex": "Mi ha tradito e gli ho reso pan per focaccia.",
+          "exDe": "Er hat mich hintergangen, und ich habe ihm Gleiches mit Gleichem vergolten."
+        },
+        {
+          "it": "tenere il piede in due scarpe",
+          "de": "auf zwei Hochzeiten tanzen (wörtl.: den Fuß in zwei Schuhen halten)",
+          "emoji": "👟",
+          "ex": "Non fidarti: tiene il piede in due scarpe.",
+          "exDe": "Trau ihm nicht: Er tanzt auf zwei Hochzeiten."
+        },
+        {
+          "it": "scoprire l'acqua calda",
+          "de": "etwas längst Bekanntes als Neuigkeit verkaufen (wörtl.: das warme Wasser entdecken)",
+          "emoji": "♨️",
+          "ex": "Dicendo che fa caldo d'estate hai scoperto l'acqua calda.",
+          "exDe": "Mit der Feststellung, dass es im Sommer heiß ist, verkündest du nichts Neues."
+        },
+        {
+          "it": "salvare capra e cavoli",
+          "de": "es allen recht machen, beide Interessen wahren (wörtl.: Ziege und Kohl retten)",
+          "emoji": "🐐",
+          "ex": "Con quel compromesso è riuscito a salvare capra e cavoli.",
+          "exDe": "Mit diesem Kompromiss hat er es geschafft, beide Interessen zu wahren."
+        },
+        {
+          "it": "fare il portoghese",
+          "de": "sich ohne zu zahlen einschleichen, Schwarzfahrer sein (wörtl.: den Portugiesen machen)",
+          "emoji": "🎟️",
+          "ex": "Al concerto è entrato facendo il portoghese.",
+          "exDe": "Beim Konzert hat er sich ohne Ticket eingeschlichen."
+        }
+      ],
+      "C2": [
+        {
+          "it": "fare il passo del gambero",
+          "de": "Rückschritte machen, sich rückwärts entwickeln (wörtl.: den Schritt der Garnele machen)",
+          "emoji": "🦐",
+          "ex": "Con queste riforme il Paese fa il passo del gambero.",
+          "exDe": "Mit diesen Reformen macht das Land einen Rückschritt."
+        },
+        {
+          "it": "non capire un'acca",
+          "de": "rein gar nichts verstehen (wörtl.: kein H verstehen)",
+          "emoji": "🔤",
+          "ex": "Di matematica non capisco un'acca.",
+          "exDe": "Von Mathematik verstehe ich rein gar nichts."
+        },
+        {
+          "it": "avere il bernoccolo per qualcosa",
+          "de": "ein angeborenes Talent für etwas haben (wörtl.: die Beule für etwas haben)",
+          "emoji": "🧠",
+          "ex": "Quel ragazzo ha proprio il bernoccolo per le lingue.",
+          "exDe": "Dieser Junge hat wirklich ein angeborenes Talent für Sprachen."
+        },
+        {
+          "it": "trovare l'America",
+          "de": "das große Los ziehen, sein Glück machen (wörtl.: Amerika finden)",
+          "emoji": "🗽",
+          "ex": "Con quell'eredità credeva di aver trovato l'America.",
+          "exDe": "Mit dieser Erbschaft glaubte er, das große Los gezogen zu haben."
+        },
+        {
+          "it": "predicare bene e razzolare male",
+          "de": "Wasser predigen und Wein trinken (wörtl.: gut predigen und schlecht scharren)",
+          "emoji": "⛪",
+          "ex": "Critica gli sprechi ma poi predica bene e razzola male.",
+          "exDe": "Er kritisiert die Verschwendung, predigt aber Wasser und trinkt Wein."
+        },
+        {
+          "it": "fare le nozze coi fichi secchi",
+          "de": "etwas mit unzureichenden Mitteln versuchen (wörtl.: die Hochzeit mit getrockneten Feigen feiern)",
+          "emoji": "🫛",
+          "ex": "Con quel budget vogliono fare le nozze coi fichi secchi.",
+          "exDe": "Mit diesem Budget wollen sie das Unmögliche mit zu wenig Mitteln schaffen."
+        },
+        {
+          "it": "avere la botte piena e la moglie ubriaca",
+          "de": "alles auf einmal haben wollen, das Unvereinbare verlangen (wörtl.: das volle Fass und die betrunkene Frau haben)",
+          "emoji": "🍷",
+          "ex": "Vuole la botte piena e la moglie ubriaca: impossibile.",
+          "exDe": "Er will alles auf einmal haben: unmöglich."
+        },
+        {
+          "it": "essere il fanalino di coda",
+          "de": "das Schlusslicht sein",
+          "emoji": "🚨",
+          "ex": "In classifica la squadra è il fanalino di coda.",
+          "exDe": "In der Tabelle ist die Mannschaft das Schlusslicht."
+        },
+        {
+          "it": "tagliare la testa al toro",
+          "de": "ein für alle Mal Schluss machen, die Sache endgültig klären (wörtl.: dem Stier den Kopf abschlagen)",
+          "emoji": "🐂",
+          "ex": "Per tagliare la testa al toro decidiamo subito a sorte.",
+          "exDe": "Um die Sache ein für alle Mal zu klären, losen wir sofort aus."
+        },
+        {
+          "it": "chi va al mulino s'infarina",
+          "de": "wer sich in Gefahr begibt, kommt darin um (wörtl.: wer zur Mühle geht, wird mit Mehl bestäubt)",
+          "emoji": "🌾",
+          "ex": "Frequentando certi ambienti chi va al mulino s'infarina.",
+          "exDe": "Wer in solchen Kreisen verkehrt, bleibt nicht unbefleckt."
+        },
+        {
+          "it": "menare per il naso",
+          "de": "an der Nase herumführen",
+          "emoji": "👃",
+          "ex": "Per mesi l'ha menato per il naso con false promesse.",
+          "exDe": "Monatelang hat sie ihn mit falschen Versprechen an der Nase herumgeführt."
+        },
+        {
+          "it": "fare un buco nell'acqua",
+          "de": "auf der ganzen Linie scheitern (wörtl.: ein Loch ins Wasser machen)",
+          "emoji": "🕳️",
+          "ex": "Con quell'investimento ha fatto un buco nell'acqua.",
+          "exDe": "Mit dieser Investition ist er auf der ganzen Linie gescheitert."
+        },
+        {
+          "it": "l'abito non fa il monaco",
+          "de": "Kleider machen nicht den Mann (wörtl.: das Gewand macht nicht den Mönch)",
+          "emoji": "👗",
+          "ex": "Sembra severo, ma l'abito non fa il monaco.",
+          "exDe": "Er wirkt streng, aber Kleider machen nicht den Mann."
+        },
+        {
+          "it": "stare con le mani in mano",
+          "de": "untätig herumstehen, Däumchen drehen (wörtl.: mit der Hand in der Hand stehen)",
+          "emoji": "🙌",
+          "ex": "Non stare con le mani in mano, dammi una mano!",
+          "exDe": "Steh nicht untätig herum, hilf mir!"
+        },
+        {
+          "it": "cercare il pelo nell'uovo",
+          "de": "ein Haar in der Suppe suchen, pingelig sein (wörtl.: das Haar im Ei suchen)",
+          "emoji": "🥚",
+          "ex": "Il revisore cerca sempre il pelo nell'uovo.",
+          "exDe": "Der Prüfer sucht immer ein Haar in der Suppe."
+        },
+        {
+          "it": "buttare il bambino con l'acqua sporca",
+          "de": "das Kind mit dem Bade ausschütten",
+          "emoji": "🛁",
+          "ex": "Eliminando tutto il progetto rischi di buttare il bambino con l'acqua sporca.",
+          "exDe": "Wenn du das ganze Projekt streichst, schüttest du womöglich das Kind mit dem Bade aus."
+        },
+        {
+          "it": "avere voce in capitolo",
+          "de": "ein Mitspracherecht haben (wörtl.: eine Stimme im Kapitel haben)",
+          "emoji": "🗳️",
+          "ex": "Su questa decisione anche lui ha voce in capitolo.",
+          "exDe": "Bei dieser Entscheidung hat auch er ein Mitspracherecht."
+        },
+        {
+          "it": "il bue che dice cornuto all'asino",
+          "de": "ein Esel schimpft den anderen Langohr (wörtl.: der Ochse, der den Esel gehörnt nennt)",
+          "emoji": "🐂",
+          "ex": "Mi accusa di disordine? È il bue che dice cornuto all'asino.",
+          "exDe": "Er wirft mir Unordnung vor? Da schimpft ein Esel den anderen Langohr."
+        },
+        {
+          "it": "passare sotto le forche caudine",
+          "de": "eine demütigende Niederlage hinnehmen müssen (wörtl.: unter dem kaudinischen Joch hindurchgehen)",
+          "emoji": "⚔️",
+          "ex": "Per ottenere il prestito è dovuto passare sotto le forche caudine.",
+          "exDe": "Um den Kredit zu bekommen, musste er eine demütigende Prozedur über sich ergehen lassen."
+        }
+      ]
+    }
+  }
+];
+CORPUS.push(...ADVANCED_CORPUS);
+
+/* =========================================================
    DIALOGHI — ganze Dialoge.
    who: "P" = Partner (spricht vor), "U" = du (Antwort wählen)
    Für U-Zeilen erzeugt die App Bausteine (richtige + Ablenker).
@@ -1602,9 +8379,11 @@ function buildLessons() {
   });
 
   /* 2) Sfida — themeninterne Challenge: alle Level eines Themas gemischt,
-        eingeordnet auf dem höchsten Level des Themas (Schwierigkeits-Höhepunkt). */
+        eingeordnet auf dem höchsten Level des Themas (Schwierigkeits-Höhepunkt).
+        Fortgeschrittene Themen (advanced) bekommen stattdessen Sfide pro Stufe
+        (siehe 2b), damit B2/C1/C2 jeweils eigene Challenges haben. */
   CORPUS.forEach((theme) => {
-    if (theme.grammar) return;
+    if (theme.grammar || theme.advanced) return;
     const all = [];
     const present = [];
     LEVELS.forEach((lvl) => {
@@ -1629,6 +8408,35 @@ function buildLessons() {
         sentences: !!theme.sentences,
         words: ws,
         modes: VOCAB_MODES.slice()
+      });
+    });
+  });
+
+  /* 2b) Sfida pro Stufe — für fortgeschrittene Themen (B2/C1/C2).
+        Jede hohe Stufe bekommt eigene Challenge-Lektionen, statt alles
+        auf dem Top-Level zu bündeln. */
+  CORPUS.forEach((theme) => {
+    if (!theme.advanced) return;
+    LEVELS.forEach((lvl) => {
+      const ws = theme.levels[lvl.code];
+      if (!ws || ws.length < 10) return;
+      const chunks = chunkArray(ws.slice(), CHUNK_SIZE + 2);
+      chunks.forEach((c, i) => {
+        out.push({
+          id: `sfida-${theme.id}-${lvl.code}-${i + 1}`,
+          kind: "vocab",
+          theme: theme.id,
+          area: "Sfide",
+          title: chunks.length > 1 ? `${theme.title} · Sfida ${lvl.code} ${i + 1}` : `${theme.title} · Sfida ${lvl.code}`,
+          de: `${theme.de} – Challenge ${lvl.code}`,
+          emoji: "🎯",
+          color: theme.color,
+          level: lvl.n,
+          levelCode: lvl.code,
+          sentences: !!theme.sentences,
+          words: c,
+          modes: VOCAB_MODES.slice()
+        });
       });
     });
   });

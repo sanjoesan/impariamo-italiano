@@ -114,6 +114,23 @@ test("Level-Filter zeigt nur Lektionen des gewählten Grads", () => {
   app.close();
 });
 
+test("Bereichs-Filter: zeigt nur Lektionen des gewählten Abschnitts", () => {
+  const app = makeApp();
+  // Auf eine Stufe stellen und dann einen Abschnitt wählen
+  app.$$(".lv-chip").find((c) => /B2/.test(c.textContent)).click();
+  const chips = app.$$(".area-chip");
+  assert.ok(chips.length > 2, "Bereichs-Chips werden angezeigt");
+  // einen konkreten Abschnitt (nicht Tutti) wählen
+  const sfide = chips.find((c) => /Sfide/.test(c.textContent));
+  assert.ok(sfide, "Abschnitt 'Sfide' vorhanden");
+  sfide.click();
+  const heads = app.$$(".area-head span").map((s) => s.textContent);
+  assert.equal(heads.length, 1, "nur ein Abschnitt sichtbar");
+  assert.ok(/Sfide/.test(heads[0]), "der gewählte Abschnitt 'Sfide'");
+  assert.equal(app.state().areaFilter, "Sfide", "Bereichs-Filter gespeichert");
+  app.close();
+});
+
 test("Hör-Modus: ALLE Fragen werden geprüft (Regression: nur 1/10)", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.length >= 5);
@@ -343,6 +360,14 @@ test("Levels: 6 Stufen A1–C2, jede Lektion klar zugeordnet", () => {
   assert.deepEqual(LEVELS.map((l) => l.code), ["A1", "A2", "B1", "B2", "C1", "C2"]);
   for (const l of LESSONS) {
     assert.ok(l.level >= 1 && l.level <= 6, `${l.id}: Level im Bereich 1–6`);
+  }
+});
+
+test("Umfang: B2, C1 und C2 haben jeweils mind. 100 Lektionen", () => {
+  const byLevel = {};
+  for (const l of LESSONS) byLevel[l.levelCode] = (byLevel[l.levelCode] || 0) + 1;
+  for (const code of ["B2", "C1", "C2"]) {
+    assert.ok((byLevel[code] || 0) >= 100, `${code} hat mind. 100 Lektionen (${byLevel[code] || 0})`);
   }
 });
 

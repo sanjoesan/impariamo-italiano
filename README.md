@@ -10,12 +10,16 @@ Lerne Italienisch mit Sprachausgabe, **Spracherkennung**, Dialogen, Grammatik un
 ## ✨ Funktionen
 
 - **🎚️ Sechs Schwierigkeitsgrade (CEFR A1–C2)** – jede Lektion ist klar eingestuft,
-  von „Principiante" 🌱 bis „Padronanza" 👑. Auf der Startseite filterbar.
-- **📚 330+ Lektionen aus 54 Themen** über **alle Lebensbereiche** – Begrüßung, Essen,
+  von „Principiante" 🌱 bis „Padronanza" 👑. Auf der Startseite **nach Stufe und nach
+  Abschnitt (Lebensbereich) filterbar**. Auch die Oberstufen **B2, C1 und C2 haben
+  jetzt jeweils 100+ Lektionen** – inkl. fortgeschrittenem Wortschatz (Wirtschaft,
+  Politik, Wissenschaft, Recht, Kunst, Redewendungen, formelle Sprache …).
+- **📚 700+ Lektionen aus 70 Themen** über **alle Lebensbereiche** – Begrüßung, Essen,
   Restaurant, Reise, Verkehr, Arbeit, Schule, Gesundheit, Mode, Shopping, Geld, Technik,
   Tiere, Natur, Sport, Freizeit, Musik, Gefühle, Charakter, Wohnen, Küche, Feste,
-  Behörden, Dating, Internet, Berufe, Tagesablauf, Flughafen u. v. m.
-  Über **2000 Übungs-Items** mit Beispielsätzen – bewusst auch mal **witzig**.
+  Behörden, Dating, Internet, Berufe, Tagesablauf, Flughafen, **Wirtschaft & Finanzen,
+  Politik & Gesellschaft, Wissenschaft & Umwelt, Recht, Kunst & Kultur, Modi di Dire** u. v. m.
+  Über **4000 Übungs-Items** mit Beispielsätzen – bewusst auch mal **witzig**.
 - **🔤 Grammatik kommt nicht zu kurz:** eigene Grammatik-Lektionen mit Merkregel
   (Artikel, Plural, Präpositionen, verschmolzene Präpositionen, Pronomen, Possessive,
   Steigerung, c'è/ci sono, questo/quello, Passato vs. Imperfetto, Verneinung, Fragewörter).
