@@ -304,11 +304,23 @@ function renderStoryPanel() {
   if (!lesson) { panel.innerHTML = ""; return; }
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
   const pct = Math.round((pos / STORY.length) * 100);
+
+  // Start-Niveau-Wahl: nur Stufen anbieten, die in der Story wirklich vorkommen
+  const levelsInStory = LEVELS.filter((L) => storyStartIndexForLevel(L.n) >= 0);
+  const chips = levelsInStory.map((L) =>
+    `<button class="story-lv-chip${L.n === lesson.level ? " active" : ""}" data-storylv="${L.n}"
+       style="--lv:${L.color}" title="Story ab ${L.code} – ${L.de}">${L.emoji} ${L.code}</button>`
+  ).join("");
+
   panel.innerHTML = `
     <div class="story-card" style="--card-color:${lvl ? lvl.color : lesson.color}">
       <div class="story-head">
         <span class="story-step">Etappe ${pos + 1} / ${STORY.length}</span>
         <span class="story-lv" style="--lv:${lvl ? lvl.color : lesson.color}">${lvl ? lvl.emoji + " " + lvl.code : lesson.levelCode}</span>
+      </div>
+      <div class="story-levels">
+        <span class="story-levels-label">🎚️ Start-Niveau:</span>
+        <div class="story-lv-chips">${chips}</div>
       </div>
       <div class="story-next">
         <span class="story-emoji">${lesson.emoji}</span>
@@ -321,6 +333,9 @@ function renderStoryPanel() {
       <button class="btn btn-primary" id="storyGo">▶︎ Etappe starten</button>
     </div>`;
   $("#storyGo").addEventListener("click", startStory);
+  $$("#storyPanel [data-storylv]").forEach((b) =>
+    b.addEventListener("click", () => setStoryStartLevel(parseInt(b.dataset.storylv, 10)))
+  );
 }
 
 function renderLevelFilter() {
@@ -1474,6 +1489,23 @@ function startStory() {
   const pos = Math.min(state.storyPos || 0, STORY.length - 1);
   const id = STORY[pos];
   if (id) openLesson(id);
+}
+
+/* Erste Story-Etappe einer Stufe (-1 falls Stufe nicht vorkommt) */
+function storyStartIndexForLevel(levelN) {
+  return STORY.findIndex((id) => lessonById[id] && lessonById[id].level === levelN);
+}
+
+/* Story-Startpunkt auf den Beginn der gewählten Stufe setzen
+   (für Fortgeschrittene, die nicht bei A1 anfangen wollen) */
+function setStoryStartLevel(levelN) {
+  const idx = storyStartIndexForLevel(levelN);
+  if (idx < 0) return;
+  state.storyPos = idx;
+  saveState();
+  renderStoryPanel();
+  const L = LEVELS.find((x) => x.n === levelN);
+  if (L) toast(`🗺️ Story beginnt jetzt bei ${L.emoji} ${L.code} – ${L.de}`);
 }
 
 function advanceStoryIfMatch(lessonId) {

@@ -270,6 +270,30 @@ test("Story: Schwierigkeit steigt & Fortschritt rückt vor", () => {
   app.close();
 });
 
+test("Story-Start: Fortgeschrittene können bei höherem Niveau einsteigen", () => {
+  const app = makeApp();
+  // Start-Niveau-Chips werden im Story-Panel angeboten
+  assert.ok(app.$$(".story-lv-chip").length >= 2, "Start-Niveau-Chips gerendert");
+
+  // Höchste in der Story vorkommende Stufe wählen
+  const target = Math.max(...STORY.map((id) => LESSONS.find((l) => l.id === id).level));
+  const expectedIdx = STORY.findIndex((id) => LESSONS.find((l) => l.id === id).level === target);
+  assert.ok(target > 1 && expectedIdx > 0, "Story enthält höhere Stufen nach A1");
+
+  app.window.setStoryStartLevel(target);
+  assert.equal(app.state().storyPos, expectedIdx, "Story springt an den Anfang der gewählten Stufe");
+
+  // Panel zeigt nun eine Lektion genau dieser Stufe
+  const shown = LESSONS.find((l) => l.id === STORY[expectedIdx]);
+  assert.equal(app.$(".story-title").textContent, shown.title, "Panel zeigt Lektion der gewählten Stufe");
+  assert.equal(shown.level, target, "Gezeigte Lektion hat das gewählte Niveau");
+
+  // Unbekannte Stufe ändert nichts (robust)
+  app.window.setStoryStartLevel(999);
+  assert.equal(app.state().storyPos, expectedIdx, "Ungültige Stufe lässt die Position unverändert");
+  app.close();
+});
+
 test("Grammatik: eigene Grammatik-Lektionen mit Regel vorhanden", () => {
   const grammarThemes = CORPUS.filter((t) => t.grammar);
   assert.ok(grammarThemes.length >= 10, `mind. 10 Grammatik-Themen (${grammarThemes.length})`);

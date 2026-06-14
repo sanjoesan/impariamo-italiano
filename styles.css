@@ -629,6 +629,20 @@ body.notte .tense-tab { background: var(--paper-card); }
 .story-prog { height: 9px; background: color-mix(in srgb, var(--ink) 12%, transparent); border-radius: 999px; overflow: hidden; margin-bottom: 12px; }
 .story-prog i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--terracotta)); }
 
+/* Start-Niveau-Wahl (Fortgeschrittene starten höher) */
+.story-levels { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-bottom: 12px; }
+.story-levels-label { font-weight: 800; color: var(--ink-soft); font-size: 0.85rem; }
+.story-lv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.story-lv-chip {
+  font-family: inherit; font-weight: 800; font-size: 0.82rem; cursor: pointer;
+  background: var(--paper-card); color: var(--ink);
+  border: 2px solid color-mix(in srgb, var(--lv, var(--terracotta)) 45%, transparent);
+  border-radius: 999px; padding: 4px 11px; transition: transform .1s, background .12s;
+}
+.story-lv-chip:hover { transform: translateY(-2px); }
+.story-lv-chip.active { background: var(--lv, var(--terracotta)); color: #fff; border-color: var(--lv, var(--terracotta)); }
+body.notte .story-lv-chip { background: #2a221b; }
+
 /* ---------- Lektion: Level-Badge im Kopf ---------- */
 .lesson-level-badge {
   display: inline-block; margin-left: 6px; padding: 3px 10px; border-radius: 999px;
