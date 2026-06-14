@@ -4,9 +4,14 @@ Guidance for working in this repository.
 
 ## Was das ist
 
-**Impariamo!** — eine spielerische, deutschsprachige Web-App zum **Italienischlernen**
-(„La Dolce Vita"-Design). Reine statische Client-App, **kein Build-Schritt, keine
-Runtime-Abhängigkeiten**. Einfach `index.html` im Browser öffnen.
+Eine spielerische, **deutschsprachige** Web-App zum Sprachenlernen mit **zwei Kursen**,
+oben per Flagge umschaltbar (🇮🇹/🇬🇧):
+- **Italienisch** („Impariamo!", La-Dolce-Vita-Stil) — Standard.
+- **Englisch** („Let's Learn!", „Swinging London" 60er/70er-Pop-Stil, `body.londra`).
+
+Die UI bleibt durchgehend Deutsch; nur Lern-Sprache, Flair, Theme und Sprachausgabe
+wechseln. Reine statische Client-App, **kein Build-Schritt, keine Runtime-Abhängigkeiten**.
+Einfach `index.html` im Browser öffnen.
 
 Vier Dateien tragen alles:
 
@@ -27,6 +32,20 @@ npm run check   # node --check app.js && node --check data.js (Syntax)
 Es gibt keinen Dev-Server/Bundler. Zum manuellen Testen `index.html` öffnen.
 
 ## Architektur
+
+### Zwei Kurse / Sprachen (`data.js` + `app.js`)
+- Pro Sprache eigene Daten: IT-Quellen (`CORPUS`/`DIALOGHI`/`CONJUGATIONS`/…) und EN-Quellen
+  (`CORPUS_EN`/`DIALOGHI_EN`/`CONJ_EN`/`CONJ_TENSES_EN`/`BADGES_EN`/…). Der EN-Korpus ist die
+  **strukturgleiche** englische Lokalisierung (gleiche IDs, `de`-Felder bleiben Deutsch).
+- Die aktiven Daten (`CORPUS`, `LESSONS`, `STORY`, `CONJUGATIONS`, `BADGES`, …) sind **`let`**
+  und werden von **`selectCourse(lang)`** (in `data.js`) umgehängt + neu gebaut.
+- Im EN-Kurs prefixt `buildLessons()` alle Lektions-IDs mit **`en:`** → getrennter
+  Lernfortschritt (`state.lessons`), obwohl die Themen-IDs identisch sind.
+- `app.js`: `setLanguage(lang)` ruft `selectCourse`, setzt `speechLang` (it-IT/en-GB),
+  rebaut `lessonById`/`DIALOG_USER_LINES`, schaltet `body.londra` und ruft `applyCourseChrome()`
+  (Oberflächentexte aus `UISTR`). Umschalter `#langToggle` → `switchLanguage`. Persistiert in `state.lang`.
+- Funktions-Abschnitte (Sfide/Ripasso/Dialoge/Grammatica) werden via `areaLabel()` für EN
+  übersetzt; Verben-Trainer nutzt englische Zeiten (Present Simple … Present Perfect).
 
 ### Daten & Generator (`data.js`)
 Lektionen werden **zur Laufzeit generiert**, nicht von Hand gepflegt:

@@ -18,6 +18,15 @@ const DATA = new Function(read("data.js") +
   "\n;return {LESSONS,STORY,LEVELS,CORPUS,DIALOGHI,BADGES,CONJUGATIONS,CONJ_TENSES,CONJ_PRONOUNS};")();
 const { LESSONS, STORY, LEVELS, CORPUS, CONJUGATIONS, CONJ_TENSES, CONJ_PRONOUNS } = DATA;
 
+// Kurs-Probe: selectCourse aufrufen und die LIVE-Werte im selben Scope lesen
+const courseProbe = new Function(read("data.js") +
+  "\n;return (lang) => { selectCourse(lang); return {" +
+  "  lang: LANG_ACTIVE, lessons: LESSONS.length, firstId: STORY[0]," +
+  "  conjInf: CONJUGATIONS[0].inf, tense0: CONJ_TENSES[0].it, pron0: CONJ_PRONOUNS[0]," +
+  "  badge0: BADGES[0].name, vocabTitle: LESSONS.find(l=>l.kind==='vocab').title," +
+  "  perLevel: LESSONS.reduce((m,l)=>((m[l.levelCode]=(m[l.levelCode]||0)+1),m),{})" +
+  "}; };")();
+
 /* ---------- App in jsdom hochfahren ---------- */
 function makeApp() {
   const dom = new JSDOM(read("index.html"), {
@@ -362,6 +371,60 @@ test("Lernmodus: Vokabel als gelernt zählen vergibt XP einmalig", () => {
   const learned = app.state().lessons[lesson.id].learned;
   assert.ok(learned.includes(0), "erste Karte als gelernt markiert");
   assert.ok((app.state().xp || 0) > 0, "XP vergeben");
+  app.close();
+});
+
+test("Zwei Kurse: EN-Kurs hat eigene Inhalte & en:-IDs, gleiche Größe", () => {
+  const it = courseProbe("it");
+  const en = courseProbe("en");
+  assert.equal(it.lang, "it");
+  assert.equal(en.lang, "en");
+  assert.ok(!it.firstId.startsWith("en:"), "IT-IDs ohne Präfix");
+  assert.ok(en.firstId.startsWith("en:"), "EN-IDs mit en:-Präfix (getrennter Fortschritt)");
+  assert.equal(en.lessons, it.lessons, "gleicher Umfang in beiden Kursen");
+  for (const code of ["B2", "C1", "C2"]) {
+    assert.ok((en.perLevel[code] || 0) >= 100, `EN ${code} >= 100 (${en.perLevel[code]})`);
+  }
+  // Inhalte/Beschriftungen sind sprachspezifisch
+  assert.notEqual(en.conjInf, it.conjInf, "Verben unterscheiden sich");
+  assert.equal(en.tense0, "Present Simple");
+  assert.equal(it.tense0, "Presente");
+  assert.equal(en.pron0, "I");
+  assert.equal(it.pron0, "io");
+  assert.notEqual(en.badge0, it.badge0, "Abzeichen-Namen sprachspezifisch");
+  assert.notEqual(en.vocabTitle, it.vocabTitle, "Themen-Titel übersetzt");
+  // wieder zurück auf IT (Default für die übrigen Tests im File-Scope egal)
+  courseProbe("it");
+});
+
+test("Sprach-Umschalter: EN aktiviert Englisch-Kurs, Theme & Texte", () => {
+  const app = makeApp();
+  assert.equal(app.state().lang, "it", "Standard ist Italienisch");
+  assert.ok(!app.doc.body.classList.contains("londra"));
+
+  app.$('#langToggle [data-lang="en"]').click();
+  assert.equal(app.state().lang, "en", "EN gespeichert");
+  assert.ok(app.doc.body.classList.contains("londra"), "Swinging-London-Theme aktiv");
+  assert.match(app.$(".brand-text").textContent, /Let's Learn/);
+  assert.match(app.$("#secLessonsH").textContent, /The Lessons/);
+  assert.match(app.$(".brand-mark").textContent, /🇬🇧/);
+  // Lektionskarten zeigen englische Titel
+  assert.ok(app.$$(".lesson-card").length > 0, "EN-Lektionen gerendert");
+
+  app.$('#langToggle [data-lang="it"]').click();
+  assert.equal(app.state().lang, "it");
+  assert.ok(!app.doc.body.classList.contains("londra"));
+  assert.match(app.$("#secLessonsH").textContent, /Le Lezioni/);
+  app.close();
+});
+
+test("Sprach-Umschalter: Spracherkennung wechselt auf en-GB", () => {
+  const app = makeApp();
+  app.window.startRecognition({});
+  assert.equal(app.window.__lastRec.lang, "it-IT", "Italienisch zuerst");
+  app.$('#langToggle [data-lang="en"]').click();
+  app.window.startRecognition({});
+  assert.equal(app.window.__lastRec.lang, "en-GB", "nach Wechsel Englisch");
   app.close();
 });
 

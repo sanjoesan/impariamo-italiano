@@ -1,14 +1,19 @@
-# 🇮🇹 Impariamo! — Spielerisch Italienisch lernen
+# 🇮🇹🇬🇧 Impariamo! / Let's Learn! — Spielerisch Italienisch **oder** Englisch lernen
 
-Eine liebevoll gestaltete Lernplattform im nostalgischen **„La Dolce Vita"**-Stil.
-Lerne Italienisch mit Sprachausgabe, **Spracherkennung**, Dialogen, Grammatik und einem Hauch toskanischer Sonne. ☀️
+Eine liebevoll gestaltete, **deutschsprachige** Lernplattform mit **zwei Kursen**, oben per
+Flagge umschaltbar: **Italienisch** im nostalgischen **„La Dolce Vita"**-Stil ☀️ und
+**Englisch** im **„Swinging London"** 60er/70er-Pop-Look 🎸. Mit Sprachausgabe,
+**Spracherkennung**, Dialogen und Grammatik – pro Kurs eigene Stimme (it-IT / en-GB),
+eigenes Theme und getrennter Fortschritt.
 
 **▶︎ Live:** https://sanjoesan.github.io/impariamo-italiano/
 
-![Italienisch lernen](favicon.svg)
+![Sprachen lernen](favicon.svg)
 
 ## ✨ Funktionen
 
+- **🌍 Zwei Kurse, ein Klick:** oben zwischen 🇮🇹 Italienisch und 🇬🇧 Englisch wechseln –
+  inklusive passendem Look, Flair und Lautsprache. Beide Kurse mit vollem Umfang (A1–C2).
 - **🎚️ Sechs Schwierigkeitsgrade (CEFR A1–C2)** – jede Lektion ist klar eingestuft,
   von „Principiante" 🌱 bis „Padronanza" 👑. Auf der Startseite **nach Stufe und nach
   Abschnitt (Lebensbereich) filterbar**. Auch die Oberstufen **B2, C1 und C2 haben

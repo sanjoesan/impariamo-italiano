@@ -12,6 +12,7 @@ const defaultState = () => ({
   lastActive: null,            // "YYYY-MM-DD"
   lessons: {},                 // id -> { stars, completed, learned: [indices] }
   badges: [],                  // ids
+  lang: "it",                  // aktiver Kurs: "it" (Italienisch) | "en" (Englisch)
   startLevel: null,            // gewähltes Start-Niveau (1–6); null = ab A1
   storyDone: 0,                // wie viele Lektionen abgeschlossen (Lernpfad)
   levelFilter: "A1",           // aktiver Level-Filter auf der Startseite
@@ -89,29 +90,31 @@ function award(xp, coins) {
    SPRACHAUSGABE (Web Speech API)
    ========================================================= */
 let voices = [];
-let itVoice = null;
+let itVoice = null;                // aktuell gewählte Stimme (aktiver Kurs)
+let speechLang = "it-IT";          // wird von setLanguage() gesetzt: it-IT / en-GB
+const langPrefix = () => speechLang.slice(0, 2).toLowerCase();   // "it" / "en"
 
 function rankVoice(v) {
-  // Höher = besser. Bevorzuge it-IT und bekannte gute Stimmen.
+  // Höher = besser. Bevorzuge die aktive Lernsprache und gute Stimmen.
   let s = 0;
   const lang = (v.lang || "").toLowerCase();
   const name = (v.name || "").toLowerCase();
-  if (lang.startsWith("it")) s += 100;
-  if (lang === "it-it") s += 20;
+  if (lang.startsWith(langPrefix())) s += 100;
+  if (lang === speechLang.toLowerCase()) s += 20;
   if (/google/.test(name)) s += 40;        // Google-Stimmen klingen meist sehr natürlich
   if (/natural|neural|premium|enhanced/.test(name)) s += 35;
-  if (/elsa|cosimo|alice|federica|isabella|giorgio|luca|bianca/.test(name)) s += 15;
   if (!v.localService) s += 10;             // Online-Stimmen oft hochwertiger
   return s;
 }
 
 function pickVoice() {
-  const itVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith("it"));
-  const pool = itVoices.length ? itVoices : voices;
-  // gespeicherte Auswahl respektieren
+  const pref = langPrefix();
+  const langVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith(pref));
+  const pool = langVoices.length ? langVoices : voices;
+  // gespeicherte Auswahl nur respektieren, wenn sie zur aktiven Sprache passt
   if (state.settings.voiceURI) {
     const saved = voices.find((v) => v.voiceURI === state.settings.voiceURI);
-    if (saved) { itVoice = saved; return; }
+    if (saved && (saved.lang || "").toLowerCase().startsWith(pref)) { itVoice = saved; return; }
   }
   itVoice = pool.slice().sort((a, b) => rankVoice(b) - rankVoice(a))[0] || null;
 }
@@ -129,7 +132,7 @@ function speak(text, btn) {
   }
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "it-IT";
+  u.lang = speechLang;
   u.rate = state.settings.rate || 0.95;
   u.pitch = 1;
   if (itVoice) u.voice = itVoice;
@@ -161,7 +164,7 @@ function startRecognition({ onResult, onError, onEnd } = {}) {
   stopRecognition();
   try {
     const rec = new SpeechRec();
-    rec.lang = "it-IT";            // <— Italienische Erkennung erzwingen
+    rec.lang = speechLang;          // <— Erkennung in der aktiven Lernsprache
     rec.interimResults = false;
     rec.maxAlternatives = 4;
     rec.continuous = false;
@@ -232,6 +235,105 @@ function toggleTheme() {
 }
 
 /* =========================================================
+   KURS-SPRACHE (Italienisch / Englisch) + Oberflächen-Texte
+   UI bleibt Deutsch; nur Lern-Sprache, Flair & Theme wechseln.
+   ========================================================= */
+const UISTR = {
+  it: {
+    flag: "🇮🇹", brand: "Impariamo",
+    kicker: "Benvenuti · Willkommen",
+    title: "Impariamo<br />l'Italiano",
+    sub: `Lerne Italienisch wie unter der toskanischen Sonne –<br />spielerisch, mit Stimme und ganz viel <em>dolce vita</em>.`,
+    story: "🗺️ Storia – Lernpfad",
+    random: "🎲 Zufall",
+    secStory: "Storia · Dein Lernpfad",
+    secStorySub: "Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.",
+    secLessons: "Le Lezioni · Deine Lektionen",
+    secLessonsSub: "Wähle deinen Schwierigkeitsgrad und stürz dich rein. Jede Lektion bietet bis zu sieben Spielmodi.",
+    secConj: "Coniugazioni · Zeiten & Beugungen",
+    secConjSub: "Beuge italienische Verben durch alle Personen – in sechs Zeiten/Modi. Mit Tabelle, Aussprache und Übung.",
+    secBadges: "Distintivi · Abzeichen",
+    footer: `Fatto con <span class="heart">♥</span> · <em>In bocca al lupo!</em>`,
+    heroStats: (n) => `📚 ${n} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`,
+    sample: "Buongiorno! Andiamo a imparare l'italiano!",
+    voiceSample: "Ciao! Buongiorno!",
+    docTitle: "Impariamo! · Spielerisch Italienisch lernen",
+    switched: "🇮🇹 Corso d'italiano — andiamo!"
+  },
+  en: {
+    flag: "🇬🇧", brand: "Let's Learn",
+    kicker: "Welcome · Willkommen",
+    title: "Let's Learn<br />English",
+    sub: `Lerne Englisch im Stil des swingenden London –<br />mit Köpfchen, Stimme und ganz viel <em>good vibes</em>.`,
+    story: "🗺️ The Journey – Lernpfad",
+    random: "🎲 Zufall",
+    secStory: "The Journey · Dein Lernpfad",
+    secStorySub: "Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.",
+    secLessons: "The Lessons · Deine Lektionen",
+    secLessonsSub: "Wähle deinen Schwierigkeitsgrad und leg los. Jede Lektion bietet bis zu sieben Spielmodi.",
+    secConj: "Verbs & Tenses · Zeiten",
+    secConjSub: "Beuge englische Verben durch alle Personen – in sechs Zeiten. Mit Tabelle, Aussprache und Übung.",
+    secBadges: "Badges · Abzeichen",
+    footer: `Made with <span class="heart">♥</span> · <em>Keep on truckin'!</em>`,
+    heroStats: (n) => `📚 ${n} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`,
+    sample: "Good morning! Let's learn some English, shall we?",
+    voiceSample: "Hello! Good morning!",
+    docTitle: "Let's Learn English · Spielerisch Englisch lernen",
+    switched: "🇬🇧 English course — let's go, baby!"
+  }
+};
+function ui() { return UISTR[state.lang] || UISTR.it; }
+
+/* Setzt alle sprach-/kursabhängigen Oberflächentexte */
+function applyCourseChrome() {
+  const t = ui();
+  const setHtml = (sel, html) => { const el = $(sel); if (el) el.innerHTML = html; };
+  const setText = (sel, txt) => { const el = $(sel); if (el) el.textContent = txt; };
+  setText(".brand-mark", t.flag);
+  setHtml(".brand-text", `${t.brand}<span class="brand-bang">!</span>`);
+  setHtml("#heroKicker", t.kicker);
+  setHtml("#heroTitle", t.title);
+  setHtml("#heroSub", t.sub);
+  setText("#storyBtn", t.story);
+  setText("#randomBtn", t.random);
+  setText("#secStoryH", t.secStory);
+  setText("#secLessonsH", t.secLessons);
+  setText("#secConjH", t.secConj);
+  setText("#secBadgesH", t.secBadges);
+  setText("#secStorySub", t.secStorySub);
+  setText("#secLessonsSub", t.secLessonsSub);
+  setText("#secConjSub", t.secConjSub);
+  setHtml(".footer p", t.footer);
+  document.title = t.docTitle;
+  $$("#langToggle [data-lang]").forEach((b) => b.classList.toggle("active", b.dataset.lang === state.lang));
+}
+
+/* Kurs/Sprache aktiv setzen: Daten neu bauen, Stimme, Theme-Klasse, Texte */
+function setLanguage(lang) {
+  lang = (lang === "en") ? "en" : "it";
+  state.lang = lang;
+  saveState();
+  selectCourse(lang);                                   // data.js: LESSONS/STORY/CONJ/DIALOGHI/BADGES neu
+  speechLang = (lang === "en") ? "en-GB" : "it-IT";
+  lessonById = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
+  DIALOG_USER_LINES = computeDialogUserLines();
+  pickVoice();
+  document.body.classList.toggle("londra", lang === "en");
+  applyCourseChrome();
+}
+
+/* Vom Umschalter aufgerufen: Kurs wechseln + Startseite zeigen */
+function switchLanguage(lang) {
+  if (lang === state.lang) return;
+  speechSynthesis && speechSynthesis.cancel();
+  stopRecognition();
+  setLanguage(lang);
+  renderStats();
+  goHome();
+  toast(ui().switched);
+}
+
+/* =========================================================
    RENDER: Statusleiste
    ========================================================= */
 function renderStats() {
@@ -246,13 +348,17 @@ function renderStats() {
 /* =========================================================
    Helfer rund um Lektionen & Level
    ========================================================= */
-const lessonById = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
+let lessonById = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
 function lessonItemCount(l) { return l.kind === "dialogue" ? l.lines.length : l.words.length; }
 function lessonLearnedCount(l, prog) {
   if (l.kind === "dialogue") return prog.completed ? l.lines.length : 0;
   return (prog.learned || []).length;
 }
 function getProg(id) { return state.lessons[id] || { stars: 0, completed: false, learned: [] }; }
+
+/* Englische Anzeige-Namen für die funktionalen Abschnitte */
+const AREA_LABEL_EN = { "Sfide": "Challenges", "Ripasso": "Review", "Dialoge": "Dialogues", "Grammatica": "Grammar" };
+function areaLabel(area) { return (state.lang === "en" && AREA_LABEL_EN[area]) || area; }
 
 function makeLessonCard(lesson) {
   const prog = getProg(lesson.id);
@@ -261,16 +367,17 @@ function makeLessonCard(lesson) {
   const pct = total ? Math.round((learnedCount / total) * 100) : 0;
   const stars = "★".repeat(prog.stars || 0) + "☆".repeat(3 - (prog.stars || 0));
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
-  const kindTag = lesson.kind === "dialogue" ? "💬 Dialog"
-                : lesson.kind === "grammar" ? "🔤 Grammatik"
-                : lesson.area === "Sfide" ? "🎯 Sfida"
-                : lesson.area === "Ripasso" ? "🔁 Ripasso" : "📚";
+  const en = state.lang === "en";
+  const kindTag = lesson.kind === "dialogue" ? (en ? "💬 Dialogue" : "💬 Dialog")
+                : lesson.kind === "grammar" ? (en ? "🔤 Grammar" : "🔤 Grammatik")
+                : lesson.area === "Sfide" ? (en ? "🎯 Challenge" : "🎯 Sfida")
+                : lesson.area === "Ripasso" ? (en ? "🔁 Review" : "🔁 Ripasso") : "📚";
 
   const card = document.createElement("button");
   card.className = "lesson-card";
   card.style.setProperty("--card-color", lesson.color);
   card.innerHTML = `
-    ${prog.completed ? `<span class="lc-stamp">✓ Fatto</span>` : ""}
+    ${prog.completed ? `<span class="lc-stamp">✓ ${en ? "Done" : "Fatto"}</span>` : ""}
     <span class="lc-badge" style="--lv:${lvl ? lvl.color : lesson.color}">${lesson.levelCode}</span>
     <span class="lc-emoji">${lesson.emoji}</span>
     <span class="lc-title">${lesson.title}</span>
@@ -288,8 +395,7 @@ function makeLessonCard(lesson) {
    RENDER: Startseite (Story, Level-Filter, Lektions-Karten)
    ========================================================= */
 function renderHome() {
-  $("#heroStats").textContent =
-    `📚 ${LESSONS.length} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`;
+  $("#heroStats").textContent = ui().heroStats(LESSONS.length);
   renderStoryPanel();
   renderLevelFilter();
   renderLessonGrid();
@@ -348,7 +454,7 @@ function renderLevelFilter() {
   const wrap = $("#levelFilter");
   if (!wrap) return;
   wrap.innerHTML = "";
-  const opts = [{ code: "all", emoji: "🌈", label: "Tutti" }]
+  const opts = [{ code: "all", emoji: "🌈", label: state.lang === "en" ? "All" : "Tutti" }]
     .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, label: l.code, color: l.color })));
   opts.forEach((o) => {
     const b = document.createElement("button");
@@ -388,9 +494,10 @@ function renderAreaFilter(levelList) {
   if (!wrap) return;
   wrap.innerHTML = "";
   const present = [...new Set(levelList.map((l) => l.area))].sort((a, b) => areaIdx(a) - areaIdx(b));
-  const opts = [{ area: "all", emoji: "🗂️", label: "Tutti", count: levelList.length }]
+  const allLabel = state.lang === "en" ? "All" : "Tutti";
+  const opts = [{ area: "all", emoji: "🗂️", label: allLabel, count: levelList.length }]
     .concat(present.map((a) => ({
-      area: a, emoji: areaEmoji(a), label: a,
+      area: a, emoji: areaEmoji(a), label: areaLabel(a),
       count: levelList.filter((l) => l.area === a).length
     })));
   opts.forEach((o) => {
@@ -430,7 +537,7 @@ function renderLessonGrid() {
   areas.forEach((area) => {
     const head = document.createElement("div");
     head.className = "area-head";
-    head.innerHTML = `<span>${areaEmoji(area)} ${area}</span><small>${groups[area].length} Lektionen</small>`;
+    head.innerHTML = `<span>${areaEmoji(area)} ${areaLabel(area)}</span><small>${groups[area].length} ${state.lang === "en" ? "lessons" : "Lektionen"}</small>`;
     grid.appendChild(head);
     const row = document.createElement("div");
     row.className = "area-grid";
@@ -1560,11 +1667,13 @@ function finishDialogue() {
 /* =========================================================
    STORY / PERCORSO (steigende Schwierigkeit) + Abzeichen
    ========================================================= */
-const DIALOG_USER_LINES = (() => {
+let DIALOG_USER_LINES = [];
+function computeDialogUserLines() {
   const out = [];
   LESSONS.forEach((l) => { if (l.kind === "dialogue") l.lines.forEach((ln) => { if (ln.who === "U") out.push(ln.it); }); });
   return out;
-})();
+}
+DIALOG_USER_LINES = computeDialogUserLines();
 
 /* ---- Lernpfad: dynamisch, ab dem gewählten Start-Niveau ---- */
 function effectiveStartLevel() {
@@ -1817,8 +1926,9 @@ function finishConjPractice() {
 function populateVoiceSelect() {
   const sel = $("#voiceSelect");
   if (!sel) return;
-  const itVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith("it"));
-  const list = itVoices.length ? itVoices : voices;
+  const pref = langPrefix();
+  const langVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith(pref));
+  const list = langVoices.length ? langVoices : voices;
   sel.innerHTML = "";
 
   if (!list.length) {
@@ -1833,9 +1943,11 @@ function populateVoiceSelect() {
     if (itVoice && v.voiceURI === itVoice.voiceURI) o.selected = true;
     sel.appendChild(o);
   });
-  $("#voiceHint").textContent = itVoices.length
-    ? `${itVoices.length} italienische Stimme(n) verfügbar 🇮🇹`
-    : "Keine italienische Stimme installiert – wähle die beste verfügbare.";
+  const flag = pref === "en" ? "🇬🇧" : "🇮🇹";
+  const langDe = pref === "en" ? "englische" : "italienische";
+  $("#voiceHint").textContent = langVoices.length
+    ? `${langVoices.length} ${langDe} Stimme(n) verfügbar ${flag}`
+    : `Keine ${langDe} Stimme installiert – wähle die beste verfügbare.`;
 }
 
 function openSettings() { $("#settingsModal").classList.remove("hidden"); populateVoiceSelect(); }
@@ -1907,7 +2019,7 @@ function toast(msg) {
 function openLevelModal() {
   const pick = $("#levelPick");
   pick.innerHTML = "";
-  const opts = [{ code: "all", emoji: "🌈", code2: "Tutti", de: "Egal" }]
+  const opts = [{ code: "all", emoji: "🌈", code2: state.lang === "en" ? "All" : "Tutti", de: "Egal" }]
     .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, code2: l.code, de: l.de, color: l.color })));
   opts.forEach((o) => {
     const b = document.createElement("button");
@@ -1935,6 +2047,7 @@ $("#conjBack").addEventListener("click", goHome);
 $$("#conjModeTabs .mode-tab").forEach((t) => t.addEventListener("click", () => setConjMode(t.dataset.cmode)));
 $("#storyBtn").addEventListener("click", startStory);
 $("#randomBtn").addEventListener("click", openLevelModal);
+$$("#langToggle [data-lang]").forEach((b) => b.addEventListener("click", () => switchLanguage(b.dataset.lang)));
 $("#levelModalClose").addEventListener("click", closeLevelModal);
 $("#levelModal").addEventListener("click", (e) => { if (e.target.id === "levelModal") closeLevelModal(); });
 
@@ -1954,7 +2067,7 @@ $("#voiceSelect").addEventListener("change", (e) => {
   const v = voices.find((x) => x.voiceURI === e.target.value);
   if (v) itVoice = v;
   saveState();
-  speak("Ciao! Buongiorno!");
+  speak(ui().voiceSample);
 });
 
 $("#rateRange").addEventListener("input", (e) => {
@@ -1963,7 +2076,7 @@ $("#rateRange").addEventListener("input", (e) => {
   saveState();
 });
 
-$("#testVoice").addEventListener("click", (e) => speak("Buongiorno! Andiamo a imparare l'italiano!", e.currentTarget));
+$("#testVoice").addEventListener("click", (e) => speak(ui().sample, e.currentTarget));
 
 $("#resetBtn").addEventListener("click", () => {
   if (confirm("Wirklich den gesamten Fortschritt löschen?")) {
@@ -1995,5 +2108,6 @@ $("#rateRange").value = state.settings.rate;
 $("#rateVal").textContent = (state.settings.rate || 0.95).toFixed(2) + "×";
 $("#soundToggle").checked = state.settings.sound !== false;
 applyTheme();
+setLanguage(state.lang);   // aktiver Kurs (Daten, Stimme, Theme-Klasse, Texte)
 renderStats();
 renderHome();

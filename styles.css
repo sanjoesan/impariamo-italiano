@@ -93,6 +93,17 @@ em { font-style: italic; }
 .stat-icon { font-size: 1.15rem; }
 .stat-val { min-width: 14px; }
 
+/* Sprach-Umschalter (Italienisch / Englisch) */
+.lang-toggle { display: inline-flex; gap: 2px; background: rgba(60,46,34,0.10); border-radius: 999px; padding: 3px; }
+.lang-toggle button {
+  border: none; background: transparent; cursor: pointer; font-family: "Nunito", sans-serif;
+  font-weight: 800; font-size: 0.82rem; padding: 5px 11px; border-radius: 999px;
+  color: var(--ink-soft); transition: background .15s, color .15s, transform .12s; line-height: 1;
+}
+.lang-toggle button:hover { transform: translateY(-1px); }
+.lang-toggle button.active { background: var(--paper-card); color: var(--terracotta-d); box-shadow: 0 2px 6px var(--shadow); }
+body.notte .lang-toggle { background: rgba(0,0,0,0.25); }
+
 .xp-stat { flex-direction: column; align-items: stretch; }
 .xp-wrap { width: 150px; }
 .xp-bar {
@@ -832,3 +843,71 @@ button, .lesson-card, .conj-card, .badge, .lv-chip, .area-chip, .story-lv-chip {
   .lesson-card:hover { box-shadow: 0 6px 18px var(--shadow); }
   .conj-card:hover { box-shadow: 0 5px 14px var(--shadow); }
 }
+
+/* =========================================================
+   ENGLISCH-KURS — "Swinging London" (60er/70er-Pop-Stil)
+   Wird per body.londra aktiviert (steht NACH body.notte, damit der
+   groovy Look gewinnt). Eigene Nacht-Variante via body.londra.notte.
+   ========================================================= */
+body.londra {
+  --paper:        #f4eedd;
+  --paper-2:      #ece0c5;
+  --paper-card:   #fdf8ec;
+  --ink:          #241a33;
+  --ink-soft:     #6a5b7a;
+  --terracotta:   #d6336c;   /* Hot Pink = Primärfarbe */
+  --terracotta-d: #a61e57;
+  --olive:        #2e8b57;
+  --teal:         #138b86;
+  --gold:         #e8a33d;
+  --gold-l:       #f2c14e;
+  --wine:         #6a2c8f;   /* psychedelisches Lila */
+  --sky:          #2b62c4;   /* Mod-Blau */
+  --green-it:     #1f6fb2;
+  --red-it:       #d11f3a;
+  --shadow:       rgba(40, 26, 51, 0.18);
+}
+body.londra {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(900px 520px at 50% -10%, rgba(214,51,108,0.22), transparent 60%),
+    radial-gradient(760px 520px at 108% 4%, rgba(43,98,196,0.16), transparent 60%),
+    radial-gradient(720px 520px at -8% 16%, rgba(232,163,61,0.20), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+body.londra .topbar { background: rgba(244,238,221,0.85); border-bottom-color: rgba(214,51,108,0.28); }
+body.londra .bg-sun { background: radial-gradient(circle, rgba(214,51,108,0.20), rgba(214,51,108,0) 70%); }
+body.londra h1, body.londra h2, body.londra .area-head span,
+body.londra .done-screen h3, body.londra .modal h3 {
+  font-family: "Righteous", "Playfair Display", serif; letter-spacing: .4px;
+}
+body.londra .brand-text { font-family: "Righteous", cursive; }
+body.londra .hero-title { color: var(--terracotta-d); text-shadow: 2px 3px 0 rgba(43,98,196,0.28); }
+body.londra .hero-kicker { color: var(--sky); }
+/* Union-Flag-Streifen statt Tricolore */
+body.londra .flag-stripe span:nth-child(1) { background: #012a8e; }
+body.londra .flag-stripe span:nth-child(2) { background: #ffffff; }
+body.londra .flag-stripe span:nth-child(3) { background: #d11f3a; }
+body.londra .flash-face.front { background: linear-gradient(160deg, #fff3f8, #ffe7c9); }
+body.londra .flash-face.back  { background: linear-gradient(160deg, #eef2ff, #ffe1ec); }
+body.londra .lc-stamp { color: #fff; }
+
+/* Nacht-Variante des Englisch-Kurses (höhere Spezifität → gewinnt) */
+body.londra.notte {
+  --paper:        #1a1426;
+  --paper-2:      #221a31;
+  --paper-card:   #271d38;
+  --ink:          #f3e9ff;
+  --ink-soft:     #b9a7cf;
+  --terracotta:   #ff5c93;
+  --terracotta-d: #e23a76;
+  --teal:         #36b3ad;
+  --gold:         #f2c14e;
+  --sky:          #5a86e0;
+  --shadow:       rgba(0, 0, 0, 0.5);
+}
+body.londra.notte { background-color: var(--paper); }
+body.londra.notte .topbar { background: rgba(26,20,38,0.85); }
+body.londra.notte .flash-face.front { background: linear-gradient(160deg, #2c2140, #3a2238); }
+body.londra.notte .flash-face.back  { background: linear-gradient(160deg, #22203f, #3a2238); }
+body.londra.notte .lang-toggle { background: rgba(0,0,0,0.3); }
