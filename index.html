@@ -60,24 +60,33 @@
         <h1 class="hero-title">Impariamo<br />l'Italiano</h1>
         <p class="hero-sub">Lerne Italienisch wie unter der toskanischen Sonne –<br />spielerisch, mit Stimme und ganz viel <em>dolce vita</em>.</p>
         <div class="hero-cta-row">
-          <button class="btn btn-primary" id="continueBtn">▶︎ Weiterlernen</button>
-          <button class="btn btn-ghost" id="randomBtn">🎲 Zufalls-Lektion</button>
+          <button class="btn btn-primary" id="storyBtn">🗺️ Storia – Lernpfad</button>
+          <button class="btn btn-ghost" id="continueBtn">▶︎ Weiterlernen</button>
+          <button class="btn btn-ghost" id="randomBtn">🎲 Zufall</button>
         </div>
-        <p class="hero-stats">📚 18 Themen · 💬 ganze Sätze · 🔀 9 Verben · ⏳ 6 Zeiten · 🎮 4 Spielmodi</p>
+        <p class="hero-stats" id="heroStats">📚 Lektionen · 🎚️ 6 Stufen · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine</p>
       </div>
+
+      <div class="section-head">
+        <h2>Storia · Dein Lernpfad</h2>
+        <div class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+      <p class="section-sub">Ein Weg quer durch alle Themen – die Schwierigkeit steigt Schritt für Schritt von A1 bis C2.</p>
+      <div class="story-panel" id="storyPanel"><!-- per JS --></div>
 
       <div class="section-head">
         <h2>Le Lezioni · Deine Lektionen</h2>
         <div class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
       </div>
-
+      <p class="section-sub">Wähle deinen Schwierigkeitsgrad und stürz dich rein. Jede Lektion bietet bis zu sieben Spielmodi.</p>
+      <div class="level-filter" id="levelFilter"><!-- per JS --></div>
       <div class="lesson-grid" id="lessonGrid"><!-- per JS --></div>
 
       <div class="section-head">
         <h2>Coniugazioni · Zeiten &amp; Beugungen</h2>
         <div class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
       </div>
-      <p class="section-sub">Beuge italienische Verben durch alle Personen – in vier Zeiten. Mit Tabelle, Aussprache und Übung.</p>
+      <p class="section-sub">Beuge italienische Verben durch alle Personen – in sechs Zeiten/Modi. Mit Tabelle, Aussprache und Übung.</p>
       <div class="conj-grid" id="conjGrid"><!-- per JS --></div>
 
       <div class="section-head">
@@ -98,13 +107,9 @@
         <div class="lesson-title-wrap">
           <span class="lesson-emoji" id="lessonEmoji">🍋</span>
           <h2 id="lessonTitle">Lektion</h2>
+          <span class="lesson-level-badge" id="lessonLevelBadge"></span>
         </div>
-        <div class="mode-tabs" id="modeTabs">
-          <button class="mode-tab active" data-mode="learn">📖 Lernen</button>
-          <button class="mode-tab" data-mode="listen">🎧 Hören</button>
-          <button class="mode-tab" data-mode="quiz">🎯 Quiz</button>
-          <button class="mode-tab" data-mode="match">🧩 Zuordnen</button>
-        </div>
+        <div class="mode-tabs" id="modeTabs"><!-- per JS, je nach Lektionstyp --></div>
       </div>
 
       <div class="progress-line"><div class="progress-line-fill" id="lessonProgress"></div></div>
@@ -160,6 +165,16 @@
       <hr class="divider" />
 
       <button class="btn btn-danger" id="resetBtn">🗑️ Fortschritt zurücksetzen</button>
+    </div>
+  </div>
+
+  <!-- ===================== ZUFALL / SCHWIERIGKEIT MODAL ===================== -->
+  <div class="modal-backdrop hidden" id="levelModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="levelModalTitle">
+      <button class="modal-close" id="levelModalClose" aria-label="Schließen">✕</button>
+      <h3 id="levelModalTitle">🎲 Zufalls-Lektion</h3>
+      <p class="modal-sub">Wie schwer darf's sein?</p>
+      <div class="level-pick" id="levelPick"><!-- per JS --></div>
     </div>
   </div>
 

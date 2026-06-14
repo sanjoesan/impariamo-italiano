@@ -12,6 +12,9 @@ const defaultState = () => ({
   lastActive: null,            // "YYYY-MM-DD"
   lessons: {},                 // id -> { stars, completed, learned: [indices] }
   badges: [],                  // ids
+  storyPos: 0,                 // Index in STORY (steigende Schwierigkeit)
+  storyDone: 0,                // wie viele Story-Etappen geschafft
+  levelFilter: "A1",           // aktiver Level-Filter auf der Startseite
   settings: { voiceURI: null, rate: 0.95, theme: "giorno", sound: true }
 });
 
@@ -144,6 +147,41 @@ if ("speechSynthesis" in window) {
 }
 
 /* =========================================================
+   SPRACHERKENNUNG (Web Speech Recognition) — auf ITALIENISCH
+   WICHTIG: lang = "it-IT", damit das Mikrofon Italienisch (nicht
+   Deutsch) erkennt. Wird im Modus „Sprechen" verwendet.
+   ========================================================= */
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+const speechRecAvailable = !!SpeechRec;
+let recognizer = null;
+
+function startRecognition({ onResult, onError, onEnd } = {}) {
+  if (!SpeechRec) { onError && onError("unsupported"); return null; }
+  stopRecognition();
+  try {
+    const rec = new SpeechRec();
+    rec.lang = "it-IT";            // <— Italienische Erkennung erzwingen
+    rec.interimResults = false;
+    rec.maxAlternatives = 4;
+    rec.continuous = false;
+    rec.onresult = (e) => {
+      const alts = [];
+      const r = e.results && e.results[0];
+      for (let i = 0; r && i < r.length; i++) alts.push(r[i].transcript);
+      onResult && onResult(alts);
+    };
+    rec.onerror = (e) => { onError && onError((e && e.error) || "error"); };
+    rec.onend = () => { recognizer = null; onEnd && onEnd(); };
+    rec.start();
+    recognizer = rec;
+    return rec;
+  } catch (err) { onError && onError("error"); return null; }
+}
+function stopRecognition() {
+  if (recognizer) { try { recognizer.abort(); } catch (e) {} recognizer = null; }
+}
+
+/* =========================================================
    SOUNDEFFEKTE (Web Audio API — keine Audiodateien nötig)
    ========================================================= */
 let audioCtx = null;
@@ -205,35 +243,131 @@ function renderStats() {
 }
 
 /* =========================================================
-   RENDER: Startseite (Lektions-Karten)
+   Helfer rund um Lektionen & Level
+   ========================================================= */
+const lessonById = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
+function lessonItemCount(l) { return l.kind === "dialogue" ? l.lines.length : l.words.length; }
+function lessonLearnedCount(l, prog) {
+  if (l.kind === "dialogue") return prog.completed ? l.lines.length : 0;
+  return (prog.learned || []).length;
+}
+function getProg(id) { return state.lessons[id] || { stars: 0, completed: false, learned: [] }; }
+
+function makeLessonCard(lesson) {
+  const prog = getProg(lesson.id);
+  const total = lessonItemCount(lesson);
+  const learnedCount = lessonLearnedCount(lesson, prog);
+  const pct = total ? Math.round((learnedCount / total) * 100) : 0;
+  const stars = "★".repeat(prog.stars || 0) + "☆".repeat(3 - (prog.stars || 0));
+  const lvl = LEVEL_BY_CODE[lesson.levelCode];
+  const kindTag = lesson.kind === "dialogue" ? "💬 Dialog"
+                : lesson.kind === "grammar" ? "🔤 Grammatik"
+                : lesson.area === "Sfide" ? "🎯 Sfida"
+                : lesson.area === "Ripasso" ? "🔁 Ripasso" : "📚";
+
+  const card = document.createElement("button");
+  card.className = "lesson-card";
+  card.style.setProperty("--card-color", lesson.color);
+  card.innerHTML = `
+    ${prog.completed ? `<span class="lc-stamp">✓ Fatto</span>` : ""}
+    <span class="lc-badge" style="--lv:${lvl ? lvl.color : lesson.color}">${lesson.levelCode}</span>
+    <span class="lc-emoji">${lesson.emoji}</span>
+    <span class="lc-title">${lesson.title}</span>
+    <span class="lc-de">${lesson.de}</span>
+    <div class="lc-progress"><i style="width:${pct}%"></i></div>
+    <div class="lc-foot">
+      <span class="lc-stars" style="color:${lesson.color}">${stars}</span>
+      <span class="lc-count">${kindTag} · ${total} 🎮</span>
+    </div>`;
+  card.addEventListener("click", () => openLesson(lesson.id));
+  return card;
+}
+
+/* =========================================================
+   RENDER: Startseite (Story, Level-Filter, Lektions-Karten)
    ========================================================= */
 function renderHome() {
-  const grid = $("#lessonGrid");
-  grid.innerHTML = "";
-  LESSONS.forEach((lesson) => {
-    const prog = state.lessons[lesson.id] || { stars: 0, completed: false, learned: [] };
-    const learnedCount = (prog.learned || []).length;
-    const pct = Math.round((learnedCount / lesson.words.length) * 100);
-    const stars = "★".repeat(prog.stars) + "☆".repeat(3 - prog.stars);
-
-    const card = document.createElement("button");
-    card.className = "lesson-card";
-    card.style.setProperty("--card-color", lesson.color);
-    card.innerHTML = `
-      ${prog.completed ? `<span class="lc-stamp">✓ Fatto</span>` : ""}
-      <span class="lc-emoji">${lesson.emoji}</span>
-      <span class="lc-title">${lesson.title}</span>
-      <span class="lc-de">${lesson.de}</span>
-      <div class="lc-progress"><i style="width:${pct}%"></i></div>
-      <div class="lc-foot">
-        <span class="lc-stars" style="color:${lesson.color}">${stars}</span>
-        <span class="lc-count">${learnedCount}/${lesson.words.length} 📖</span>
-      </div>`;
-    card.addEventListener("click", () => openLesson(lesson.id));
-    grid.appendChild(card);
-  });
+  $("#heroStats").textContent =
+    `📚 ${LESSONS.length} Lektionen · 🎚️ 6 Stufen (A1–C2) · 💬 Dialoge · 🎤 Sprechen · ✍️ Bausteine`;
+  renderStoryPanel();
+  renderLevelFilter();
+  renderLessonGrid();
   renderConjGrid();
   renderBadges();
+}
+
+function renderStoryPanel() {
+  const panel = $("#storyPanel");
+  if (!panel) return;
+  const pos = Math.min(state.storyPos || 0, STORY.length - 1);
+  const lesson = lessonById[STORY[pos]];
+  if (!lesson) { panel.innerHTML = ""; return; }
+  const lvl = LEVEL_BY_CODE[lesson.levelCode];
+  const pct = Math.round((pos / STORY.length) * 100);
+  panel.innerHTML = `
+    <div class="story-card" style="--card-color:${lvl ? lvl.color : lesson.color}">
+      <div class="story-head">
+        <span class="story-step">Etappe ${pos + 1} / ${STORY.length}</span>
+        <span class="story-lv" style="--lv:${lvl ? lvl.color : lesson.color}">${lvl ? lvl.emoji + " " + lvl.code : lesson.levelCode}</span>
+      </div>
+      <div class="story-next">
+        <span class="story-emoji">${lesson.emoji}</span>
+        <div>
+          <div class="story-title">${lesson.title}</div>
+          <div class="story-de">${lesson.de}</div>
+        </div>
+      </div>
+      <div class="story-prog"><i style="width:${pct}%"></i></div>
+      <button class="btn btn-primary" id="storyGo">▶︎ Etappe starten</button>
+    </div>`;
+  $("#storyGo").addEventListener("click", startStory);
+}
+
+function renderLevelFilter() {
+  const wrap = $("#levelFilter");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  const opts = [{ code: "all", emoji: "🌈", label: "Tutti" }]
+    .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, label: l.code, color: l.color })));
+  opts.forEach((o) => {
+    const b = document.createElement("button");
+    b.className = "lv-chip" + (state.levelFilter === o.code ? " active" : "");
+    if (o.color) b.style.setProperty("--lv", o.color);
+    const count = o.code === "all" ? LESSONS.length : LESSONS.filter((l) => l.levelCode === o.code).length;
+    b.innerHTML = `${o.emoji} ${o.label} <small>${count}</small>`;
+    b.addEventListener("click", () => {
+      state.levelFilter = o.code; saveState();
+      renderLevelFilter(); renderLessonGrid();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function renderLessonGrid() {
+  const grid = $("#lessonGrid");
+  grid.innerHTML = "";
+  const filter = state.levelFilter || "all";
+  const list = LESSONS.filter((l) => filter === "all" || l.levelCode === filter);
+
+  // nach Bereich gruppieren, in fester Reihenfolge
+  const order = ["Grundlagen", "Soziales", "Alltag", "Beruf", "Reisen", "Gesundheit", "Natur", "Freizeit", "Grammatica", "Dialoge", "Sfide", "Ripasso"];
+  const groups = {};
+  list.forEach((l) => { (groups[l.area] = groups[l.area] || []).push(l); });
+  const areas = Object.keys(groups).sort((a, b) => {
+    const ia = order.indexOf(a), ib = order.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+
+  areas.forEach((area) => {
+    const head = document.createElement("div");
+    head.className = "area-head";
+    head.innerHTML = `<span>${area}</span><small>${groups[area].length}</small>`;
+    grid.appendChild(head);
+    const row = document.createElement("div");
+    row.className = "area-grid";
+    groups[area].forEach((lesson) => row.appendChild(makeLessonCard(lesson)));
+    grid.appendChild(row);
+  });
 }
 
 function renderConjGrid() {
@@ -271,24 +405,18 @@ function renderBadges() {
 
 /* ---------- Abzeichen prüfen ---------- */
 function checkBadges() {
-  const grant = (id) => {
-    if (!state.badges.includes(id)) {
-      state.badges.push(id);
-      const b = BADGES.find((x) => x.id === id);
-      if (b) { toast(`${b.emoji} Abzeichen: ${b.name}!`); burstConfetti(); }
-    }
-  };
   const completed = Object.values(state.lessons).filter((l) => l.completed).length;
   const totalLearned = Object.values(state.lessons).reduce((s, l) => s + (l.learned ? l.learned.length : 0), 0);
   const maxStars = Math.max(0, ...Object.values(state.lessons).map((l) => l.stars || 0));
 
-  if (completed >= 1) grant("primo");
-  if (completed >= 5) grant("studioso");
-  if (completed >= LESSONS.length) grant("maestro");
-  if (state.streak >= 3) grant("fiamma");
-  if (maxStars >= 3) grant("stelle");
-  if (state.coins >= 200) grant("ricco");
-  if (totalLearned >= 100) grant("poliglotta");
+  if (completed >= 1) grantBadge("primo");
+  if (completed >= 10) grantBadge("studioso");
+  if (completed >= 50) grantBadge("maestro");
+  if (state.streak >= 3) grantBadge("fiamma");
+  if (maxStars >= 3) grantBadge("stelle");
+  if (state.coins >= 500) grantBadge("ricco");
+  if (totalLearned >= 200) grantBadge("poliglotta");
+  if ((state.storyDone || 0) >= 10) grantBadge("narratore");
   saveState();
 }
 
@@ -297,11 +425,36 @@ function checkBadges() {
    ========================================================= */
 let current = { lesson: null, mode: "learn", index: 0 };
 
+const MODE_META = {
+  learn:    "📖 Lernen",
+  dialogue: "🎭 Dialog",
+  listen:   "🎧 Hören",
+  quiz:     "🎯 Quiz",
+  match:    "🧩 Zuordnen",
+  build:    "✍️ Satzbau",
+  gap:      "✏️ Lücke",
+  speak:    "🎤 Sprechen"
+};
+
+function buildModeTabs(lesson, activeMode) {
+  const tabs = $("#modeTabs");
+  tabs.innerHTML = "";
+  lesson.modes.forEach((m) => {
+    const b = document.createElement("button");
+    b.className = "mode-tab" + (m === activeMode ? " active" : "");
+    b.dataset.mode = m;
+    b.textContent = MODE_META[m] || m;
+    b.addEventListener("click", () => setMode(m));
+    tabs.appendChild(b);
+  });
+}
+
 function openLesson(id) {
-  const lesson = LESSONS.find((l) => l.id === id);
+  const lesson = lessonById[id] || LESSONS.find((l) => l.id === id);
   if (!lesson) return;
   touchStreak();
-  current = { lesson, mode: "learn", index: 0 };
+  const startMode = (lesson.modes && lesson.modes[0]) || "learn";
+  current = { lesson, mode: startMode, index: 0 };
   if (!state.lessons[id]) state.lessons[id] = { stars: 0, completed: false, learned: [] };
   saveState();
 
@@ -309,13 +462,20 @@ function openLesson(id) {
   $("#viewLesson").classList.remove("hidden");
   $("#lessonEmoji").textContent = lesson.emoji;
   $("#lessonTitle").textContent = lesson.title;
-  $$(".mode-tab").forEach((t) => t.classList.toggle("active", t.dataset.mode === "learn"));
+  const lvl = LEVEL_BY_CODE[lesson.levelCode];
+  const badge = $("#lessonLevelBadge");
+  if (badge) {
+    badge.textContent = lvl ? `${lvl.emoji} ${lvl.code} · ${lvl.de}` : lesson.levelCode;
+    badge.style.setProperty("--lv", lvl ? lvl.color : lesson.color);
+  }
+  buildModeTabs(lesson, startMode);
   window.scrollTo({ top: 0, behavior: "smooth" });
   renderMode();
 }
 
 function goHome() {
   speechSynthesis && speechSynthesis.cancel();
+  stopRecognition();
   $("#viewLesson").classList.add("hidden");
   $("#viewConj").classList.add("hidden");
   $("#viewHome").classList.remove("hidden");
@@ -324,20 +484,53 @@ function goHome() {
 }
 
 function setMode(mode) {
+  speechSynthesis && speechSynthesis.cancel();
+  stopRecognition();
   current.mode = mode;
   current.index = 0;
-  $$(".mode-tab").forEach((t) => t.classList.toggle("active", t.dataset.mode === mode));
+  $$("#modeTabs .mode-tab").forEach((t) => t.classList.toggle("active", t.dataset.mode === mode));
   renderMode();
 }
 
 function renderMode() {
-  if (current.mode === "learn") renderLearn();
-  else if (current.mode === "listen") renderListen();
-  else if (current.mode === "quiz") renderQuiz();
-  else if (current.mode === "match") renderMatch();
+  switch (current.mode) {
+    case "learn":    return renderLearn();
+    case "listen":   return renderListen();
+    case "quiz":     return renderQuiz();
+    case "match":    return renderMatch();
+    case "build":    return renderBuild();
+    case "gap":      return renderGap();
+    case "speak":    return renderSpeak();
+    case "dialogue": return renderDialogue();
+    default:         return renderLearn();
+  }
 }
 
 function setProgress(pct) { $("#lessonProgress").style.width = pct + "%"; }
+
+/* Buttons zu anderen verfügbaren Modi (für Abschluss-Bildschirme).
+   Nur Modi, die diese Lektion wirklich anbietet — verhindert Abstürze. */
+function otherModesHtml(exclude, max) {
+  const modes = (current.lesson.modes || []).filter((m) => m !== exclude && m !== "learn");
+  return modes.slice(0, max || 2)
+    .map((m) => `<button class="btn btn-ghost" data-goto="${m}">${MODE_META[m] || m}</button>`).join("");
+}
+function wireOtherModes(scope) {
+  (scope || document).querySelectorAll("[data-goto]").forEach((b) =>
+    b.addEventListener("click", () => setMode(b.dataset.goto)));
+}
+
+/* markiert die Lektion als abgeschlossen + rückt ggf. die Story vor */
+function completeLesson(stars) {
+  const p = state.lessons[current.lesson.id];
+  if (typeof stars === "number") p.stars = Math.max(p.stars || 0, stars);
+  p.completed = true;
+  if (/^[3-6]$/.test(String(current.lesson.level)) || current.lesson.levelCode[0] === "B" || current.lesson.levelCode[0] === "C") {
+    grantBadge("scalatore");
+  }
+  saveState();
+  advanceStoryIfMatch(current.lesson.id);
+}
 
 /* =========================================================
    MODUS 1 — LERNEN (Flashcards)
@@ -350,6 +543,7 @@ function renderLearn() {
 
   body.innerHTML = `
     <div class="flash-stage">
+      ${lesson.rule ? `<div class="grammar-rule">📐 <b>Regel:</b> ${lesson.rule}</div>` : ""}
       <div class="flashcard" id="flashcard">
         <div class="flash-inner">
           <div class="flash-face front">
@@ -495,8 +689,7 @@ function finishQuiz() {
   // Fortschritt speichern (bestes Ergebnis behalten)
   const p = state.lessons[lesson.id];
   p.stars = Math.max(p.stars || 0, stars);
-  if (pct >= 0.7) p.completed = true;
-  saveState();
+  if (pct >= 0.7) completeLesson(stars); else saveState();
 
   // Belohnungen
   award(score * 4 + (stars === 3 ? 20 : 0), score * 2 + stars * 5);
@@ -734,7 +927,7 @@ function finishListen() {
   const ratio = total ? score / total : 0;
   setProgress(100);
 
-  if (ratio >= 0.7) { state.lessons[current.lesson.id].completed = true; saveState(); }
+  if (ratio >= 0.7) completeLesson();
   award(score * 3 + (ratio === 1 ? 15 : 0), score * 2);
   checkBadges();
   if (ratio >= 0.7) { sfx.win(); burstConfetti(); }
@@ -747,14 +940,559 @@ function finishListen() {
       <p>${ratio === 1 ? "Perfekt diktiert! " : "Gut zugehört! "}<em>Ottimo orecchio!</em></p>
       <div class="done-actions">
         <button class="btn btn-primary" id="retryListen">↻ Nochmal</button>
-        <button class="btn btn-ghost" id="listenToQuiz">🎯 Quiz</button>
+        ${otherModesHtml("listen")}
         <button class="btn btn-ghost" id="listenToHome">🏠 Startseite</button>
       </div>
     </div>`;
   $("#retryListen").addEventListener("click", () => setMode("listen"));
-  $("#listenToQuiz").addEventListener("click", () => setMode("quiz"));
   $("#listenToHome").addEventListener("click", goHome);
+  wireOtherModes(body);
   renderHome();
+}
+
+/* =========================================================
+   Gemeinsame Helfer für Satzbau / Lücke / Sprechen
+   ========================================================= */
+function tokenize(sentence) {
+  return (sentence || "").trim().split(/\s+/).filter(Boolean);
+}
+function cleanToken(t) {
+  return (t || "").replace(/^[¿¡"'«»(]+/, "").replace(/[.,!?;:"'»«)]+$/, "");
+}
+/* Ähnlichkeit zweier Phrasen über Wort-Überlappung (für Spracherkennung) */
+function phraseSimilarity(a, b) {
+  const wa = normalizeText(a).split(" ").filter(Boolean);
+  const wb = normalizeText(b).split(" ").filter(Boolean);
+  if (!wa.length || !wb.length) return 0;
+  const setB = new Set(wb);
+  const hit = wa.filter((w) => setB.has(w)).length;
+  return hit / Math.max(wa.length, wb.length);
+}
+
+/* =========================================================
+   MODUS — SATZBAU (Bausteine zusammensetzen, wenig Tippen)
+   ========================================================= */
+let buildState = null;
+
+function renderBuild() {
+  const { lesson } = current;
+  buildState = { order: shuffle(lesson.words.map((_, i) => i)), pos: 0, correct: 0, answered: false };
+  showBuild();
+}
+
+function showBuild() {
+  const { lesson } = current;
+  if (buildState.pos >= buildState.order.length) return finishBuild();
+  buildState.answered = false;
+  const w = lesson.words[buildState.order[buildState.pos]];
+  const tokens = tokenize(w.ex.length ? w.ex : w.it);
+  buildState.tokens = tokens;
+  buildState.answer = [];
+  buildState.bank = shuffle(tokens.map((t, i) => ({ t, i })));
+  setProgress(Math.round((buildState.pos / buildState.order.length) * 100));
+
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="build-stage">
+      <div class="build-cue">
+        <span class="bc-label">Bau den Satz · ${buildState.pos + 1}/${buildState.order.length}</span>
+        <span class="bc-de">„${w.exDe}"</span>
+        <button class="speak-btn small" id="buildHear">🔊 Original hören</button>
+      </div>
+      <div class="build-answer" id="buildAnswer"></div>
+      <div class="build-bank" id="buildBank"></div>
+      <div class="build-sol" id="buildSol"></div>
+      <div class="listen-actions">
+        <button class="btn btn-ghost" id="buildReveal">🙈 Lösung</button>
+        <button class="btn btn-primary" id="buildCheck">Prüfen ✓</button>
+      </div>
+    </div>`;
+
+  $("#buildHear").addEventListener("click", (e) => speak(w.it, e.currentTarget));
+  $("#buildCheck").addEventListener("click", () => checkBuild(w));
+  $("#buildReveal").addEventListener("click", () => revealBuild(w));
+  renderBuildRows();
+}
+
+function renderBuildRows() {
+  const ans = $("#buildAnswer");
+  const bank = $("#buildBank");
+  if (!ans || !bank) return;
+  ans.innerHTML = "";
+  bank.innerHTML = "";
+  const used = new Set(buildState.answer);
+  buildState.answer.forEach((i) => {
+    const chip = document.createElement("button");
+    chip.className = "chip chip-answer";
+    chip.textContent = buildState.tokens[i];
+    chip.addEventListener("click", () => {
+      if (buildState.answered) return;
+      buildState.answer = buildState.answer.filter((x) => x !== i);
+      renderBuildRows();
+    });
+    ans.appendChild(chip);
+  });
+  if (!buildState.answer.length) ans.innerHTML = `<span class="build-placeholder">Tippe die Wörter in die richtige Reihenfolge …</span>`;
+  buildState.bank.forEach(({ t, i }) => {
+    const chip = document.createElement("button");
+    chip.className = "chip chip-bank" + (used.has(i) ? " used" : "");
+    chip.textContent = t;
+    chip.disabled = used.has(i);
+    chip.addEventListener("click", () => {
+      if (buildState.answered || used.has(i)) return;
+      buildState.answer.push(i);
+      renderBuildRows();
+    });
+    bank.appendChild(chip);
+  });
+}
+
+function checkBuild(w) {
+  if (buildState.answered) { buildState.pos++; showBuild(); return; }
+  if (!buildState.answer.length) return;
+  const assembled = buildState.answer.map((i) => buildState.tokens[i]).join(" ");
+  const ok = normalizeText(assembled) === normalizeText(w.ex);
+  buildState.answered = true;
+  const sol = $("#buildSol");
+  if (ok) {
+    sol.innerHTML = `✅ <span style="color:var(--olive)">Esatto! „${w.ex}"</span>`;
+    buildState.correct++;
+    award(6, 2); sfx.correct();
+  } else {
+    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
+    sfx.wrong();
+  }
+  speak(w.it);
+  const last = buildState.pos >= buildState.order.length - 1;
+  $("#buildCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+  $$("#buildAnswer .chip, #buildBank .chip").forEach((c) => (c.disabled = true));
+}
+
+function revealBuild(w) {
+  if (buildState.answered) return;
+  buildState.answered = true;
+  buildState.answer = buildState.tokens.map((_, i) => i);
+  renderBuildRows();
+  $("#buildSol").innerHTML = `👀 <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
+  speak(w.it);
+  $$("#buildAnswer .chip, #buildBank .chip").forEach((c) => (c.disabled = true));
+  const last = buildState.pos >= buildState.order.length - 1;
+  $("#buildCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
+}
+
+function finishBuild() {
+  const total = buildState.order.length;
+  const score = buildState.correct;
+  const ratio = total ? score / total : 0;
+  setProgress(100);
+  if (ratio >= 0.7) completeLesson();
+  award(score * 2, score);
+  checkBadges();
+  if (ratio >= 0.7) { sfx.win(); burstConfetti(); }
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="done-screen">
+      <div class="done-emoji">${ratio === 1 ? "🏆" : ratio >= 0.7 ? "✍️✨" : "💪"}</div>
+      <h3>${score} / ${total} Sätze gebaut</h3>
+      <p><em>${ratio === 1 ? "Costruttore provetto!" : "Continua a costruire!"}</em></p>
+      <div class="done-actions">
+        <button class="btn btn-primary" id="retryBuild">↻ Nochmal</button>
+        ${otherModesHtml("build")}
+        <button class="btn btn-ghost" id="buildHome">🏠 Startseite</button>
+      </div>
+    </div>`;
+  $("#retryBuild").addEventListener("click", () => setMode("build"));
+  $("#buildHome").addEventListener("click", goHome);
+  wireOtherModes(body);
+  renderHome();
+}
+
+/* =========================================================
+   MODUS — LÜCKENTEXT (einzelnes Wort einsetzen, wenig Tippen)
+   ========================================================= */
+let gapState = null;
+
+function renderGap() {
+  const { lesson } = current;
+  gapState = { order: shuffle(lesson.words.map((_, i) => i)), pos: 0, correct: 0, answered: false };
+  showGap();
+}
+
+function pickGapTarget(tokens) {
+  // längstes „inhaltliches" Wort wählen (deterministisch)
+  let best = -1, bestLen = 0;
+  tokens.forEach((t, i) => {
+    const c = cleanToken(t);
+    if (c.length >= 3 && /[a-zàèéìòù]/i.test(c) && c.length > bestLen) { bestLen = c.length; best = i; }
+  });
+  if (best < 0) tokens.forEach((t, i) => { if (cleanToken(t).length > bestLen) { bestLen = cleanToken(t).length; best = i; } });
+  return best < 0 ? 0 : best;
+}
+
+function showGap() {
+  const { lesson } = current;
+  if (gapState.pos >= gapState.order.length) return finishGap();
+  gapState.answered = false;
+  const w = lesson.words[gapState.order[gapState.pos]];
+  const tokens = tokenize(w.ex.length ? w.ex : w.it);
+  if (tokens.length < 2) { gapState.pos++; return showGap(); }
+  const ti = pickGapTarget(tokens);
+  const target = cleanToken(tokens[ti]);
+  setProgress(Math.round((gapState.pos / gapState.order.length) * 100));
+
+  // Ablenker aus anderen Sätzen der Lektion
+  const distractPool = [];
+  lesson.words.forEach((x) => tokenize(x.ex).forEach((t) => {
+    const c = cleanToken(t);
+    if (c.length >= 3 && c.toLowerCase() !== target.toLowerCase()) distractPool.push(c);
+  }));
+  const distract = shuffle([...new Set(distractPool)]).slice(0, 3);
+  const options = shuffle([target, ...distract]);
+
+  const sentenceHtml = tokens.map((t, i) => i === ti
+    ? `<span class="gap-blank" id="gapBlank">______</span>`
+    : `<span class="gap-tok">${t}</span>`).join(" ");
+
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="gap-stage">
+      <div class="gap-cue">
+        <span class="bc-label">Setz das richtige Wort ein · ${gapState.pos + 1}/${gapState.order.length}</span>
+        <button class="speak-btn small" id="gapHear">🔊 Satz hören</button>
+      </div>
+      <div class="gap-sentence">${sentenceHtml}</div>
+      <div class="gap-de">„${w.exDe}"</div>
+      <div class="gap-options" id="gapOptions"></div>
+      <div class="build-sol" id="gapSol"></div>
+    </div>`;
+  $("#gapHear").addEventListener("click", (e) => speak(w.it, e.currentTarget));
+  const optWrap = $("#gapOptions");
+  options.forEach((opt) => {
+    const b = document.createElement("button");
+    b.className = "gap-opt";
+    b.textContent = opt;
+    b.addEventListener("click", () => answerGap(b, opt, target, tokens, ti, w));
+    optWrap.appendChild(b);
+  });
+}
+
+function answerGap(btn, opt, target, tokens, ti, w) {
+  if (gapState.answered) return;
+  gapState.answered = true;
+  const ok = normalizeText(opt) === normalizeText(target);
+  const blank = $("#gapBlank");
+  $$(".gap-opt").forEach((b) => {
+    b.disabled = true;
+    if (normalizeText(b.textContent) === normalizeText(target)) b.classList.add("correct");
+  });
+  const sol = $("#gapSol");
+  if (ok) {
+    btn.classList.add("correct");
+    if (blank) { blank.textContent = tokens[ti]; blank.classList.add("filled"); }
+    sol.innerHTML = `✅ <span style="color:var(--olive)">Perfetto! ${w.de}</span>`;
+    gapState.correct++;
+    award(5, 1); sfx.correct();
+  } else {
+    btn.classList.add("wrong");
+    if (blank) { blank.textContent = tokens[ti]; blank.classList.add("filled"); }
+    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">${target}</span>`;
+    sfx.wrong();
+  }
+  speak(w.it);
+  setTimeout(() => { gapState.pos++; showGap(); }, 1250);
+}
+
+function finishGap() {
+  const total = gapState.order.length;
+  const score = gapState.correct;
+  const ratio = total ? score / total : 0;
+  setProgress(100);
+  if (ratio >= 0.7) completeLesson();
+  award(score * 2, score);
+  checkBadges();
+  if (ratio >= 0.7) { sfx.win(); burstConfetti(); }
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="done-screen">
+      <div class="done-emoji">${ratio === 1 ? "🏆" : ratio >= 0.7 ? "✏️✨" : "💪"}</div>
+      <h3>${score} / ${total} Lücken gefüllt</h3>
+      <p><em>${ratio === 1 ? "Senza errori!" : "Quasi perfetto!"}</em></p>
+      <div class="done-actions">
+        <button class="btn btn-primary" id="retryGap">↻ Nochmal</button>
+        ${otherModesHtml("gap")}
+        <button class="btn btn-ghost" id="gapHome">🏠 Startseite</button>
+      </div>
+    </div>`;
+  $("#retryGap").addEventListener("click", () => setMode("gap"));
+  $("#gapHome").addEventListener("click", goHome);
+  wireOtherModes(body);
+  renderHome();
+}
+
+/* =========================================================
+   MODUS — SPRECHEN (Mikrofon, Erkennung auf ITALIENISCH it-IT)
+   ========================================================= */
+let speakState = null;
+
+function renderSpeak() {
+  const { lesson } = current;
+  speakState = { order: shuffle(lesson.words.map((_, i) => i)), pos: 0, correct: 0, done: false };
+  showSpeak();
+}
+
+function showSpeak() {
+  const { lesson } = current;
+  if (speakState.pos >= speakState.order.length) return finishSpeak();
+  speakState.done = false;
+  const w = lesson.words[speakState.order[speakState.pos]];
+  setProgress(Math.round((speakState.pos / speakState.order.length) * 100));
+
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="speak-stage">
+      <div class="speak-cue">
+        <span class="bc-label">Sprich auf Italienisch 🇮🇹 · ${speakState.pos + 1}/${speakState.order.length}</span>
+        <div class="speak-target">${w.it}</div>
+        <div class="speak-de">${w.de}</div>
+        <button class="speak-btn small" id="speakHear">🔊 Vormachen</button>
+      </div>
+      <button class="mic-btn" id="micBtn" title="Zum Sprechen tippen">🎤</button>
+      <div class="speak-status" id="speakStatus">Tippe das Mikrofon und sprich den Satz.</div>
+      <div class="speak-heard" id="speakHeard"></div>
+      <div class="listen-actions">
+        <button class="btn btn-ghost" id="speakSelf">👍 Hat geklappt</button>
+        <button class="btn btn-primary" id="speakNext">Weiter ›</button>
+      </div>
+    </div>`;
+
+  $("#speakHear").addEventListener("click", (e) => speak(w.it, e.currentTarget));
+  $("#speakSelf").addEventListener("click", () => markSpeak(true, w, "Selbst bewertet 👍"));
+  $("#speakNext").addEventListener("click", () => { speakState.pos++; showSpeak(); });
+  $("#micBtn").addEventListener("click", () => doSpeakRecognition(w));
+
+  if (!speechRecAvailable) {
+    $("#speakStatus").innerHTML = "🎤 Spracherkennung wird hier nicht unterstützt – sprich laut mit und bewerte dich selbst.";
+  }
+  setTimeout(() => speak(w.it, $("#speakHear")), 250);
+}
+
+function doSpeakRecognition(w) {
+  const mic = $("#micBtn");
+  const status = $("#speakStatus");
+  const heard = $("#speakHeard");
+  if (!speechRecAvailable) {
+    status.innerHTML = "🎤 Keine Spracherkennung – nutze „Hat geklappt“, wenn du es gesagt hast.";
+    return;
+  }
+  mic.classList.add("listening");
+  status.textContent = "🎙️ Ich höre zu … sprich jetzt!";
+  heard.textContent = "";
+  startRecognition({
+    onResult: (alts) => {
+      const best = alts && alts[0] ? alts[0] : "";
+      heard.innerHTML = `Gehört: <em>„${best}"</em>`;
+      const score = Math.max(...alts.map((a) => phraseSimilarity(a, w.it)), 0);
+      if (score >= 0.6 || alts.some((a) => normalizeText(a) === normalizeText(w.it))) {
+        markSpeak(true, w, "Ottima pronuncia! 🎉");
+      } else {
+        status.innerHTML = `Fast! Ich habe etwas anderes verstanden. <b>Nochmal?</b>`;
+        sfx.wrong();
+      }
+    },
+    onError: (code) => {
+      mic.classList.remove("listening");
+      if (code === "not-allowed" || code === "service-not-allowed") {
+        status.innerHTML = "🚫 Mikrofon-Zugriff verweigert. Erlaube das Mikrofon oder nutze „Hat geklappt“.";
+      } else if (code === "no-speech") {
+        status.textContent = "🤫 Nichts gehört – tippe nochmal und sprich lauter.";
+      } else if (code === "unsupported") {
+        status.textContent = "🎤 Spracherkennung hier nicht verfügbar.";
+      } else {
+        status.textContent = "Hoppla, nochmal versuchen.";
+      }
+    },
+    onEnd: () => { mic.classList.remove("listening"); }
+  });
+}
+
+function markSpeak(ok, w, msg) {
+  if (speakState.done) return;
+  stopRecognition();
+  $("#micBtn").classList.remove("listening");
+  if (ok) {
+    speakState.done = true;
+    speakState.correct++;
+    $("#speakStatus").innerHTML = `✅ <span style="color:var(--olive)">${msg}</span>`;
+    award(7, 2);
+    grantBadge("oratore");
+    sfx.correct();
+    const last = speakState.pos >= speakState.order.length - 1;
+    $("#speakNext").textContent = last ? "Fertig 🏁" : "Weiter ›";
+  }
+}
+
+function finishSpeak() {
+  const total = speakState.order.length;
+  const score = speakState.correct;
+  const ratio = total ? score / total : 0;
+  setProgress(100);
+  if (ratio >= 0.6) completeLesson();
+  award(score * 2, score);
+  checkBadges();
+  if (ratio >= 0.6) { sfx.win(); burstConfetti(); }
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="done-screen">
+      <div class="done-emoji">${ratio >= 0.99 ? "🏆" : ratio >= 0.6 ? "🎤✨" : "💪"}</div>
+      <h3>${score} / ${total} ausgesprochen</h3>
+      <p><em>${ratio >= 0.6 ? "Che bella pronuncia!" : "L'esercizio rende perfetti!"}</em></p>
+      <div class="done-actions">
+        <button class="btn btn-primary" id="retrySpeak">↻ Nochmal</button>
+        ${otherModesHtml("speak")}
+        <button class="btn btn-ghost" id="speakHome">🏠 Startseite</button>
+      </div>
+    </div>`;
+  $("#retrySpeak").addEventListener("click", () => setMode("speak"));
+  $("#speakHome").addEventListener("click", goHome);
+  wireOtherModes(body);
+  renderHome();
+}
+
+/* =========================================================
+   MODUS — DIALOG (ganzer Dialog, Antwort aus Bausteinen wählen)
+   ========================================================= */
+let dialogState = null;
+
+function renderDialogue() {
+  const { lesson } = current;
+  dialogState = { lines: lesson.lines, pos: 0, mistakes: 0 };
+  const body = $("#lessonBody");
+  body.innerHTML = `
+    <div class="dialogue-stage">
+      ${lesson.scene ? `<div class="dlg-scene">🎬 ${lesson.scene}</div>` : ""}
+      <div class="dlg-thread" id="dlgThread"></div>
+      <div class="dlg-choices" id="dlgChoices"></div>
+    </div>`;
+  advanceDialogue();
+}
+
+function addBubble(line) {
+  const thread = $("#dlgThread");
+  const mine = line.who === "U";
+  const row = document.createElement("div");
+  row.className = "dlg-bubble " + (mine ? "mine" : "theirs");
+  row.innerHTML = `
+    ${!mine && line.name ? `<span class="dlg-name">${line.name}</span>` : ""}
+    <span class="dlg-text">${line.it}</span>
+    <span class="dlg-tr">${line.de}</span>
+    <button class="dlg-speak" title="Anhören">🔊</button>`;
+  row.querySelector(".dlg-speak").addEventListener("click", () => speak(line.it, row.querySelector(".dlg-speak")));
+  thread.appendChild(row);
+  row.scrollIntoView({ behavior: "smooth", block: "end" });
+  return row;
+}
+
+function advanceDialogue() {
+  const choices = $("#dlgChoices");
+  choices.innerHTML = "";
+  // Partner-Zeilen anzeigen bis zur nächsten Nutzer-Zeile
+  while (dialogState.pos < dialogState.lines.length && dialogState.lines[dialogState.pos].who === "P") {
+    const line = dialogState.lines[dialogState.pos];
+    addBubble(line);
+    speak(line.it);
+    dialogState.pos++;
+  }
+  if (dialogState.pos >= dialogState.lines.length) return finishDialogue();
+
+  // Nutzer-Zeile: Auswahl aus Bausteinen
+  const line = dialogState.lines[dialogState.pos];
+  const distract = shuffle(DIALOG_USER_LINES.filter((t) => t !== line.it)).slice(0, 2);
+  const options = shuffle([line.it, ...distract]);
+  choices.innerHTML = `<div class="dlg-prompt">👉 Wie antwortest du?</div>`;
+  options.forEach((opt) => {
+    const b = document.createElement("button");
+    b.className = "dlg-choice";
+    b.textContent = opt;
+    b.addEventListener("click", () => pickDialogue(b, opt, line));
+    choices.appendChild(b);
+  });
+}
+
+function pickDialogue(btn, opt, line) {
+  if (opt === line.it) {
+    sfx.correct();
+    addBubble(line);
+    speak(line.it);
+    dialogState.pos++;
+    award(4, 1);
+    advanceDialogue();
+  } else {
+    sfx.wrong();
+    dialogState.mistakes++;
+    btn.classList.add("shake", "wrong");
+    btn.disabled = true;
+    setTimeout(() => btn.classList.remove("shake"), 420);
+  }
+}
+
+function finishDialogue() {
+  $("#dlgChoices").innerHTML = "";
+  completeLesson(3);
+  grantBadge("attore");
+  award(15, 8);
+  checkBadges();
+  burstConfetti(); sfx.win();
+  const body = $("#lessonBody");
+  const done = document.createElement("div");
+  done.className = "done-screen";
+  done.innerHTML = `
+    <div class="done-emoji">🎭✨</div>
+    <h3>Dialogo completato!</h3>
+    <p><em>${dialogState.mistakes === 0 ? "Senza esitazioni — bravissimo!" : "Ben fatto, hai tenuto botta!"}</em></p>
+    <div class="done-actions">
+      <button class="btn btn-primary" id="retryDlg">↻ Nochmal</button>
+      ${otherModesHtml("dialogue")}
+      <button class="btn btn-ghost" id="dlgHome">🏠 Startseite</button>
+    </div>`;
+  body.appendChild(done);
+  $("#retryDlg").addEventListener("click", () => setMode("dialogue"));
+  $("#dlgHome").addEventListener("click", goHome);
+  wireOtherModes(done);
+  renderHome();
+}
+
+/* =========================================================
+   STORY / PERCORSO (steigende Schwierigkeit) + Abzeichen
+   ========================================================= */
+const DIALOG_USER_LINES = (() => {
+  const out = [];
+  LESSONS.forEach((l) => { if (l.kind === "dialogue") l.lines.forEach((ln) => { if (ln.who === "U") out.push(ln.it); }); });
+  return out;
+})();
+
+function startStory() {
+  const pos = Math.min(state.storyPos || 0, STORY.length - 1);
+  const id = STORY[pos];
+  if (id) openLesson(id);
+}
+
+function advanceStoryIfMatch(lessonId) {
+  const pos = state.storyPos || 0;
+  if (STORY[pos] === lessonId) {
+    state.storyPos = Math.min(pos + 1, STORY.length);
+    state.storyDone = (state.storyDone || 0) + 1;
+    if (state.storyDone >= 10) grantBadge("narratore");
+    saveState();
+    toast(`🗺️ Story-Etappe ${state.storyDone} geschafft! Es wird schwieriger …`);
+  }
+}
+
+function grantBadge(id) {
+  if (state.badges.includes(id)) return;
+  state.badges.push(id);
+  const b = BADGES.find((x) => x.id === id);
+  if (b) { toast(`${b.emoji} Abzeichen: ${b.name}!`); burstConfetti(); }
+  saveState();
 }
 
 /* =========================================================
@@ -1046,7 +1784,29 @@ function continueLesson() {
   const next = LESSONS.find((l) => !(state.lessons[l.id] && state.lessons[l.id].completed)) || LESSONS[0];
   openLesson(next.id);
 }
-function randomLesson() { openLesson(LESSONS[Math.floor(Math.random() * LESSONS.length)].id); }
+
+/* Zufalls-Lektion mit Schwierigkeitswahl */
+function openLevelModal() {
+  const pick = $("#levelPick");
+  pick.innerHTML = "";
+  const opts = [{ code: "all", emoji: "🌈", code2: "Tutti", de: "Egal" }]
+    .concat(LEVELS.map((l) => ({ code: l.code, emoji: l.emoji, code2: l.code, de: l.de, color: l.color })));
+  opts.forEach((o) => {
+    const b = document.createElement("button");
+    b.className = "level-pick-btn";
+    if (o.color) b.style.setProperty("--lv", o.color);
+    b.innerHTML = `<span class="lp-emoji">${o.emoji}</span><span class="lp-code">${o.code2}</span><span class="lp-de">${o.de}</span>`;
+    b.addEventListener("click", () => { closeLevelModal(); randomLessonOfLevel(o.code); });
+    pick.appendChild(b);
+  });
+  $("#levelModal").classList.remove("hidden");
+}
+function closeLevelModal() { $("#levelModal").classList.add("hidden"); }
+function randomLessonOfLevel(code) {
+  const pool = code === "all" ? LESSONS : LESSONS.filter((l) => l.levelCode === code);
+  if (!pool.length) return;
+  openLesson(pool[Math.floor(Math.random() * pool.length)].id);
+}
 
 /* =========================================================
    EVENTS
@@ -1055,10 +1815,11 @@ $("#brandBtn").addEventListener("click", goHome);
 $("#backBtn").addEventListener("click", goHome);
 $("#conjBack").addEventListener("click", goHome);
 $$("#conjModeTabs .mode-tab").forEach((t) => t.addEventListener("click", () => setConjMode(t.dataset.cmode)));
+$("#storyBtn").addEventListener("click", startStory);
 $("#continueBtn").addEventListener("click", continueLesson);
-$("#randomBtn").addEventListener("click", randomLesson);
-
-$$(".mode-tab").forEach((t) => t.addEventListener("click", () => setMode(t.dataset.mode)));
+$("#randomBtn").addEventListener("click", openLevelModal);
+$("#levelModalClose").addEventListener("click", closeLevelModal);
+$("#levelModal").addEventListener("click", (e) => { if (e.target.id === "levelModal") closeLevelModal(); });
 
 $("#themeBtn").addEventListener("click", toggleTheme);
 $("#soundToggle").addEventListener("change", (e) => {

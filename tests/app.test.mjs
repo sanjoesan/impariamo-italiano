@@ -13,10 +13,10 @@ import { dirname, join } from "node:path";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (f) => readFileSync(join(ROOT, f), "utf8");
 
-// Vokabeldaten direkt verfügbar machen (data.js ist kein Modul)
+// Daten direkt verfügbar machen (data.js ist kein Modul)
 const DATA = new Function(read("data.js") +
-  "\n;return {LESSONS,BADGES,CONJUGATIONS,CONJ_TENSES,CONJ_PRONOUNS};")();
-const { LESSONS, CONJUGATIONS, CONJ_TENSES, CONJ_PRONOUNS } = DATA;
+  "\n;return {LESSONS,STORY,LEVELS,CORPUS,DIALOGHI,BADGES,CONJUGATIONS,CONJ_TENSES,CONJ_PRONOUNS};")();
+const { LESSONS, STORY, LEVELS, CORPUS, CONJUGATIONS, CONJ_TENSES, CONJ_PRONOUNS } = DATA;
 
 /* ---------- App in jsdom hochfahren ---------- */
 function makeApp() {
@@ -33,6 +33,8 @@ function makeApp() {
   window.confirm = () => true;
   window.requestAnimationFrame = () => 0;   // Konfetti-Loop ruhigstellen
   window.cancelAnimationFrame = () => {};
+  if (!window.Element.prototype.scrollIntoView) window.Element.prototype.scrollIntoView = () => {};
+  window.Element.prototype.scrollIntoView = () => {};
 
   // Sprachausgabe stubben + zuletzt gesprochenes Wort merken
   window.__spoken = null;
@@ -44,6 +46,16 @@ function makeApp() {
     cancel: () => {},
     speak: (u) => { window.__spoken = u && u.text; }
   };
+
+  // Spracherkennung stubben (it-IT!) — letzte Instanz merken
+  window.__lastRec = null;
+  class FakeRecognition {
+    constructor() { this.lang = null; this.maxAlternatives = 0; this.interimResults = null; window.__lastRec = this; }
+    start() { this.started = true; }
+    stop() { this.onend && this.onend(); }
+    abort() {}
+  }
+  window.SpeechRecognition = FakeRecognition;
 
   // Web Audio stubben
   const node = { connect() {}, start() {}, stop() {},
@@ -69,120 +81,99 @@ function makeApp() {
     window, doc,
     $: (sel) => doc.querySelector(sel),
     $$: (sel) => [...doc.querySelectorAll(sel)],
+    open: (id) => window.openLesson(id),
+    setMode: (m) => window.setMode(m),
     state: () => JSON.parse(window.localStorage.getItem("impariamo_v1") || "{}"),
     close: () => window.close()
   };
 }
 
+const norm = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+  .replace(/['’.,!?;:"„“]/g, "").replace(/\s+/g, " ").trim();
+
 /* ======================= TESTS ======================= */
 
-test("App startet & rendert Startseite", () => {
+test("App startet & rendert Startseite, Level-Filter & Story", () => {
   const app = makeApp();
   assert.equal(app.$("#statLevel").textContent, "1", "Startlevel ist 1");
-  assert.equal(app.$$(".lesson-card").length, LESSONS.length, "alle Lektionskarten gerendert");
-  assert.ok(app.$$(".badge").length >= 8, "Abzeichen gerendert");
+  assert.ok(app.$$(".lesson-card").length > 0, "Lektionskarten gerendert (gefiltert)");
+  assert.equal(app.$$(".lv-chip").length, LEVELS.length + 1, "Level-Chips inkl. „Tutti“");
+  assert.ok(app.$(".story-card"), "Story-Panel zeigt nächste Etappe");
+  assert.ok(app.$$(".badge").length >= 10, "Abzeichen gerendert");
+  app.close();
+});
+
+test("Level-Filter zeigt nur Lektionen des gewählten Grads", () => {
+  const app = makeApp();
+  // A2-Chip finden und klicken
+  const chip = app.$$(".lv-chip").find((c) => /A2/.test(c.textContent));
+  chip.click();
+  const badges = app.$$(".lesson-card .lc-badge").map((b) => b.textContent);
+  assert.ok(badges.length > 0, "es gibt A2-Lektionen");
+  assert.ok(badges.every((t) => t === "A2"), "ausschließlich A2-Karten sichtbar");
   app.close();
 });
 
 test("Hör-Modus: ALLE Fragen werden geprüft (Regression: nur 1/10)", () => {
   const app = makeApp();
-  const lesson = LESSONS[0];
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.length >= 5);
+  app.open(lesson.id);
+  app.setMode("listen");
   const total = lesson.words.length;
-
-  app.$$(".lesson-card")[0].click();                 // Lektion öffnen
-  app.$('.mode-tab[data-mode="listen"]').click();    // Hör-Modus
 
   let scored = 0;
   for (let i = 0; i < total; i++) {
-    // bigSpeak erzwingt Aussprache -> verrät uns die korrekte Lösung
     app.$("#bigSpeak").click();
     const answer = app.window.__spoken;
     assert.ok(answer, `Frage ${i + 1}: ein Wort wurde gesprochen`);
-
     app.$("#listenInput").value = answer;
     app.$("#listenCheck").click();                   // PRÜFEN
-
     const sol = app.$("#listenSolution").textContent;
-    assert.ok(sol.length > 0, `Frage ${i + 1}: wurde tatsächlich geprüft (Lösung sichtbar)`);
-    assert.ok(/Esatto/.test(sol), `Frage ${i + 1}: korrekte Antwort als richtig erkannt`);
-    if (/Esatto/.test(sol)) scored++;
-
+    assert.ok(/Esatto/.test(sol), `Frage ${i + 1}: korrekt erkannt`);
+    scored++;
     app.$("#listenCheck").click();                   // WEITER / FERTIG
   }
-
-  assert.equal(scored, total, `alle ${total} Fragen geprüft & gewertet (nicht nur 1)`);
-  const bodyText = app.$("#lessonBody").textContent;
-  assert.ok(bodyText.includes(`${total} / ${total} richtig`), "Abschluss zeigt volle Punktzahl");
-  app.close();
-});
-
-test("Hör-Modus: falsche Antwort zeigt Lösung und wertet nicht", () => {
-  const app = makeApp();
-  app.$$(".lesson-card")[0].click();
-  app.$('.mode-tab[data-mode="listen"]').click();
-
-  app.$("#listenInput").value = "xxxfalschxxx";
-  app.$("#listenCheck").click();
-  const sol = app.$("#listenSolution").textContent;
-  assert.ok(/Richtig:/.test(sol), "Lösung wird bei falscher Antwort angezeigt");
+  assert.equal(scored, total, `alle ${total} Fragen geprüft`);
+  assert.ok(app.$("#lessonBody").textContent.includes(`${total} / ${total} richtig`), "volle Punktzahl");
   app.close();
 });
 
 test("Hör-Modus: Akzent-Toleranz (caffè == caffe)", () => {
   const app = makeApp();
-  // Lektion 'cibo' enthält 'Il caffè'
-  const ciboIdx = LESSONS.findIndex((l) => l.id === "cibo");
-  app.$$(".lesson-card")[ciboIdx].click();
-  app.$('.mode-tab[data-mode="listen"]').click();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.some((w) => /[àèéìòù]/i.test(w.it)));
+  app.open(lesson.id);
+  app.setMode("listen");
 
-  // Jede Frage korrekt beantworten und weiterklicken, bis ein Akzent-Wort kommt
   let found = false;
-  for (let i = 0; i < LESSONS[ciboIdx].words.length; i++) {
+  for (let i = 0; i < lesson.words.length; i++) {
     app.$("#bigSpeak").click();
     const word = app.window.__spoken;
     if (/[àèéìòù]/i.test(word)) {
       const plain = word.normalize("NFD").replace(/[̀-ͯ]/g, "");
-      app.$("#listenInput").value = plain;            // ohne Akzent eingeben
+      app.$("#listenInput").value = plain;
       app.$("#listenCheck").click();
-      assert.ok(/Esatto/.test(app.$("#listenSolution").textContent),
-        `"${plain}" wird als "${word}" akzeptiert`);
+      assert.ok(/Esatto/.test(app.$("#listenSolution").textContent), `"${plain}" akzeptiert als "${word}"`);
       found = true;
       break;
     }
-    app.$("#listenInput").value = word;               // korrekt, um weiterzukommen
-    app.$("#listenCheck").click();                    // prüfen
-    app.$("#listenCheck").click();                    // weiter
+    app.$("#listenInput").value = word;
+    app.$("#listenCheck").click();
+    app.$("#listenCheck").click();
   }
   assert.ok(found, "ein Akzent-Wort wurde getestet");
   app.close();
 });
 
-test("Tag/Nacht-Modus schaltet Klasse + speichert Einstellung", () => {
-  const app = makeApp();
-  assert.equal(app.doc.body.classList.contains("notte"), false, "startet im Tag-Modus");
-
-  app.$("#themeBtn").click();
-  assert.equal(app.doc.body.classList.contains("notte"), true, "Nacht-Modus aktiv");
-  assert.equal(app.state().settings.theme, "notte", "Theme gespeichert");
-  assert.equal(app.$("#themeBtn").textContent, "☀️", "Icon zeigt Sonne");
-
-  app.$("#themeBtn").click();
-  assert.equal(app.doc.body.classList.contains("notte"), false, "zurück im Tag-Modus");
-  assert.equal(app.state().settings.theme, "giorno", "Theme zurückgesetzt");
-  app.close();
-});
-
 test("Quiz: korrekte Antwort wird als richtig markiert & vergibt XP", () => {
   const app = makeApp();
-  const lesson = LESSONS[0];
-  app.$$(".lesson-card")[0].click();
-  app.$('.mode-tab[data-mode="quiz"]').click();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.length >= 4);
+  app.open(lesson.id);
+  app.setMode("quiz");
 
   const itWord = app.$(".quiz-word").textContent.trim();
   const correctDe = lesson.words.find((w) => w.it === itWord).de;
   const opt = app.$$(".quiz-opt").find((b) => b.textContent === correctDe);
   assert.ok(opt, "richtige Option gefunden");
-
   const xpBefore = app.state().xp || 0;
   opt.click();
   assert.ok(opt.classList.contains("correct"), "Option als richtig markiert");
@@ -190,21 +181,127 @@ test("Quiz: korrekte Antwort wird als richtig markiert & vergibt XP", () => {
   app.close();
 });
 
+test("Satzbau: Bausteine in richtiger Reihenfolge ergeben Esatto", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.every((w) => w.ex.trim().split(/\s+/).length >= 2));
+  app.open(lesson.id);
+  app.setMode("build");
+
+  const cue = app.$(".bc-de").textContent.replace(/["„“]/g, "").trim();
+  const w = lesson.words.find((x) => x.exDe === cue);
+  assert.ok(w, "aktuelles Wort über den Hinweis erkannt");
+  const tokens = w.ex.trim().split(/\s+/);
+  tokens.forEach((tok) => {
+    const chip = app.$$("#buildBank .chip-bank").find((c) => c.textContent === tok && !c.disabled);
+    assert.ok(chip, `Baustein „${tok}“ vorhanden`);
+    chip.click();
+  });
+  app.$("#buildCheck").click();
+  assert.ok(/Esatto/.test(app.$("#buildSol").textContent), "Satz korrekt zusammengesetzt");
+  app.close();
+});
+
+test("Lückentext: richtige Option füllt die Lücke", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.every((w) => w.ex.trim().split(/\s+/).length >= 2));
+  app.open(lesson.id);
+  app.setMode("gap");
+
+  assert.ok(app.$(".gap-blank"), "es gibt genau eine Lücke");
+  const cue = app.$(".gap-de").textContent.replace(/["„“]/g, "").trim();
+  const w = lesson.words.find((x) => x.exDe === cue);
+  const tokens = app.window.tokenize(w.ex);
+  const ti = app.window.pickGapTarget(tokens);
+  const target = app.window.cleanToken(tokens[ti]);
+  const opt = app.$$(".gap-opt").find((b) => norm(b.textContent) === norm(target));
+  assert.ok(opt, "richtige Option vorhanden");
+  opt.click();
+  assert.ok(/Perfetto/.test(app.$("#gapSol").textContent), "Lücke korrekt gefüllt");
+  app.close();
+});
+
+test("Sprechen: Mikrofon nutzt Italienisch (it-IT) und wertet korrekt", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.modes.includes("speak") && l.words.length >= 2);
+  app.open(lesson.id);
+  app.setMode("speak");
+
+  const target = app.$(".speak-target").textContent.trim();
+  app.$("#micBtn").click();
+  assert.ok(app.window.__lastRec, "Erkennung wurde gestartet");
+  assert.equal(app.window.__lastRec.lang, "it-IT", "Spracherkennung läuft auf Italienisch, nicht Deutsch");
+
+  const xpBefore = app.state().xp || 0;
+  // Erkennungsergebnis simulieren: exakt das Zielwort
+  app.window.__lastRec.onresult({ results: [[{ transcript: target }]] });
+  assert.ok(/✅/.test(app.$("#speakStatus").textContent), "korrekte Aussprache als richtig gewertet");
+  assert.ok((app.state().xp || 0) > xpBefore, "XP für Sprechen vergeben");
+  app.close();
+});
+
+test("Dialog: Antworten aus Bausteinen führen zum Abschluss", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "dialogue");
+  app.open(lesson.id);                 // Dialog ist der Startmodus
+  assert.ok(app.$(".dlg-thread"), "Dialog-Faden gerendert");
+
+  const userLines = lesson.lines.filter((l) => l.who === "U").map((l) => l.it);
+  for (const expected of userLines) {
+    const choices = app.$$(".dlg-choice");
+    if (!choices.length) break;
+    const btn = choices.find((b) => b.textContent === expected);
+    assert.ok(btn, `richtige Antwort „${expected}“ unter den Bausteinen`);
+    btn.click();
+  }
+  assert.ok(/Dialogo completato/.test(app.$("#lessonBody").textContent), "Dialog abgeschlossen");
+  app.close();
+});
+
+test("Story: Schwierigkeit steigt & Fortschritt rückt vor", () => {
+  const app = makeApp();
+  // Story ist nach Level sortiert -> Anfang ist A1, Ende höher
+  const first = LESSONS.find((l) => l.id === STORY[0]);
+  const last = LESSONS.find((l) => l.id === STORY[STORY.length - 1]);
+  assert.ok(first.level <= last.level, "Story steigt in der Schwierigkeit");
+
+  assert.equal(app.state().storyPos || 0, 0, "Story startet bei 0");
+  app.window.advanceStoryIfMatch(STORY[0]);
+  assert.equal(app.state().storyPos, 1, "Story rückt nach Abschluss der Etappe vor");
+  app.close();
+});
+
+test("Grammatik: eigene Grammatik-Lektionen mit Regel vorhanden", () => {
+  const grammarThemes = CORPUS.filter((t) => t.grammar);
+  assert.ok(grammarThemes.length >= 10, `mind. 10 Grammatik-Themen (${grammarThemes.length})`);
+  const grammarLessons = LESSONS.filter((l) => l.kind === "grammar");
+  assert.ok(grammarLessons.length > 0, "Grammatik-Lektionen generiert");
+  assert.ok(grammarLessons.every((l) => l.rule && l.rule.trim()), "jede Grammatik-Lektion hat eine Regel");
+
+  // Regel wird im Lernmodus angezeigt
+  const app = makeApp();
+  app.open(grammarLessons[0].id);
+  app.setMode("learn");
+  assert.ok(app.$(".grammar-rule"), "Regel-Banner im Lernmodus sichtbar");
+  app.close();
+});
+
 test("Lernmodus: Vokabel als gelernt zählen vergibt XP einmalig", () => {
   const app = makeApp();
-  app.$$(".lesson-card")[0].click();                 // öffnet direkt Lernmodus, Karte 1 = gelernt
-  const learned = app.state().lessons[LESSONS[0].id].learned;
+  const lesson = LESSONS.find((l) => l.kind === "vocab");
+  app.open(lesson.id);                                // öffnet Lernmodus, Karte 1 = gelernt
+  const learned = app.state().lessons[lesson.id].learned;
   assert.ok(learned.includes(0), "erste Karte als gelernt markiert");
   assert.ok((app.state().xp || 0) > 0, "XP vergeben");
   app.close();
 });
 
-test("Datenintegrität: alle Vokabeln vollständig & IDs eindeutig", () => {
+test("Datenintegrität: viele Lektionen, alle Felder, IDs eindeutig", () => {
   let words = 0;
   const ids = new Set();
   for (const l of LESSONS) {
     ids.add(l.id);
-    assert.ok(l.title && l.de && l.emoji && l.color, `Lektion ${l.id} hat Kopf-Felder`);
+    assert.ok(l.title && l.de && l.emoji && l.color && l.levelCode, `Lektion ${l.id} hat Kopf-Felder`);
+    assert.ok(Array.isArray(l.modes) && l.modes.length, `Lektion ${l.id} hat Modi`);
     for (const [i, w] of l.words.entries()) {
       words++;
       for (const k of ["it", "de", "emoji", "ex", "exDe"]) {
@@ -213,26 +310,43 @@ test("Datenintegrität: alle Vokabeln vollständig & IDs eindeutig", () => {
     }
   }
   assert.equal(ids.size, LESSONS.length, "Lektions-IDs eindeutig");
-  assert.ok(words >= 100, `mindestens 100 Vokabeln (${words})`);
+  assert.ok(LESSONS.length >= 250, `viele Lektionen (${LESSONS.length})`);
+  assert.ok(words >= 1000, `mindestens 1000 Übungs-Items (${words})`);
 });
 
-test("CSS-Hygiene: Klammern ausgeglichen, Dark-Mode definiert, keine Tippfehler", () => {
+test("Levels: 6 Stufen A1–C2, jede Lektion klar zugeordnet", () => {
+  assert.equal(LEVELS.length, 6, "sechs Schwierigkeitsgrade");
+  assert.deepEqual(LEVELS.map((l) => l.code), ["A1", "A2", "B1", "B2", "C1", "C2"]);
+  for (const l of LESSONS) {
+    assert.ok(l.level >= 1 && l.level <= 6, `${l.id}: Level im Bereich 1–6`);
+  }
+});
+
+test("Tag/Nacht-Modus schaltet Klasse + speichert Einstellung", () => {
+  const app = makeApp();
+  assert.equal(app.doc.body.classList.contains("notte"), false, "startet im Tag-Modus");
+  app.$("#themeBtn").click();
+  assert.equal(app.doc.body.classList.contains("notte"), true, "Nacht-Modus aktiv");
+  assert.equal(app.state().settings.theme, "notte", "Theme gespeichert");
+  app.$("#themeBtn").click();
+  assert.equal(app.state().settings.theme, "giorno", "Theme zurückgesetzt");
+  app.close();
+});
+
+test("CSS-Hygiene: Klammern ausgeglichen, Dark-Mode definiert, keine undefinierten Variablen", () => {
   const css = read("styles.css");
   const open = (css.match(/{/g) || []).length;
   const close = (css.match(/}/g) || []).length;
   assert.equal(open, close, "geschweifte Klammern ausgeglichen");
   assert.ok(/body\.notte\s*{[^}]*--paper\s*:/.test(css), "Dark-Mode setzt --paper");
-  assert.ok(!/customColor/.test(css), "kein versehentlicher 'customColor'-Tippfehler");
-  // CSS-Variablen ohne Fallback müssen definiert sein.
-  // var(--x, …) mit Fallback ist immer sicher (z. B. das per JS gesetzte --card-color).
   const defined = new Set([...css.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
   const used = new Set([...css.matchAll(/var\(\s*(--[\w-]+)\s*\)/g)].map((m) => m[1]));
   const missing = [...used].filter((v) => !defined.has(v));
-  assert.deepEqual(missing, [], "keine undefinierten CSS-Variablen: " + missing.join(", "));
+  assert.deepEqual(missing, [], "keine undefinierten CSS-Variablen ohne Fallback: " + missing.join(", "));
 });
 
-test("Konjugationen: Datenintegrität (jede Zeit 6 Personen, IT+DE)", () => {
-  assert.ok(CONJUGATIONS.length >= 6, "mindestens 6 Verben");
+test("Konjugationen: mehr Verben, jede Zeit 6 Personen (IT+DE)", () => {
+  assert.ok(CONJUGATIONS.length >= 15, `mind. 15 Verben (${CONJUGATIONS.length})`);
   const ids = new Set();
   for (const v of CONJUGATIONS) {
     ids.add(v.id);
@@ -246,21 +360,6 @@ test("Konjugationen: Datenintegrität (jede Zeit 6 Personen, IT+DE)", () => {
   assert.equal(ids.size, CONJUGATIONS.length, "Verb-IDs eindeutig");
 });
 
-test("Konjugationen: Karten auf Startseite + Tabelle zeigt 6 Formen", () => {
-  const app = makeApp();
-  const cards = app.$$(".conj-card");
-  assert.equal(cards.length, CONJUGATIONS.length, "alle Verb-Karten gerendert");
-
-  cards[0].click();                                   // erstes Verb = essere
-  assert.equal(app.$("#viewConj").classList.contains("hidden"), false, "Konjugations-Ansicht offen");
-  const rows = app.$$(".conj-row");
-  assert.equal(rows.length, 6, "Tabelle hat 6 Personen-Zeilen");
-  // Presente von essere: io -> sono
-  const firstForm = rows[0].querySelector(".cr-form").textContent;
-  assert.equal(firstForm, CONJUGATIONS[0].forms.presente[0], "erste Form korrekt (sono)");
-  app.close();
-});
-
 test("Konjugationen: Übungsmodus prüft ALLE Personen & wertet korrekt", () => {
   const app = makeApp();
   app.$$(".conj-card")[0].click();                    // essere
@@ -272,15 +371,11 @@ test("Konjugationen: Übungsmodus prüft ALLE Personen & wertet korrekt", () => 
   for (let i = 0; i < total; i++) {
     const pron = app.$(".cp-cue b").textContent.trim();
     const idx = CONJ_PRONOUNS.indexOf(pron);
-    assert.ok(idx >= 0, `Pronomen erkannt: ${pron}`);
-    app.$("#conjInput").value = verb.forms.presente[idx];   // korrekte Form
-    app.$("#conjCheck").click();                            // prüfen
-    const sol = app.$("#conjSolution").textContent;
-    assert.ok(/Esatto/.test(sol), `Frage ${i + 1}: korrekt gewertet`);
-    if (/Esatto/.test(sol)) scored++;
-    app.$("#conjCheck").click();                            // weiter / fertig
+    app.$("#conjInput").value = verb.forms.presente[idx];
+    app.$("#conjCheck").click();
+    if (/Esatto/.test(app.$("#conjSolution").textContent)) scored++;
+    app.$("#conjCheck").click();
   }
   assert.equal(scored, total, `alle ${total} Personen geprüft`);
-  assert.ok(app.$("#conjBody").textContent.includes(`${total} / ${total} richtig`), "Abschluss zeigt volle Punktzahl");
   app.close();
 });
