@@ -804,3 +804,31 @@ body.notte .story-card { background: linear-gradient(160deg, #2f2620, #251f19); 
   .mic-btn { width: 92px; height: 92px; font-size: 2.3rem; }
   .dlg-bubble { max-width: 92%; }
 }
+
+/* =========================================================
+   TOUCH — kein „klebendes" Hover.
+   Auf Touch-Geräten bleibt sonst die zuletzt getippte Antwort
+   optisch markiert und scheint bei der nächsten Frage „selektiert".
+   Darum auf Geräten ohne echtes Hover alle Hover-Effekte abschalten
+   und den grauen/blauen Tap-Blitz entfernen.
+   ========================================================= */
+button, .lesson-card, .conj-card, .badge, .lv-chip, .area-chip, .story-lv-chip {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  .icon-btn:hover, #settingsBtn:hover, .lesson-card:hover, .badge:hover,
+  .flash-nav .nav-arrow:hover, .conj-card:hover, .mic-btn:hover,
+  .quiz-opt:hover, .gap-opt:hover, .dlg-choice:hover, .chip:hover,
+  .lv-chip:hover, .area-chip:hover, .story-lv-chip:hover,
+  .level-pick-btn:hover, .mode-tab:hover, .btn-primary:hover, .btn-ghost:hover {
+    transform: none;
+  }
+  /* Hintergrund-Wechsel beim Hover zurücknehmen (sah aus wie „ausgewählt") */
+  .quiz-opt:hover, body.notte .quiz-opt:hover { background: var(--paper-card); }
+  .dlg-choice:hover { background: var(--paper-card); }
+  body.notte .dlg-choice:hover { background: #2a221b; }
+  .btn-ghost:hover, body.notte .btn-ghost:hover { background: var(--paper-card); }
+  .lesson-card:hover { box-shadow: 0 6px 18px var(--shadow); }
+  .conj-card:hover { box-shadow: 0 5px 14px var(--shadow); }
+}
