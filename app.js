@@ -465,7 +465,7 @@ function openLesson(id) {
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
   const badge = $("#lessonLevelBadge");
   if (badge) {
-    badge.textContent = lvl ? `${lvl.emoji} ${lvl.code} · ${lvl.de}` : lesson.levelCode;
+    badge.innerHTML = lvl ? `${lvl.emoji} ${lvl.code}<span class="lvl-de"> · ${lvl.de}</span>` : lesson.levelCode;
     badge.style.setProperty("--lv", lvl ? lvl.color : lesson.color);
   }
   buildModeTabs(lesson, startMode);

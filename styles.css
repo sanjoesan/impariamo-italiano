@@ -24,12 +24,15 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+
+img, svg, video { max-width: 100%; height: auto; }
 
 body {
   margin: 0;
   font-family: "Nunito", system-ui, sans-serif;
   color: var(--ink);
+  overflow-wrap: break-word;
   background-color: var(--paper);
   /* Subtile Papier-Textur + warmer Verlauf */
   background-image:
@@ -218,11 +221,11 @@ main { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; p
 
 /* ===================== LEKTION-ANSICHT ===================== */
 .lesson-top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding-top: 18px; }
-.lesson-title-wrap { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.lesson-title-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin-right: auto; min-width: 0; }
 .lesson-emoji { font-size: 2rem; }
-#lessonTitle { font-size: 1.7rem; color: var(--terracotta-d); }
+#lessonTitle { font-size: 1.7rem; color: var(--terracotta-d); min-width: 0; }
 
-.mode-tabs { display: flex; gap: 6px; background: rgba(60,46,34,0.08); padding: 5px; border-radius: 999px; }
+.mode-tabs { display: flex; flex-wrap: wrap; gap: 6px; background: rgba(60,46,34,0.08); padding: 5px; border-radius: 18px; max-width: 100%; }
 .mode-tab {
   border: none; background: transparent; cursor: pointer;
   padding: 8px 14px; border-radius: 999px; font-weight: 800; font-size: .9rem;
@@ -526,14 +529,49 @@ body.notte .tense-tab { background: var(--paper-card); }
 }
 
 /* ===================== RESPONSIVE ===================== */
+
+/* ---- Tablet / großes Smartphone ---- */
+@media (max-width: 720px) {
+  main { padding: 0 14px 50px; }
+  .section-head { gap: 12px; margin: 28px 0 16px; }
+  .section-head h2 { font-size: 1.35rem; white-space: normal; }
+  .hero { padding: 36px 6px 24px; }
+}
+
+/* ---- Smartphone ---- */
 @media (max-width: 620px) {
-  .lesson-top { flex-direction: column; align-items: stretch; }
-  .lesson-title-wrap { margin-right: 0; justify-content: center; }
-  .mode-tabs { justify-content: center; }
+  /* Topbar kompakter */
+  .topbar-inner { padding: 8px 12px; gap: 8px 10px; }
+  .brand-text { font-size: 1.45rem; }
+  .brand-mark { font-size: 1.4rem; }
+  .stats { gap: 10px; width: 100%; justify-content: space-between; }
+  .xp-stat { order: 5; flex: 1 1 100%; }
+  .xp-wrap { width: 100%; }
+
+  /* Lektionskopf */
+  .lesson-top { flex-direction: column; align-items: stretch; gap: 10px; }
+  .lesson-title-wrap { margin-right: 0; justify-content: center; text-align: center; }
+  #lessonTitle { font-size: 1.45rem; }
+  .mode-tabs { justify-content: center; gap: 5px; }
+  .mode-tab { padding: 7px 11px; font-size: .82rem; white-space: nowrap; }
+
+  /* Übungen */
   .quiz-options { grid-template-columns: 1fr; }
   .match-stage { gap: 14px; }
-  .xp-wrap { width: 110px; }
   .hero-title { text-shadow: 1px 2px 0 rgba(212,146,42,0.25); }
+  .hero-cta-row .btn { flex: 1 1 auto; }
+}
+
+/* ---- Kleines Smartphone ---- */
+@media (max-width: 380px) {
+  main { padding: 0 10px 44px; }
+  .lvl-de { display: none; }            /* Level-Badge: nur "🌱 A1" */
+  .stats { gap: 8px; }
+  .stat-icon { font-size: 1.05rem; }
+  .lesson-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: clamp(2.1rem, 11vw, 3rem); }
+  .flash-word { font-size: 1.8rem; }
+  .quiz-word { font-size: 1.7rem; }
 }
 
 /* =========================================================
