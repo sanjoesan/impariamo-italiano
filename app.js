@@ -125,7 +125,8 @@ function loadVoices() {
   populateVoiceSelect();
 }
 
-function speak(text, btn) {
+/* `onDone` (optional): wird nach dem Sprechen aufgerufen — auch bei Abbruch/Fehler */
+function speak(text, btn, onDone) {
   if (!("speechSynthesis" in window)) {
     toast("⚠️ Sprachausgabe wird hier nicht unterstützt");
     return;
@@ -136,10 +137,11 @@ function speak(text, btn) {
   u.rate = state.settings.rate || 0.95;
   u.pitch = 1;
   if (itVoice) u.voice = itVoice;
-  if (btn) {
-    btn.classList.add("speaking");
-    u.onend = u.onerror = () => btn.classList.remove("speaking");
-  }
+  if (btn) btn.classList.add("speaking");
+  u.onend = u.onerror = () => {
+    if (btn) btn.classList.remove("speaking");
+    if (onDone) onDone();
+  };
   speechSynthesis.speak(u);
 }
 

@@ -795,6 +795,9 @@ body.notte .story-lv-chip { background: #2a221b; }
 .dlg-name { font-size: 0.75rem; font-weight: 800; opacity: .75; }
 .dlg-text { font-size: 1.1rem; font-weight: 700; }
 .dlg-tr { font-size: 0.85rem; opacity: .8; font-style: italic; }
+/* Verstehen (modus-verstehen.js): Übersetzung verdeckt, gesprochene Zeile hervorgehoben */
+.dlg-hide-tr .dlg-tr { display: none; }
+.dlg-bubble.playing { box-shadow: 0 0 0 3px var(--gold); }
 .dlg-speak { position: absolute; bottom: 4px; right: 8px; background: none; border: none; cursor: pointer; font-size: 0.95rem; opacity: .8; }
 .dlg-prompt { text-align: center; font-weight: 800; color: var(--ink-soft); margin-bottom: 10px; }
 .dlg-choices { display: flex; flex-direction: column; gap: 10px; }

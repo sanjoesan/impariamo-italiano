@@ -15820,6 +15820,9 @@ function buildLessons() {
     const words = d.lines.map((ln) => ({
       it: ln.it, de: ln.de, emoji: d.emoji, ex: ln.it, exDe: ln.de
     }));
+    // Verständnisfragen (dialog-fragen.js) → „📰 Verstehen" als erster Schritt
+    const questions = (DIALOG_FRAGEN[LANG_ACTIVE] || {})[d.id];
+    const drills = questions ? { understand: comprehensionDrill(d.lines, questions) } : {};
     out.push({
       id: `dlg-${d.id}`,
       kind: "dialogue",
@@ -15835,7 +15838,8 @@ function buildLessons() {
       scene: d.scene,
       lines: d.lines,
       words: words,
-      modes: DIALOGUE_MODES.slice()
+      drills,
+      modes: drills.understand ? ["understand", ...DIALOGUE_MODES] : DIALOGUE_MODES.slice()
     });
   });
 

@@ -373,6 +373,47 @@ test("Konjugieren: getippte Formen werden geprüft, Etappe gilt danach als gesch
   app.close();
 });
 
+test("Verständnisfragen (IT): jeder Dialog hat 3 eindeutige Fragen mit Beleg-Zeile", () => {
+  const dialogs = LESSONS.filter((l) => l.kind === "dialogue");
+  assert.equal(dialogs.length, DATA.DIALOGHI.length);
+  for (const l of dialogs) {
+    const qs = l.drills.understand;
+    assert.equal(qs.length, 3, `${l.id}: 3 Fragen`);
+    assert.equal(l.modes[0], "understand", `${l.id}: Verstehen zuerst`);
+    for (const q of qs) {
+      assert.ok(q.ask && q.options.includes(q.answer), `${l.id}: Antwort unter den Optionen`);
+      assert.equal(new Set(q.options).size, 4, `${l.id}: 4 verschiedene Optionen`);
+      assert.ok(q.explain && l.lines.some((ln) => q.explain.includes(ln.it)), `${l.id}: Beleg ist eine Dialogzeile`);
+    }
+  }
+});
+
+test("Verstehen: Dialog wird vorgelesen & mitgelesen, danach Fragen bis zum Abschluss", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "dialogue");
+  app.open(lesson.id);
+  assert.equal(app.$$("#dlgThread .dlg-bubble").length, lesson.lines.length, "alle Zeilen zum Mitlesen");
+  assert.equal(app.window.__spoken, lesson.lines[0].it, "Vorlesen startet mit der ersten Zeile");
+  assert.ok(app.$("#dlgThread .dlg-bubble").classList.contains("playing"), "gesprochene Zeile hervorgehoben");
+  assert.ok(app.$("#understandStage").classList.contains("dlg-hide-tr"), "Übersetzung zunächst verdeckt");
+  app.$("#udTr").click();
+  assert.ok(!app.$("#understandStage").classList.contains("dlg-hide-tr"), "Übersetzung einblendbar");
+
+  app.$("#udQuestions").click();
+  for (let i = 0; i < 3; i++) {
+    const ask = app.$(".choice-ask").textContent;
+    const q = lesson.drills.understand.find((x) => x.ask === ask);
+    assert.ok(q, `Frage erkannt: ${ask}`);
+    app.$$("#choiceOptions .gap-opt").find((b) => b.textContent === q.answer).click();
+    assert.ok(app.$(".choice-explain").textContent.includes(q.explain), "Beleg-Zeile wird gezeigt");
+    app.$("#choiceNext").click();
+  }
+  assert.ok(app.$(".done-screen h3").textContent.includes("3 / 3"));
+  const next = app.$("#nextStepBtn");
+  assert.ok(next && next.textContent.includes("Dialog"), "Weiter führt zum Mitspielen im Dialog");
+  app.close();
+});
+
 test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.drills && l.drills.prep);
@@ -469,7 +510,9 @@ test("Sprechen: Mikrofon nutzt Italienisch (it-IT) und wertet korrekt", () => {
 test("Dialog: Antworten aus Bausteinen führen zum Abschluss", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.kind === "dialogue");
-  app.open(lesson.id);                 // Dialog ist der Startmodus
+  app.open(lesson.id);
+  assert.equal(app.$("#modeTabs .mode-tab.active").dataset.mode, "understand", "Startmodus: erst verstehen");
+  app.setMode("dialogue");
   assert.ok(app.$(".dlg-thread"), "Dialog-Faden gerendert");
 
   const userLines = lesson.lines.filter((l) => l.who === "U").map((l) => l.it);

@@ -28,6 +28,8 @@ Diese Dateien tragen alles (Lade-Reihenfolge = `<script>`-Tags in `index.html`; 
 | `grammatik.js` | Grammatik-Aufgaben (vor `data.js`): `GRAMMAR_RULES` je Sprache, reine Erzeuger `articleDrill`/`prepDrill`/`ruleDrill` → `lesson.drills` |
 | `modus-auswahl.js` | Auswahl-Übung (nach `app.js`): spielt `lesson.drills[mode]` ab (Artikel, Präposition, Regel anwenden) |
 | `modus-konjugieren.js` | Modus `conj` (nach `app.js`): Verbform tippen, Aufgaben aus `lesson.drills.conj` (Zeiten-Etappen) |
+| `dialog-fragen.js` | Daten (vor `data.js`): `DIALOG_FRAGEN[lang][dialogId]` = 3 Verständnisfragen je Dialog (`line` = Beleg-Zeile) |
+| `modus-verstehen.js` | Modus `understand` (nach `app.js`): Dialog vorlesen & mitlesen, dann Fragen via Auswahl-Übung |
 | `app.js`     | App-Logik: State (localStorage), Rendering, Spielmodi, Sprachausgabe/-erkennung |
 | `styles.css` | Komplettes Design inkl. Dark-Mode (`body.notte`) und Responsive |
 
