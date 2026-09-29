@@ -127,6 +127,8 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
   Stimme zählt nur, wenn sie in `courseVoices()` liegt. `pickVoice` und die Auswahl-Liste nutzen dieselbe Funktion.
 - **Englisch-Kurs = britisches Englisch** (Schreibweise -our/-re/-ise, Wortschatz flat/chemist's/booking,
   britische Redewendungen). Ein Test sperrt typische US-Wörter/-Wendungen — neue EN-Inhalte daran messen.
+  Beispielsätze müssen natürlich sein: kein Infinitiv als Subjekt („To X is …"), kein „one's/oneself" im
+  Satz (nur in der Grundform `it`), jede Wendung mit deutscher Bedeutung (Test).
 
 ## Konventionen
 - **UI-Sprache: Deutsch** (Lern-Inhalt Italienisch + Deutsch). Kommentare auf Deutsch.

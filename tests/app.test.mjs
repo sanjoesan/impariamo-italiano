@@ -521,6 +521,17 @@ test("Englisch-Kurs: nur britisches Englisch (keine US-Wörter, -Schreibweisen o
   assert.deepEqual(ize, [], "britische -ise-Schreibung");
 });
 
+test("Englisch-Kurs: Beispielsätze natürlich (kein „To X is …\", kein „one's\" im Satz), jede Wendung übersetzt", () => {
+  const en = new Function(DATA_SOURCE + "\n;return CORPUS_EN;")();
+  const words = en.flatMap((t) => Object.values(t.levels).flat());
+  const infinitiveSubject = words.filter((w) => /^To [a-z][^,.;:]*? (is|was|are|were|seems|makes|lets|comes|serves) /.test(w.ex));
+  assert.deepEqual(infinitiveSubject.map((w) => w.ex), [], "Infinitiv als Satzsubjekt (Generator-Rest)");
+  const oneS = words.filter((w) => /\bone's\b|\boneself\b/.test(w.ex));
+  assert.deepEqual(oneS.map((w) => w.ex), [], "„one's/oneself\" gehört in die Grundform, nicht in den Beispielsatz");
+  const noDe = words.filter((w) => !w.de || /^[—–-]$/.test(w.de.trim()));
+  assert.deepEqual(noDe.map((w) => w.it), [], "jede Wendung hat eine deutsche Bedeutung");
+});
+
 test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.drills && l.drills.prep);
