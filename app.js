@@ -450,10 +450,7 @@ function makeLessonCard(lesson) {
   const stars = "★".repeat(prog.stars || 0) + "☆".repeat(3 - (prog.stars || 0));
   const lvl = LEVEL_BY_CODE[lesson.levelCode];
   const tg = tags();
-  const kindTag = lesson.kind === "dialogue" ? tg.dialogue
-                : lesson.kind === "grammar" ? tg.grammar
-                : lesson.area === "Sfide" ? tg.sfide
-                : lesson.area === "Ripasso" ? tg.ripasso : "📚";
+  const kindTag = tg[lesson.tag] || "📚";   // lesson.tag setzt der Generator (data.js)
 
   const card = document.createElement("button");
   card.className = "lesson-card";

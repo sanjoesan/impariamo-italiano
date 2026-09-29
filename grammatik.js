@@ -49,6 +49,35 @@ const GRAMMAR_RULES = {
   }
 };
 
+/* Zeitentrainer im Lernpfad: welche Zeit ab welcher Stufe, wie viele Verben je Etappe.
+   Fehlt eine Sprache, bekommt sie (noch) keine Zeiten-Etappen. */
+const TENSE_STAGES = {
+  it: {
+    levels: { presente: "A1", passato: "A2", imperfetto: "A2", futuro: "B1", condizionale: "B1", congiuntivo: "B2" },
+    verbsPerStage: 2
+  }
+};
+
+/* Lernkarten einer Zeiten-Etappe: „io sono" ↔ „ich bin" (alle Personen der Verben) */
+function tenseWords(verbs, tenseId, pronouns) {
+  return verbs.flatMap((v) => pronouns.map((p, i) => {
+    const it = `${p} ${v.forms[tenseId][i]}`;
+    const de = v.formsDe[tenseId][i];
+    return { it, de, emoji: v.emoji, ex: it, exDe: de };
+  }));
+}
+
+/* Tipp-Aufgaben einer Zeiten-Etappe: Person + Infinitiv → Verbform */
+function conjDrill(verbs, tense, pronouns, pronounsDe) {
+  return verbs.flatMap((v) => pronouns.map((p, i) => ({
+    cue: p,
+    verb: v.inf,
+    answer: v.forms[tense.id][i],
+    hint: `${v.infDe} — ${pronounsDe[i]} … (${tense.de})`,
+    say: `${p} ${v.forms[tense.id][i]}`
+  })));
+}
+
 /* Einfacher, stabiler Zahlenwert eines Texts — für deterministische Ablenker */
 function stableHash(text) {
   let h = 0;

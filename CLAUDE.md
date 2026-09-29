@@ -27,6 +27,7 @@ Diese Dateien tragen alles (Lade-Reihenfolge = `<script>`-Tags in `index.html`; 
 | `wortinfo.js` | Wort-Info-UI: `glossSentenceHtml`/`glossWordHtml` machen Satzwörter klickbar, Feld `#wordInfo` |
 | `grammatik.js` | Grammatik-Aufgaben (vor `data.js`): `GRAMMAR_RULES` je Sprache, reine Erzeuger `articleDrill`/`prepDrill`/`ruleDrill` → `lesson.drills` |
 | `modus-auswahl.js` | Auswahl-Übung (nach `app.js`): spielt `lesson.drills[mode]` ab (Artikel, Präposition, Regel anwenden) |
+| `modus-konjugieren.js` | Modus `conj` (nach `app.js`): Verbform tippen, Aufgaben aus `lesson.drills.conj` (Zeiten-Etappen) |
 | `app.js`     | App-Logik: State (localStorage), Rendering, Spielmodi, Sprachausgabe/-erkennung |
 | `styles.css` | Komplettes Design inkl. Dark-Mode (`body.notte`) und Responsive |
 
@@ -81,7 +82,12 @@ Lektionen werden **zur Laufzeit generiert**, nicht von Hand gepflegt:
      B1-Verteilung nicht verschieben.
   3. **Sfida pro Stufe (2b)** — nur für `advanced`-Themen, je Stufe eigene Challenge.
   4. **Dialoge** und **Ripasso** (themenübergreifende Wiederholung je Stufe, Cap `RIPASSO_CAP`).
-- `buildStory()` → `STORY`: alle Lektions-IDs nach Stufe aufsteigend sortiert (Lernpfad).
+  5. **Zeitentrainer-Etappen** (`zeiten-<tense>-<n>`, `kind: "tense"`) aus `CONJUGATIONS` × Zeit, Stufe &
+     Gruppengröße laut `TENSE_STAGES[lang]` (grammatik.js; derzeit nur IT), Modi `learn, conj, quiz`.
+- Jede Lektion trägt `tag` (`grammar`/`sfide`/`dialogue`/`ripasso`/…) → Karten-Tag über `CARD_TAGS[lang][tag]`.
+- `buildStory()` → `STORY`: alle Lektions-IDs nach Stufe, innerhalb der Stufe nach ID (Lernpfad).
+  Lektionen mit **`spread: true`** (Zusatz-Etappen) werden je Stufe **gleichmäßig** zwischen die übrigen
+  verteilt; mehrere Reihen (`theme`) verzahnen sich. „Kern-Umfang" (Tests: alle Kurse gleich) = ohne `spread`.
 
 **Folge daraus:** Mehr Lektionen einer Stufe = mehr Wörter im `CORPUS` für diese Stufe.
 Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORPUS`

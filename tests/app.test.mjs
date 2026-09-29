@@ -29,7 +29,9 @@ const courseProbe = new Function(DATA_SOURCE +
   "  lang: LANG_ACTIVE, lessons: LESSONS.length, firstId: STORY[0]," +
   "  conjInf: CONJUGATIONS[0].inf, tense0: CONJ_TENSES[0].it, pron0: CONJ_PRONOUNS[0]," +
   "  badge0: BADGES[0].name, vocabTitle: LESSONS.find(l=>l.kind==='vocab').title," +
-  "  perLevel: LESSONS.reduce((m,l)=>((m[l.levelCode]=(m[l.levelCode]||0)+1),m),{})" +
+  "  perLevel: LESSONS.reduce((m,l)=>((m[l.levelCode]=(m[l.levelCode]||0)+1),m),{})," +
+  // Kern-Umfang: ohne Zusatz-Etappen (Zeitentrainer, Gesten), die nur Kurse mit passenden Daten haben
+  "  core: LESSONS.filter(l=>!l.spread).length" +
   "}; };")();
 
 // Glossar-Probe: Wörterbuch eines Kurses ohne DOM bauen
@@ -320,6 +322,57 @@ test("Grammatik-Aufgaben (IT): Artikel, Präposition & Regel sind eindeutig und 
   assert.ok(en.every((l) => !l.modes.some((m) => ["article", "prep", "rule"].includes(m))), "EN unverändert");
 });
 
+test("Zeitentrainer (IT): Etappen je Zeit auf ihrer Stufe, gleichmäßig im Lernpfad verteilt", () => {
+  const stages = LESSONS.filter((l) => l.kind === "tense");
+  const expectLevel = { presente: "A1", passato: "A2", imperfetto: "A2", futuro: "B1", condizionale: "B1", congiuntivo: "B2" };
+  assert.ok(stages.length >= 48, `genug Etappen (${stages.length})`);
+  for (const l of stages) {
+    const tense = l.id.split("-")[1];
+    assert.equal(l.levelCode, expectLevel[tense], `${l.id} auf Stufe ${expectLevel[tense]}`);
+    assert.deepEqual(l.modes, ["learn", "conj", "quiz"]);
+    assert.equal(l.words.length, l.drills.conj.length, "je Karte eine Tipp-Aufgabe");
+    assert.ok(l.words.every((w) => w.it && w.de && w.emoji && w.ex && w.exDe), "Karten vollständig");
+  }
+  const essere = stages.find((l) => l.id === "zeiten-futuro-1").drills.conj.find((it) => it.cue === "noi" && it.verb === "Essere");
+  assert.equal(essere.answer, "saremo");
+
+  // Lernpfad: übrige Lektionen in alter Ordnung (Stufe, dann ID), Etappen dazwischen verteilt
+  const base = STORY.filter((id) => !id.startsWith("zeiten-"));
+  const lv = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
+  const sorted = base.slice().sort((a, b) => lv[a].level - lv[b].level || a.localeCompare(b));
+  assert.deepEqual(base, sorted, "Reihenfolge der übrigen Lektionen unverändert");
+  const a1 = STORY.filter((id) => lv[id].levelCode === "A1");
+  const pos = a1.map((id, i) => (id.startsWith("zeiten-") ? i : -1)).filter((i) => i >= 0);
+  const gaps = pos.slice(1).map((p, i) => p - pos[i]);
+  assert.ok(Math.max(...gaps) - Math.min(...gaps) <= 3, `A1 gleichmäßig verteilt (Abstände ${gaps.join(",")})`);
+  assert.ok(pos[0] > 0 && pos[pos.length - 1] < a1.length - 1, "weder ganz vorn noch ganz hinten geballt");
+
+  const en = new Function(DATA_SOURCE + "\n;selectCourse('en'); return LESSONS;")();
+  assert.ok(!en.some((l) => l.kind === "tense"), "EN (noch) ohne Zeiten-Etappen");
+});
+
+test("Konjugieren: getippte Formen werden geprüft, Etappe gilt danach als geschafft", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.id === "zeiten-presente-1");
+  app.open(lesson.id);
+  assert.equal(app.$("#modeTabs .mode-tab.active").dataset.mode, "learn", "Etappe beginnt mit Lernkarten");
+  app.setMode("conj");
+  const total = lesson.drills.conj.length;
+  for (let i = 0; i < total; i++) {
+    const cue = app.$(".cp-cue").textContent;                  // z. B. „noi … (Essere)"
+    const item = lesson.drills.conj.find((it) => cue === `${it.cue} … (${it.verb})`);
+    assert.ok(item, `Aufgabe erkannt: ${cue}`);
+    app.$("#conjDrillInput").value = item.answer.toUpperCase();   // Groß/klein egal
+    app.$("#conjDrillCheck").click();
+    assert.ok(/Esatto/.test(app.$("#conjDrillSolution").textContent), `richtig: ${cue}`);
+    assert.equal(app.window.__spoken, item.say, "Person + Form wird vorgelesen");
+    app.$("#conjDrillCheck").click();
+  }
+  assert.ok(app.$(".done-screen h3").textContent.includes(`${total} / ${total}`));
+  assert.ok(app.state().lessons[lesson.id].completed, "Etappe geschafft");
+  app.close();
+});
+
 test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.drills && l.drills.prep);
@@ -529,7 +582,7 @@ test("Zwei Kurse: EN-Kurs hat eigene Inhalte & en:-IDs, gleiche Größe", () => 
   assert.equal(en.lang, "en");
   assert.ok(!it.firstId.startsWith("en:"), "IT-IDs ohne Präfix");
   assert.ok(en.firstId.startsWith("en:"), "EN-IDs mit en:-Präfix (getrennter Fortschritt)");
-  assert.equal(en.lessons, it.lessons, "gleicher Umfang in beiden Kursen");
+  assert.equal(en.core, it.core, "gleicher Kern-Umfang in beiden Kursen");
   for (const code of ["B2", "C1", "C2"]) {
     assert.ok((en.perLevel[code] || 0) >= 100, `EN ${code} >= 100 (${en.perLevel[code]})`);
   }
@@ -587,7 +640,7 @@ test("Fünf Kurse: ES/FR/PT bauen mit Präfix, eigener Verbalik & ≥100 B2/C1/C
     const c = courseProbe(lang);
     assert.equal(c.lang, lang, `${lang} aktiv`);
     assert.ok(c.firstId.startsWith(lang + ":"), `${lang}:-Präfix (getrennter Fortschritt)`);
-    assert.equal(c.lessons, it.lessons, `${lang} gleicher Umfang`);
+    assert.equal(c.core, it.core, `${lang} gleicher Kern-Umfang`);
     for (const code of ["B2", "C1", "C2"]) {
       assert.ok((c.perLevel[code] || 0) >= 100, `${lang} ${code} >= 100 (${c.perLevel[code]})`);
     }

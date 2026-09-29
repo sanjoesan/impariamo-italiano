@@ -15729,6 +15729,7 @@ function buildLessons() {
         out.push({
           id: `${theme.id}-${lvl.code}-${i + 1}`,
           kind: theme.grammar ? "grammar" : "vocab",
+          tag: theme.grammar ? "grammar" : null,
           theme: theme.id,
           area: theme.area,
           title: multi ? `${theme.title} · ${i + 1}` : theme.title,
@@ -15766,6 +15767,7 @@ function buildLessons() {
       out.push({
         id: `sfida-${theme.id}-${i + 1}`,
         kind: "vocab",
+        tag: "sfide",
         theme: theme.id,
         area: "Sfide",
         title: chunks.length > 1 ? `${theme.title} · Sfida ${i + 1}` : `${theme.title} · Sfida`,
@@ -15794,6 +15796,7 @@ function buildLessons() {
         out.push({
           id: `sfida-${theme.id}-${lvl.code}-${i + 1}`,
           kind: "vocab",
+          tag: "sfide",
           theme: theme.id,
           area: "Sfide",
           title: chunks.length > 1 ? `${theme.title} · Sfida ${lvl.code} ${i + 1}` : `${theme.title} · Sfida ${lvl.code}`,
@@ -15820,6 +15823,7 @@ function buildLessons() {
     out.push({
       id: `dlg-${d.id}`,
       kind: "dialogue",
+      tag: "dialogue",
       theme: d.theme,
       area: "Dialoge",
       title: d.title,
@@ -15846,6 +15850,7 @@ function buildLessons() {
       out.push({
         id: `ripasso-${lvl.code}-${i + 1}`,
         kind: "vocab",
+        tag: "ripasso",
         theme: "ripasso",
         area: "Ripasso",
         title: `Ripasso ${lvl.code} · ${i + 1}`,
@@ -15859,6 +15864,35 @@ function buildLessons() {
       });
     }
   });
+
+  /* 5) Zeitentrainer-Etappen — je Zeit (Stufe laut TENSE_STAGES) Verben in kleinen
+        Gruppen; spread → buildStory verteilt sie gleichmäßig in ihre Stufe. */
+  const tensePlan = TENSE_STAGES[LANG_ACTIVE];
+  if (tensePlan) {
+    CONJ_TENSES.forEach((tense) => {
+      const lvl = LEVEL_BY_CODE[tensePlan.levels[tense.id]];
+      if (!lvl) return;
+      chunkArray(CONJUGATIONS, tensePlan.verbsPerStage).forEach((verbs, i) => {
+        out.push({
+          id: `zeiten-${tense.id}-${i + 1}`,
+          kind: "tense",
+          tag: "grammar",
+          theme: "zeitentrainer",
+          area: "Grammatica",
+          title: `${tense.it} · ${verbs.map((v) => v.inf).join(" & ")}`,
+          de: `Zeitentrainer: ${tense.de}`,
+          emoji: "⏳",
+          color: lvl.color,
+          level: lvl.n,
+          levelCode: lvl.code,
+          spread: true,
+          words: tenseWords(verbs, tense.id, CONJ_PRONOUNS),
+          drills: { conj: conjDrill(verbs, tense, CONJ_PRONOUNS, CONJ_PRONOUNS_DE) },
+          modes: ["learn", "conj", "quiz"]
+        });
+      });
+    });
+  }
 
   // In Nicht-IT-Kursen die Lektions-IDs mit "<lang>:" prefixen, damit der
   // Lernfortschritt pro Kurs getrennt gespeichert wird (gleiche Themen-IDs).
@@ -15886,12 +15920,29 @@ function weave(code) {
   return woven;
 }
 
-/* STORY — alle Lektionen nach Schwierigkeit geordnet (steigend). */
+/* STORY — alle Lektionen nach Schwierigkeit geordnet (steigend), innerhalb einer Stufe
+   nach ID. Lektionen mit `spread` (Zeitentrainer, Gesten …) werden je Stufe gleichmäßig
+   zwischen die übrigen verteilt; mehrere solcher Reihen (theme) verzahnen sich über ihre
+   relative Position in der Reihe. Die Reihenfolge der übrigen Lektionen bleibt unverändert. */
 function buildStory(lessons) {
-  return lessons
-    .slice()
-    .sort((a, b) => a.level - b.level || a.id.localeCompare(b.id))
-    .map((l) => l.id);
+  const base = lessons.filter((l) => !l.spread).sort((a, b) => a.level - b.level || a.id.localeCompare(b.id));
+  const spread = lessons.filter((l) => l.spread);
+  const pos = new Map();                    // Lektion → relative Position (0..1) in ihrer Reihe & Stufe
+  const out = [];
+  LEVELS.forEach((lvl) => {
+    const series = {};
+    spread.filter((l) => l.level === lvl.n).forEach((l) => (series[l.theme] = series[l.theme] || []).push(l));
+    Object.values(series).forEach((list) => list.forEach((l, k) => pos.set(l, (k + 0.5) / list.length)));
+    const b = base.filter((l) => l.level === lvl.n);
+    const x = spread.filter((l) => l.level === lvl.n).sort((p, q) => pos.get(p) - pos.get(q));
+    let xi = 0;
+    b.forEach((l, i) => {
+      out.push(l);
+      while (xi < x.length && pos.get(x[xi]) * b.length <= i + 1) out.push(x[xi++]);
+    });
+    while (xi < x.length) out.push(x[xi++]);
+  });
+  return out.map((l) => l.id);
 }
 
 let LESSONS = [];
