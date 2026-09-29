@@ -337,8 +337,8 @@ test("Zeitentrainer (IT): Etappen je Zeit auf ihrer Stufe, gleichmäßig im Lern
   assert.equal(essere.answer, "saremo");
 
   // Lernpfad: übrige Lektionen in alter Ordnung (Stufe, dann ID), Etappen dazwischen verteilt
-  const base = STORY.filter((id) => !id.startsWith("zeiten-"));
   const lv = Object.fromEntries(LESSONS.map((l) => [l.id, l]));
+  const base = STORY.filter((id) => !lv[id].spread);        // ohne alle Zusatz-Etappen (Zeiten, Gesten)
   const sorted = base.slice().sort((a, b) => lv[a].level - lv[b].level || a.localeCompare(b));
   assert.deepEqual(base, sorted, "Reihenfolge der übrigen Lektionen unverändert");
   const a1 = STORY.filter((id) => lv[id].levelCode === "A1");
@@ -411,6 +411,54 @@ test("Verstehen: Dialog wird vorgelesen & mitgelesen, danach Fragen bis zum Absc
   assert.ok(app.$(".done-screen h3").textContent.includes("3 / 3"));
   const next = app.$("#nextStepBtn");
   assert.ok(next && next.textContent.includes("Dialog"), "Weiter führt zum Mitspielen im Dialog");
+  app.close();
+});
+
+test("Gesten (IT): vollständig beschrieben und gleichmäßig über das ganze Programm verteilt", () => {
+  const gestures = LESSONS.filter((l) => l.kind === "gesture");
+  assert.ok(gestures.length >= 20, `genug Gesten (${gestures.length})`);
+  for (const l of gestures) {
+    const g = l.gesture;
+    assert.ok(g.pic && g.name && g.meaning && g.how && g.when, `${l.id}: Bild, Name, Bedeutung, So geht's, Wann`);
+    assert.ok(g.sentences.length >= 3, `${l.id}: mehrere passende Sätze`);
+    assert.ok(l.words.every((w) => w.it && w.de && w.emoji && w.ex && w.exDe), `${l.id}: Lernkarten vollständig`);
+    assert.deepEqual(l.modes, ["gesture", "learn", "gestequiz"]);
+    for (const it of l.drills.gestequiz) {
+      assert.ok(it.options.includes(it.answer) && new Set(it.options).size === 4, `${l.id}: Quiz-Optionen eindeutig`);
+    }
+  }
+  assert.ok(new Set(gestures.map((l) => l.levelCode)).size >= 5, "über (fast) alle Stufen verteilt");
+  const pos = STORY.map((id, i) => (id.startsWith("gesto-") ? i : -1)).filter((i) => i >= 0);
+  const gaps = pos.slice(1).map((p, i) => p - pos[i]);
+  const ideal = STORY.length / gestures.length;
+  assert.ok(Math.min(...gaps) > ideal * 0.6 && Math.max(...gaps) < ideal * 1.6, `gleichmäßige Abstände (${Math.min(...gaps)}–${Math.max(...gaps)}, ideal ${ideal.toFixed(0)})`);
+  assert.ok(pos[0] < ideal && STORY.length - 1 - pos[pos.length - 1] < ideal, "von Anfang bis Ende");
+});
+
+test("Gesten-Lektion: Karte zeigt Bild & Bedeutung, Sätze vorlesbar, dann Quiz", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.id === "gesto-ma-che-vuoi");
+  app.open(lesson.id);
+  const g = lesson.gesture;
+  assert.equal(app.$(".gesture-pic").textContent, g.pic);
+  assert.ok(app.$(".gesture-meaning").textContent.includes(g.meaning));
+  assert.ok(app.$(".gesture-how").textContent.includes(g.how), "So geht's");
+  assert.equal(app.window.__spoken, g.name, "Name wird vorgelesen");
+  app.$$(".gesture-ex .dlg-speak")[1].click();
+  assert.equal(app.window.__spoken, g.sentences[1].it, "Beispielsatz vorlesbar");
+  assert.ok(app.$$(".gesture-ex .gw").length > 3, "Wörter der Sätze anklickbar");
+  assert.ok(app.window.makeLessonCard(lesson).textContent.includes("🤌 Gesto"), "Karten-Tag");
+
+  app.$("#nextStepBtn").click();
+  assert.equal(app.$("#modeTabs .mode-tab.active").dataset.mode, "learn", "Weiter → Sätze lernen");
+  app.setMode("gestequiz");
+  const items = lesson.drills.gestequiz;
+  for (let i = 0; i < items.length; i++) {
+    const it = items.find((x) => x.ask === app.$(".choice-ask").textContent);
+    app.$$("#choiceOptions .gap-opt").find((b) => b.textContent === it.answer).click();
+    app.$("#choiceNext").click();
+  }
+  assert.ok(app.$(".done-screen h3").textContent.includes(`${items.length} / ${items.length}`));
   app.close();
 });
 

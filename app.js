@@ -436,7 +436,7 @@ const AREA_LABELS = {
 function areaLabel(area) { const m = AREA_LABELS[state.lang]; return (m && m[area]) || area; }
 /* Karten-Tags & „Tutti"/„Lektionen" je Kurs-Sprache */
 const CARD_TAGS = {
-  it: { dialogue: "💬 Dialog", grammar: "🔤 Grammatik", sfide: "🎯 Sfida", ripasso: "🔁 Ripasso", done: "Fatto", all: "Tutti", lessons: "Lektionen" },
+  it: { dialogue: "💬 Dialog", grammar: "🔤 Grammatik", gesture: "🤌 Gesto", sfide: "🎯 Sfida", ripasso: "🔁 Ripasso", done: "Fatto", all: "Tutti", lessons: "Lektionen" },
   en: { dialogue: "💬 Dialogue", grammar: "🔤 Grammar", sfide: "🎯 Challenge", ripasso: "🔁 Review", done: "Done", all: "All", lessons: "lessons" },
   es: { dialogue: "💬 Diálogo", grammar: "🔤 Gramática", sfide: "🎯 Reto", ripasso: "🔁 Repaso", done: "Hecho", all: "Todos", lessons: "lecciones" },
   fr: { dialogue: "💬 Dialogue", grammar: "🔤 Grammaire", sfide: "🎯 Défi", ripasso: "🔁 Révision", done: "Fini", all: "Tous", lessons: "leçons" },
@@ -556,14 +556,14 @@ const AREA_ORDER = [
   "Grundlagen", "Soziales", "Alltag", "Beruf", "Reisen", "Gesundheit", "Natur", "Freizeit",
   "Lavoro & Economia", "Società & Politica", "Scienza & Ambiente", "Tecnologia & Media",
   "Arte & Cultura", "Lingua avanzata", "Diritto & Salute", "Mente & Espressioni",
-  "Grammatica", "Dialoge", "Sfide", "Ripasso"
+  "Grammatica", "Gesti", "Dialoge", "Sfide", "Ripasso"
 ];
 const AREA_EMOJI = {
   "Grundlagen": "🧱", "Soziales": "💬", "Alltag": "🏠", "Beruf": "💼", "Reisen": "✈️",
   "Gesundheit": "🩺", "Natur": "🌿", "Freizeit": "🎉", "Lavoro & Economia": "📈",
   "Società & Politica": "🏛️", "Scienza & Ambiente": "🔬", "Tecnologia & Media": "💻",
   "Arte & Cultura": "🎨", "Lingua avanzata": "✒️", "Diritto & Salute": "⚖️",
-  "Mente & Espressioni": "🧠", "Grammatica": "🔤", "Dialoge": "🎭", "Sfide": "🎯", "Ripasso": "🔁"
+  "Mente & Espressioni": "🧠", "Grammatica": "🔤", "Gesti": "🤌", "Dialoge": "🎭", "Sfide": "🎯", "Ripasso": "🔁"
 };
 const areaIdx = (a) => { const i = AREA_ORDER.indexOf(a); return i < 0 ? 99 : i; };
 const areaEmoji = (a) => AREA_EMOJI[a] || "📚";

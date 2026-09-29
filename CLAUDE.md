@@ -30,6 +30,8 @@ Diese Dateien tragen alles (Lade-Reihenfolge = `<script>`-Tags in `index.html`; 
 | `modus-konjugieren.js` | Modus `conj` (nach `app.js`): Verbform tippen, Aufgaben aus `lesson.drills.conj` (Zeiten-Etappen) |
 | `dialog-fragen.js` | Daten (vor `data.js`): `DIALOG_FRAGEN[lang][dialogId]` = 3 Verständnisfragen je Dialog (`line` = Beleg-Zeile) |
 | `modus-verstehen.js` | Modus `understand` (nach `app.js`): Dialog vorlesen & mitlesen, dann Fragen via Auswahl-Übung |
+| `gesten.js` | Daten (vor `data.js`): `GESTI[lang]` = Gesten (Bild, Bedeutung, So geht's, Wann, Sätze) + `gestureDrill` |
+| `modus-geste.js` | Modi `gesture` (Gesten-Karte) & `gestequiz` („Welche Geste?", Auswahl-Übung) (nach `app.js`) |
 | `app.js`     | App-Logik: State (localStorage), Rendering, Spielmodi, Sprachausgabe/-erkennung |
 | `styles.css` | Komplettes Design inkl. Dark-Mode (`body.notte`) und Responsive |
 
@@ -86,6 +88,9 @@ Lektionen werden **zur Laufzeit generiert**, nicht von Hand gepflegt:
   4. **Dialoge** und **Ripasso** (themenübergreifende Wiederholung je Stufe, Cap `RIPASSO_CAP`).
   5. **Zeitentrainer-Etappen** (`zeiten-<tense>-<n>`, `kind: "tense"`) aus `CONJUGATIONS` × Zeit, Stufe &
      Gruppengröße laut `TENSE_STAGES[lang]` (grammatik.js; derzeit nur IT), Modi `learn, conj, quiz`.
+  6. **Gesten-Lektionen** (`gesto-<id>`, `kind: "gesture"`, Bereich „Gesti") aus `GESTI[lang]` (derzeit nur IT),
+     gleichmäßig über das **ganze** Programm verteilt (Stufe nach Position im Kern-Umfang), Modi
+     `gesture, learn, gestequiz`.
 - Jede Lektion trägt `tag` (`grammar`/`sfide`/`dialogue`/`ripasso`/…) → Karten-Tag über `CARD_TAGS[lang][tag]`.
 - `buildStory()` → `STORY`: alle Lektions-IDs nach Stufe, innerhalb der Stufe nach ID (Lernpfad).
   Lektionen mit **`spread: true`** (Zusatz-Etappen) werden je Stufe **gleichmäßig** zwischen die übrigen

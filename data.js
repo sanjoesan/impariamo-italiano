@@ -15898,6 +15898,39 @@ function buildLessons() {
     });
   }
 
+  /* 6) Gesten-Lektionen (gesten.js) — gleichmäßig über das GANZE Programm verteilt:
+        Geste k gehört zur Stufe, in der Position (k + ½)/n aller Kern-Lektionen liegt;
+        innerhalb der Stufe verteilt buildStory sie (spread). */
+  const gesti = GESTI[LANG_ACTIVE];
+  if (gesti) {
+    const perLevel = LEVELS.map((lvl) => out.filter((l) => !l.spread && l.level === lvl.n).length);
+    const coreTotal = perLevel.reduce((a, b) => a + b, 0);
+    gesti.forEach((g, k) => {
+      let at = ((k + 0.5) / gesti.length) * coreTotal;
+      let li = 0;
+      while (li < LEVELS.length - 1 && at >= perLevel[li]) { at -= perLevel[li]; li++; }
+      const lvl = LEVELS[li];
+      out.push({
+        id: `gesto-${g.id}`,
+        kind: "gesture",
+        tag: "gesture",
+        theme: "gesti",
+        area: "Gesti",
+        title: g.name,
+        de: `Geste: ${g.meaning}`,
+        emoji: g.pic,
+        color: lvl.color,
+        level: lvl.n,
+        levelCode: lvl.code,
+        spread: true,
+        gesture: g,
+        words: g.sentences.map((x) => ({ it: x.it, de: x.de, emoji: g.pic, ex: x.it, exDe: x.de })),
+        drills: { gestequiz: gestureDrill(g, gesti) },
+        modes: ["gesture", "learn", "gestequiz"]
+      });
+    });
+  }
+
   // In Nicht-IT-Kursen die Lektions-IDs mit "<lang>:" prefixen, damit der
   // Lernfortschritt pro Kurs getrennt gespeichert wird (gleiche Themen-IDs).
   // IT bleibt ohne Präfix (bestehender Fortschritt).
