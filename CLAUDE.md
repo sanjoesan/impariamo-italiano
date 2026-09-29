@@ -89,7 +89,9 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
   **ab `state.startLevel`** (1–6); `nextStoryLesson()` = nächste offene Etappe.
   `setStartLevel(n)` wählt das Start-Niveau (generell & jederzeit änderbar). Es gibt
   keinen separaten „Weiterlernen"-Button mehr — die Story-Karte übernimmt das.
-  Abschluss-Screens bieten **„Nächste Lektion"** (`nextLessonAfterCurrent`).
+  Abschluss-Screens bieten **„Weiter: <nächste Übung>"** (`nextStepHtml` → `nextModeAfter`,
+  Reihenfolge = `lesson.modes`) und nach der letzten Übung **„Nächste Lektion"**
+  (`nextLessonAfterCurrent`) als Hauptknopf.
 - Home: `renderStoryPanel` (inkl. **Start-Niveau-Chips** via `setStartLevel`),
   `renderLevelFilter`, `renderAreaFilter` (Bereichs-/Abschnitt-Filter), `renderLessonGrid`,
   `renderConjGrid`, `renderBadges`.

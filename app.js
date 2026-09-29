@@ -765,10 +765,19 @@ function renderMode() {
 
 function setProgress(pct) { $("#lessonProgress").style.width = pct + "%"; }
 
+/* Nächste Übung einer Lektion nach `mode` — Reihenfolge = lesson.modes; null nach der letzten */
+function nextModeAfter(lesson, mode) {
+  const modes = lesson.modes || [];
+  const i = modes.indexOf(mode);
+  return i >= 0 && i + 1 < modes.length ? modes[i + 1] : null;
+}
+
 /* Buttons zu anderen verfügbaren Modi (für Abschluss-Bildschirme).
-   Nur Modi, die diese Lektion wirklich anbietet — verhindert Abstürze. */
+   Nur Modi, die diese Lektion wirklich anbietet — verhindert Abstürze.
+   Die nächste Übung fehlt hier, sie steht schon als „Weiter"-Knopf da. */
 function otherModesHtml(exclude, max) {
-  const modes = (current.lesson.modes || []).filter((m) => m !== exclude && m !== "learn");
+  const next = nextModeAfter(current.lesson, current.mode);
+  const modes = (current.lesson.modes || []).filter((m) => m !== exclude && m !== "learn" && m !== next);
   return modes.slice(0, max || 2)
     .map((m) => `<button class="btn btn-ghost" data-goto="${m}">${MODE_META[m] || m}</button>`).join("");
 }
@@ -777,12 +786,20 @@ function wireOtherModes(scope) {
     b.addEventListener("click", () => setMode(b.dataset.goto)));
 }
 
-/* „Nächste Lektion"-Button für die Abschluss-Screens (folgt dem Lernpfad) */
-function nextLessonBtnHtml() {
-  return nextLessonAfterCurrent() ? `<button class="btn btn-primary" id="nextLessonBtn">➡️ Nächste Lektion</button>` : "";
+/* Haupt-Aktion der Abschluss-Screens: „Weiter: <nächste Übung>", nach der letzten
+   Übung „Nächste Lektion" (folgt dem Lernpfad) als Hauptknopf */
+function nextStepHtml() {
+  const step = nextModeAfter(current.lesson, current.mode);
+  const stepBtn = step ? `<button class="btn btn-primary" id="nextStepBtn" data-next="${step}">Weiter: ${MODE_META[step] || step} ›</button>` : "";
+  const lessonBtn = nextLessonAfterCurrent()
+    ? `<button class="btn ${step ? "btn-ghost" : "btn-primary"}" id="nextLessonBtn">➡️ Nächste Lektion</button>` : "";
+  return stepBtn + lessonBtn;
 }
-function wireNextLesson(scope) {
-  const b = (scope || document).querySelector("#nextLessonBtn");
+function wireNextStep(scope) {
+  const s = scope || document;
+  const step = s.querySelector("#nextStepBtn");
+  if (step) step.addEventListener("click", () => setMode(step.dataset.next));
+  const b = s.querySelector("#nextLessonBtn");
   if (b) b.addEventListener("click", () => { const n = nextLessonAfterCurrent(); if (n) openLesson(n.id); });
 }
 
@@ -850,7 +867,10 @@ function renderLearn() {
   $("#prevBtn").addEventListener("click", () => { if (current.index > 0) { current.index--; renderLearn(); autoSpeak(); } });
   $("#nextBtn").addEventListener("click", () => {
     if (current.index < lesson.words.length - 1) { current.index++; renderLearn(); autoSpeak(); }
-    else { toast("📖 Alle Vokabeln gesehen! Jetzt das Quiz 🎯"); setMode("quiz"); }
+    else {
+      const next = nextModeAfter(lesson, "learn");
+      if (next) { toast(`📖 Alle Vokabeln gesehen! Jetzt: ${MODE_META[next] || next}`); setMode(next); }
+    }
   });
 
   autoSpeak();
@@ -977,16 +997,16 @@ function finishQuiz() {
       <h3>${score} / ${total} richtig</h3>
       <p>${stars === 3 ? "Fehlerfrei – " : ""}${msgs[stars] || "Weiter so!"} <em>(+${score * 4 + (stars === 3 ? 20 : 0)} XP)</em></p>
       <div class="done-actions">
-        ${nextLessonBtnHtml()}
+        ${nextStepHtml()}
         <button class="btn btn-ghost" id="retryQuiz">↻ Nochmal</button>
-        <button class="btn btn-ghost" id="toMatch">🧩 Zuordnen</button>
+        ${otherModesHtml("quiz")}
         <button class="btn btn-ghost" id="toHome">🏠 Startseite</button>
       </div>
     </div>`;
-  wireNextLesson(body);
+  wireNextStep(body);
   $("#retryQuiz").addEventListener("click", () => setMode("quiz"));
-  $("#toMatch").addEventListener("click", () => setMode("match"));
   $("#toHome").addEventListener("click", goHome);
+  wireOtherModes(body);
 
   if (stars >= 2) { burstConfetti(); sfx.win(); }
   renderHome();
@@ -1089,13 +1109,13 @@ function finishMatch() {
         <h3>Tutto abbinato!</h3>
         <p>Alle Paare gefunden. <em>Sei bravissimo!</em></p>
         <div class="done-actions">
-          ${nextLessonBtnHtml()}
+          ${nextStepHtml()}
           <button class="btn btn-ghost" id="againMatch">↻ Neue Runde</button>
           <button class="btn btn-ghost" id="toQuiz2">🎯 Quiz</button>
           <button class="btn btn-ghost" id="toHome2">🏠 Startseite</button>
         </div>
       </div>`;
-    wireNextLesson(body);
+    wireNextStep(body);
     $("#againMatch").addEventListener("click", () => setMode("match"));
     $("#toQuiz2").addEventListener("click", () => setMode("quiz"));
     $("#toHome2").addEventListener("click", goHome);
@@ -1213,13 +1233,13 @@ function finishListen() {
       <h3>${score} / ${total} richtig gehört</h3>
       <p>${ratio === 1 ? "Perfekt diktiert! " : "Gut zugehört! "}<em>Ottimo orecchio!</em></p>
       <div class="done-actions">
-        ${nextLessonBtnHtml()}
+        ${nextStepHtml()}
         <button class="btn btn-ghost" id="retryListen">↻ Nochmal</button>
         ${otherModesHtml("listen")}
         <button class="btn btn-ghost" id="listenToHome">🏠 Startseite</button>
       </div>
     </div>`;
-  wireNextLesson(body);
+  wireNextStep(body);
   $("#retryListen").addEventListener("click", () => setMode("listen"));
   $("#listenToHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1376,13 +1396,13 @@ function finishBuild() {
       <h3>${score} / ${total} Sätze gebaut</h3>
       <p><em>${ratio === 1 ? "Costruttore provetto!" : "Continua a costruire!"}</em></p>
       <div class="done-actions">
-        ${nextLessonBtnHtml()}
+        ${nextStepHtml()}
         <button class="btn btn-ghost" id="retryBuild">↻ Nochmal</button>
         ${otherModesHtml("build")}
         <button class="btn btn-ghost" id="buildHome">🏠 Startseite</button>
       </div>
     </div>`;
-  wireNextLesson(body);
+  wireNextStep(body);
   $("#retryBuild").addEventListener("click", () => setMode("build"));
   $("#buildHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1500,13 +1520,13 @@ function finishGap() {
       <h3>${score} / ${total} Lücken gefüllt</h3>
       <p><em>${ratio === 1 ? "Senza errori!" : "Quasi perfetto!"}</em></p>
       <div class="done-actions">
-        ${nextLessonBtnHtml()}
+        ${nextStepHtml()}
         <button class="btn btn-ghost" id="retryGap">↻ Nochmal</button>
         ${otherModesHtml("gap")}
         <button class="btn btn-ghost" id="gapHome">🏠 Startseite</button>
       </div>
     </div>`;
-  wireNextLesson(body);
+  wireNextStep(body);
   $("#retryGap").addEventListener("click", () => setMode("gap"));
   $("#gapHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1631,13 +1651,13 @@ function finishSpeak() {
       <h3>${score} / ${total} ausgesprochen</h3>
       <p><em>${ratio >= 0.6 ? "Che bella pronuncia!" : "L'esercizio rende perfetti!"}</em></p>
       <div class="done-actions">
-        ${nextLessonBtnHtml()}
+        ${nextStepHtml()}
         <button class="btn btn-ghost" id="retrySpeak">↻ Nochmal</button>
         ${otherModesHtml("speak")}
         <button class="btn btn-ghost" id="speakHome">🏠 Startseite</button>
       </div>
     </div>`;
-  wireNextLesson(body);
+  wireNextStep(body);
   $("#retrySpeak").addEventListener("click", () => setMode("speak"));
   $("#speakHome").addEventListener("click", goHome);
   wireOtherModes(body);
@@ -1736,13 +1756,13 @@ function finishDialogue() {
     <h3>Dialogo completato!</h3>
     <p><em>${dialogState.mistakes === 0 ? "Senza esitazioni — bravissimo!" : "Ben fatto, hai tenuto botta!"}</em></p>
     <div class="done-actions">
-      ${nextLessonBtnHtml()}
+      ${nextStepHtml()}
       <button class="btn btn-ghost" id="retryDlg">↻ Nochmal</button>
       ${otherModesHtml("dialogue")}
       <button class="btn btn-ghost" id="dlgHome">🏠 Startseite</button>
     </div>`;
   body.appendChild(done);
-  wireNextLesson(done);
+  wireNextStep(done);
   $("#retryDlg").addEventListener("click", () => setMode("dialogue"));
   $("#dlgHome").addEventListener("click", goHome);
   wireOtherModes(done);

@@ -252,6 +252,40 @@ test("Lückentext: richtige Option füllt die Lücke", () => {
   app.close();
 });
 
+test("Übungskette: nach Lernen schlägt „Weiter“ jede Übung der Lektion vor, zuletzt die nächste Lektion", async () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.every((w) => w.ex.trim().split(/\s+/).length >= 2));
+  assert.deepEqual(lesson.modes, ["learn", "listen", "quiz", "match", "build", "gap", "speak"]);
+  app.open(lesson.id);
+  const activeTab = () => app.$("#modeTabs .mode-tab.active").dataset.mode;
+
+  lesson.words.forEach(() => app.$("#nextBtn").click());
+  assert.equal(activeTab(), "listen", "nach Lernen kommt Hören (nicht direkt das Quiz)");
+
+  const finish = { listen: "finishListen", quiz: "finishQuiz", match: "finishMatch",
+                   build: "finishBuild", gap: "finishGap", speak: "finishSpeak" };
+  for (let i = 1; i < lesson.modes.length; i++) {
+    const mode = lesson.modes[i];
+    const next = lesson.modes[i + 1];
+    app.setMode(mode);
+    app.window[finish[mode]]();
+    if (mode === "match") await new Promise((r) => setTimeout(r, 600));   // Match-Screen kommt verzögert
+    const step = app.$("#nextStepBtn");
+    if (next) {
+      assert.ok(step, `nach ${mode}: Weiter-Knopf vorhanden`);
+      const label = app.$(`#modeTabs .mode-tab[data-mode="${next}"]`).textContent;
+      assert.ok(step.textContent.includes(label), `nach ${mode}: schlägt ${label} vor`);
+      assert.equal(app.$$(`[data-goto="${next}"]`).length, 0, `nach ${mode}: ${next} nicht doppelt als Nebenknopf`);
+      step.click();
+      assert.equal(activeTab(), next, `Weiter nach ${mode} öffnet ${next}`);
+    } else {
+      assert.ok(!step, "nach der letzten Übung kein Weiter-Knopf");
+      assert.ok(app.$("#nextLessonBtn").classList.contains("btn-primary"), "dann ist „Nächste Lektion“ der Hauptknopf");
+    }
+  }
+  app.close();
+});
+
 test("Sprechen: Mikrofon nutzt Italienisch (it-IT) und wertet korrekt", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.modes.includes("speak") && l.words.length >= 2);
