@@ -155,7 +155,7 @@ let CORPUS = [
         { it: "Genuino", de: "echt / naturbelassen", emoji: "🌾", ex: "Un prodotto genuino e locale.", exDe: "Ein echtes, regionales Produkt." },
         { it: "A chilometro zero", de: "regional erzeugt", emoji: "🚜", ex: "Verdure a chilometro zero.", exDe: "Gemüse aus der Region." },
         { it: "Andare di traverso", de: "sich verschlucken", emoji: "😵", ex: "Il boccone mi è andato di traverso.", exDe: "Der Bissen ist mir in den falschen Hals geraten." },
-        { it: "Fare la scarpetta", de: "die Soße mit Brot auftunken", emoji: "🍞", ex: "Con questo sugo si fa la scarpetta.", exDe: "Mit dieser Soße tunkt man das Brot auf." }
+        { it: "Fare la scarpetta", de: "die Soße mit Brot auftunken", emoji: "🍞", ex: "Con questo sugo si fa la scarpetta.", exDe: "Bei dieser Soße wischt man den Teller mit Brot aus." }
       ],
       C1: [
         { it: "Una leccornia", de: "ein Leckerbissen", emoji: "🤩", ex: "Questo tartufo è una vera leccornia.", exDe: "Dieser Trüffel ist ein wahrer Leckerbissen." },
@@ -856,7 +856,7 @@ let CORPUS = [
     levels: {
       A1: [
         { it: "Non capisco", de: "Ich verstehe nicht", emoji: "🤷", ex: "Scusi, non capisco.", exDe: "Entschuldigung, ich verstehe nicht." },
-        { it: "Parli inglese?", de: "Sprichst du Englisch?", emoji: "🗣️", ex: "Parli inglese, per favore?", exDe: "Sprichst du bitte Englisch?" },
+        { it: "Parli inglese?", de: "Sprichst du Englisch?", emoji: "🗣️", ex: "Scusa, parli inglese?", exDe: "Entschuldige, sprichst du Englisch?" },
         { it: "Dov'è il bagno?", de: "Wo ist die Toilette?", emoji: "🚻", ex: "Scusi, dov'è il bagno?", exDe: "Entschuldigung, wo ist die Toilette?" },
         { it: "Vorrei...", de: "Ich möchte...", emoji: "🙏", ex: "Vorrei un caffè.", exDe: "Ich möchte einen Kaffee." },
         { it: "Aiuto!", de: "Hilfe!", emoji: "🆘", ex: "Aiuto, per favore!", exDe: "Hilfe, bitte!" },
@@ -1220,7 +1220,7 @@ let CORPUS = [
       B1: [
         { it: "Avere una cotta", de: "verknallt sein", emoji: "🥰", ex: "Ho una cotta per la vicina.", exDe: "Ich bin in die Nachbarin verknallt." },
         { it: "Fare il filo a qualcuno", de: "jemandem schöne Augen machen", emoji: "👀", ex: "Le fa il filo da settimane.", exDe: "Er macht ihr seit Wochen schöne Augen." },
-        { it: "Prendere una sòla", de: "abblitzen / sitzengelassen werden", emoji: "💔", ex: "Mi ha dato buca, che sòla!", exDe: "Sie hat mich versetzt, so ein Reinfall!" },
+        { it: "Dare buca a qualcuno", de: "jemanden versetzen", emoji: "💔", ex: "Mi ha dato buca: l'ho aspettata un'ora!", exDe: "Sie hat mich versetzt: Ich habe eine Stunde auf sie gewartet!" },
         { it: "Mezza arancia", de: "die bessere Hälfte", emoji: "🍊", ex: "Ho trovato la mia mezza arancia.", exDe: "Ich habe meine bessere Hälfte gefunden." }
       ]
     }
@@ -1693,10 +1693,10 @@ const ADVANCED_CORPUS = [
           "exDe": "Er wurde über eine Zeitarbeitsfirma mit einem Arbeitnehmerüberlassungsvertrag eingestellt."
         },
         {
-          "it": "rassegnare le proprie spettanze",
+          "it": "rivendicare le proprie spettanze",
           "de": "die ausstehenden Ansprüche geltend machen",
           "emoji": "🧾",
-          "ex": "Al termine del rapporto ha rassegnato tutte le proprie spettanze maturate.",
+          "ex": "Al termine del rapporto ha rivendicato tutte le spettanze maturate.",
           "exDe": "Am Ende des Arbeitsverhältnisses hat er alle seine erworbenen Ansprüche geltend gemacht."
         },
         {
@@ -7701,8 +7701,8 @@ const ADVANCED_CORPUS = [
           "it": "essere un libro aperto",
           "de": "ein offenes Buch sein",
           "emoji": "📖",
-          "ex": "Con me Luca è un libro aperto, capisco tutto.",
-          "exDe": "Mir gegenüber ist Luca ein offenes Buch, ich verstehe alles."
+          "ex": "Luca è un libro aperto: si capisce sempre cosa pensa.",
+          "exDe": "Luca ist ein offenes Buch: Man weiß immer, was er denkt."
         },
         {
           "it": "tagliare la corda",
@@ -7727,7 +7727,7 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "fare orecchie da mercante",
-          "de": "auf taube Ohren stoßen lassen, sich taub stellen (wörtl.: Krämerohren machen)",
+          "de": "sich taub stellen (wörtl.: Krämerohren machen)",
           "emoji": "🙉",
           "ex": "Gli ho detto di smettere ma fa orecchie da mercante.",
           "exDe": "Ich habe ihm gesagt, er soll aufhören, aber er stellt sich taub."
@@ -7741,7 +7741,7 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "togliersi un peso dallo stomaco",
-          "de": "sich etwas von der Seele reden (wörtl.: ein Gewicht vom Magen nehmen)",
+          "de": "erleichtert sein, einen Stein vom Herzen fallen (wörtl.: ein Gewicht vom Magen nehmen)",
           "emoji": "😮‍💨",
           "ex": "Dopo averle parlato mi sono tolto un peso dallo stomaco.",
           "exDe": "Nachdem ich mit ihr gesprochen hatte, fiel mir ein Stein vom Herzen."
@@ -7861,10 +7861,10 @@ const ADVANCED_CORPUS = [
           "exDe": "Scher nicht alle über einen Kamm: Nicht alle sind unehrlich."
         },
         {
-          "it": "essere al verde più del prezzemolo",
-          "de": "völlig blank sein, total pleite (wörtl.: grüner sein als die Petersilie)",
+          "it": "non avere il becco di un quattrino",
+          "de": "keinen roten Heller haben, völlig blank sein (wörtl.: nicht den Schnabel eines Groschens haben)",
           "emoji": "🌿",
-          "ex": "Dopo le vacanze sono al verde più del prezzemolo.",
+          "ex": "Dopo le vacanze non ho il becco di un quattrino.",
           "exDe": "Nach dem Urlaub bin ich völlig blank."
         },
         {
@@ -7955,10 +7955,10 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "avere il bernoccolo per qualcosa",
-          "de": "ein angeborenes Talent für etwas haben (wörtl.: die Beule für etwas haben)",
+          "de": "eine Begabung für etwas haben (wörtl.: die Beule für etwas haben)",
           "emoji": "🧠",
           "ex": "Quel ragazzo ha proprio il bernoccolo per le lingue.",
-          "exDe": "Dieser Junge hat wirklich ein angeborenes Talent für Sprachen."
+          "exDe": "Dieser Junge hat wirklich eine Begabung für Sprachen."
         },
         {
           "it": "trovare l'America",
@@ -8004,7 +8004,7 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "chi va al mulino s'infarina",
-          "de": "wer sich in Gefahr begibt, kommt darin um (wörtl.: wer zur Mühle geht, wird mit Mehl bestäubt)",
+          "de": "wer sich auf etwas einlässt, bleibt nicht unberührt (wörtl.: wer zur Mühle geht, wird mit Mehl bestäubt)",
           "emoji": "🌾",
           "ex": "Frequentando certi ambienti chi va al mulino s'infarina.",
           "exDe": "Wer in solchen Kreisen verkehrt, bleibt nicht unbefleckt."
@@ -8018,17 +8018,17 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "fare un buco nell'acqua",
-          "de": "auf der ganzen Linie scheitern (wörtl.: ein Loch ins Wasser machen)",
+          "de": "ins Leere laufen, nichts erreichen (wörtl.: ein Loch ins Wasser machen)",
           "emoji": "🕳️",
           "ex": "Con quell'investimento ha fatto un buco nell'acqua.",
-          "exDe": "Mit dieser Investition ist er auf der ganzen Linie gescheitert."
+          "exDe": "Mit dieser Investition hat er nichts erreicht."
         },
         {
           "it": "l'abito non fa il monaco",
-          "de": "Kleider machen nicht den Mann (wörtl.: das Gewand macht nicht den Mönch)",
+          "de": "man soll nicht nach dem Äußeren urteilen (wörtl.: das Gewand macht nicht den Mönch)",
           "emoji": "👗",
           "ex": "Sembra severo, ma l'abito non fa il monaco.",
-          "exDe": "Er wirkt streng, aber Kleider machen nicht den Mann."
+          "exDe": "Er wirkt streng, aber man soll nicht nach dem Äußeren urteilen."
         },
         {
           "it": "stare con le mani in mano",
@@ -8067,10 +8067,10 @@ const ADVANCED_CORPUS = [
         },
         {
           "it": "passare sotto le forche caudine",
-          "de": "eine demütigende Niederlage hinnehmen müssen (wörtl.: unter dem kaudinischen Joch hindurchgehen)",
+          "de": "sich demütigenden Bedingungen beugen müssen (wörtl.: unter dem kaudinischen Joch hindurchgehen)",
           "emoji": "⚔️",
           "ex": "Per ottenere il prestito è dovuto passare sotto le forche caudine.",
-          "exDe": "Um den Kredit zu bekommen, musste er eine demütigende Prozedur über sich ergehen lassen."
+          "exDe": "Um den Kredit zu bekommen, musste er sich demütigenden Bedingungen beugen."
         }
       ]
     }
@@ -8294,7 +8294,7 @@ const ADVANCED_EXTRA = {
         "it": "Conseguire una laurea",
         "de": "einen Hochschulabschluss erwerben",
         "emoji": "🎓",
-        "ex": "Ho conseguito una laurea in economia a Bocconi.",
+        "ex": "Ho conseguito una laurea in economia alla Bocconi.",
         "exDe": "Ich habe einen Abschluss in Wirtschaft an der Bocconi erworben."
       },
       {
@@ -8635,8 +8635,8 @@ const ADVANCED_EXTRA = {
         "it": "Tendere all'infinito",
         "de": "gegen unendlich streben",
         "emoji": "♾️",
-        "ex": "Al crescere del campione, l'errore tende all'infinito a zero.",
-        "exDe": "Mit wachsender Stichprobe strebt der Fehler im Grenzwert gegen null."
+        "ex": "Al crescere del campione, il numero di casi tende all'infinito.",
+        "exDe": "Mit wachsender Stichprobe strebt die Anzahl der Fälle gegen unendlich."
       },
       {
         "it": "Una stima al ribasso",
@@ -8851,10 +8851,10 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Stuzzicare il palato",
-        "de": "den Gaumen reizen / anregen",
+        "de": "den Appetit anregen",
         "emoji": "🤤",
         "ex": "L'aperitivo serve a stuzzicare il palato prima della cena.",
-        "exDe": "Der Aperitif dient dazu, den Gaumen vor dem Essen anzuregen."
+        "exDe": "Der Aperitif soll vor dem Essen den Appetit anregen."
       }
     ]
   },
@@ -9863,7 +9863,7 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Smaltire il traffico",
-        "de": "den Verkehr abwickeln / bewältigen",
+        "de": "den Verkehr bewältigen, abfließen lassen",
         "emoji": "🚦",
         "ex": "La nuova circonvallazione aiuta a smaltire il traffico.",
         "exDe": "Die neue Umgehungsstraße hilft, den Verkehr zu bewältigen."
@@ -10252,10 +10252,10 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Imparare a proprie spese",
-        "de": "durch Schaden klug werden",
+        "de": "auf die harte Tour lernen, durch Schaden klug werden",
         "emoji": "💢",
         "ex": "Ha imparato a proprie spese che copiare non paga.",
-        "exDe": "Er ist durch Schaden klug geworden, dass Abschreiben sich nicht lohnt."
+        "exDe": "Er hat auf die harte Tour gelernt, dass Abschreiben sich nicht lohnt."
       },
       {
         "it": "La selezione meritocratica",
@@ -11153,10 +11153,10 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Stringere i cordoni della borsa",
-        "de": "den Geldbeutel zuhalten",
+        "de": "die Ausgaben einschränken, sparsamer sein",
         "emoji": "👛",
         "ex": "Dopo le vacanze conviene stringere i cordoni della borsa.",
-        "exDe": "Nach dem Urlaub sollte man den Geldbeutel zuhalten."
+        "exDe": "Nach dem Urlaub sollte man sparsamer sein."
       },
       {
         "it": "Non navigare nell'oro",
@@ -11350,7 +11350,7 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Essere negato per la tecnologia",
-        "de": "ein technisches Brett vorm Kopf haben",
+        "de": "ein hoffnungsloser Fall in Sachen Technik sein",
         "emoji": "🙈",
         "ex": "Mio padre è del tutto negato per la tecnologia.",
         "exDe": "Mein Vater ist in Sachen Technik völlig hilflos."
@@ -11529,7 +11529,7 @@ const ADVANCED_EXTRA = {
         "de": "sich dumm stellen / nicht Stellung beziehen",
         "emoji": "🐟",
         "ex": "Su questa decisione fa il pesce in barile.",
-        "exDe": "Bei dieser Entscheidung stellt er sich taub."
+        "exDe": "Bei dieser Entscheidung hält er sich bedeckt."
       },
       {
         "it": "Una gatta da pelare",
@@ -12841,14 +12841,14 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Stringere i tempi",
-        "de": "das Tempo straffen / Zeit gewinnen",
+        "de": "das Tempo erhöhen, sich beeilen",
         "emoji": "⏩",
         "ex": "Dobbiamo stringere i tempi se vogliamo consegnare.",
-        "exDe": "Wir müssen das Tempo straffen, wenn wir liefern wollen."
+        "exDe": "Wir müssen das Tempo erhöhen, wenn wir liefern wollen."
       },
       {
         "it": "Avere i minuti contati",
-        "de": "die Minuten gezählt haben / unter Zeitdruck stehen",
+        "de": "unter Zeitdruck stehen",
         "emoji": "⏳",
         "ex": "Sbrigati, ho i minuti contati.",
         "exDe": "Beeil dich, meine Zeit ist knapp bemessen."
@@ -13085,7 +13085,7 @@ const ADVANCED_EXTRA = {
         "de": "die Farbe wechseln (vor Scham/Wut)",
         "emoji": "🤡",
         "ex": "Sentendo l'accusa, è diventato di tutti i colori.",
-        "exDe": "Als er die Anschuldigung hörte, wechselte er ständig die Farbe."
+        "exDe": "Als er die Anschuldigung hörte, wurde er abwechselnd rot und blass."
       },
       {
         "it": "Avere il sangue blu",
@@ -13468,11 +13468,11 @@ const ADVANCED_EXTRA = {
         "exDe": "Ich möchte jeden Zweifel ausräumen."
       },
       {
-        "it": "Tutto considerato e ponderato",
-        "de": "wohlüberlegt und alles abgewogen",
+        "it": "Tutto ben considerato",
+        "de": "nach reiflicher Überlegung",
         "emoji": "⚖️",
-        "ex": "Tutto considerato e ponderato, declino l'offerta.",
-        "exDe": "Wohlüberlegt und alles abgewogen, lehne ich das Angebot ab."
+        "ex": "Tutto ben considerato, declino l'offerta.",
+        "exDe": "Nach reiflicher Überlegung lehne ich das Angebot ab."
       }
     ]
   },
@@ -13796,7 +13796,7 @@ const ADVANCED_EXTRA = {
         "de": "ganz sanft schmoren",
         "emoji": "🕯️",
         "ex": "Lo spezzatino va stufato a fuoco dolcissimo per ore.",
-        "exDe": "Das Geschnetzelte muss stundenlang ganz sanft geschmort werden."
+        "exDe": "Das Gulasch muss stundenlang ganz sanft schmoren."
       },
       {
         "it": "Brasare",
@@ -14085,10 +14085,10 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "Fare lo scontrino",
-        "de": "den Kassenbon ziehen",
+        "de": "an der Kasse zahlen und den Bon holen",
         "emoji": "🧾",
         "ex": "In molti bar prima fai lo scontrino e poi ordini.",
-        "exDe": "In vielen Bars zieht man zuerst den Bon und bestellt dann."
+        "exDe": "In vielen Bars zahlt man zuerst an der Kasse und bestellt dann mit dem Bon."
       },
       {
         "it": "Analcolico",
@@ -14546,10 +14546,10 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "ungere le ruote",
-        "de": "die Sache schmieren (nachhelfen)",
+        "de": "jemanden schmieren, bestechen",
         "emoji": "⚙️",
         "ex": "Senza ungere le ruote, certe pratiche non si sbloccano mai.",
-        "exDe": "Ohne ein bisschen Nachhilfe geraten manche Vorgänge nie in Bewegung."
+        "exDe": "Ohne jemanden zu schmieren, kommen manche Vorgänge nie voran."
       },
       {
         "it": "lo scaricabarile",
@@ -15101,7 +15101,7 @@ const ADVANCED_EXTRA = {
       },
       {
         "it": "scandire la giornata",
-        "de": "den Tag rhythmisieren (gliedern)",
+        "de": "den Tag gliedern",
         "emoji": "⏱️",
         "ex": "I pasti scandiscono la mia giornata.",
         "exDe": "Die Mahlzeiten gliedern meinen Tag."
@@ -15179,10 +15179,10 @@ const ADVANCED_EXTRA = {
         "exDe": "Der Umzug hat all meine Gewohnheiten über den Haufen geworfen."
       },
       {
-        "it": "ingranare la marcia mattutina",
+        "it": "ingranare la marcia",
         "de": "morgens in die Gänge kommen",
         "emoji": "🚗",
-        "ex": "Senza caffè non riesco a ingranare la marcia mattutina.",
+        "ex": "Senza caffè la mattina non riesco a ingranare la marcia.",
         "exDe": "Ohne Kaffee komme ich morgens nicht in die Gänge."
       },
       {
@@ -15193,11 +15193,11 @@ const ADVANCED_EXTRA = {
         "exDe": "Sie sucht kleine Freuden, um der Tristesse des Alltags zu entkommen."
       },
       {
-        "it": "vivere a orologeria",
-        "de": "wie nach dem Uhrwerk leben",
+        "it": "essere preciso come un orologio svizzero",
+        "de": "pünktlich wie ein Uhrwerk sein",
         "emoji": "⏲️",
-        "ex": "Mio nonno viveva a orologeria, preciso al minuto.",
-        "exDe": "Mein Großvater lebte wie nach dem Uhrwerk, auf die Minute genau."
+        "ex": "Mio nonno era preciso come un orologio svizzero, puntuale al minuto.",
+        "exDe": "Mein Großvater war pünktlich wie ein Uhrwerk, auf die Minute genau."
       },
       {
         "it": "la coazione a ripetere",
