@@ -532,6 +532,14 @@ test("Englisch-Kurs: Beispielsätze natürlich (kein „To X is …\", kein „o
   assert.deepEqual(noDe.map((w) => w.it), [], "jede Wendung hat eine deutsche Bedeutung");
 });
 
+test("Alle Kurse: jedes Wort / jede Wendung hat eine deutsche Bedeutung", () => {
+  const all = new Function(DATA_SOURCE + "\n;return {it: CORPUS_IT, en: CORPUS_EN, es: CORPUS_ES, fr: CORPUS_FR, pt: CORPUS_PT};")();
+  for (const [lang, corpus] of Object.entries(all)) {
+    const missing = corpus.flatMap((t) => Object.values(t.levels).flat()).filter((w) => !w.de || /^[—–-]$/.test(w.de.trim()));
+    assert.deepEqual(missing.map((w) => w.it), [], `${lang}: Einträge ohne Bedeutung`);
+  }
+});
+
 test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
   const app = makeApp();
   const lesson = LESSONS.find((l) => l.drills && l.drills.prep);

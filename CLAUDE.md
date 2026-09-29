@@ -143,8 +143,11 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
 - Echte Integrationstests: laden index.html+data.js+app.js in **jsdom**, simulieren Klicks/Eingaben.
 - Browser-APIs (Speech, Audio, Canvas) sind gestubbt.
 - Decken u. a. ab: Filter, alle Spielmodi, Story (+ Start-Niveau), Konjugationen,
-  **Datenintegrität** (alle Pflichtfelder, eindeutige IDs), **Umfang** (B2/C1/C2 je ≥ 100),
-  CSS-Hygiene. Vor jedem Push grün halten.
+  **Datenintegrität** (alle Pflichtfelder, eindeutige IDs, in allen 5 Kursen jede Wendung mit deutscher
+  Bedeutung – kein „—"), **Umfang** (B2/C1/C2 je ≥ 100), CSS-Hygiene. Vor jedem Push grün halten.
+- Kursinhalte (Redewendungen): Die EN/ES/FR/PT-Daten sind Lokalisierungen der IT-Vorlage — Fehler
+  der Vorlage wandern in alle Kurse. Eine Wendung muss in der Zielsprache **echt** sein (keine
+  wörtliche Übersetzung aus dem Italienischen), und `de`/`exDe` müssen zu `it`/`ex` passen.
 
 ## Gotchas
 - `git config --global --add safe.directory E:/LernItaly` nötig (Ownership-Quirk), sonst
