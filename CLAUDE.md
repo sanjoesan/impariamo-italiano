@@ -25,6 +25,8 @@ Diese Dateien tragen alles (Lade-Reihenfolge = `<script>`-Tags in `index.html`; 
 | `kleinwoerter.js` | Daten: kuratierte Kleinwörter + Artikel je Sprache für die Wort-Info |
 | `glossar.js` | `WordGlossary`: Übersetzung einzelner Satzwörter (ohne DOM, in Node testbar) |
 | `wortinfo.js` | Wort-Info-UI: `glossSentenceHtml`/`glossWordHtml` machen Satzwörter klickbar, Feld `#wordInfo` |
+| `grammatik.js` | Grammatik-Aufgaben (vor `data.js`): `GRAMMAR_RULES` je Sprache, reine Erzeuger `articleDrill`/`prepDrill`/`ruleDrill` → `lesson.drills` |
+| `modus-auswahl.js` | Auswahl-Übung (nach `app.js`): spielt `lesson.drills[mode]` ab (Artikel, Präposition, Regel anwenden) |
 | `app.js`     | App-Logik: State (localStorage), Rendering, Spielmodi, Sprachausgabe/-erkennung |
 | `styles.css` | Komplettes Design inkl. Dark-Mode (`body.notte`) und Responsive |
 
@@ -98,7 +100,12 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
 - Home: `renderStoryPanel` (inkl. **Start-Niveau-Chips** via `setStartLevel`),
   `renderLevelFilter`, `renderAreaFilter` (Bereichs-/Abschnitt-Filter), `renderLessonGrid`,
   `renderConjGrid`, `renderBadges`.
-- Lektions-Spielmodi (in `MODE_META`): `learn, dialogue, listen, quiz, match, build, gap, speak`.
+- Lektions-Spielmodi im Register **`MODES`** (`id → {label, render}`): `learn, dialogue, listen, quiz,
+  match, build, gap, speak`; weitere Modi melden sich aus eigenen Dateien per `registerMode(id, label, render)`
+  an (z. B. `article, prep, rule` in `modus-auswahl.js`). Beschriftung überall über `modeLabel(m)`.
+- Grammatik-Übungen: `buildLessons()` hängt per `withDrills(ws, theme)` **`lesson.drills`** + passende
+  `lesson.modes` an (nur Sprachen mit `GRAMMAR_RULES`, derzeit IT; mind. `MIN_DRILL_ITEMS` Aufgaben).
+  Reihenfolge: `rule` direkt nach `learn` (Grammatik-Themen), `article`/`prep` vor `speak`.
 - `AREA_ORDER` / `AREA_EMOJI` steuern Reihenfolge & Icons der Bereiche.
 - Sprachausgabe = `speechSynthesis`, Sprechen-Modus = `SpeechRecognition`; beide nutzen
   `speechLang` der aktiven Sprache (it-IT/en-GB/es-ES/fr-FR/pt-PT).

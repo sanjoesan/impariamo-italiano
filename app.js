@@ -682,16 +682,20 @@ function checkBadges() {
    ========================================================= */
 let current = { lesson: null, mode: "learn", index: 0 };
 
-const MODE_META = {
-  learn:    "📖 Lernen",
-  dialogue: "🎭 Dialog",
-  listen:   "🎧 Hören",
-  quiz:     "🎯 Quiz",
-  match:    "🧩 Zuordnen",
-  build:    "✍️ Satzbau",
-  gap:      "✏️ Lücke",
-  speak:    "🎤 Sprechen"
+/* Übungsmodi: id → Beschriftung + Render-Funktion. EIN Register für Tabs, Knöpfe und
+   Rendern; weitere Modi (modus-*.js) melden sich per registerMode an. */
+const MODES = {
+  learn:    { label: "📖 Lernen",    render: () => renderLearn() },
+  dialogue: { label: "🎭 Dialog",    render: () => renderDialogue() },
+  listen:   { label: "🎧 Hören",     render: () => renderListen() },
+  quiz:     { label: "🎯 Quiz",      render: () => renderQuiz() },
+  match:    { label: "🧩 Zuordnen",  render: () => renderMatch() },
+  build:    { label: "✍️ Satzbau",   render: () => renderBuild() },
+  gap:      { label: "✏️ Lücke",     render: () => renderGap() },
+  speak:    { label: "🎤 Sprechen",  render: () => renderSpeak() }
 };
+function registerMode(id, label, render) { MODES[id] = { label, render }; }
+function modeLabel(mode) { return (MODES[mode] && MODES[mode].label) || mode; }
 
 function buildModeTabs(lesson, activeMode) {
   const tabs = $("#modeTabs");
@@ -700,7 +704,7 @@ function buildModeTabs(lesson, activeMode) {
     const b = document.createElement("button");
     b.className = "mode-tab" + (m === activeMode ? " active" : "");
     b.dataset.mode = m;
-    b.textContent = MODE_META[m] || m;
+    b.textContent = modeLabel(m);
     b.addEventListener("click", () => setMode(m));
     tabs.appendChild(b);
   });
@@ -750,17 +754,7 @@ function setMode(mode) {
 }
 
 function renderMode() {
-  switch (current.mode) {
-    case "learn":    return renderLearn();
-    case "listen":   return renderListen();
-    case "quiz":     return renderQuiz();
-    case "match":    return renderMatch();
-    case "build":    return renderBuild();
-    case "gap":      return renderGap();
-    case "speak":    return renderSpeak();
-    case "dialogue": return renderDialogue();
-    default:         return renderLearn();
-  }
+  (MODES[current.mode] || MODES.learn).render();
 }
 
 function setProgress(pct) { $("#lessonProgress").style.width = pct + "%"; }
@@ -779,7 +773,7 @@ function otherModesHtml(exclude, max) {
   const next = nextModeAfter(current.lesson, current.mode);
   const modes = (current.lesson.modes || []).filter((m) => m !== exclude && m !== "learn" && m !== next);
   return modes.slice(0, max || 2)
-    .map((m) => `<button class="btn btn-ghost" data-goto="${m}">${MODE_META[m] || m}</button>`).join("");
+    .map((m) => `<button class="btn btn-ghost" data-goto="${m}">${modeLabel(m)}</button>`).join("");
 }
 function wireOtherModes(scope) {
   (scope || document).querySelectorAll("[data-goto]").forEach((b) =>
@@ -790,7 +784,7 @@ function wireOtherModes(scope) {
    Übung „Nächste Lektion" (folgt dem Lernpfad) als Hauptknopf */
 function nextStepHtml() {
   const step = nextModeAfter(current.lesson, current.mode);
-  const stepBtn = step ? `<button class="btn btn-primary" id="nextStepBtn" data-next="${step}">Weiter: ${MODE_META[step] || step} ›</button>` : "";
+  const stepBtn = step ? `<button class="btn btn-primary" id="nextStepBtn" data-next="${step}">Weiter: ${modeLabel(step)} ›</button>` : "";
   const lessonBtn = nextLessonAfterCurrent()
     ? `<button class="btn ${step ? "btn-ghost" : "btn-primary"}" id="nextLessonBtn">➡️ Nächste Lektion</button>` : "";
   return stepBtn + lessonBtn;
@@ -869,7 +863,7 @@ function renderLearn() {
     if (current.index < lesson.words.length - 1) { current.index++; renderLearn(); autoSpeak(); }
     else {
       const next = nextModeAfter(lesson, "learn");
-      if (next) { toast(`📖 Alle Vokabeln gesehen! Jetzt: ${MODE_META[next] || next}`); setMode(next); }
+      if (next) { toast(`📖 Alle Vokabeln gesehen! Jetzt: ${modeLabel(next)}`); setMode(next); }
     }
   });
 

@@ -15680,6 +15680,30 @@ const DIALOGUE_MODES = ["dialogue", "listen", "speak"];
 const CHUNK_SIZE = 6;        // Wörter pro Lektion — klein & knackig
 const RIPASSO_CAP = 36;      // max. Wiederholungs-Lektionen pro Level
 
+/* Grammatik-Übungen einer Lektion (Aufgaben aus grammatik.js) — nur für Sprachen mit
+   GRAMMAR_RULES und nur, wenn genug Material da ist. `theme` = Thema der Lektion oder null. */
+function lessonDrills(ws, theme) {
+  const rules = GRAMMAR_RULES[LANG_ACTIVE];
+  if (!rules) return {};
+  const found = theme && theme.grammar
+    ? { rule: ruleDrill(ws, Object.values(theme.levels).flat()) }
+    : { article: articleDrill(ws, rules), prep: prepDrill(ws, rules) };
+  return Object.fromEntries(Object.entries(found).filter(([, items]) => items.length >= MIN_DRILL_ITEMS));
+}
+/* Übungs-Reihenfolge einer Wortschatz-/Grammatik-Lektion: „Regel anwenden" direkt nach
+   Lernen, Artikel & Präposition vor Sprechen */
+/* modes + drills einer Lektion in einem Zug (für den Objekt-Spread in buildLessons) */
+function withDrills(ws, theme) {
+  const drills = lessonDrills(ws, theme);
+  return { drills, modes: vocabModes(drills) };
+}
+function vocabModes(drills) {
+  const modes = VOCAB_MODES.slice();
+  if (drills.rule) modes.splice(modes.indexOf("learn") + 1, 0, "rule");
+  modes.splice(modes.indexOf("speak"), 0, ...["article", "prep"].filter((k) => drills[k]));
+  return modes;
+}
+
 /* Teilt eine Liste in Häppchen. Ein zu kleiner Rest (< 4) wird ins
    vorletzte Häppchen gemischt, damit keine Mini-Lektion entsteht. */
 function chunkArray(arr, size) {
@@ -15716,7 +15740,7 @@ function buildLessons() {
           rule: theme.rule || null,
           sentences: !!theme.sentences,
           words: ws,
-          modes: VOCAB_MODES.slice()
+          ...withDrills(ws, theme)
         });
       });
     });
@@ -15752,7 +15776,7 @@ function buildLessons() {
         levelCode: top.code,
         sentences: !!theme.sentences,
         words: ws,
-        modes: VOCAB_MODES.slice()
+        ...withDrills(ws, theme)
       });
     });
   });
@@ -15780,7 +15804,7 @@ function buildLessons() {
           levelCode: lvl.code,
           sentences: !!theme.sentences,
           words: c,
-          modes: VOCAB_MODES.slice()
+          ...withDrills(c, theme)
         });
       });
     });
@@ -15831,7 +15855,7 @@ function buildLessons() {
         level: lvl.n,
         levelCode: lvl.code,
         words: chunks[i],
-        modes: VOCAB_MODES.slice()
+        ...withDrills(chunks[i], null)
       });
     }
   });

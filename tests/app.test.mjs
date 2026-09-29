@@ -13,13 +13,18 @@ import { dirname, join } from "node:path";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (f) => readFileSync(join(ROOT, f), "utf8");
 
+// Skript-Reihenfolge genau wie in index.html (eine Quelle, keine zweite Liste)
+const APP_SCRIPTS = [...read("index.html").matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
+// Alles bis einschließlich data.js: der Lektions-Generator braucht grammatik.js/glossar.js beim Laden
+const DATA_SOURCE = APP_SCRIPTS.slice(0, APP_SCRIPTS.indexOf("data.js") + 1).map(read).join("\n;\n");
+
 // Daten direkt verfügbar machen (data.js ist kein Modul)
-const DATA = new Function(read("data.js") +
+const DATA = new Function(DATA_SOURCE +
   "\n;return {LESSONS,STORY,LEVELS,CORPUS,DIALOGHI,BADGES,CONJUGATIONS,CONJ_TENSES,CONJ_PRONOUNS};")();
 const { LESSONS, STORY, LEVELS, CORPUS, CONJUGATIONS, CONJ_TENSES, CONJ_PRONOUNS } = DATA;
 
 // Kurs-Probe: selectCourse aufrufen und die LIVE-Werte im selben Scope lesen
-const courseProbe = new Function(read("data.js") +
+const courseProbe = new Function(DATA_SOURCE +
   "\n;return (lang) => { selectCourse(lang); return {" +
   "  lang: LANG_ACTIVE, lessons: LESSONS.length, firstId: STORY[0]," +
   "  conjInf: CONJUGATIONS[0].inf, tense0: CONJ_TENSES[0].it, pron0: CONJ_PRONOUNS[0]," +
@@ -27,11 +32,8 @@ const courseProbe = new Function(read("data.js") +
   "  perLevel: LESSONS.reduce((m,l)=>((m[l.levelCode]=(m[l.levelCode]||0)+1),m),{})" +
   "}; };")();
 
-// Skript-Reihenfolge genau wie in index.html (eine Quelle, keine zweite Liste)
-const APP_SCRIPTS = [...read("index.html").matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
-
-// Glossar-Probe: Wörterbuch eines Kurses ohne DOM bauen (data.js + Kleinwörter + glossar.js)
-const glossaryProbe = new Function(read("data.js") + ";" + read("kleinwoerter.js") + ";" + read("glossar.js") +
+// Glossar-Probe: Wörterbuch eines Kurses ohne DOM bauen
+const glossaryProbe = new Function(DATA_SOURCE +
   "\n;return (lang) => { selectCourse(lang); return { glossary: glossaryForActiveCourse(), lessons: LESSONS }; };")();
 
 /* ---------- App in jsdom hochfahren ---------- */
@@ -261,8 +263,9 @@ test("Lückentext: richtige Option füllt die Lücke", () => {
 
 test("Übungskette: nach Lernen schlägt „Weiter“ jede Übung der Lektion vor, zuletzt die nächste Lektion", async () => {
   const app = makeApp();
-  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.words.every((w) => w.ex.trim().split(/\s+/).length >= 2));
-  assert.deepEqual(lesson.modes, ["learn", "listen", "quiz", "match", "build", "gap", "speak"]);
+  const lesson = LESSONS.find((l) => l.kind === "vocab" && l.drills.article && l.drills.prep &&
+    l.words.every((w) => w.ex.trim().split(/\s+/).length >= 2));
+  assert.deepEqual(lesson.modes, ["learn", "listen", "quiz", "match", "build", "gap", "article", "prep", "speak"]);
   app.open(lesson.id);
   const activeTab = () => app.$("#modeTabs .mode-tab.active").dataset.mode;
 
@@ -270,7 +273,8 @@ test("Übungskette: nach Lernen schlägt „Weiter“ jede Übung der Lektion vo
   assert.equal(activeTab(), "listen", "nach Lernen kommt Hören (nicht direkt das Quiz)");
 
   const finish = { listen: "finishListen", quiz: "finishQuiz", match: "finishMatch",
-                   build: "finishBuild", gap: "finishGap", speak: "finishSpeak" };
+                   build: "finishBuild", gap: "finishGap", speak: "finishSpeak",
+                   article: "finishChoiceDrill", prep: "finishChoiceDrill" };
   for (let i = 1; i < lesson.modes.length; i++) {
     const mode = lesson.modes[i];
     const next = lesson.modes[i + 1];
@@ -290,6 +294,51 @@ test("Übungskette: nach Lernen schlägt „Weiter“ jede Übung der Lektion vo
       assert.ok(app.$("#nextLessonBtn").classList.contains("btn-primary"), "dann ist „Nächste Lektion“ der Hauptknopf");
     }
   }
+  app.close();
+});
+
+test("Grammatik-Aufgaben (IT): Artikel, Präposition & Regel sind eindeutig und gut gebaut", () => {
+  const drills = (k) => LESSONS.flatMap((l) => (l.drills && l.drills[k]) || []);
+  const art = drills("article"), prep = drills("prep"), rule = drills("rule");
+  assert.ok(art.length >= 300 && prep.length >= 500 && rule.length >= 50, `Umfang: ${art.length}/${prep.length}/${rule.length}`);
+  for (const it of [...art, ...prep, ...rule]) {
+    assert.ok(it.options.includes(it.answer), `Antwort unter den Optionen: ${it.prompt}`);
+    assert.equal(new Set(it.options).size, it.options.length, `keine doppelten Optionen: ${it.prompt}`);
+    assert.ok(it.options.length >= 3, `mind. 3 Optionen: ${it.prompt}`);
+    assert.equal(it.prompt.split("___").length, 2, `genau eine Lücke: ${it.prompt}`);
+  }
+  assert.ok(!prep.some((it) => it.options.includes("tra") && it.options.includes("fra")), "tra/fra nie gegeneinander");
+  const pizza = art.find((it) => it.prompt === "___ pizza");
+  assert.equal(pizza && pizza.answer, "la");
+  const al = prep.find((it) => it.answer === "al");
+  assert.equal(al.explain, "al = a + il", "verschmolzene Präposition wird erklärt");
+  // Grammatik-Lektionen üben die Regel direkt nach Lernen
+  const gr = LESSONS.find((l) => l.id === "gr-articolate-A2-1");
+  assert.deepEqual(gr.modes.slice(0, 2), ["learn", "rule"]);
+  // andere Kurse: (noch) keine Grammatik-Übungen
+  const en = new Function(DATA_SOURCE + "\n;selectCourse('en'); return LESSONS;")();
+  assert.ok(en.every((l) => !l.modes.some((m) => ["article", "prep", "rule"].includes(m))), "EN unverändert");
+});
+
+test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.drills && l.drills.prep);
+  app.open(lesson.id);
+  app.setMode("prep");
+  const total = lesson.drills.prep.length;
+  for (let i = 0; i < total; i++) {
+    const shown = app.$(".gap-sentence").textContent.replace("______", "___").replace(/\s+/g, " ").trim();
+    const item = lesson.drills.prep.find((it) => it.prompt.replace(/\s+/g, " ").trim() === shown);
+    assert.ok(item, `Aufgabe erkannt: ${shown}`);
+    const btn = app.$$("#choiceOptions .gap-opt").find((b) => b.textContent === item.answer);
+    btn.click();
+    assert.ok(btn.classList.contains("correct"), "richtige Option markiert");
+    assert.equal(app.$("#choiceBlank").textContent, item.answer, "Lücke gefüllt");
+    assert.ok(app.$(".choice-explain").textContent.includes(item.explain), "Regel wird erklärt");
+    app.$("#choiceNext").click();
+  }
+  assert.ok(app.$(".done-screen h3").textContent.includes(`${total} / ${total}`), "alle richtig gezählt");
+  assert.ok(app.state().lessons[lesson.id].completed, "Lektion gilt als geschafft");
   app.close();
 });
 

@@ -751,6 +751,9 @@ body.notte .story-lv-chip { background: #2a221b; }
 }
 .gap-blank.filled { border-bottom-color: var(--olive); color: var(--olive); }
 .gap-de { color: var(--ink-soft); font-style: italic; margin-bottom: 16px; }
+/* Auswahl-Übung (modus-auswahl.js): deutsche Frage + Regel-Hinweis nach dem Antworten */
+.choice-ask { font-size: 1.25rem; font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
+.choice-explain { margin-top: 6px; font-weight: 600; color: var(--ink-soft); font-size: .92rem; }
 .gap-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
 .gap-opt {
   font-family: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer;
