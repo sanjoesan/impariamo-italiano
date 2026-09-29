@@ -122,6 +122,11 @@ Nie Lektionen direkt in `LESSONS` schreiben. Neue Inhalte = neues Thema in `CORP
 - `AREA_ORDER` / `AREA_EMOJI` steuern Reihenfolge & Icons der Bereiche.
 - Sprachausgabe = `speechSynthesis`, Sprechen-Modus = `SpeechRecognition`; beide nutzen
   `speechLang` der aktiven Sprache (it-IT/en-GB/es-ES/fr-FR/pt-PT).
+- Stimmenwahl: `courseVoices()` = Stimmen **genau** der Kurs-Variante (z. B. nur en-GB, auch Android „en_GB"),
+  nur ohne solche Stimmen Rückfall auf dieselbe Sprache (Hinweis + Tipp aus `VOICE_ACCENT`). Eine gespeicherte
+  Stimme zählt nur, wenn sie in `courseVoices()` liegt. `pickVoice` und die Auswahl-Liste nutzen dieselbe Funktion.
+- **Englisch-Kurs = britisches Englisch** (Schreibweise -our/-re/-ise, Wortschatz flat/chemist's/booking,
+  britische Redewendungen). Ein Test sperrt typische US-Wörter/-Wendungen — neue EN-Inhalte daran messen.
 
 ## Konventionen
 - **UI-Sprache: Deutsch** (Lern-Inhalt Italienisch + Deutsch). Kommentare auf Deutsch.

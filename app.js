@@ -93,6 +93,15 @@ let voices = [];
 let itVoice = null;                // aktuell gewählte Stimme (aktiver Kurs)
 let speechLang = "it-IT";          // wird von setLanguage() gesetzt: it-IT / en-GB
 const langPrefix = () => speechLang.slice(0, 2).toLowerCase();   // "it" / "en"
+/* Akzent je Sprachvariante (Werte von SPEECH_LANG): Anzeige in den Einstellungen + Tipp,
+   wenn keine passende Stimme installiert ist */
+const VOICE_ACCENT = {
+  "it-IT": { de: "italienische", flag: "🇮🇹", install: "Italienisch als Sprache im System hinzufügen." },
+  "en-GB": { de: "britische", flag: "🇬🇧", install: "„Englisch (Vereinigtes Königreich)“ im System hinzufügen – oder Chrome/Edge nutzen (Google UK English / Microsoft Sonia, Ryan …)." },
+  "es-ES": { de: "spanische (Spanien)", flag: "🇪🇸", install: "„Spanisch (Spanien)“ als Sprache im System hinzufügen." },
+  "fr-FR": { de: "französische", flag: "🇫🇷", install: "Französisch (Frankreich) als Sprache im System hinzufügen." },
+  "pt-PT": { de: "europäisch-portugiesische", flag: "🇵🇹", install: "„Portugiesisch (Portugal)“ als Sprache im System hinzufügen." }
+};
 
 function rankVoice(v) {
   // Höher = besser. Bevorzuge die aktive Lernsprache und gute Stimmen.
@@ -107,16 +116,24 @@ function rankVoice(v) {
   return s;
 }
 
+/* Sprache einer Stimme vereinheitlicht („en_GB" → „en-gb", Android meldet Unterstriche) */
+const voiceLang = (v) => (v.lang || "").replace("_", "-").toLowerCase();
+
+/* Stimmen für den aktiven Kurs: genau die Kurs-Variante (en-GB, pt-PT, es-ES …), wenn das
+   Gerät eine hat — sonst irgendeine Stimme derselben Sprache. `exact` sagt, welcher Fall vorliegt. */
+function courseVoices() {
+  const exact = voices.filter((v) => voiceLang(v) === speechLang.toLowerCase());
+  if (exact.length) return { list: exact, exact: true };
+  return { list: voices.filter((v) => voiceLang(v).startsWith(langPrefix())), exact: false };
+}
+
 function pickVoice() {
-  const pref = langPrefix();
-  const langVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith(pref));
-  const pool = langVoices.length ? langVoices : voices;
-  // gespeicherte Auswahl nur respektieren, wenn sie zur aktiven Sprache passt
-  if (state.settings.voiceURI) {
-    const saved = voices.find((v) => v.voiceURI === state.settings.voiceURI);
-    if (saved && (saved.lang || "").toLowerCase().startsWith(pref)) { itVoice = saved; return; }
-  }
-  itVoice = pool.slice().sort((a, b) => rankVoice(b) - rankVoice(a))[0] || null;
+  const { list } = courseVoices();
+  // gespeicherte Auswahl nur respektieren, wenn sie zu den Kurs-Stimmen gehört
+  // (eine früher gewählte US-Stimme zählt im britischen Kurs nicht mehr, sobald es britische gibt)
+  const saved = state.settings.voiceURI && list.find((v) => v.voiceURI === state.settings.voiceURI);
+  if (saved) { itVoice = saved; return; }
+  itVoice = (list.length ? list : voices).slice().sort((a, b) => rankVoice(b) - rankVoice(a))[0] || null;
 }
 
 function loadVoices() {
@@ -2024,9 +2041,9 @@ function finishConjPractice() {
 function populateVoiceSelect() {
   const sel = $("#voiceSelect");
   if (!sel) return;
-  const pref = langPrefix();
-  const langVoices = voices.filter((v) => (v.lang || "").toLowerCase().startsWith(pref));
-  const list = langVoices.length ? langVoices : voices;
+  const { list: courseList, exact } = courseVoices();
+  const list = courseList.length ? courseList : voices;
+  const accent = VOICE_ACCENT[speechLang] || { de: "passende", flag: "" };
   sel.innerHTML = "";
 
   if (!list.length) {
@@ -2041,11 +2058,10 @@ function populateVoiceSelect() {
     if (itVoice && v.voiceURI === itVoice.voiceURI) o.selected = true;
     sel.appendChild(o);
   });
-  const flag = pref === "en" ? "🇬🇧" : "🇮🇹";
-  const langDe = pref === "en" ? "englische" : "italienische";
-  $("#voiceHint").textContent = langVoices.length
-    ? `${langVoices.length} ${langDe} Stimme(n) verfügbar ${flag}`
-    : `Keine ${langDe} Stimme installiert – wähle die beste verfügbare.`;
+  $("#voiceHint").textContent = exact
+    ? `${list.length} ${accent.de} Stimme(n) verfügbar ${accent.flag}`
+    : `Keine ${accent.de} Stimme installiert ${accent.flag} – es wird die beste andere verwendet. ` +
+      `Tipp: ${accent.install}`;
 }
 
 function openSettings() { $("#settingsModal").classList.remove("hidden"); populateVoiceSelect(); }

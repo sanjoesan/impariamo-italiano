@@ -39,7 +39,8 @@ const glossaryProbe = new Function(DATA_SOURCE +
   "\n;return (lang) => { selectCourse(lang); return { glossary: glossaryForActiveCourse(), lessons: LESSONS }; };")();
 
 /* ---------- App in jsdom hochfahren ---------- */
-function makeApp() {
+/* `setup(window)` (optional) läuft VOR den App-Skripten — z. B. Stimmen oder gespeicherten Zustand vorgeben */
+function makeApp(setup) {
   const dom = new JSDOM(read("index.html"), {
     runScripts: "outside-only",
     pretendToBeVisual: true,
@@ -64,7 +65,7 @@ function makeApp() {
     onvoiceschanged: null,
     getVoices: () => [],
     cancel: () => {},
-    speak: (u) => { window.__spoken = u && u.text; }
+    speak: (u) => { window.__spoken = u && u.text; window.__voice = u && u.voice; }
   };
 
   // Spracherkennung stubben (it-IT!) — letzte Instanz merken
@@ -95,6 +96,7 @@ function makeApp() {
 
   // App-Code ausführen — alle Skripte aus index.html (gleiche Reihenfolge) in EINEM
   // eval, damit sie sich denselben lexikalischen Scope teilen (wie echte <script>-Tags).
+  if (setup) setup(window);
   window.eval(APP_SCRIPTS.map(read).join("\n;\n"));
 
   return {
@@ -460,6 +462,63 @@ test("Gesten-Lektion: Karte zeigt Bild & Bedeutung, Sätze vorlesbar, dann Quiz"
   }
   assert.ok(app.$(".done-screen h3").textContent.includes(`${items.length} / ${items.length}`));
   app.close();
+});
+
+/* Gerätestimmen wie in Chrome/Edge/Android: Google US würde nach Qualität gewinnen */
+const DEVICE_VOICES = [
+  { name: "Google US English", lang: "en-US", voiceURI: "g-us", localService: false },
+  { name: "Microsoft Sonia Online (Natural) - English (United Kingdom)", lang: "en-GB", voiceURI: "ms-sonia", localService: false },
+  { name: "English United Kingdom", lang: "en_GB", voiceURI: "android-gb", localService: true },
+  { name: "Google italiano", lang: "it-IT", voiceURI: "g-it", localService: false }
+];
+
+test("Englisch-Kurs: Sprecher mit britischem Akzent (auch gegen Google US & gespeicherte US-Stimme)", () => {
+  const app = makeApp((w) => {
+    w.localStorage.setItem("impariamo_v1", JSON.stringify({ lang: "en", settings: { voiceURI: "g-us" } }));
+    w.speechSynthesis.getVoices = () => DEVICE_VOICES;
+  });
+  app.window.speak("Hello");
+  assert.equal(app.window.__voice.voiceURI, "ms-sonia", "britische Stimme statt Google US / gespeicherter US-Stimme");
+  app.window.populateVoiceSelect();
+  const opts = app.$$("#voiceSelect option").map((o) => o.value);
+  assert.deepEqual(opts.sort(), ["android-gb", "ms-sonia"], "Auswahl zeigt nur britische Stimmen (auch Android „en_GB“)");
+  assert.ok(app.$("#voiceHint").textContent.includes("britische"), "Hinweis nennt den britischen Akzent");
+  app.close();
+
+  // Gerät ohne britische Stimme: beste englische Stimme + deutlicher Hinweis
+  const app2 = makeApp((w) => {
+    w.localStorage.setItem("impariamo_v1", JSON.stringify({ lang: "en" }));
+    w.speechSynthesis.getVoices = () => DEVICE_VOICES.filter((v) => !/GB/.test(v.lang));
+  });
+  app2.window.speak("Hello");
+  assert.equal(app2.window.__voice.voiceURI, "g-us", "Rückfall auf die beste englische Stimme");
+  app2.window.populateVoiceSelect();
+  assert.ok(/Keine britische Stimme/.test(app2.$("#voiceHint").textContent), "Hinweis: keine britische Stimme installiert");
+  app2.close();
+});
+
+test("Englisch-Kurs: nur britisches Englisch (keine US-Wörter, -Schreibweisen oder -Redewendungen)", () => {
+  const en = new Function(DATA_SOURCE + "\n;return {CORPUS_EN, DIALOGHI_EN};")();
+  const texts = [
+    ...en.CORPUS_EN.flatMap((t) => [t.title, ...Object.values(t.levels).flat().flatMap((w) => [w.it, w.ex])]),
+    ...en.DIALOGHI_EN.flatMap((d) => [d.title, ...d.lines.map((l) => l.it)])
+  ];
+  const US = ["color", "favorite", "honor", "humor", "neighbor", "behavior", "flavor", "center", "theater", "traveled",
+    "canceled", "gray", "jewelry", "mom", "pajamas", "aluminum", "airplane", "math", "apartment", "elevator", "candy",
+    "truck", "gasoline", "sidewalk", "subway", "vacation", "movie", "trash", "garbage", "cell phone", "zip code",
+    "restroom", "parking lot", "downtown", "eraser", "sweater", "sneakers", "diaper", "faucet", "freeway", "appetizer",
+    "eggplant", "zucchini", "takeout", "soccer", "drugstore", "pharmacy", "windshield", "flashlight", "stroller",
+    "awesome", "gonna", "wanna", "dollar", "bucks", "raise hell", "strike it rich", "jump the turnstile", "nitpick",
+    "ballpark", "touch base", "whole nine yards", "beat around the bush", "beat a dead horse", "on the weekend",
+    "reservation", "gotten"];
+  const hits = [];
+  for (const us of US) {
+    const re = new RegExp("(?<![\\p{L}])" + us + "(?![\\p{L}])", "iu");
+    texts.filter((t) => re.test(t)).forEach((t) => hits.push(`${us}: ${t}`));
+  }
+  assert.deepEqual(hits, [], "amerikanisches Englisch gefunden");
+  const ize = texts.filter((t) => /[a-z](iz)(e|es|ed|ing|ation)(?![a-z])/i.test(t) && !/(size|seize|prize|citizen)/i.test(t));
+  assert.deepEqual(ize, [], "britische -ise-Schreibung");
 });
 
 test("Auswahl-Übung: richtige Antwort füllt die Lücke, erklärt die Regel, zählt am Ende", () => {
