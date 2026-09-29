@@ -1229,6 +1229,10 @@ function finishListen() {
 /* =========================================================
    Gemeinsame Helfer für Satzbau / Lücke / Sprechen
    ========================================================= */
+/* Der Übungssatz eines Worts: Beispielsatz, sonst das Wort selbst (Anzeige + Sprachausgabe) */
+function sentenceOf(w) {
+  return w.ex && w.ex.length ? w.ex : w.it;
+}
 function tokenize(sentence) {
   return (sentence || "").trim().split(/\s+/).filter(Boolean);
 }
@@ -1261,7 +1265,7 @@ function showBuild() {
   if (buildState.pos >= buildState.order.length) return finishBuild();
   buildState.answered = false;
   const w = lesson.words[buildState.order[buildState.pos]];
-  const tokens = tokenize(w.ex.length ? w.ex : w.it);
+  const tokens = tokenize(sentenceOf(w));
   buildState.tokens = tokens;
   buildState.answer = [];
   buildState.bank = shuffle(tokens.map((t, i) => ({ t, i })));
@@ -1284,7 +1288,7 @@ function showBuild() {
       </div>
     </div>`;
 
-  $("#buildHear").addEventListener("click", (e) => speak(w.it, e.currentTarget));
+  $("#buildHear").addEventListener("click", (e) => speak(sentenceOf(w), e.currentTarget));
   $("#buildCheck").addEventListener("click", () => checkBuild(w));
   $("#buildReveal").addEventListener("click", () => revealBuild(w));
   renderBuildRows();
@@ -1338,7 +1342,7 @@ function checkBuild(w) {
     sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
     sfx.wrong();
   }
-  speak(w.it);
+  speak(sentenceOf(w));
   const last = buildState.pos >= buildState.order.length - 1;
   $("#buildCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
   $$("#buildAnswer .chip, #buildBank .chip").forEach((c) => (c.disabled = true));
@@ -1350,7 +1354,7 @@ function revealBuild(w) {
   buildState.answer = buildState.tokens.map((_, i) => i);
   renderBuildRows();
   $("#buildSol").innerHTML = `👀 <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
-  speak(w.it);
+  speak(sentenceOf(w));
   $$("#buildAnswer .chip, #buildBank .chip").forEach((c) => (c.disabled = true));
   const last = buildState.pos >= buildState.order.length - 1;
   $("#buildCheck").textContent = last ? "Fertig 🏁" : "Weiter ›";
@@ -1412,7 +1416,7 @@ function showGap() {
   if (gapState.pos >= gapState.order.length) return finishGap();
   gapState.answered = false;
   const w = lesson.words[gapState.order[gapState.pos]];
-  const tokens = tokenize(w.ex.length ? w.ex : w.it);
+  const tokens = tokenize(sentenceOf(w));
   if (tokens.length < 2) { gapState.pos++; return showGap(); }
   const ti = pickGapTarget(tokens);
   const target = cleanToken(tokens[ti]);
@@ -1443,7 +1447,7 @@ function showGap() {
       <div class="gap-options" id="gapOptions"></div>
       <div class="build-sol" id="gapSol"></div>
     </div>`;
-  $("#gapHear").addEventListener("click", (e) => speak(w.it, e.currentTarget));
+  $("#gapHear").addEventListener("click", (e) => speak(sentenceOf(w), e.currentTarget));
   const optWrap = $("#gapOptions");
   options.forEach((opt) => {
     const b = document.createElement("button");
@@ -1476,7 +1480,7 @@ function answerGap(btn, opt, target, tokens, ti, w) {
     sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">${target}</span>`;
     sfx.wrong();
   }
-  speak(w.it);
+  speak(sentenceOf(w));
   setTimeout(() => { gapState.pos++; showGap(); }, 1250);
 }
 

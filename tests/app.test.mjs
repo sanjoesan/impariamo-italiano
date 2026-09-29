@@ -216,6 +216,8 @@ test("Satzbau: Bausteine in richtiger Reihenfolge ergeben Esatto", () => {
   const cue = app.$(".bc-de").textContent.replace(/["„“]/g, "").trim();
   const w = lesson.words.find((x) => x.exDe === cue);
   assert.ok(w, "aktuelles Wort über den Hinweis erkannt");
+  app.$("#buildHear").click();
+  assert.equal(app.window.__spoken, w.ex, "„Original hören“ spricht den ganzen Satz, nicht nur das Wort");
   const tokens = w.ex.trim().split(/\s+/);
   tokens.forEach((tok) => {
     const chip = app.$$("#buildBank .chip-bank").find((c) => c.textContent === tok && !c.disabled);
@@ -224,6 +226,7 @@ test("Satzbau: Bausteine in richtiger Reihenfolge ergeben Esatto", () => {
   });
   app.$("#buildCheck").click();
   assert.ok(/Esatto/.test(app.$("#buildSol").textContent), "Satz korrekt zusammengesetzt");
+  assert.equal(app.window.__spoken, w.ex, "nach dem Prüfen wird der ganze Satz vorgelesen");
   app.close();
 });
 
@@ -236,6 +239,8 @@ test("Lückentext: richtige Option füllt die Lücke", () => {
   assert.ok(app.$(".gap-blank"), "es gibt genau eine Lücke");
   const cue = app.$(".gap-de").textContent.replace(/["„“]/g, "").trim();
   const w = lesson.words.find((x) => x.exDe === cue);
+  app.$("#gapHear").click();
+  assert.equal(app.window.__spoken, w.ex, "„Satz hören“ spricht den ganzen Satz, nicht nur das Wort");
   const tokens = app.window.tokenize(w.ex);
   const ti = app.window.pickGapTarget(tokens);
   const target = app.window.cleanToken(tokens[ti]);
@@ -243,6 +248,7 @@ test("Lückentext: richtige Option füllt die Lücke", () => {
   assert.ok(opt, "richtige Option vorhanden");
   opt.click();
   assert.ok(/Perfetto/.test(app.$("#gapSol").textContent), "Lücke korrekt gefüllt");
+  assert.equal(app.window.__spoken, w.ex, "nach der Antwort wird der ganze Satz vorgelesen");
   app.close();
 });
 
