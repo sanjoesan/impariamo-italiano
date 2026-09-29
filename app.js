@@ -835,8 +835,8 @@ function renderLearn() {
         <div class="flash-inner">
           <div class="flash-face front">
             <span class="flash-emoji">${w.emoji}</span>
-            <div class="flash-word${lesson.sentences ? " is-sentence" : ""}">${w.it}</div>
-            <div class="flash-ex"><em>${w.ex}</em></div>
+            <div class="flash-word${lesson.sentences ? " is-sentence" : ""}">${lesson.sentences ? glossSentenceHtml(w.it) : w.it}</div>
+            <div class="flash-ex"><em>${glossSentenceHtml(w.ex)}</em></div>
             <div class="flash-hint">↻ Tippen zum Umdrehen</div>
           </div>
           <div class="flash-face back">
@@ -1355,11 +1355,11 @@ function checkBuild(w) {
   buildState.answered = true;
   const sol = $("#buildSol");
   if (ok) {
-    sol.innerHTML = `✅ <span style="color:var(--olive)">Esatto! „${w.ex}"</span>`;
+    sol.innerHTML = `✅ <span style="color:var(--olive)">Esatto! „${glossSentenceHtml(w.ex)}"</span>`;
     buildState.correct++;
     award(6, 2); sfx.correct();
   } else {
-    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
+    sol.innerHTML = `❌ Richtig: <span style="color:var(--terracotta-d)">„${glossSentenceHtml(w.ex)}"</span>`;
     sfx.wrong();
   }
   speak(sentenceOf(w));
@@ -1373,7 +1373,7 @@ function revealBuild(w) {
   buildState.answered = true;
   buildState.answer = buildState.tokens.map((_, i) => i);
   renderBuildRows();
-  $("#buildSol").innerHTML = `👀 <span style="color:var(--terracotta-d)">„${w.ex}"</span>`;
+  $("#buildSol").innerHTML = `👀 <span style="color:var(--terracotta-d)">„${glossSentenceHtml(w.ex)}"</span>`;
   speak(sentenceOf(w));
   $$("#buildAnswer .chip, #buildBank .chip").forEach((c) => (c.disabled = true));
   const last = buildState.pos >= buildState.order.length - 1;
@@ -1453,7 +1453,7 @@ function showGap() {
 
   const sentenceHtml = tokens.map((t, i) => i === ti
     ? `<span class="gap-blank" id="gapBlank">______</span>`
-    : `<span class="gap-tok">${t}</span>`).join(" ");
+    : `<span class="gap-tok">${glossWordHtml(t)}</span>`).join(" ");
 
   const body = $("#lessonBody");
   body.innerHTML = `
@@ -1689,7 +1689,7 @@ function addBubble(line) {
   row.className = "dlg-bubble " + (mine ? "mine" : "theirs");
   row.innerHTML = `
     ${!mine && line.name ? `<span class="dlg-name">${line.name}</span>` : ""}
-    <span class="dlg-text">${line.it}</span>
+    <span class="dlg-text">${glossSentenceHtml(line.it)}</span>
     <span class="dlg-tr">${line.de}</span>
     <button class="dlg-speak" title="Anhören">🔊</button>`;
   row.querySelector(".dlg-speak").addEventListener("click", () => speak(line.it, row.querySelector(".dlg-speak")));

@@ -27,6 +27,13 @@ const courseProbe = new Function(read("data.js") +
   "  perLevel: LESSONS.reduce((m,l)=>((m[l.levelCode]=(m[l.levelCode]||0)+1),m),{})" +
   "}; };")();
 
+// Skript-Reihenfolge genau wie in index.html (eine Quelle, keine zweite Liste)
+const APP_SCRIPTS = [...read("index.html").matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
+
+// Glossar-Probe: Wörterbuch eines Kurses ohne DOM bauen (data.js + Kleinwörter + glossar.js)
+const glossaryProbe = new Function(read("data.js") + ";" + read("kleinwoerter.js") + ";" + read("glossar.js") +
+  "\n;return (lang) => { selectCourse(lang); return { glossary: glossaryForActiveCourse(), lessons: LESSONS }; };")();
+
 /* ---------- App in jsdom hochfahren ---------- */
 function makeApp() {
   const dom = new JSDOM(read("index.html"), {
@@ -82,9 +89,9 @@ function makeApp() {
     clearRect() {}, save() {}, translate() {}, rotate() {}, fillRect() {}, restore() {}, fillStyle: ""
   });
 
-  // App-Code ausführen — data.js + app.js in EINEM eval, damit sie sich
-  // denselben lexikalischen Scope teilen (wie echte <script>-Tags).
-  window.eval(read("data.js") + "\n;\n" + read("app.js"));
+  // App-Code ausführen — alle Skripte aus index.html (gleiche Reihenfolge) in EINEM
+  // eval, damit sie sich denselben lexikalischen Scope teilen (wie echte <script>-Tags).
+  window.eval(APP_SCRIPTS.map(read).join("\n;\n"));
 
   return {
     window, doc,
@@ -283,6 +290,58 @@ test("Übungskette: nach Lernen schlägt „Weiter“ jede Übung der Lektion vo
       assert.ok(app.$("#nextLessonBtn").classList.contains("btn-primary"), "dann ist „Nächste Lektion“ der Hauptknopf");
     }
   }
+  app.close();
+});
+
+test("Glossar: Einzelwörter werden übersetzt (Satzzeichen, Großschreibung, Apostroph)", () => {
+  const { glossary: it } = glossaryProbe("it");
+  assert.ok(it.lookup("è").some((t) => /ist/.test(t)), "è → ist");
+  assert.ok(it.lookup("L’acqua,").some((t) => /Wasser/.test(t)), "L’acqua, → Wasser (Elision + Satzzeichen)");
+  assert.ok(it.lookup("Mangio").some((t) => /ich esse/.test(t)), "Verbform aus dem Konjugations-Trainer");
+  assert.deepEqual(it.lookup("xyzzy"), [], "unbekanntes Wort → leer");
+  assert.ok(!it.lookup("del").some((t) => /[:→+]/.test(t)), "keine Grammatik-Erklärung als Übersetzung");
+  assert.ok(glossaryProbe("fr").glossary.lookup("l'eau").some((t) => /Wasser/.test(t)), "FR: l'eau → Wasser");
+});
+
+test("Glossar: in jedem Kurs sind ≥ 60 % der Satzwörter übersetzbar", () => {
+  for (const lang of ["it", "en", "es", "fr", "pt"]) {
+    const { glossary, lessons } = glossaryProbe(lang);
+    const sentences = new Set(lessons.flatMap((l) => l.words.map((w) => w.ex)));
+    let total = 0, hit = 0;
+    sentences.forEach((s) => s.split(/\s+/).filter(Boolean).forEach((t) => { total++; if (glossary.lookup(t).length) hit++; }));
+    assert.ok(hit / total >= 0.6, `${lang}: nur ${(100 * hit / total).toFixed(1)} % übersetzbar`);
+  }
+});
+
+test("Wort-Info: Klick auf ein Satzwort zeigt die Übersetzung, Karte dreht sich nicht", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "vocab");
+  app.open(lesson.id);
+  const words = app.$$(".flash-ex .gw");
+  assert.ok(words.length >= 2, "Beispielsatz besteht aus anklickbaren Wörtern");
+  const known = words.find((el) => app.window.activeGlossary().lookup(el.textContent).length);
+  assert.ok(known, "mind. ein Wort des Satzes ist bekannt");
+  known.dispatchEvent(new app.window.MouseEvent("click", { bubbles: true }));
+  const box = app.$("#wordInfo");
+  assert.ok(box, "Übersetzungsfeld erscheint");
+  assert.ok(box.textContent.includes(app.window.activeGlossary().lookup(known.textContent)[0]), "zeigt die Übersetzung");
+  assert.ok(!app.$("#flashcard").classList.contains("flipped"), "Wort-Klick dreht die Karte nicht um");
+  app.$("#lessonTitle").click();
+  assert.ok(!app.$("#wordInfo"), "Klick daneben schließt das Feld");
+  known.click();
+  known.click();
+  assert.ok(!app.$("#wordInfo"), "zweiter Klick aufs selbe Wort schließt das Feld");
+
+  app.setMode("gap");
+  assert.ok(app.$$(".gap-sentence .gw").length >= 1, "Lückentext: Wörter anklickbar");
+  app.close();
+});
+
+test("Wort-Info: Dialogzeilen sind anklickbar", () => {
+  const app = makeApp();
+  const lesson = LESSONS.find((l) => l.kind === "dialogue");
+  app.open(lesson.id);
+  assert.ok(app.$$(".dlg-text .gw").length >= 1, "Dialogzeile besteht aus anklickbaren Wörtern");
   app.close();
 });
 

@@ -16,12 +16,15 @@ Die UI bleibt durchgehend Deutsch; nur Lern-Sprache, Flair, Theme und Sprachausg
 wechseln. Reine statische Client-App, **kein Build-Schritt, keine Runtime-Abhängigkeiten**.
 Einfach `index.html` im Browser öffnen.
 
-Vier Dateien tragen alles:
+Diese Dateien tragen alles (Lade-Reihenfolge = `<script>`-Tags in `index.html`; der Test-Loader liest sie von dort):
 
 | Datei        | Inhalt |
 |--------------|--------|
 | `index.html` | Statische Struktur (Topbar, Home, Lektions-/Konjugations-Ansicht, Modals) |
 | `data.js`    | **Daten + Lektions-Generator** (kein Modul, globale `const`s) |
+| `kleinwoerter.js` | Daten: kuratierte Kleinwörter + Artikel je Sprache für die Wort-Info |
+| `glossar.js` | `WordGlossary`: Übersetzung einzelner Satzwörter (ohne DOM, in Node testbar) |
+| `wortinfo.js` | Wort-Info-UI: `glossSentenceHtml`/`glossWordHtml` machen Satzwörter klickbar, Feld `#wordInfo` |
 | `app.js`     | App-Logik: State (localStorage), Rendering, Spielmodi, Sprachausgabe/-erkennung |
 | `styles.css` | Komplettes Design inkl. Dark-Mode (`body.notte`) und Responsive |
 
